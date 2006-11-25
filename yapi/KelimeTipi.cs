@@ -4,6 +4,7 @@ namespace net.zemberek.yapi
 {
     public enum KelimeTipi
 	{
+        YOK, //.Net'te enum Null olamadýðý için bu elemaný ekledim. (@tankut)
 	    ISIM,
 	    FIIL, 
 	    SIFAT, 

@@ -10,7 +10,7 @@ namespace net.zemberek.yapi
 		{
 			set
 			{
-				this.tip_Renamed_Field = value;
+				this._tip = value;
 			}
 			
 		}
@@ -18,7 +18,7 @@ namespace net.zemberek.yapi
 		{
 			set
 			{
-				this.icerik_Renamed_Field = value;
+				this._icerik = value;
 			}
 			
 		}
@@ -79,8 +79,8 @@ namespace net.zemberek.yapi
 		// bazi kisaltmalara ek eklenebilmesi icin kisaltmanin asil halinin son seslisine ihtiyac duyulur.
 		private char kisaltmaSonSeslisi;
 		// Kok'un ozel karakterlerden tmeizlenmis hali. Genel olarak kok icerigi olarak bu String kullanilir.
-		private System.String icerik_Renamed_Field;
-		private KelimeTipi tip_Renamed_Field;
+		private System.String _icerik;
+		private KelimeTipi _tip=KelimeTipi.YOK;
 		//performans ve kaynak tuketimini nedeniyle icin ozel durumlari Set yerine diziye koyduk.
 		private KokOzelDurumu[] ozelDurumlar = BOS_OZEL_DURUM_DIZISI;
 		
@@ -157,13 +157,13 @@ namespace net.zemberek.yapi
 		
 		public Kok(System.String icerik)
 		{
-			this.icerik_Renamed_Field = icerik;
+			this._icerik = icerik;
 		}
 		
 		public Kok(System.String icerik, KelimeTipi tip)
 		{
-			this.icerik_Renamed_Field = icerik;
-			this.tip_Renamed_Field = tip;
+			this._icerik = icerik;
+			this._tip = tip;
 		}
 		
 		public override System.String ToString()
@@ -174,12 +174,12 @@ namespace net.zemberek.yapi
 				if (ozelDurum != null)
 					strOzel += (ozelDurum.kisaAd() + " ");
 			}
-			return icerik_Renamed_Field + " " + tip_Renamed_Field + " " + strOzel;
+			return _icerik + " " + _tip + " " + strOzel;
 		}
 		
 		public virtual HarfDizisi ozelDurumUygula(Alfabe alfabe, Ek ek)
 		{
-			HarfDizisi dizi = new HarfDizisi(this.icerik_Renamed_Field, alfabe);
+			HarfDizisi dizi = new HarfDizisi(this._icerik, alfabe);
 			foreach(KokOzelDurumu ozelDurum in ozelDurumlar)
 			{
 				if (ozelDurum.yapiBozucumu() && ozelDurum.olusabilirMi(ek))
@@ -204,12 +204,12 @@ namespace net.zemberek.yapi
 		
 		public KelimeTipi tip()
 		{
-			return tip_Renamed_Field;
+			return _tip;
 		}
 		
 		public System.String icerik()
 		{
-			return icerik_Renamed_Field;
+			return _icerik;
 		}
 		
 		public  override bool Equals(System.Object o)
@@ -221,11 +221,11 @@ namespace net.zemberek.yapi
 			
 			Kok kok = (Kok) o;
 			
-			if (icerik_Renamed_Field != null?!icerik_Renamed_Field.Equals(kok.icerik_Renamed_Field):kok.icerik_Renamed_Field != null)
+			if (_icerik != null?!_icerik.Equals(kok._icerik):kok._icerik != null)
 				return false;
 			if (ozelDurumlar != null?!ozelDurumlar.Equals(kok.ozelDurumlar):kok.ozelDurumlar != null)
 				return false;
-			if (tip_Renamed_Field != null?!tip_Renamed_Field.Equals(kok.tip_Renamed_Field):kok.tip_Renamed_Field != null)
+            if (TipVarmi() ? !_tip.Equals(kok._tip) : kok.TipVarmi())
 				return false;
 			
 			return true;
@@ -234,8 +234,8 @@ namespace net.zemberek.yapi
 		public override int GetHashCode()
 		{
 			int result;
-			result = (icerik_Renamed_Field != null?icerik_Renamed_Field.GetHashCode():0);
-			result = 29 * result + (tip_Renamed_Field != null?tip_Renamed_Field.GetHashCode():0);
+			result = (_icerik != null?_icerik.GetHashCode():0);
+            result = 29 * result + (TipVarmi() ? _tip.GetHashCode() : 0);
 			result = 29 * result + (ozelDurumlar != null?ozelDurumlar.GetHashCode():0);
 			return result;
 		}
@@ -244,5 +244,10 @@ namespace net.zemberek.yapi
 		{
 			return asil_Renamed_Field;
 		}
+
+        protected bool TipVarmi()
+        {
+            return (_tip != KelimeTipi.YOK);
+        }
 	}
 }

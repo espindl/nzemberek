@@ -9,7 +9,7 @@ namespace net.zemberek.yapi.ek
 	/// </summary>
 	public class EkUretimBileseni
 	{
-    private readonly UretimKurali _kural;
+    private readonly UretimKurali _kural=UretimKurali.YOK;
     private readonly TurkceHarf _harf;
 
     public EkUretimBileseni(UretimKurali kural, TurkceHarf harf) {
@@ -43,7 +43,7 @@ namespace net.zemberek.yapi.ek
 
     public int hashCode() {
         int result;
-        result = (_kural != null ? _kural.GetHashCode() : 0);
+        result = (_kural != UretimKurali.YOK ? _kural.GetHashCode() : 0);
         result = 29 * result + (_harf != null ? _harf.GetHashCode() : 0);
         return result;
     }

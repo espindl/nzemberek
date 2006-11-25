@@ -4,7 +4,7 @@ using net.zemberek.yapi;
 
 namespace net.zemberek.yapi.ek
 {
-    interface EkYonetici
+    public interface EkYonetici
     {
         /**
      * istenilen isimli ek'i dondurur
