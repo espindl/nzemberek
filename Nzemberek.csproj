@@ -1,0 +1,86 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2D5970A8-8865-4A92-AE4E-0A4249D9C7E4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>net.zemberek</RootNamespace>
+    <AssemblyName>Nzemberek</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Iesi.Collections, Version=1.0.0.1, Culture=neutral, PublicKeyToken=154fdcb44c4484fc">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Programs\DotNetRelated\GenericSets\bin\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections.Generic, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Programs\DotNetRelated\GenericSets\bin\Iesi.Collections.Generic.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Downloads\log4net-1.2.10\bin\net\2.0\release\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="bilgi\KaynakYukleyici.cs" />
+    <Compile Include="islemler.cozumleme\HarfDizisiKiyaslayici.cs" />
+    <Compile Include="javaporttemp\CharSequence.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="yapi.ek\Ek.cs" />
+    <Compile Include="yapi.ek\EkOzelDurumTipi.cs" />
+    <Compile Include="yapi.ek\EkOzelDurumu.cs" />
+    <Compile Include="yapi.ek\EkOzelDurumUretici.cs" />
+    <Compile Include="yapi.ek\EkUretici.cs" />
+    <Compile Include="yapi.ek\EkUretimBileseni.cs" />
+    <Compile Include="yapi.ek\EkYonetici.cs" />
+    <Compile Include="yapi.ek\OldurganEkOzelDurumu.cs" />
+    <Compile Include="yapi.ek\OnEkOzelDurumu.cs" />
+    <Compile Include="yapi.ek\SonHarfYumusamaOzelDurumu.cs" />
+    <Compile Include="yapi.ek\UretimKurali.cs" />
+    <Compile Include="yapi.kok\HarfDizisiIslemi.cs" />
+    <Compile Include="yapi.kok\KokOzelDurumTipi.cs" />
+    <Compile Include="yapi.kok\KokOzelDurumu.cs" />
+    <Compile Include="yapi\Alfabe.cs" />
+    <Compile Include="yapi\CokluKok.cs" />
+    <Compile Include="yapi\Cumle.cs" />
+    <Compile Include="yapi\EkSiralayici.cs" />
+    <Compile Include="yapi\HarfDizisi.cs" />
+    <Compile Include="yapi\HeceBulucu.cs" />
+    <Compile Include="yapi\Kelime.cs" />
+    <Compile Include="yapi\KelimeTipi.cs" />
+    <Compile Include="yapi\Kok.cs" />
+    <Compile Include="yapi\SesliUretici.cs" />
+    <Compile Include="yapi\TurkceHarf.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
