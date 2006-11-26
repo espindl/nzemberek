@@ -42,14 +42,21 @@
     </Reference>
     <Reference Include="nunit.framework, Version=2.2.8.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\DevRepository\Nunit-2.2.8-net-2.0\bin\nunit.framework.dll</HintPath>
+      <HintPath>lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="bilgi\KaynakYukleyici.cs" />
+    <Compile Include="nzemberek.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>nzemberek.settings</DependentUpon>
+    </Compile>
+    <Compile Include="tests\yapi\TestKaynakYukleyici.cs" />
     <Compile Include="islemler.cozumleme\HarfDizisiKiyaslayici.cs" />
     <Compile Include="javaporttemp\CharSequence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -92,7 +99,18 @@
     <Compile Include="yapi\TurkceHarf.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="tests\yapi.ek\" />
+    <None Include="app.config" />
+    <None Include="nzemberek.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>nzemberek.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="tests\yapi\test_harf_tr.txt" />
+    <Content Include="lib\Iesi.Collections.dll" />
+    <Content Include="lib\Iesi.Collections.Generic.dll" />
+    <Content Include="lib\log4net.dll" />
+    <Content Include="lib\nunit.framework.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

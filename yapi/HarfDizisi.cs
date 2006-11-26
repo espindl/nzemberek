@@ -286,13 +286,12 @@ namespace net.zemberek.yapi
 			if (!(o is HarfDizisi))
 				return false;
 			
-			//UPGRADE_NOTE: Final was removed from the declaration of 'harfDizisi '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 			HarfDizisi harfDizisi = (HarfDizisi) o;
 			if (boy != harfDizisi.boy)
 				return false;
 			for (int i = 0; i < boy; i++)
 			{
-				if (dizi[i].charDeger() != harfDizisi.dizi[i].charDeger())
+				if (this.dizi[i].charDeger() != harfDizisi.dizi[i].charDeger())
 					return false;
 			}
 			return true;
@@ -492,7 +491,16 @@ namespace net.zemberek.yapi
 				s.Append(charAt(i));
 			return s.ToString();
 		}
-		
+
+        public override System.String ToString()
+        {
+            StringBuilder str = new StringBuilder();
+            for(int i=0;i < this.boy;i++)
+            {
+                str.Append(this.charAt(i));
+            }
+            return str.ToString(); ;
+        }
         //TODO: StringBuilder javada olan Charsequence alýyor icine ama biz charsequence'i kendimiz yazdik
         //public override System.String ToString()
         //{
@@ -548,7 +556,7 @@ namespace net.zemberek.yapi
 			if (end < start)
 				return null;
 			TurkceHarf[] yeniHarfler = new TurkceHarf[end - start];
-			Array.Copy(dizi, start, yeniHarfler, 0, end - start);
+		    Array.Copy(dizi, start, yeniHarfler, 0, end - start);
 			return new HarfDizisi(yeniHarfler);
 		}
 	}

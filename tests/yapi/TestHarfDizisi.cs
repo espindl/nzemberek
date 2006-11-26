@@ -11,7 +11,7 @@ namespace net.zemberek.tests.yapi
     public class TestHarfDizisi
     {
         //TODO :  testler alfabe yüklemeyi tamamlayýnca çalýþacak.
-        Alfabe alfabe = new Alfabe(string.Empty, string.Empty);
+        Alfabe alfabe = new Alfabe(@"..\..\tests\yapi\hartf_tr.txt", "tr");
         String str;
         HarfDizisi dizi1;
 
@@ -53,7 +53,7 @@ namespace net.zemberek.tests.yapi
         {
             HarfDizisi dizi2 = new HarfDizisi("ler", alfabe);
             dizi1.ekle(dizi2);
-            Assert.AreEqual("dizi1 ekleme problemi " + dizi1.ToString(), dizi1.ToString(), "kalemler");
+            Assert.AreEqual(dizi1. ToString(), "kalemler", "dizi1 ekleme problemi " + dizi1.ToString());
         }
 
         [Test]
@@ -273,10 +273,10 @@ namespace net.zemberek.tests.yapi
         {
             HarfDizisi dizi = new HarfDizisi("armut", alfabe);
             Assert.AreEqual(dizi.length(), 5);
-            Assert.AreEqual(dizi.subSequence(0, 3), new HarfDizisi("arm", alfabe));
-            Assert.AreEqual(dizi.subSequence(1, 3), new HarfDizisi("rm", alfabe));
-            Assert.AreEqual(dizi.subSequence(3, 3), new HarfDizisi("", alfabe));
             Assert.IsNull(dizi.subSequence(3, 1));
+            Assert.AreEqual(new HarfDizisi("arm", alfabe), dizi.subSequence(0, 3));
+            Assert.AreEqual(new HarfDizisi("rm", alfabe), dizi.subSequence(1, 3));
+            Assert.AreEqual(new HarfDizisi("", alfabe), dizi.subSequence(3, 3));
             Assert.AreEqual(dizi.charAt(0), 'a');
             Assert.AreEqual(dizi.charAt(4), 't');
         }
@@ -287,13 +287,13 @@ namespace net.zemberek.tests.yapi
             String[] strs = {"AA", "AA" + Alfabe.CHAR_SAPKALI_A, "AWAQ", ""};
             foreach (String s in strs) {
                 HarfDizisi d = HarfDizisiYap(s);
-                Assert.AreEqual("olmadi" + s, d.hepsiBuyukHarfmi());
+                Assert.IsTrue(d.hepsiBuyukHarfmi(), "olmadi" + s);
             }
             String[] ss = {"aaa", "Aa", "AA"+Alfabe.CHAR_SAPKALI_a, "AwAQ", "..A", "-"};
             foreach (String s in ss)
             {
                 HarfDizisi d = HarfDizisiYap(s);
-                Assert.AreNotEqual("olmadi" + s, d.hepsiBuyukHarfmi());
+                Assert.IsFalse(d.hepsiBuyukHarfmi(), "olmadi" + s);
             }
         }
     }

@@ -69,7 +69,7 @@ namespace net.zemberek.yapi
     public Alfabe(String dosyaAdi, String localeStr) 
     {
         IDictionary<String, String> harfOzellikleri;
-        harfOzellikleri = new KaynakYukleyici("UTF-8").kodlamaliOzellikDosyasiOku(dosyaAdi);
+        harfOzellikleri = new KaynakYukleyici().kodlamaliOzellikDosyasiOku(dosyaAdi);
         this.locale = new System.Globalization.CultureInfo(localeStr);
         diziInit();
         harfBilgisiOlustur(harfOzellikleri);
@@ -230,7 +230,9 @@ namespace net.zemberek.yapi
             if (Char.IsLetter(c))
                 harf.setBuyukHarf(true);
             harf.setAlfabetikSira(i + 1);
-            harfler.Add(c, harf);
+            // TODO Bu if'i ekledim nokta karakteri sorun çıkarıyordu
+            if(!harfler.ContainsKey(c))
+                harfler.Add(c, harf);
             buyukHarflerDizi[i] = harf;
             temizlemeDizisi[c] = kucukHarflerDizi[i].charDeger();
             turkceHarfDizisi[c] = harf;
