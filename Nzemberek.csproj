@@ -40,6 +40,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="nunit.framework, Version=2.2.8.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\DevRepository\Nunit-2.2.8-net-2.0\bin\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -49,6 +53,7 @@
     <Compile Include="islemler.cozumleme\HarfDizisiKiyaslayici.cs" />
     <Compile Include="javaporttemp\CharSequence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="tests\yapi\TestHarfDizisi.cs" />
     <Compile Include="yapi.ek\Ek.cs" />
     <Compile Include="yapi.ek\EkOzelDurumTipi.cs" />
     <Compile Include="yapi.ek\EkOzelDurumu.cs" />
@@ -60,6 +65,7 @@
     <Compile Include="yapi.ek\OnEkOzelDurumu.cs" />
     <Compile Include="yapi.ek\SonHarfYumusamaOzelDurumu.cs" />
     <Compile Include="yapi.ek\UretimKurali.cs" />
+    <Compile Include="yapi.ek\XmlEkOkuyucu.cs" />
     <Compile Include="yapi.kok\AraSesliDusmesi.cs" />
     <Compile Include="yapi.kok\BosHarfDizisiIslemi.cs" />
     <Compile Include="yapi.kok\Ciftleme.cs" />
@@ -84,6 +90,9 @@
     <Compile Include="yapi\Kok.cs" />
     <Compile Include="yapi\SesliUretici.cs" />
     <Compile Include="yapi\TurkceHarf.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="tests\yapi.ek\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -3,7 +3,7 @@
 
 namespace net.zemberek.yapi.ek
 {
-    interface EkOzelDurumUretici
+    public interface EkOzelDurumUretici
     {
         EkOzelDurumu uret(String ad);
     }

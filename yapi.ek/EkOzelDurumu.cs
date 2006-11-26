@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Iesi.Collections;
 using Iesi.Collections.Generic;
 using net.zemberek.islemler.cozumleme;
+using net.zemberek.javaporttemp;
 
 namespace net.zemberek.yapi.ek
 {
@@ -15,10 +16,8 @@ namespace net.zemberek.yapi.ek
 	/// </summary>
     public abstract class EkOzelDurumu
     {
-        public static readonly Set EMPTY_SET = new HashedSet();// (System.Collections.IList)System.Collections.ArrayList.ReadOnly(new System.Collections.ArrayList());
-
         protected String _ad;
-        protected Set onEkler = EMPTY_SET;
+        protected Set<Ek> onEkler = Collections.EMPTY_SET;
         protected EkUretici ekUretici;
         protected List<EkUretimBileseni> _uretimBilesenleri;
 
@@ -39,12 +38,12 @@ namespace net.zemberek.yapi.ek
             this._ad = ad;
         }
 
-        public Set getOnEkler()
+        public Set<Ek> getOnEkler()
         {
             return onEkler;
         }
 
-        public void setOnEkler(Set onEkler)
+        public void setOnEkler(Set<Ek> onEkler)
         {
             this.onEkler = onEkler;
         }

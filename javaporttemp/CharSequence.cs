@@ -1,9 +1,20 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
+using Iesi.Collections.Generic;
+using Iesi.Collections;
+using net.zemberek.yapi;
+using net.zemberek.yapi.ek;
+using net.zemberek.yapi.kok;
+
 
 namespace net.zemberek.javaporttemp
 {
+    public abstract class Collections
+    {
+        public static readonly List<object> EMPTY_LIST = new List<object>();
+        public static readonly Set<Ek> EMPTY_SET = new HashedSet<Ek>();// (System.Collections.IList)System.Collections.ArrayList.ReadOnly(new System.Collections.ArrayList());
+    }
     /// <summary>
     /// imported from java.lang.CharSequence
     /// </summary>

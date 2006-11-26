@@ -483,7 +483,7 @@ namespace net.zemberek.yapi
 		/// </param>
 		/// <returns> olusan String.
 		/// </returns>
-		public virtual System.String toString(int index)
+		public virtual System.String ToString(int index)
 		{
 			if (index < 0 || index >= boy)
 				return "";
