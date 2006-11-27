@@ -12,7 +12,9 @@ namespace net.zemberek.yapi
 	public class HarfDizisi : CharSequence
 	{
 		private TurkceHarf[] dizi;
-		private int boy = 0;
+        //TODO : Bu boy deðerini harf arrayinin size deðeri üzerinden saðlamak daha akýllýca.
+        //Tamamlanýnca deneyip Javacýlara da önermeliyiz.
+        private int boy = 0;
 		
 		/// <summary> default constructor. 7 boyutlu bir TurkceHarf referans dizisi olusturur.</summary>
 		public HarfDizisi()
@@ -84,11 +86,11 @@ namespace net.zemberek.yapi
 		/// </summary>
 		/// <param name="dizi">kopyalancak TurkceHarf dizisi.
 		/// </param>
-		private HarfDizisi(TurkceHarf[] dizi)
+        private HarfDizisi(TurkceHarf[] aDizi)
 		{
-			boy = dizi.Length;
+            boy = aDizi.Length;
 			dizi = new TurkceHarf[boy];
-			Array.Copy(dizi, 0, dizi, 0, boy);
+            Array.Copy(aDizi, 0, dizi, 0, boy);
 		}
 		
 		/// <summary> 
@@ -549,6 +551,8 @@ namespace net.zemberek.yapi
 			if (index < 0 || index >= boy)
 				throw new System.ArgumentOutOfRangeException(System.String.Empty, (System.Object) index, System.String.Empty);
 			return dizi[index].charDeger();
+
+
 		}
 		
 		public virtual CharSequence subSequence(int start, int end)
