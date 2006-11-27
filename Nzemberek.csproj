@@ -52,7 +52,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="bilgi.kokler\KokBulucu.cs" />
+    <Compile Include="bilgi.kokler\KokBulucuUretici.cs" />
     <Compile Include="bilgi\KaynakYukleyici.cs" />
+    <Compile Include="bilgi.kokler\Sozluk.cs" />
+    <Compile Include="islemler.cozumleme\CozumlemeYardimcisi.cs" />
     <Compile Include="nzemberek.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -74,8 +78,11 @@
     <Compile Include="yapi.ek\OldurganEkOzelDurumu.cs" />
     <Compile Include="yapi.ek\OnEkOzelDurumu.cs" />
     <Compile Include="yapi.ek\SonHarfYumusamaOzelDurumu.cs" />
+    <Compile Include="yapi.ek\TemelEkOzelDurumUretici.cs" />
+    <Compile Include="yapi.ek\TemelEkYonetici.cs" />
     <Compile Include="yapi.ek\UretimKurali.cs" />
     <Compile Include="yapi.ek\XmlEkOkuyucu.cs" />
+    <Compile Include="yapi.ek\ZamanKiOzelDurumu.cs" />
     <Compile Include="yapi.kok\AraSesliDusmesi.cs" />
     <Compile Include="yapi.kok\BosHarfDizisiIslemi.cs" />
     <Compile Include="yapi.kok\Ciftleme.cs" />
@@ -92,6 +99,8 @@
     <Compile Include="yapi\Alfabe.cs" />
     <Compile Include="yapi\CokluKok.cs" />
     <Compile Include="yapi\Cumle.cs" />
+    <Compile Include="yapi\DilAyarlari.cs" />
+    <Compile Include="yapi\Dilbilgisi.cs" />
     <Compile Include="yapi\EkSiralayici.cs" />
     <Compile Include="yapi\HarfDizisi.cs" />
     <Compile Include="yapi\HeceBulucu.cs" />
