@@ -47,6 +47,8 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -56,6 +58,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>nzemberek.settings</DependentUpon>
     </Compile>
+    <Compile Include="tests\yapi.alfabe\TestAlfabe.cs" />
     <Compile Include="tests\yapi\TestKaynakYukleyici.cs" />
     <Compile Include="islemler.cozumleme\HarfDizisiKiyaslayici.cs" />
     <Compile Include="javaporttemp\CharSequence.cs" />
