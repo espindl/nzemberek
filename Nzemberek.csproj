@@ -52,8 +52,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="bilgi.kokler\KokAgaci.cs" />
     <Compile Include="bilgi.kokler\KokBulucu.cs" />
     <Compile Include="bilgi.kokler\KokBulucuUretici.cs" />
+    <Compile Include="bilgi.kokler\KokDugumu.cs" />
     <Compile Include="bilgi\KaynakYukleyici.cs" />
     <Compile Include="bilgi.kokler\Sozluk.cs" />
     <Compile Include="islemler.cozumleme\CozumlemeYardimcisi.cs" />
