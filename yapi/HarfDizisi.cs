@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using System.Collections.Generic;
 using net.zemberek.javaporttemp;
 
 namespace net.zemberek.yapi
@@ -9,7 +10,7 @@ namespace net.zemberek.yapi
 	/// String gibi genel bir tasiyici degil ara islem nesnesi olarak kullanilmasi onerilir.
 	/// String'den farkli olarak "degistirilebilir" bir yapidadir ve Thread-safe degildir.
 	/// </summary>
-	public class HarfDizisi : CharSequence
+	public class HarfDizisi : IEnumerable<Char>
 	{
 		private TurkceHarf[] dizi;
         //TODO : Bu boy deðerini harf arrayinin size deðeri üzerinden saðlamak daha akýllýca.
@@ -76,7 +77,7 @@ namespace net.zemberek.yapi
 		/// </param>
 		public HarfDizisi(HarfDizisi hdizi)
 		{
-			boy = hdizi.length();
+			boy = hdizi.Length;
 			dizi = new TurkceHarf[boy];
 			Array.Copy(hdizi.dizi, 0, dizi, 0, boy);
 		}
@@ -197,12 +198,12 @@ namespace net.zemberek.yapi
 		/// </returns>
 		public virtual HarfDizisi ekle(HarfDizisi hdizi)
 		{
-			int hboy = hdizi.length();
+			int hboy = hdizi.Length;
 			if (boy + hboy > dizi.Length)
 				kapasiteAyarla(hboy);
 			
 			Array.Copy(hdizi.dizi, 0, dizi, boy, hboy);
-			boy += hdizi.length();
+			boy += hdizi.Length;
 			return this;
 		}
 		
@@ -223,7 +224,7 @@ namespace net.zemberek.yapi
 				throw new System.IndexOutOfRangeException("indeks degeri:" + index + " fakat harf dizi boyu:" + boy);
 			
 			//dizi kapasitesini ayarla
-			int hboy = hdizi.length();
+			int hboy = hdizi.Length;
 			if (boy + hboy > dizi.Length)
 				kapasiteAyarla(hboy);
 			
@@ -233,7 +234,7 @@ namespace net.zemberek.yapi
 			
 			//gelen diziyi kopyala ve boyutu degistir.
 			Array.Copy(hdizi.dizi, 0, dizi, index, hboy);
-			boy += hdizi.length();
+			boy += hdizi.Length;
 			return this;
 		}
 		
@@ -331,9 +332,9 @@ namespace net.zemberek.yapi
 		{
 			if (kelime == null)
 				return false;
-			if (boy < baslangic + kelime.length())
+			if (boy < baslangic + kelime.Length)
 				return false;
-			for (int i = 0; i < kelime.length(); i++)
+			for (int i = 0; i < kelime.Length; i++)
 				if (!dizi[baslangic + i].asciiToleransliKiyasla(kelime.harf(i)))
 					return false;
 			return true;
@@ -343,9 +344,9 @@ namespace net.zemberek.yapi
 		{
 			if (giris == null)
 				return false;
-			if (giris.length() > this.boy)
+			if (giris.Length > this.boy)
 				return false;
-			for (int i = 0; i < giris.length(); i++)
+			for (int i = 0; i < giris.Length; i++)
 				if (!dizi[i].asciiToleransliKiyasla(giris.harf(i)))
 					return false;
 			return true;
@@ -355,9 +356,9 @@ namespace net.zemberek.yapi
 		{
 			if (kelime == null)
 				return false;
-			if (boy < baslangic + kelime.length())
+			if (boy < baslangic + kelime.Length)
 				return false;
-			for (int i = 0; i < kelime.length(); i++)
+			for (int i = 0; i < kelime.Length; i++)
 				if (dizi[baslangic + i].charDeger() != kelime.harf(i).charDeger())
 					return false;
 			return true;
@@ -367,9 +368,9 @@ namespace net.zemberek.yapi
 		{
 			if (giris == null)
 				return false;
-			if (giris.length() > this.boy)
+			if (giris.Length > this.boy)
 				return false;
-			for (int i = 0; i < giris.length(); i++)
+			for (int i = 0; i < giris.Length; i++)
 				if (dizi[i].charDeger() != giris.harf(i).charDeger())
 					return false;
 			return true;
@@ -490,7 +491,7 @@ namespace net.zemberek.yapi
 				return "";
 			StringBuilder s = new StringBuilder(boy - index);
 			for (int i = index; i < boy; i++)
-				s.Append(charAt(i));
+				s.Append(dizi[i].charDeger());
 			return s.ToString();
 		}
 
@@ -499,7 +500,7 @@ namespace net.zemberek.yapi
             StringBuilder str = new StringBuilder();
             for(int i=0;i < this.boy;i++)
             {
-                str.Append(this.charAt(i));
+                str.Append(dizi[i].charDeger());
             }
             return str.ToString(); ;
         }
@@ -538,24 +539,106 @@ namespace net.zemberek.yapi
 			}
 			return true;
 		}
-		
-		//--------- asagidaki metodlar CharSequence arayuzu icin hazirlandi. -----
-		
-		public int length()
-		{
-			return boy;
-		}
-		
-		public char charAt(int index)
-		{
-			if (index < 0 || index >= boy)
-				throw new System.ArgumentOutOfRangeException(System.String.Empty, (System.Object) index, System.String.Empty);
-			return dizi[index].charDeger();
 
 
-		}
+
+        #region IEnumerable Members
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return new CharEnumerator(this);
+        }
+
+        #endregion
+
+        #region IEnumerable<char> Members
+
+        public IEnumerator<char> GetEnumerator()
+        {
+            return new CharEnumerator(this);
+        }
+
+        #endregion
+        //--------- asagidaki metodlar CharSequence arayuzu icin hazirlandi. -----
 		
-		public virtual CharSequence subSequence(int start, int end)
+        private class CharEnumerator : IEnumerator<Char>
+        {
+            private HarfDizisi harfDizisi;
+            private int cursor = -1;
+
+
+            public CharEnumerator(HarfDizisi hd)
+            {
+                harfDizisi = hd;
+            }
+            
+            #region IEnumerator<char> Members
+
+            public char Current
+            {
+                get 
+                {
+                    try
+                    {
+                        return harfDizisi.dizi[cursor].charDeger();
+                    }
+                    catch
+                    {
+                        return char.MinValue;
+                    }
+                }
+            }
+
+            #endregion
+
+            #region IDisposable Members
+
+            public void Dispose(){}
+
+            #endregion
+
+            #region IEnumerator Members
+
+            object System.Collections.IEnumerator.Current
+            {
+                get 
+                {
+                    try
+                    {
+                        return harfDizisi.dizi[cursor].charDeger();
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                }
+            }
+
+            public bool MoveNext()
+            {
+                cursor++;
+                return (harfDizisi.dizi.Length > cursor);
+            }
+
+            public void Reset()
+            {
+                cursor = -1;
+            }
+
+            #endregion
+        }
+
+        public int Length
+        {
+            get { return boy; }
+        }
+
+        public char CharAt(int i)
+        {
+            return dizi[i].charDeger();
+        }
+		
+		public HarfDizisi subSequence(int start, int end)
 		{
 			if (end < start)
 				return null;
@@ -563,5 +646,6 @@ namespace net.zemberek.yapi
 		    Array.Copy(dizi, start, yeniHarfler, 0, end - start);
 			return new HarfDizisi(yeniHarfler);
 		}
-	}
+
+    }
 }

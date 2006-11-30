@@ -93,7 +93,7 @@ namespace net.zemberek.yapi
 
         public int boy()
         {
-            return _icerik.length();
+            return _icerik.Length;
         }
 
         public Ek sonEk()

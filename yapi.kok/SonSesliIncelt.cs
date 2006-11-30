@@ -26,7 +26,7 @@ namespace net.zemberek.yapi.kok
         */
         public void uygula(HarfDizisi dizi)
         {
-            for (int i = dizi.length() - 1; i >= 0; i--)
+            for (int i = dizi.Length - 1; i >= 0; i--)
             {
                 if (!dizi.harf(i).inceSesliMi())
                     dizi.harfDegistir(i, _alfabe.kalinSesliIncelt(dizi.harf(i)));

@@ -13,8 +13,8 @@ namespace net.zemberek.yapi.kok
 
         public void uygula(HarfDizisi dizi)
         {
-            if (dizi.length() > 0)
-                dizi.harfSil(dizi.length() - 1);
+            if (dizi.Length > 0)
+                dizi.harfSil(dizi.Length - 1);
         }
 
         #endregion

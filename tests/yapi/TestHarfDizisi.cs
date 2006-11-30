@@ -170,7 +170,7 @@ namespace net.zemberek.tests.yapi
             dizi.kirp(5);
             Assert.AreEqual("merha", dizi.ToString());
             dizi.kirp(0);
-            Assert.IsTrue(dizi.length() == 0);
+            Assert.IsTrue(dizi.Length == 0);
         }
 
         [Test]
@@ -272,13 +272,13 @@ namespace net.zemberek.tests.yapi
         public void testCharSequenceMethods()
         {
             HarfDizisi dizi = new HarfDizisi("armut", alfabe);
-            Assert.AreEqual(dizi.length(), 5);
+            Assert.AreEqual(dizi.Length, 5);
             Assert.IsNull(dizi.subSequence(3, 1));
             Assert.AreEqual(new HarfDizisi("arm", alfabe), dizi.subSequence(0, 3));
             Assert.AreEqual(new HarfDizisi("rm", alfabe), dizi.subSequence(1, 3));
             Assert.AreEqual(new HarfDizisi("", alfabe), dizi.subSequence(3, 3));
-            Assert.AreEqual(dizi.charAt(0), 'a');
-            Assert.AreEqual(dizi.charAt(4), 't');
+            Assert.AreEqual(dizi.CharAt(0), 'a');
+            Assert.AreEqual(dizi.CharAt(4), 't');
         }
 
         [Test]

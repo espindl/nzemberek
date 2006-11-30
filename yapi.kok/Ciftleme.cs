@@ -14,8 +14,8 @@ namespace net.zemberek.yapi.kok
 
         public void uygula(HarfDizisi dizi)
         {
-            if (dizi.length() > 0)
-                dizi.ekle(dizi.harf(dizi.length() - 1));
+            if (dizi.Length > 0)
+                dizi.ekle(dizi.harf(dizi.Length - 1));
         }
 
         #endregion

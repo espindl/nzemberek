@@ -13,8 +13,8 @@ namespace net.zemberek.yapi.kok
     {
         public void uygula(HarfDizisi dizi) 
         {
-            if (dizi.length() >= 2)
-                dizi.harfSil(dizi.length() - 2);
+            if (dizi.Length >= 2)
+                dizi.harfSil(dizi.Length - 2);
         }
     }
 }

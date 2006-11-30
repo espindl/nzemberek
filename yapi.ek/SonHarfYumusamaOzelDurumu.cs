@@ -14,7 +14,7 @@ namespace net.zemberek.yapi.ek
             {
                 return null;
             }
-            int harfPozisyonu = kelime.boy() + ek.length();
+            int harfPozisyonu = kelime.boy() + ek.Length;
             if (giris.harf(harfPozisyonu).sesliMi())
                 return ek;
             return null;
