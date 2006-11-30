@@ -5,7 +5,7 @@ using net.zemberek.yapi;
 
 namespace net.zemberek.bilgi.kokler
 {
-    interface KokBulucu
+    public interface KokBulucu
     {
         List<Kok> getAdayKokler(String giris);
     }

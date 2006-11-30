@@ -52,13 +52,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="araclar\IstatistikAraclari.cs" />
+    <Compile Include="araclar\MetinAraclari.cs" />
+    <Compile Include="bilgi.araclar\DuzYaziKokOkuyucu.cs" />
+    <Compile Include="bilgi.araclar\IkiliKokOkuyucu.cs" />
+    <Compile Include="bilgi.araclar\IkiliKokYazici.cs" />
+    <Compile Include="bilgi.araclar\KokYazici.cs" />
+    <Compile Include="bilgi.kokler\AgacSozluk.cs" />
+    <Compile Include="bilgi.kokler\AsciiKokBulucu.cs" />
+    <Compile Include="bilgi.kokler\KesinKokBulucu.cs" />
     <Compile Include="bilgi.kokler\KokAgaci.cs" />
+    <Compile Include="bilgi.kokler\KokAgaciYuruyucu.cs" />
     <Compile Include="bilgi.kokler\KokBulucu.cs" />
     <Compile Include="bilgi.kokler\KokBulucuUretici.cs" />
     <Compile Include="bilgi.kokler\KokDugumu.cs" />
+    <Compile Include="bilgi.kokler\ToleransliKokBulucu.cs" />
     <Compile Include="bilgi\KaynakYukleyici.cs" />
     <Compile Include="bilgi.kokler\Sozluk.cs" />
+    <Compile Include="bilgi\ZemberekAyarlari.cs" />
     <Compile Include="islemler.cozumleme\CozumlemeYardimcisi.cs" />
+    <Compile Include="islemler\BasitDenetlemeCebi.cs" />
+    <Compile Include="islemler\DenetlemeCebi.cs" />
+    <Compile Include="bilgi.araclar\KokOkuyucu.cs" />
+    <Compile Include="istatistik\BinaryIstatistikOkuyucu.cs" />
     <Compile Include="nzemberek.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -102,7 +118,8 @@
     <Compile Include="yapi\CokluKok.cs" />
     <Compile Include="yapi\Cumle.cs" />
     <Compile Include="yapi\DilAyarlari.cs" />
-    <Compile Include="yapi\Dilbilgisi.cs" />
+    <Compile Include="yapi\DilBilgisi.cs" />
+    <Compile Include="yapi\DilBilgisiUretici.cs" />
     <Compile Include="yapi\EkSiralayici.cs" />
     <Compile Include="yapi\HarfDizisi.cs" />
     <Compile Include="yapi\HeceBulucu.cs" />
@@ -110,6 +127,7 @@
     <Compile Include="yapi\KelimeTipi.cs" />
     <Compile Include="yapi\Kok.cs" />
     <Compile Include="yapi\SesliUretici.cs" />
+    <Compile Include="yapi\TurkceDilBilgisi.cs" />
     <Compile Include="yapi\TurkceHarf.cs" />
   </ItemGroup>
   <ItemGroup>

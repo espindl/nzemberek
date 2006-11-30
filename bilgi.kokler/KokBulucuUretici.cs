@@ -4,7 +4,7 @@ using System.Text;
 
 namespace net.zemberek.bilgi.kokler
 {
-    interface KokBulucuUretici
+    public interface KokBulucuUretici
     {
         KokBulucu getKesinKokBulucu();
 

@@ -6,7 +6,7 @@ using net.zemberek.yapi;
 
 namespace net.zemberek.bilgi.kokler
 {
-    interface Sozluk
+    public interface Sozluk
     {
         /**
      * str seklinde yazilan tum kelime koklerini dondurur. str kokun istisna hali de olabilir.

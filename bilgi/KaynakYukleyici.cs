@@ -20,6 +20,12 @@ namespace net.zemberek.bilgi
             logger.Info("Kaynak yukleyici olusturuluyor. varsayilan karakter seti:" + encoding);
         }
 
+        public KaynakYukleyici(string enc)
+        {
+            this.encoding = Encoding.GetEncoding(enc);
+            logger.Info("Kaynak yukleyici olusturuluyor. varsayilan karakter seti:" + encoding);
+        }
+
         /**
          * kaynak erisim islemleri verilen encoding ile gerceklestirilir.
          *
@@ -114,6 +120,65 @@ namespace net.zemberek.bilgi
             }
         }
 
+        /**
+         * istenilen kaynaga erisimin mumkun olup olmadigina bakar. Bazi secimlik kaynaklarin erisiminde
+         * bu metoddan yararlanilabilir.
+         *
+         * @param kaynakAdi
+         * @return true-> kaynak erisiminde hata olusmadi false-> kaynak erisiminde hata olustu ya da kaynak=null
+         */
+        public bool kaynakMevcutmu(String kaynakAdi)
+        {
+            if (File.Exists(kaynakAdi) )//|| this.GetType().getResource("/" + kaynakAdi) != null)
+                return true;
+            else
+            return false;
+        }
+
+        /**
+         * Girilen kaynaga once class path disindan erismeye calisir. Eger dosya bulunamazsa
+         * bu defa ayni dosyaya classpath icerisinden erismeye calisir
+         * (ozellikle jar icinden okumada kullanilir.).
+         *
+         * @param kaynakAdi
+         * @return kaynak risimi icin Buffered reader.
+         */
+        public StreamReader getReader(String kaynakAdi)
+        {
+            StreamReader sr = new StreamReader(getStream(kaynakAdi));
+            if (sr == null)
+                throw new IOException(kaynakAdi + " erisimi saglanamadi, Elde edilen Stream degeri null!");
+            return sr; //TODO encoding vardı burda
+            //return null;
+        }
+
+        /**
+         * belirtilen kaynagi Stream olarak once classpath kokunden (jar ise jar icinden) yuklemeye calisir.
+         * Eger kaynak bulunamazsa dosya sisteminden yuklemeye calisir (calisilan dizine goreceli olarak.)
+         * Onceligi classpath erisimine vermek mantikli cunku dagitimda kaynak erisimi buyuk ihtimalle
+         * classpath icerisinden gerceklestirilir.
+         */
+        public Stream getStream(String kaynakAdi)
+        {
+            //StreamReader stream = null;
+            //try
+            //{
+            //    // classpath icinden yuklemeye calis.
+            //    stream = utf8BomDenetle(this.getClass().getResourceAsStream("/" + kaynakAdi));
+            //    log.info("classpath kaynak erisimi saglandi:" + kaynakAdi + " kodlama:" + encoding);
+            //}
+            //catch (IOException e)
+            //{
+            //    // proje ici kaynak erisimi yapmaya calis.
+            //    stream = utf8BomDenetle(new FileInputStream(kaynakAdi));
+            //    if (stream == null)
+            //        throw new IOException("Kaynak erisim hatasi: " + kaynakAdi);
+            //    log.info("Proje ici kaynak erisimi saglandi:" + kaynakAdi + " kodlama:" + encoding);
+            //}
+            //return stream;
+            return null;
+        }
+
         ///**
         // * Properties dosyasi yukler.
         // */
@@ -136,60 +201,3 @@ namespace net.zemberek.bilgi
         //}
     }
 }
-
-
-//        /**
-//         * Girilen kaynaga once class path disindan erismeye calisir. Eger dosya bulunamazsa
-//         * bu defa ayni dosyaya classpath icerisinden erismeye calisir
-//         * (ozellikle jar icinden okumada kullanilir.).
-//         *
-//         * @param kaynakAdi
-//         * @return kaynak risimi icin Buffered reader.
-//         */
-//        public BufferedStream getReader(String kaynakAdi) {
-//            //StreamReader sr = getStream(kaynakAdi);
-//            //if (sr == null)
-//            //    throw new IOException(kaynakAdi + " erisimi saglanamadi, Elde edilen Stream degeri null!");
-//            //return new BufferedReader(new InputStreamReader(sr, encoding));
-//            return null;
-//        }
-
-//        /**
-//         * istenilen kaynaga erisimin mumkun olup olmadigina bakar. Bazi secimlik kaynaklarin erisiminde
-//         * bu metoddan yararlanilabilir.
-//         *
-//         * @param kaynakAdi
-//         * @return true-> kaynak erisiminde hata olusmadi false-> kaynak erisiminde hata olustu ya da kaynak=null
-//         */
-//        public bool kaynakMevcutmu(String kaynakAdi) {
-//            //if(new File(kaynakAdi).exists() || this.getClass().getResource("/"+kaynakAdi)!=null)
-//            //  return true;
-//            //else
-//              return false;
-//        }
-
-//        /**
-//         * belirtilen kaynagi Stream olarak once classpath kokunden (jar ise jar icinden) yuklemeye calisir.
-//         * Eger kaynak bulunamazsa dosya sisteminden yuklemeye calisir (calisilan dizine goreceli olarak.)
-//         * Onceligi classpath erisimine vermek mantikli cunku dagitimda kaynak erisimi buyuk ihtimalle
-//         * classpath icerisinden gerceklestirilir.
-//         */
-//        public StreamReader getStream(String kaynakAdi) {
-//            StreamReader stream = null;
-//            //try {
-//            //    // classpath icinden yuklemeye calis.
-//            //    stream = utf8BomDenetle(this.getClass().getResourceAsStream("/" + kaynakAdi));
-//            //    log.info("classpath kaynak erisimi saglandi:" + kaynakAdi + " kodlama:" + encoding);
-//            //} catch (IOException e) {
-//            //    // proje ici kaynak erisimi yapmaya calis.
-//            //    stream = utf8BomDenetle(new FileInputStream(kaynakAdi));
-//            //    if (stream == null)
-//            //        throw new IOException("Kaynak erisim hatasi: " + kaynakAdi);
-//            //    log.info("Proje ici kaynak erisimi saglandi:" + kaynakAdi + " kodlama:" + encoding);
-//            //}
-//            return stream;
-//        }
-
-
-//    }
-//*/

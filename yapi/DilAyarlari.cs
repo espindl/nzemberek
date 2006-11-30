@@ -6,7 +6,7 @@ using net.zemberek.yapi.ek;
 
 namespace net.zemberek.yapi
 {
-    interface DilAyarlari
+    public interface DilAyarlari
     {
         CultureInfo locale();
         

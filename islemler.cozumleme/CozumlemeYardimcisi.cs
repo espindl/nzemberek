@@ -5,7 +5,7 @@ using net.zemberek.yapi;
 
 namespace net.zemberek.islemler.cozumleme
 {
-    interface CozumlemeYardimcisi
+    public interface CozumlemeYardimcisi
     {
         /**
  * kelimenin icindeki olusumu kok'un orjinal haline gore ve gerekli noktalama isaretlerine gore
