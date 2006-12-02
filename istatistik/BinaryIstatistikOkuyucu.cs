@@ -15,7 +15,7 @@ namespace net.zemberek.istatistik
 
     public void initialize(String fileName) {
         //reader = new KaynakYukleyici("UTF-8").getReader(fileName);
-        dis = new BinaryReader(new FileStream(fileName,FileMode.Create)); //TODO append mi
+        dis = new BinaryReader(new FileStream(fileName,FileMode.Open));
     }
 
     public void oku(Sozluk sozluk) {

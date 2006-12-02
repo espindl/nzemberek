@@ -8,7 +8,7 @@ using net.zemberek.bilgi.kokler;
 
 namespace net.zemberek.yapi
 {
-    interface DilBilgisi
+    public interface DilBilgisi
     {
         /**
  * Dile ozel alfabe nesnesini dondurur.

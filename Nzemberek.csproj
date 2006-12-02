@@ -52,11 +52,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="araclar.turkce\TurkceMetinOkuyucu.cs" />
+    <Compile Include="araclar.turkce\TurkishTokenStream.cs" />
+    <Compile Include="araclar.turkce\YaziBirimi.cs" />
+    <Compile Include="araclar.turkce\YaziBirimiTipi.cs" />
+    <Compile Include="araclar.turkce\YaziIsleyici.cs" />
     <Compile Include="araclar\IstatistikAraclari.cs" />
     <Compile Include="araclar\JaroWinkler.cs" />
     <Compile Include="araclar\MetinAraclari.cs" />
     <Compile Include="araclar\TimeTracker.cs" />
+    <Compile Include="araclar\TusTakimi.cs" />
     <Compile Include="bilgi.araclar\DuzYaziKokOkuyucu.cs" />
+    <Compile Include="bilgi.araclar\DuzYaziKokYazici.cs" />
     <Compile Include="bilgi.araclar\IkiliKokOkuyucu.cs" />
     <Compile Include="bilgi.araclar\IkiliKokYazici.cs" />
     <Compile Include="bilgi.araclar\KokYazici.cs" />
@@ -73,10 +80,13 @@
     <Compile Include="bilgi.kokler\Sozluk.cs" />
     <Compile Include="bilgi\ZemberekAyarlari.cs" />
     <Compile Include="islemler.cozumleme\CozumlemeYardimcisi.cs" />
+    <Compile Include="islemler\AsciiDonusturucu.cs" />
     <Compile Include="islemler\BasitDenetlemeCebi.cs" />
     <Compile Include="islemler\DenetlemeCebi.cs" />
     <Compile Include="bilgi.araclar\KokOkuyucu.cs" />
+    <Compile Include="islemler\HataliKodTemizleyici.cs" />
     <Compile Include="istatistik\BinaryIstatistikOkuyucu.cs" />
+    <Compile Include="istatistik\Istatistikler.cs" />
     <Compile Include="nzemberek.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
