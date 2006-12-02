@@ -38,7 +38,7 @@ namespace net.zemberek.yapi.ek
          */
         internal bool mevcut(EkOzelDurumTipi[] tipler, String ad) {
             foreach (EkOzelDurumTipi tip in tipler) {
-                if (tip.ad().Equals(ad))
+                if (tip.Ad.Equals(ad))
                     return true;
             }
             return false;

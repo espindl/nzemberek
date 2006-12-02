@@ -16,7 +16,7 @@ namespace net.zemberek.yapi.kok
     public class TemelKokOzelDurumBilgisi
     {
 
-        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        internal static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         protected EkYonetici ekYonetici;
         protected Alfabe alfabe;
@@ -49,7 +49,7 @@ namespace net.zemberek.yapi.kok
             KokOzelDurumu.Uretici uretici = new KokOzelDurumu.Uretici(tip, islem);
 
             // eger varsa kok adlarini kullanarak iliskili ekleri bul ve bir Set'e ata.
-            String[] ekAdlari = tip.ekAdlari();
+            String[] ekAdlari = tip.EkAdlari;
             if (ekAdlari.Length > 0) {
                 Set<Ek> set = new HashedSet<Ek>();
                 foreach (String s in ekAdlari) {

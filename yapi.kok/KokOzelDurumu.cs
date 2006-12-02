@@ -177,12 +177,12 @@ namespace net.zemberek.yapi.kok
 
         public int indeks()
         {
-            return _tip.indeks();
+            return _tip.Index;
         }
 
         public String kisaAd()
         {
-            return _tip.kisaAd();
+            return _tip.KisaAd;
         }
 
         public KokOzelDurumTipi tip()
@@ -228,7 +228,7 @@ namespace net.zemberek.yapi.kok
         if (o == null || GetType() != o.GetType()) return false;
 
         KokOzelDurumu that = (KokOzelDurumu) o;
-        if ((_tip.indeks() == that._tip.indeks()) && _tip.ad().Equals(that._tip.ad()))
+        if ((_tip.Index == that._tip.Index) && _tip.Ad.Equals(that._tip.Ad))
             return true;
         return false;
 
@@ -241,7 +241,7 @@ namespace net.zemberek.yapi.kok
          */
         public int hashCode()
         {
-            return _tip.ad().GetHashCode() * _tip.indeks();
+            return _tip.Ad.GetHashCode() * _tip.Index;
         }
     }
 /*		

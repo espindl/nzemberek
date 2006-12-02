@@ -101,7 +101,7 @@ namespace net.zemberek.yapi
 			//UPGRADE_ISSUE: The following fragment of code could not be parsed and was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1156'"
 			foreach(KokOzelDurumu oz in ozelDurumlar)
 			{
-				if (oz.indeks() == tip.indeks())
+				if (oz.indeks() == tip.Index)
 					return true;
 			}
 			return false;

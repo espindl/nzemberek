@@ -4,6 +4,7 @@ namespace net.zemberek.yapi.ek
 {
     interface EkOzelDurumTipi
     {
-        String ad();
+        String Ad{get;}
+        int Index{get;}
     }
 }

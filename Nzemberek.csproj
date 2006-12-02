@@ -82,12 +82,29 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>nzemberek.settings</DependentUpon>
     </Compile>
+    <Compile Include="tests\TemelTest.cs" />
     <Compile Include="tests\yapi.alfabe\TestAlfabe.cs" />
-    <Compile Include="tests\yapi\TestKaynakYukleyici.cs" />
+    <Compile Include="tests\bilgi\TestKaynakYukleyici.cs" />
     <Compile Include="islemler.cozumleme\HarfDizisiKiyaslayici.cs" />
     <Compile Include="javaporttemp\CharSequence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="tests\yapi\TestHarfDizisi.cs" />
+    <Compile Include="tr\HarfDizisiUretici.cs" />
+    <Compile Include="tr\islemler\SoruEkiIsleyici.cs" />
+    <Compile Include="tr\islemler\TurkceCozumlemeYardimcisi.cs" />
+    <Compile Include="tr\yapi.ek\BeraberlikIsOzelDurumu.cs" />
+    <Compile Include="tr\yapi.ek\EdilgenOzelDurumu.cs" />
+    <Compile Include="tr\yapi.ek\EkUreticiTr.cs" />
+    <Compile Include="tr\yapi.ek\GenisZamanEkOzelDurumuTr.cs" />
+    <Compile Include="tr\yapi.ek\SimdikiZamanEkOZelDurumuTr.cs" />
+    <Compile Include="tr\yapi.ek\TurkceEkAdlari.cs" />
+    <Compile Include="tr\yapi.ek\TurkceEkOzelDurumUretici.cs" />
+    <Compile Include="tr\yapi.kok\TurkceKokOzelDurumBilgisi.cs" />
+    <Compile Include="tr\yapi.kok\TurkceKokOzelDurumTipi.cs" />
+    <Compile Include="tr\yapi.kok\YumusamaNk.cs" />
+    <Compile Include="tr\yapi\TurkceHeceBulucu.cs" />
+    <Compile Include="tr\yapi\TurkceSesliUretici.cs" />
+    <Compile Include="tr\yapi\TurkiyeTurkcesi.cs" />
     <Compile Include="yapi.ek\Ek.cs" />
     <Compile Include="yapi.ek\EkOzelDurumTipi.cs" />
     <Compile Include="yapi.ek\EkOzelDurumu.cs" />
@@ -140,7 +157,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="tests\yapi\test_harf_tr.txt" />
+    <Content Include="tests\bilgi\test_harf_tr.txt" />
     <Content Include="lib\Iesi.Collections.dll" />
     <Content Include="lib\Iesi.Collections.Generic.dll" />
     <Content Include="lib\log4net.dll" />
