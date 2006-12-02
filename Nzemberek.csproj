@@ -53,7 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="araclar\IstatistikAraclari.cs" />
+    <Compile Include="araclar\JaroWinkler.cs" />
     <Compile Include="araclar\MetinAraclari.cs" />
+    <Compile Include="araclar\TimeTracker.cs" />
     <Compile Include="bilgi.araclar\DuzYaziKokOkuyucu.cs" />
     <Compile Include="bilgi.araclar\IkiliKokOkuyucu.cs" />
     <Compile Include="bilgi.araclar\IkiliKokYazici.cs" />
