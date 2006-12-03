@@ -82,6 +82,7 @@
     <Compile Include="islemler.cozumleme\AsciiToleransliHDKiyaslayici.cs" />
     <Compile Include="islemler.cozumleme\BasitKelimeYigini.cs" />
     <Compile Include="islemler.cozumleme\CozumlemeYardimcisi.cs" />
+    <Compile Include="islemler.cozumleme\StandartCozumleyici.cs" />
     <Compile Include="islemler.cozumleme\KelimeCozumleyici.cs" />
     <Compile Include="islemler.cozumleme\KesinHDKiyaslayici.cs" />
     <Compile Include="islemler.cozumleme\OneriUretici.cs" />
@@ -90,7 +91,11 @@
     <Compile Include="islemler\BasitDenetlemeCebi.cs" />
     <Compile Include="islemler\DenetlemeCebi.cs" />
     <Compile Include="bilgi.araclar\KokOkuyucu.cs" />
-    <Compile Include="islemler\HataliKodTemizleyici.cs" />
+    <Compile Include="islemler\HataliKodlamaTemizleyici.cs" />
+    <Compile Include="islemler\Heceleyici.cs" />
+    <Compile Include="islemler\KelimeKokFrekansKiyaslayici.cs" />
+    <Compile Include="islemler\KelimeUretici.cs" />
+    <Compile Include="islemler\TurkceYaziTesti.cs" />
     <Compile Include="istatistik\BinaryIstatistikOkuyucu.cs" />
     <Compile Include="istatistik\Istatistikler.cs" />
     <Compile Include="nzemberek.Designer.cs">
