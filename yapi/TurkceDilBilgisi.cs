@@ -106,7 +106,7 @@ namespace net.zemberek.yapi
                     Type clazz = dilAyarlari.ekYoneticiSinifi();
                     ConstructorInfo ci = clazz.GetConstructor(new Type[]{
                         typeof(Alfabe),typeof(String),
-                        typeof(EkUretici),typeof(EkOzelDurumUretici),typeof(IDictionary<String,KelimeTipi>)});
+                        typeof(EkUretici),typeof(EkOzelDurumUretici),typeof(IDictionary<KelimeTipi,String>)});
                     ekYonetici = (EkYonetici)ci.Invoke(new object[]{
                             _alfabe,
                             ekDosyaAdi,
@@ -167,7 +167,7 @@ namespace net.zemberek.yapi
                 try {
                     Type clazz = dilAyarlari.kokOzelDurumBilgisiSinifi();
                     ConstructorInfo ci = clazz.GetConstructor(new Type[] { typeof(EkYonetici), typeof(Alfabe) });
-                    ozelDurumBilgisi = (KokOzelDurumBilgisi)ci.Invoke(new object[] { ekYonetici, _alfabe });
+                    ozelDurumBilgisi = (KokOzelDurumBilgisi)ci.Invoke(new object[] { this.ekler(), this.alfabe() });
                 } catch (Exception e) {
                     logger.Fatal("kok ozel durum bilgi nesnesi uretilemiyor.");
                     e.StackTrace.ToString();

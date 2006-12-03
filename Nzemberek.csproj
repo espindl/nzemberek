@@ -109,6 +109,10 @@
     <Compile Include="islemler.cozumleme\HarfDizisiKiyaslayici.cs" />
     <Compile Include="javaporttemp\CharSequence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="tests\yapi.ek\BaseTestEkler.cs" />
+    <Compile Include="tests\yapi.ek\TestEkUreticiTr.cs" />
+    <Compile Include="tests\yapi.ek\TestFiilEkleri.cs" />
+    <Compile Include="tests\yapi.ozeldurum\TestOzelDurumlar.cs" />
     <Compile Include="tests\yapi\TestHarfDizisi.cs" />
     <Compile Include="tr\HarfDizisiUretici.cs" />
     <Compile Include="tr\islemler\SoruEkiIsleyici.cs" />
@@ -172,12 +176,39 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="kaynaklar\tr\bilgi\kokler_tr.bin" />
+    <None Include="kaynaklar\tr\bilgi\kok_istatistik_tr.bin" />
+    <None Include="kaynaklar\tr\test\zem_test.properties" />
     <None Include="nzemberek.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>nzemberek.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="kaynaklar\tr\bilgi\bilisim.txt" />
+    <Content Include="kaynaklar\tr\bilgi\duzyazi-kilavuz.txt" />
+    <Content Include="kaynaklar\tr\bilgi\ek_tr.xml" />
+    <Content Include="kaynaklar\tr\bilgi\harf_tr.txt" />
+    <Content Include="kaynaklar\tr\bilgi\kelime_cebi_tr.txt" />
+    <Content Include="kaynaklar\tr\bilgi\kisaltmalar.txt" />
+    <Content Include="kaynaklar\tr\bilgi\kisi-adlari.txt" />
+    <Content Include="kaynaklar\tr\bilgi\kodlama-donusum.txt" />
+    <Content Include="kaynaklar\tr\metinler\commodore.txt" />
+    <Content Include="kaynaklar\tr\test\agactest-1.txt" />
+    <Content Include="kaynaklar\tr\test\ek_olusum.txt" />
+    <Content Include="kaynaklar\tr\test\errortest.txt" />
+    <Content Include="kaynaklar\tr\test\hepsi-dogru.txt" />
+    <Content Include="kaynaklar\tr\test\hepsi-yanlis.txt" />
+    <Content Include="kaynaklar\tr\test\ozeldurum-hepsi-dogru.txt" />
+    <Content Include="kaynaklar\tr\test\ozeldurum-hepsi-yanlis.txt" />
+    <Content Include="kaynaklar\tr\test\ozeldurum-sozlugu.txt" />
+    <Content Include="kaynaklar\tr\test\test-sozluk.txt" />
+    <Content Include="kaynaklar\tr\test\test-sozluk2.txt" />
+    <Content Include="kaynaklar\tr\test\tokensentencetest.txt" />
+    <Content Include="kaynaklar\tr\test\tokentest.txt" />
+    <Content Include="kaynaklar\tr\test\toleransli-cozumleme-test.txt" />
+    <Content Include="kaynaklar\tr\test\tree_test_sozluk.txt" />
+    <Content Include="kaynaklar\tr\test\turkceHarfBuilder_.txt" />
     <Content Include="tests\bilgi\test_harf_tr.txt" />
     <Content Include="lib\Iesi.Collections.dll" />
     <Content Include="lib\Iesi.Collections.Generic.dll" />
@@ -192,4 +223,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
 </Project>

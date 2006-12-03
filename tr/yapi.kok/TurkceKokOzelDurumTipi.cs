@@ -146,7 +146,7 @@ namespace net.zemberek.tr.yapi.kok
         public readonly static TurkceKokOzelDurumTipi EK_OZEL_DURUMU = new TurkceKokOzelDurumTipi(16,"EK");
         public readonly static TurkceKokOzelDurumTipi FIIL_GECISSIZ = new TurkceKokOzelDurumTipi(17,"GEC");
         public readonly static TurkceKokOzelDurumTipi KAYNASTIRMA_N = new TurkceKokOzelDurumTipi(18,"KAYNASTIRMA_N");
-        public readonly static TurkceKokOzelDurumTipi KESMESIZ = new TurkceKokOzelDurumTipi(19,"TERS");
+        public readonly static TurkceKokOzelDurumTipi KESMESIZ = new TurkceKokOzelDurumTipi(19, "KESMESIZ");
         public readonly static TurkceKokOzelDurumTipi TIRE = new TurkceKokOzelDurumTipi(20,"TIRE");
         public readonly static TurkceKokOzelDurumTipi KESME = new TurkceKokOzelDurumTipi(21,"KESME");
         public readonly static TurkceKokOzelDurumTipi OZEL_IC_KARAKTER = new TurkceKokOzelDurumTipi(22,"OZEL_IC_KARAKTER");

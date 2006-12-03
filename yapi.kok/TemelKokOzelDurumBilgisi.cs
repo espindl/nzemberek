@@ -71,6 +71,7 @@ namespace net.zemberek.yapi.kok
             KokOzelDurumu ozelDurum = uretici.uret();
             ozelDurumlar.Add(ozelDurum.tip(), ozelDurum);
             ozelDurumDizisi[ozelDurum.indeks()] = ozelDurum;
+
             kisaAdOzelDurumlar.Add(ozelDurum.kisaAd(), ozelDurum);
         }
 

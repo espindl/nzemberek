@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
 using net.zemberek.yapi;
+using net.zemberek.tr.yapi;
 
 namespace net.zemberek.tests
 {
@@ -13,10 +14,10 @@ namespace net.zemberek.tests
         internal DilAyarlari dilAyarlari;
         internal Alfabe alfabe;
 
-        public void setUp() 
+        [SetUp]
+        public void once() 
         {
-            //TODO Bu satır açılacak ama belki de mock ile
-            //dilAyarlari = new TurkiyeTurkcesi();
+            dilAyarlari = new TurkiyeTurkcesi();
             dilBilgisi = new TurkceDilBilgisi(dilAyarlari);
             alfabe = dilBilgisi.alfabe();
         }

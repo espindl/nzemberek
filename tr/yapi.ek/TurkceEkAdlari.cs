@@ -142,8 +142,8 @@ namespace net.zemberek.tr.yapi.ek
         public readonly static String GENEL_HAL_E = "GENEL_HAL_E";
         public readonly static String GENEL_HAL_I = "GENEL_HAL_I";
         public readonly static String GENEL_HAL_TAMLAMA_I = "GENEL_HAL_TAMLAMA_I";
-        public readonly static String GENEL_HAL_DE = "IMEK_ONLAR_LER";
-        public readonly static String GENEL_HAL_DEN = "IMEK_ONLAR_LER";
+        public readonly static String GENEL_HAL_DE = "GENEL_HAL_DE";//Java tarafında isim uyuşmuyor, copy-paste hatası???
+        public readonly static String GENEL_HAL_DEN = "GENEL_HAL_DEN";//Java tarafında isim uyuşmuyor, copy-paste hatası???
 
         //!! bu ek normalde kullanilmaz. sadece ceviri gibi islemlerde gerekebilir.
         public readonly static String FIIL_SORU_MI = "FIIL_SORU_MI";

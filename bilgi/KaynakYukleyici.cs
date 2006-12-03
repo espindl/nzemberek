@@ -47,7 +47,7 @@ namespace net.zemberek.bilgi
      * Bu nedenleutf-8 icin BOM bilgisinin yer alip almadiginin denetlenmesi gerekiyor. asagidaki byte dizisi
      * UTF-8 icerisinde yer alan BOM bilgisini ifade ediyor.
      */
-    private static byte[] bomBytes = new byte[]{(byte) 0xef, (byte) 0xbb, (byte) 0xbf};
+        private static byte[] bomBytes = new byte[]{(byte) 0xef, (byte) 0xbb, (byte) 0xbf};
 
         public NameValueCollection konfigurasyonYukle(String s)
         {
@@ -83,7 +83,7 @@ namespace net.zemberek.bilgi
         }
 
 
-     /**
+        /**
      * properties formatina benzer yapidaki dosyayi kodlamali olarak okur.
      * Normal properties dosyalari ASCII
      * okundugundan turkce karakterlere uygun degil. Dosya icindeki satirlarin
@@ -160,6 +160,8 @@ namespace net.zemberek.bilgi
          */
         public Stream getStream(String kaynakAdi)
         {
+            FileStream stream = new FileStream(kaynakAdi, FileMode.Open);
+            return stream;
             //StreamReader stream = null;
             //try
             //{
@@ -176,7 +178,6 @@ namespace net.zemberek.bilgi
             //    log.info("Proje ici kaynak erisimi saglandi:" + kaynakAdi + " kodlama:" + encoding);
             //}
             //return stream;
-            return null;
         }
 
         ///**

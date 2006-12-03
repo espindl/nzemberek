@@ -70,9 +70,9 @@ namespace net.zemberek.yapi.ek
             // kok elemente ulas.
             XmlElement kokElement = document.DocumentElement;
 
-            ilkEkleriOlustur((XmlElement)kokElement.GetElementsByTagName("ekler")[0]);
-            ekKumeleriniOlustur((XmlElement)kokElement.GetElementsByTagName("ek-kumeleri")[0]);
-            ekleriOlustur((XmlElement)kokElement.GetElementsByTagName("ekler")[0]);
+            ilkEkleriOlustur((XmlElement)kokElement.SelectNodes("ekler")[0]);
+            ekKumeleriniOlustur((XmlElement)kokElement.SelectNodes("ek-kumeleri")[0]);
+            ekleriOlustur((XmlElement)kokElement.SelectNodes("ekler")[0]);
         }
 
         /**
@@ -83,7 +83,7 @@ namespace net.zemberek.yapi.ek
          */
         private void ilkEkleriOlustur(XmlElement eklerElement)
         {
-            XmlNodeList tumEkler = eklerElement.GetElementsByTagName("ek");// XmlYardimcisi.elemanlar(eklerElement, "ek");
+            XmlNodeList tumEkler = eklerElement.SelectNodes("ek");// XmlYardimcisi.elemanlar(eklerElement, "ek");
             // tum ekleri bos haliyle uret.
             foreach (XmlElement ekElement in tumEkler)
             {
@@ -101,15 +101,15 @@ namespace net.zemberek.yapi.ek
          */
         private void ekKumeleriniOlustur(XmlElement ekKumeleriElement)
         {
-            XmlNodeList xmlKumeler = ekKumeleriElement.GetElementsByTagName("ek-kumesi");
+            XmlNodeList xmlKumeler = ekKumeleriElement.SelectNodes("ek-kumesi");
             foreach (XmlElement ekKumeEl in xmlKumeler)
             {
                 String kumeAdi = ekKumeEl.GetAttribute("ad");
                 Set<Ek> kumeEkleri = new HashedSet<Ek>();
-                XmlNodeList xmlKumeEkleri = ekKumeEl.GetElementsByTagName("ek");
+                XmlNodeList xmlKumeEkleri = ekKumeEl.SelectNodes("ek");
                 foreach (XmlElement ekEl in xmlKumeEkleri)
                 {
-                    String ekAdi = ekEl.Name;//???:GetTextContext
+                    String ekAdi = ekEl.InnerText;//???:GetTextContext
                     Ek ek = this.ekler[ekAdi];
                     if (ek == null) exit("kume eki bulunamiyor!" + ekAdi);
                     kumeEkleri.Add(ek);
@@ -124,7 +124,7 @@ namespace net.zemberek.yapi.ek
          */
         private void ekleriOlustur(XmlElement eklerElement)
         {
-            XmlNodeList tumEkler = eklerElement.GetElementsByTagName("ek");
+            XmlNodeList tumEkler = eklerElement.SelectNodes("ek");
             foreach (XmlElement ekElement in tumEkler)
             {
                 String ekAdi = ekElement.GetAttribute("ad");
@@ -160,10 +160,10 @@ namespace net.zemberek.yapi.ek
          */
         private void ekOzellikleriBelirle(Ek ek, XmlElement ekElement)
         {
-            XmlNodeList ozellikler = ekElement.GetElementsByTagName("ozellik");
+            XmlNodeList ozellikler = ekElement.SelectNodes("ozellik");
             foreach (XmlElement element in ozellikler)
             {
-                String ozellik = element.Name.Trim();
+                String ozellik = element.InnerText.Trim();
                 if (ozellik.Equals("HAL"))
                     ek.setHalEki(true);
                 else if (ozellik.Equals("IYELIK"))
@@ -175,7 +175,7 @@ namespace net.zemberek.yapi.ek
         {
             List<EkOzelDurumu> ozelDurumlar = new List<EkOzelDurumu>();
             //xml ozel durumlarini al.
-            XmlNodeList ozelDurumlarXml = ekElement.GetElementsByTagName("ozel-durum");
+            XmlNodeList ozelDurumlarXml = ekElement.SelectNodes("ozel-durum");
             if (ozelDurumlarXml == null) return new List<EkOzelDurumu>();//??? : return Collections.EmptyList
 
             foreach (XmlElement element in ozelDurumlarXml)
@@ -190,13 +190,13 @@ namespace net.zemberek.yapi.ek
                     oz.setUretimBilesenleri(ekUretimKelimesiCozumle(uretimKurali.Value));
                 }
 
-                XmlNodeList oneklerElements = element.GetElementsByTagName("on-ek");
+                XmlNodeList oneklerElements = element.SelectNodes("on-ek");
                 if (oneklerElements != null)
                 {
                     Set<Ek> onekler = new HashedSet<Ek>();
                     foreach (XmlElement onekEl in oneklerElements)
                     {
-                        String onekAdi = onekEl.Name;
+                        String onekAdi = onekEl.InnerText;
                         onekler.Add(ekler[onekAdi]);
                     }
                     oz.setOnEkler(onekler);
@@ -222,14 +222,14 @@ namespace net.zemberek.yapi.ek
         {
 
             Set<Ek> ardisilEkSet = new HashedSet<Ek>();
-            XmlElement ardisilEklerEl = (XmlElement)ekElement.GetElementsByTagName("ardisil-ekler")[0];
+            XmlElement ardisilEklerEl = (XmlElement)ekElement.SelectNodes("ardisil-ekler")[0];
             if (ardisilEklerEl == null) return new List<Ek>();
 
             // tek ekleri ekle.
-            XmlNodeList tekArdisilEkler = ardisilEklerEl.GetElementsByTagName("aek");
+            XmlNodeList tekArdisilEkler = ardisilEklerEl.SelectNodes("aek");
             foreach (XmlElement element in tekArdisilEkler)
             {
-                String ekAdi = element.Name;
+                String ekAdi = element.InnerText;
                 Ek ek = this.ekler[ekAdi];
                 if (ek == null)
                     exit(anaEk.ad() + " icin ardisil ek bulunamiyor! " + ekAdi);
@@ -237,10 +237,10 @@ namespace net.zemberek.yapi.ek
             }
 
             // kume eklerini ekle.
-            XmlNodeList kumeEkler = ardisilEklerEl.GetElementsByTagName("kume");
+            XmlNodeList kumeEkler = ardisilEklerEl.SelectNodes("kume");
             foreach (XmlElement element in kumeEkler)
             {
-                String kumeAdi = element.Name;
+                String kumeAdi = element.InnerText;
                 Set<Ek> kumeEkleri = ekKumeleri[kumeAdi];
                 if (kumeEkleri == null)
                     exit("kume bulunamiyor..." + kumeAdi);
@@ -262,13 +262,13 @@ namespace net.zemberek.yapi.ek
 
             //varsa oncelikli ekleri oku ve ardisil ekler listesinin ilk basina koy.
             // bu tamamen performans ile iliskili bir islemdir.
-            XmlElement oncelikliEklerEl = (XmlElement)ekElement.GetElementsByTagName("oncelikli-ekler")[0];
+            XmlElement oncelikliEklerEl = (XmlElement)ekElement.SelectNodes("oncelikli-ekler")[0];
             if (oncelikliEklerEl != null)
             {
-                XmlNodeList oncelikliEkler = oncelikliEklerEl.GetElementsByTagName("oek");
+                XmlNodeList oncelikliEkler = oncelikliEklerEl.SelectNodes("oek");
                 foreach (XmlElement element in oncelikliEkler)
                 {
-                    String ekAdi = element.Name;
+                    String ekAdi = element.InnerText;
                     Ek ek = this.ekler[ekAdi];
                     if (ek == null) exit(anaEk.ad() + " icin oncelikli ek bulunamiyor! " + ekAdi);
                     if (ardisilEkSet.Contains(ek))
@@ -365,8 +365,6 @@ namespace net.zemberek.yapi.ek
         class EkKuralCozumleyici : IEnumerable<EkUretimBileseni>
         {
             private readonly String uretimKelimesi;
-            private int pointer;
-            private EkUretimBileseni current;
             private XmlEkOkuyucu _okuyucu;
 
             public EkKuralCozumleyici(String uretimKelimesi, XmlEkOkuyucu okuyucu)
@@ -396,6 +394,8 @@ namespace net.zemberek.yapi.ek
 
             class BilesenIterator : IEnumerator<EkUretimBileseni>
             {
+                private int pointer=-1;
+                private EkUretimBileseni current;
                 EkKuralCozumleyici _enumerable;
 
                 public BilesenIterator(EkKuralCozumleyici enumerable)
@@ -410,7 +410,7 @@ namespace net.zemberek.yapi.ek
 
                     get
                     {
-                        return _enumerable.current;
+                        return current;
                     }
                 }
 
@@ -420,7 +420,7 @@ namespace net.zemberek.yapi.ek
 
                 public void Dispose()
                 {
-                    throw new Exception("The method or operation is not implemented.");
+                    //TODO : Dispose için yapmak gereken biþey var mý?
                 }
 
                 #endregion
@@ -429,37 +429,37 @@ namespace net.zemberek.yapi.ek
 
                 object System.Collections.IEnumerator.Current
                 {
-                    get { return _enumerable.current; }
+                    get { return current; }
                 }
 
                 public bool MoveNext()
                 {
-                    _enumerable.pointer++;
-                    if (_enumerable.uretimKelimesi == null || _enumerable.pointer >= _enumerable.uretimKelimesi.Length)
+                    pointer++;
+                    if (_enumerable.uretimKelimesi == null || pointer >= _enumerable.uretimKelimesi.Length)
                     {
-                        _enumerable.current = null;
+                        current = null;
                         return false;
                     }
                     else
                     {
-                        char p = _enumerable.uretimKelimesi[_enumerable.pointer++];
+                        char p = _enumerable.uretimKelimesi[pointer];
                         //ardisil harf ile iliskili kuralmi
                         if (_enumerable._okuyucu.harfKurallari.Contains(p))
                         {
-                            if (_enumerable.pointer == _enumerable.uretimKelimesi.Length)
+                            if (pointer == _enumerable.uretimKelimesi.Length)
                                 throw new ArgumentException(p + " kuralindan sonra normal harf bekleniyordu!");
-                            char h = _enumerable.uretimKelimesi[_enumerable.pointer++];
+                            char h = _enumerable.uretimKelimesi[pointer++];
                             if (_enumerable._okuyucu.sesliKurallari.Contains(h))
                                 throw new ArgumentException(p + " kuralindan sonra sesli uretim kurali gelemez:" + h);
-                            _enumerable.current = new EkUretimBileseni(kuralTablosu[p], _enumerable._okuyucu.alfabe.harf(h));
+                            current = new EkUretimBileseni(kuralTablosu[p], _enumerable._okuyucu.alfabe.harf(h));
                         }
                         else if (_enumerable._okuyucu.sesliKurallari.Contains(p))
                         {
-                            _enumerable.current = new EkUretimBileseni(kuralTablosu[p], Alfabe.TANIMSIZ_HARF);
+                            current = new EkUretimBileseni(kuralTablosu[p], Alfabe.TANIMSIZ_HARF);
                         }
                         else if (_enumerable._okuyucu.alfabe.harf(p) != null && Char.IsLower(p))
                         {
-                            _enumerable.current = new EkUretimBileseni(UretimKurali.HARF, _enumerable._okuyucu.alfabe.harf(p));
+                            current = new EkUretimBileseni(UretimKurali.HARF, _enumerable._okuyucu.alfabe.harf(p));
                         }
                         else
                         {
@@ -471,7 +471,7 @@ namespace net.zemberek.yapi.ek
 
                 public void Reset()
                 {
-                    _enumerable.pointer = -1;
+                    pointer = -1;
                     this.MoveNext();
                 }
 
