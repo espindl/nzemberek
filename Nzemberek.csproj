@@ -79,7 +79,13 @@
     <Compile Include="bilgi\KaynakYukleyici.cs" />
     <Compile Include="bilgi.kokler\Sozluk.cs" />
     <Compile Include="bilgi\ZemberekAyarlari.cs" />
+    <Compile Include="islemler.cozumleme\AsciiToleransliHDKiyaslayici.cs" />
+    <Compile Include="islemler.cozumleme\BasitKelimeYigini.cs" />
     <Compile Include="islemler.cozumleme\CozumlemeYardimcisi.cs" />
+    <Compile Include="islemler.cozumleme\KelimeCozumleyici.cs" />
+    <Compile Include="islemler.cozumleme\KesinHDKiyaslayici.cs" />
+    <Compile Include="islemler.cozumleme\OneriUretici.cs" />
+    <Compile Include="islemler.cozumleme\ToleransliCozumleyici.cs" />
     <Compile Include="islemler\AsciiDonusturucu.cs" />
     <Compile Include="islemler\BasitDenetlemeCebi.cs" />
     <Compile Include="islemler\DenetlemeCebi.cs" />

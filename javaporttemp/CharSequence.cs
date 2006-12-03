@@ -14,6 +14,8 @@ namespace net.zemberek.javaporttemp
     {
         public static readonly List<object> EMPTY_LIST = new List<object>();
         public static readonly Set<Ek> EMPTY_SET = new HashedSet<Ek>();// (System.Collections.IList)System.Collections.ArrayList.ReadOnly(new System.Collections.ArrayList());
+        public static readonly Set<String> EMPTY_SET_STRING = new HashedSet<String>();
+        public static readonly Kelime[] BOS_KELIME_DIZISI = new Kelime[0];
     }
     /// <summary>
     /// imported from java.lang.CharSequence
