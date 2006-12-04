@@ -446,9 +446,10 @@ namespace net.zemberek.yapi.ek
                         //ardisil harf ile iliskili kuralmi
                         if (_enumerable._okuyucu.harfKurallari.Contains(p))
                         {
+                            pointer++;
                             if (pointer == _enumerable.uretimKelimesi.Length)
                                 throw new ArgumentException(p + " kuralindan sonra normal harf bekleniyordu!");
-                            char h = _enumerable.uretimKelimesi[pointer++];
+                            char h = _enumerable.uretimKelimesi[pointer];
                             if (_enumerable._okuyucu.sesliKurallari.Contains(h))
                                 throw new ArgumentException(p + " kuralindan sonra sesli uretim kurali gelemez:" + h);
                             current = new EkUretimBileseni(kuralTablosu[p], _enumerable._okuyucu.alfabe.harf(h));
