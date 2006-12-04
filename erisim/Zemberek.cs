@@ -56,7 +56,7 @@ namespace net.zemberek.erisim
      */
     public static ZemberekAyarlari ayarOlustur(String disKonfigurasyon)
     {
-        return new ZemberekAyarlari(new KaynakYukleyici().konfigurasyonYukle(disKonfigurasyon));
+        return new ZemberekAyarlari();
     }
 
     private void initialize() {

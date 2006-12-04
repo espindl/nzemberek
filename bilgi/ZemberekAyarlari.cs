@@ -4,6 +4,9 @@ using System.Text;
 using System.IO;
 using log4net;
 using System.Collections.Specialized;
+using System.Configuration;
+
+
 namespace net.zemberek.bilgi
 {
     public class ZemberekAyarlari
@@ -33,12 +36,15 @@ namespace net.zemberek.bilgi
      * @param dilKisaAdi kisa ad (tr,az vs)
      */
     public ZemberekAyarlari(String dilKisaAdi) {
-        try {
-            konfigurasyon = new KaynakYukleyici().konfigurasyonYukle("zemberek_" + dilKisaAdi + ".properties");
-        } catch (System.IO.IOException e) {
-            logger.Warn("Konfigurasyon dosyasina erisilemiyor! varsayilan degerler kullanilacak");
+        try 
+        {
+            //konfigurasyon = new KaynakYukleyici().konfigurasyonYukle("zemberek_" + dilKisaAdi + ".properties");
+            konfigurasyonOku();
+        } 
+        catch (System.IO.IOException e) 
+        {
+            logger.Warn("Konfigurasyon kayıtlarına erisilemiyor! varsayilan degerler kullanilacak");
         }
-        konfigurasyonOku(konfigurasyon);
     }
 
 
@@ -47,50 +53,53 @@ namespace net.zemberek.bilgi
      *
      * @param ayarlar
      */
-    public ZemberekAyarlari(NameValueCollection ayarlar) {
-        this.konfigurasyon = ayarlar;
-        konfigurasyonOku(ayarlar);
+    public ZemberekAyarlari() {
+        konfigurasyonOku();
     }
 
-    private void konfigurasyonOku(NameValueCollection ayarlar) {
-        try {
-            _oneriDeasciifierKullan = boolOku(ayarlar, "oneri.deasciifierKullan");
-            _oneriKokFrekansKullan = boolOku(ayarlar, "oneri.kokFrekansKullan");
-            _oneriBilesikKelimeKullan = boolOku(ayarlar, "oneri.bilesikKelimeKullan");
-            oneriMax = Int32.Parse(ayarlar.Get("oneri.max"));
-            _disKaynakErisimi = boolOku(ayarlar, "bilgi.disKaynakErisimi");
-            _cepKullan = boolOku(ayarlar, "denetleme.cepKullan");
-            _kayitSeviyesi = ayarlar.Get("genel.kayitSeviyesi");
+    private void konfigurasyonOku() 
+    {
+        try 
+        {
+            _oneriDeasciifierKullan = boolOku("oneri.deasciifierKullan");
+            _oneriKokFrekansKullan = boolOku("oneri.kokFrekansKullan");
+            _oneriBilesikKelimeKullan = boolOku("oneri.bilesikKelimeKullan");
+            oneriMax = Int32.Parse(ConfigurationManager.AppSettings["oneri.max"]);
+            _disKaynakErisimi = boolOku("bilgi.disKaynakErisimi");
+            _cepKullan = boolOku("denetleme.cepKullan");
+            _kayitSeviyesi = ConfigurationManager.AppSettings["genel.kayitSeviyesi"];
             //TODO sadece commentledim
             //Kayitci.genelKayitSeviyesiAyarla(_kayitSeviyesi);
-            if (_disKaynakErisimi) {
-                //TODO gerekebilir : if(Directory.Exists(ayarlar.Get("bilgi.dizin")))
+            if (_disKaynakErisimi) 
+            {
+                //TODO gerekebilir : if(Directory.Exists(ConfigurationManager.AppSettings["bilgi.dizin")))
                 // ve buralar gözden gecemeli
-                string dizin = ayarlar.Get("bilgi.dizin");
+                string dizin = ConfigurationManager.AppSettings["bilgi.dizin"];
                 bilgiDizini = new Uri(dizin);
-                bilgiEk = new Uri(dizin+"/"+ayarlar.Get("bilgi.ekler"));
+                bilgiEk = new Uri(dizin+"/"+ConfigurationManager.AppSettings["bilgi.ekler"]);
                 File.OpenRead(bilgiEk.ToString());
-                bilgiKokler = new Uri(dizin + "/" + ayarlar.Get("bilgi.kokler"));
+                bilgiKokler = new Uri(dizin + "/" + ConfigurationManager.AppSettings["bilgi.kokler"]);
                 File.OpenRead(bilgiKokler.ToString());
-                bilgiAlfabe = new Uri(dizin + "/" + ayarlar.Get("bilgi.harf"));
+                bilgiAlfabe = new Uri(dizin + "/" + ConfigurationManager.AppSettings["bilgi.harf"]);
                 File.OpenRead(bilgiAlfabe.ToString());
-                bilgiCep = new Uri(dizin + "/" + ayarlar.Get("bilgi.harf"));
+                bilgiCep = new Uri(dizin + "/" + ConfigurationManager.AppSettings["bilgi.harf"]);
                 File.OpenRead(bilgiCep.ToString());
             }
-        } catch (FormatException e) {
+        } 
+        catch (FormatException e) 
+        {
             logger.Error("property erisim hatasi!! Muhtemel tip donusum problemi.. varsayilan parametreler kullanilacak ");
-                   } catch (Exception e) {
+        } 
+        catch (Exception e) {
             logger.Error("property erisim hatasi!! propety yer almiyor, ya da adi yanlis yazilmis olabilir. varsayilan konfigurasyon kullanilacak.");
         }
     }
 
-    private bool boolOku(NameValueCollection ayarlar, String anahtar) {
-        return bool.Parse(ayarlar.Get(anahtar));
+    private bool boolOku(String anahtar)
+    {
+        return bool.Parse(ConfigurationManager.AppSettings[anahtar]);
     }
 
-    public NameValueCollection getKonfigurasyon() {
-        return konfigurasyon;
-    }
 
     public bool oneriDeasciifierKullan() {
         return _oneriDeasciifierKullan;

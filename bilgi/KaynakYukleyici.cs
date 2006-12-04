@@ -49,11 +49,6 @@ namespace net.zemberek.bilgi
      */
         private static byte[] bomBytes = new byte[]{(byte) 0xef, (byte) 0xbb, (byte) 0xbf};
 
-        public NameValueCollection konfigurasyonYukle(String s)
-        {
-            NameValueCollection appSettings = ConfigurationManager.AppSettings;
-            return appSettings;
-        }
 
         /**
          * eger encoding UTF-8 ise dosyanin icerisinde BOM bilgisinin olup olmadigina bakar.
