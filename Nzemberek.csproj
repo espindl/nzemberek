@@ -79,6 +79,7 @@
     <Compile Include="bilgi\KaynakYukleyici.cs" />
     <Compile Include="bilgi.kokler\Sozluk.cs" />
     <Compile Include="bilgi\ZemberekAyarlari.cs" />
+    <Compile Include="erisim\Zemberek.cs" />
     <Compile Include="islemler.cozumleme\AsciiToleransliHDKiyaslayici.cs" />
     <Compile Include="islemler.cozumleme\BasitKelimeYigini.cs" />
     <Compile Include="islemler.cozumleme\CozumlemeYardimcisi.cs" />
@@ -103,6 +104,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>nzemberek.settings</DependentUpon>
     </Compile>
+    <Compile Include="tests\kullanim\RastgeleKelimeUretici.cs" />
+    <Compile Include="tests\kullanim\TestAscii.cs" />
     <Compile Include="tests\TemelTest.cs" />
     <Compile Include="tests\yapi.alfabe\TestAlfabe.cs" />
     <Compile Include="tests\bilgi\TestKaynakYukleyici.cs" />
