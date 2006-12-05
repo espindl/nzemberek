@@ -30,76 +30,82 @@ namespace net.zemberek.bilgi.araclar
     public class DuzYaziKokOkuyucu : KokOkuyucu
     {
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);		
-    private Alfabe alfabe;
-    private KokOzelDurumBilgisi ozelDurumlar;
-    protected StreamReader reader;
-    //private static Pattern AYIRICI_PATTERN = Pattern.compile("[ ]+");
-        private Regex AYIRICI_PATTERN = new Regex("[ ]+");
+        private Alfabe alfabe;
+        private KokOzelDurumBilgisi ozelDurumlar;
+        protected StreamReader reader;
+        //private static Pattern AYIRICI_PATTERN = Pattern.compile("[ ]+");
+        private char[] AYIRICI_PATTERN = new char[] { ' ' };
         private IDictionary<String, KelimeTipi> _kokTipAdlari = new Dictionary<String,KelimeTipi>();
 
-    // Eger farkli turk dillerine ait kok dosyalarinda farkli turden tip adlari 
-    // kullanildiysa bu isimleri KelimeITplerine esleyen bir Map olusturulup bu
-    // constructor kullanilabilir. Map icin ornek diger constructor icerisinde 
-    // yer almaktadir.
-    public DuzYaziKokOkuyucu(String dosyaAdi,
-                             KokOzelDurumBilgisi ozelDurumlar,
-                             Alfabe alfabe,
-                             IDictionary<String, KelimeTipi> kokTipAdlari)  {
-        reader = new KaynakYukleyici("UTF-8"). getReader(dosyaAdi);
-        this.ozelDurumlar = ozelDurumlar;
-        this.alfabe = alfabe;
-        this._kokTipAdlari = kokTipAdlari;
-    }
-
-    public List<Kok> hepsiniOku()  {
-        List<Kok> list = new List<Kok>();
-        Kok kok;
-        while ((kok = oku()) != null) {
-            list.Add(kok);
+        // Eger farkli turk dillerine ait kok dosyalarinda farkli turden tip adlari 
+        // kullanildiysa bu isimleri KelimeITplerine esleyen bir Map olusturulup bu
+        // constructor kullanilabilir. Map icin ornek diger constructor icerisinde 
+        // yer almaktadir.
+        public DuzYaziKokOkuyucu(String dosyaAdi,
+                                 KokOzelDurumBilgisi ozelDurumlar,
+                                 Alfabe alfabe,
+                                 IDictionary<String, KelimeTipi> kokTipAdlari)  {
+            reader = new KaynakYukleyici("UTF-8"). getReader(dosyaAdi);
+            this.ozelDurumlar = ozelDurumlar;
+            this.alfabe = alfabe;
+            this._kokTipAdlari = kokTipAdlari;
         }
-        if(reader!=null)
-            reader.Close();
-        return list;
-    }
 
-    public Kok oku() {
-        String line;
-        while (!reader.EndOfStream ) {
-            line = reader.ReadLine().Trim();
-            if (line.StartsWith("#") || line.Length == 0) 
-                continue;
-
-            String[] tokens = AYIRICI_PATTERN.Split(line, -1);
-            if (tokens == null || tokens.Length < 2) {
-                logger.Warn("Eksik bilgi!" + line);
-                continue;
+        public List<Kok> hepsiniOku()  {
+            List<Kok> list = new List<Kok>();
+            Kok kok;
+            while ((kok = oku()) != null) {
+                list.Add(kok);
             }
-            String icerik = tokens[0];
-            Kok kok = new Kok(icerik);
-
-            // ayikla() ile kok icerigi kucuk harfe donusturuluyor ve '- vs 
-            // isaretler siliniyor.
-            kok.Icerik = alfabe.ayikla(kok.icerik());
-
-            // kelime tipini belirle. ilk parca mutlaka kok tipini belirler
-            if (_kokTipAdlari.ContainsKey(tokens[1])) {
-                KelimeTipi tip = (KelimeTipi) _kokTipAdlari[tokens[1]];
-                kok.Tip = tip;
-                ozelDurumlar.kokIcerikIsle(kok, tip, icerik);
-
-            } else
-                logger.Warn("Kok tipi bulunamadi!" + line);
-
-            // kok ozelliklerini ekle.
-            ozelDurumlar.duzyaziOzelDurumOku(kok, icerik, tokens);
-
-            // bazi ozel durumlar ana dosyada yer almaz, algoritma ile uretilir.
-            // bu ozel durumlari koke ekle.
-            ozelDurumlar.ozelDurumBelirle(kok);
-
-            return kok;
+            if(reader!=null)
+                reader.Close();
+            return list;
         }
-        return null;
-    }
+
+        public Kok oku() {
+            String line;
+            while (!reader.EndOfStream ) {
+                line = reader.ReadLine().Trim();
+                if (line.StartsWith("#") || line.Length == 0) 
+                    continue;
+
+                String[] tokens = line.Split(AYIRICI_PATTERN);
+                if (tokens == null || tokens.Length < 2) {
+                    logger.Warn("Eksik bilgi!" + line);
+                    continue;
+                }
+                String icerik = tokens[0];
+                Kok kok = new Kok(icerik);
+
+                // ayikla() ile kok icerigi kucuk harfe donusturuluyor ve '- vs 
+                // isaretler siliniyor.
+                kok.Icerik = alfabe.ayikla(kok.icerik());
+
+                // kelime tipini belirle. ilk parca mutlaka kok tipini belirler
+                if (_kokTipAdlari.ContainsKey(tokens[1])) {
+                    KelimeTipi tip = (KelimeTipi) _kokTipAdlari[tokens[1]];
+                    kok.Tip = tip;
+                    ozelDurumlar.kokIcerikIsle(kok, tip, icerik);
+
+                } else
+                    logger.Warn("Kok tipi bulunamadi!" + line);
+
+                // kok ozelliklerini ekle.
+                ozelDurumlar.duzyaziOzelDurumOku(kok, icerik, tokens);
+
+                // bazi ozel durumlar ana dosyada yer almaz, algoritma ile uretilir.
+                // bu ozel durumlari koke ekle.
+                ozelDurumlar.ozelDurumBelirle(kok);
+
+                return kok;
+            }
+            return null;
+        }
+
+        public void Kapat()
+        {
+            reader.Close();
+            reader.Dispose();
+        }
     }
 }

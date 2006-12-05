@@ -27,7 +27,7 @@ namespace net.zemberek.bilgi.araclar
     }
 
     /**
-     * SÃ¶zlÃ¼kteki TÃ¼m kÃ¶kleri okur ve bir ArrayList olarak dÃ¶ndÃ¼rÃ¼r.
+     * Sözlükteki Tüm kökleri okur ve bir ArrayList olarak döndürür.
      */
     public List<Kok> hepsiniOku() {
         List<Kok> list = new List<Kok>();
@@ -40,9 +40,9 @@ namespace net.zemberek.bilgi.araclar
     }
 
     /**
-     * Ä°kili (Binary) sÃ¶zlÃ¼kten bir kÃ¶k okur. Ã§aÄŸrÄ±ldÄ±kÃ§a bir sonraki kÃ¶kÃ¼ alÄ±r.
+     * İkili (Binary) sözlükten bir kök okur. çağrıldıkça bir sonraki kökü alır.
      *
-     * @return bir sonraki kÃ¶k. EÄŸer okunacak kÃ¶k kalmamÄ±ÅŸsa null
+     * @return bir sonraki kök. Eğer okunacak kök kalmamışsa null
      */
     public Kok oku() {
         //TODO MERT
@@ -65,7 +65,7 @@ namespace net.zemberek.bilgi.araclar
 
         //kok.KisaltmaSonSeslisi=dis.readChar();
 
-        //// Ã–zel durum sayÄ±sÄ±nÄ± (1 byte) ve ozel durumlari oku.
+        //// Ã–zel durum sayısını (1 byte) ve ozel durumlari oku.
         //int ozelDurumSayisi = dis.Read();
         //for (int i = 0; i < ozelDurumSayisi; i++) {
         //    int ozelDurum = dis.Read();

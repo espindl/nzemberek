@@ -326,7 +326,10 @@ namespace net.zemberek.bilgi.kokler
                 }
                 else
                 {
-                    return tumDugumler[giris];
+                    //TODO : Burada KEyNotFound hatasý imkansýz mýdýr? (@tankut)
+                    if (tumDugumler.ContainsKey(giris))
+                        return tumDugumler[giris];
+                    return null;
                 }
             }
 

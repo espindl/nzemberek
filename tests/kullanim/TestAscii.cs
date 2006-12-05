@@ -13,12 +13,32 @@ namespace net.zemberek.tests.kullanim
     [TestFixture]
     public class TestAscii
     {
+        //TEST VERILERI
+        private static string[] AsciiyeDonusturGirdiler = new string[] {"þebek", "þaþýrtmýþ", "düðümsüzlükmüþ"};
+        private static string[] AsciiyeDonusturBeklenenler = new string[] {"sebek", "sasirtmis", "dugumsuzlukmus"};
+
+
         private static Zemberek zemberek;
 
         [SetUp]
         public void Setup()
         {
             zemberek = new Zemberek(new TurkiyeTurkcesi());
+        }
+
+        //TODO : Bu model ile test yazmak daha kolay ama raporlamasý kötü, bununla ilgili karar vermek lazým.
+        [Test]
+        public void testAsciiYap()
+        {
+            int i=0;
+            int gecentest = 0;
+            foreach (string girdi in AsciiyeDonusturGirdiler)
+            {
+                string actual = zemberek.asciiyeDonustur(girdi);
+                if (AsciiyeDonusturBeklenenler[i++] == actual)
+                    gecentest++;
+            }
+            Assert.AreEqual(AsciiyeDonusturBeklenenler.Length, gecentest);
         }
 
         [Test]

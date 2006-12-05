@@ -106,6 +106,7 @@
     </Compile>
     <Compile Include="tests\kullanim\RastgeleKelimeUretici.cs" />
     <Compile Include="tests\kullanim\TestAscii.cs" />
+    <Compile Include="tests\kullanim\TestCozumle.cs" />
     <Compile Include="tests\TemelTest.cs" />
     <Compile Include="tests\yapi.alfabe\TestAlfabe.cs" />
     <Compile Include="tests\bilgi\TestKaynakYukleyici.cs" />
@@ -178,7 +179,9 @@
     <Compile Include="yapi\TurkceHarf.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="kaynaklar\tr\bilgi\kokler_tr.bin" />
     <None Include="kaynaklar\tr\bilgi\kok_istatistik_tr.bin" />
     <None Include="kaynaklar\tr\test\zem_test.properties" />
@@ -227,7 +230,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>COPY $(ProjectDir)kaynaklar\tr\bilgi\duzyazi-kilavuz.txt  $(ProjectDir)$(OutDir)kaynaklar\tr\bilgi\duzyazi-kilavuz_tr.txt</PostBuildEvent>
   </PropertyGroup>
 </Project>

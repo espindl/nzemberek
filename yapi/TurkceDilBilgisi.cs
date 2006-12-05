@@ -59,7 +59,7 @@ namespace net.zemberek.yapi
             bilgiDizini = "kaynaklar" + c + dilAyarlari.locale().IetfLanguageTag + c + "bilgi" + c;
             alfabeDosyaAdi = dosyaAdiUret("harf", "txt");
             ekDosyaAdi = dosyaAdiUret("ek", "xml");
-            kokDosyaAdi = dosyaAdiUret("kokler", "bin");
+            kokDosyaAdi = dosyaAdiUret("duzyazi-kilavuz", "txt");
             cepDosyaAdi = dosyaAdiUret("kelime_cebi", "txt");
             kokIstatistikDosyaAdi = dosyaAdiUret("kok_istatistik", "bin");
         }
@@ -147,11 +147,16 @@ namespace net.zemberek.yapi
                 }
                 kokOzelDurumlari();
                 logger.Info("Ikili okuyucu uretiliyor:");
-                try {
-                    KokOkuyucu okuyucu = new IkiliKokOkuyucu(kokDosyaAdi, ozelDurumBilgisi);
+                try
+                {
+                    //                    KokOkuyucu okuyucu = new IkiliKokOkuyucu(kokDosyaAdi, ozelDurumBilgisi);
+                    DuzYaziKokOkuyucu okuyucu = new DuzYaziKokOkuyucu(kokDosyaAdi, ozelDurumBilgisi, alfabe(), KelimeTipleriUtil.KelimeTipleri);
                     logger.Info("Sozluk ve agac uretiliyor:" + dilAdi);
                     sozluk = new AgacSozluk(okuyucu, _alfabe, ozelDurumBilgisi);
-                } catch (IOException e) {
+                    okuyucu.Kapat();
+                }
+                catch (IOException e)
+                {
                     System.Console.Write(e.StackTrace.ToString());
                     logger.Error("sozluk uretilemiyor.");
                 }
