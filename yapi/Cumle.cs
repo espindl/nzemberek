@@ -18,7 +18,7 @@ namespace net.zemberek.yapi
             return kelimeler;
         }
 
-        public String toString() 
+        public override String ToString() 
         {
             String str = "";
             foreach (Kelime kelime in kelimeler) 

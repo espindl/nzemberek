@@ -9,22 +9,7 @@ using Iesi.Collections;
 
 using net.zemberek.javaporttemp;
 
-//TODO : Çok fazla deðiþiklik oldu bu sýnýfa çok test yazmalýyýz. (@tankut)
 
-
-/*
-import net.zemberek.araclar.Kayitci;
-import net.zemberek.araclar.XmlYardimcisi;
-import net.zemberek.yapi.Alfabe;
-import net.zemberek.yapi.TurkceHarf;
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
-import java.io.IOException;
-import java.util.*;
-import java.util.logging.Logger;
-*/
 
 namespace net.zemberek.yapi.ek
 {
@@ -292,7 +277,7 @@ namespace net.zemberek.yapi.ek
         private void exit(String mesaj)
         {
             logger.Fatal("Ek dosyasi okuma sorunu:" + mesaj);
-            //TODO : Exit app with code 1
+            Environment.Exit(1);
         }
 
 

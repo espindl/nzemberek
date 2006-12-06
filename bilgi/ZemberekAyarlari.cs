@@ -42,7 +42,7 @@ namespace net.zemberek.bilgi
             } 
             catch (System.IO.IOException e) 
             {
-                logger.Warn("Konfigurasyon kayıtlarına erisilemiyor! varsayilan degerler kullanilacak");
+                logger.Warn("Konfigurasyon kayıtlarına erisilemiyor! varsayilan degerler kullanilacak. Hata : "+e.Message);
             }
         }
 
@@ -66,7 +66,7 @@ namespace net.zemberek.bilgi
                 oneriMax = Int32.Parse(ConfigurationManager.AppSettings["oneri.max"]);
                 _disKaynakErisimi = boolOku("bilgi.disKaynakErisimi");
                 _cepKullan = boolOku("denetleme.cepKullan");
-                //TODO sadece commentledim
+                //TODO loglama seviyeleri log4netin configi ile yapılacak (@tankut)
                 //Kayitci.genelKayitSeviyesiAyarla(_kayitSeviyesi);
                 if (_disKaynakErisimi) 
                 {

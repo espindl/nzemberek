@@ -140,8 +140,7 @@ namespace net.zemberek.yapi
                     try {
                         ikiliKokDosyasiUret();
                     } catch (System.IO.IOException e) {
-                        System.Console.Write(e.StackTrace.ToString());
-                        logger.Fatal("kok bilgilerine erisim saglanamadigindan uygulama calismaya devam edemez.");
+                        logger.Fatal("kok bilgilerine erisim saglanamadigindan uygulama calismaya devam edemez. Hata : "+e.Message);
                         Environment.Exit(-1);
                     }
                 }
@@ -157,8 +156,7 @@ namespace net.zemberek.yapi
                 }
                 catch (IOException e)
                 {
-                    System.Console.Write(e.StackTrace.ToString());
-                    logger.Error("sozluk uretilemiyor.");
+                    logger.Error("sozluk uretilemiyor. Hata : "+e.Message);
                 }
             }
             return sozluk;
@@ -192,8 +190,9 @@ namespace net.zemberek.yapi
             } else {
                 try {
                     _cep = new BasitDenetlemeCebi(cepDosyaAdi);
-                } catch (IOException e) {
-                    logger.Warn("cep dosyasina (" + cepDosyaAdi + ") erisilemiyor. sistem cep kullanmayacak.");
+                } catch (IOException e) 
+                {
+                    logger.Warn("cep dosyasina (" + cepDosyaAdi + ") erisilemiyor. sistem cep kullanmayacak. Hata : "+e.Message);
                     _cep = null;
                 }
             }
@@ -210,7 +209,7 @@ namespace net.zemberek.yapi
                     ConstructorInfo ci = clazz.GetConstructor(new Type[] { typeof(Alfabe) });
                     heceleyici = (HeceBulucu)ci.Invoke(new object[] { _alfabe });
                 } catch (Exception e) {
-                    logger.Warn("heceleyici nesnesi uretilemiyor. heceleme islemi basarisiz olacak.");
+                    logger.Warn("heceleyici nesnesi uretilemiyor. heceleme islemi basarisiz olacak.Hata : "+e.Message);
                 }
             }
             return heceleyici;

@@ -137,10 +137,10 @@ public class TestFiilEkleri : BaseTestEkler
         kok.setOzelDurumlar(new HashSet(1));
         kok.ozelDurumlar().add(OzelDurumlar.GENIS_ZAMAN);
         ek.ekOlustur(new Kelime(kok));
-        assertEquals(ek.icerik().toString(), "er");
+        assertEquals(ek.icerik().ToString(), "er");
         Kok kok2 = new Kok("gel", KelimeTipi.FIIL);
         ek.ekOlustur(new Kelime(kok2));
-        assertEquals(ek.icerik().toString(), "ir");*/
+        assertEquals(ek.icerik().ToString(), "ir");*/
     }
 
     [Test]
@@ -230,13 +230,13 @@ public class TestFiilEkleri : BaseTestEkler
         olumsuz.ekOlustur(new Kelime(kok));
         kelime.ekEkle(olumsuz);
         ek.ekOlustur(kelime);
-        assertEquals(ek.icerik().toString(), "m");
+        assertEquals(ek.icerik().ToString(), "m");
         Kok kok2 = new Kok("okur");
         ek.ekOlustur(new Kelime(kok2));
-        assertEquals(ek.icerik().toString(), "um");
+        assertEquals(ek.icerik().ToString(), "um");
         Kok kok3 = new Kok("gele");
         ek.ekOlustur(new Kelime(kok3));
-        assertEquals(ek.icerik().toString(), "yim");
+        assertEquals(ek.icerik().ToString(), "yim");
     }
 
     public void testFiilSahisBiz() {
@@ -247,19 +247,19 @@ public class TestFiilEkleri : BaseTestEkler
         olumsuz.ekOlustur(kelime);
         kelime.ekEkle(olumsuz);
         ek.ekOlustur(kelime);
-        assertEquals(ek.icerik().toString(), "k");
+        assertEquals(ek.icerik().ToString(), "k");
         Ek istek = TurkceEkYonetici.FIIL_ISTEK;
         Kelime kelime2 = new Kelime(kok);
         istek.ekOlustur(kelime2);
         kelime2.ekEkle(istek);
         ek.ekOlustur(kelime2);
-        assertEquals(ek.icerik().toString(), "l\u0131m");
+        assertEquals(ek.icerik().ToString(), "l\u0131m");
         Kok kok2 = new Kok("okur");
         ek.ekOlustur(new Kelime(kok2));
-        assertEquals(ek.icerik().toString(), "uz");
+        assertEquals(ek.icerik().ToString(), "uz");
         Kok kok3 = new Kok("gelme");
         ek.ekOlustur(new Kelime(kok3));
-        assertEquals(ek.icerik().toString(), "yiz");
+        assertEquals(ek.icerik().ToString(), "yiz");
     }
 
     public void testFiilSahisO() {
@@ -270,7 +270,7 @@ public class TestFiilEkleri : BaseTestEkler
         olumsuz.ekOlustur(new Kelime(kok));
         kelime.ekEkle(olumsuz);
         ek.ekOlustur(kelime);
-        assertEquals(ek.icerik().toString(), "z");
+        assertEquals(ek.icerik().ToString(), "z");
         Kok kok2 = new Kok("okur");
         assertTrue(ek.ekOlustur(new Kelime(kok2)) == false);
         assertTrue(ek.ilkHarfUygunmu(TurkceAlfabe.HARF_z));
@@ -284,10 +284,10 @@ public class TestFiilEkleri : BaseTestEkler
         olumsuz.ekOlustur(new Kelime(kok));
         kelime.ekEkle(olumsuz);
         ek.ekOlustur(kelime);
-        assertEquals(ek.icerik().toString(), "zlar");
+        assertEquals(ek.icerik().ToString(), "zlar");
         Kok kok2 = new Kok("okur");
         ek.ekOlustur(new Kelime(kok2));
-        assertEquals(ek.icerik().toString(), "lar");
+        assertEquals(ek.icerik().ToString(), "lar");
         assertTrue(ek.ilkHarfUygunmu(TurkceAlfabe.HARF_z) && ek.ilkHarfUygunmu(TurkceAlfabe.HARF_l));
     }
 
@@ -299,16 +299,16 @@ public class TestFiilEkleri : BaseTestEkler
         olumsuz.ekOlustur(kelime);
         kelime.ekEkle(olumsuz);
         ek.ekOlustur(kelime);
-        assertEquals(ek.icerik().toString(), "n");
+        assertEquals(ek.icerik().ToString(), "n");
         Ek istek = TurkceEkYonetici.FIIL_OLUMSUZLUK;
         Kelime kelime2 = new Kelime(new Kok("oku"));
         istek.ekOlustur(kelime2);
         kelime2.ekEkle(istek);
         ek.ekOlustur(kelime2);
-        assertEquals(ek.icerik().toString(), "zs\u0131n");
+        assertEquals(ek.icerik().ToString(), "zs\u0131n");
         Kok kok2 = new Kok("okur");
         ek.ekOlustur(new Kelime(kok2));
-        assertEquals(ek.icerik().toString(), "sun");
+        assertEquals(ek.icerik().ToString(), "sun");
     }
 
     public void testFiilSahisSiz() {
@@ -319,23 +319,23 @@ public class TestFiilEkleri : BaseTestEkler
         olumsuz.ekOlustur(kelime);
         kelime.ekEkle(olumsuz);
         ek.ekOlustur(kelime);
-        assertEquals(ek.icerik().toString(), "n\u0131z");
+        assertEquals(ek.icerik().ToString(), "n\u0131z");
         Ek istek = TurkceEkYonetici.FIIL_OLUMSUZLUK;
         Kelime kelime2 = new Kelime(new Kok("oku"));
         istek.ekOlustur(kelime2);
         kelime2.ekEkle(istek);
         ek.ekOlustur(kelime2);
-        assertEquals(ek.icerik().toString(), "zs\u0131n\u0131z");
+        assertEquals(ek.icerik().ToString(), "zs\u0131n\u0131z");
         Kok kok2 = new Kok("okur");
         ek.ekOlustur(new Kelime(kok2));
-        assertEquals(ek.icerik().toString(), "sunuz");
+        assertEquals(ek.icerik().ToString(), "sunuz");
     }
 
     public void testFiilSart() {
         Ek ek = TurkceEkYonetici.FIIL_SART;
         Kok kok2 = new Kok("okur");
         ek.ekOlustur(new Kelime(kok2));
-        assertEquals(ek.icerik().toString(), "sa");
+        assertEquals(ek.icerik().ToString(), "sa");
         assertTrue(ek.ilkHarfUygunmu(TurkceAlfabe.HARF_s));
     }
 

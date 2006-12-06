@@ -177,7 +177,7 @@ namespace net.zemberek.erisim
      * @param giris giris kelimesi
      * @return Kelime sinifi cinsinden dizi. Eger dizinin boyu 0 ise kelime cozumlenemedi demektir.
      *         Kelime kokune erisim icin kok(), eklere erisim icin Ek cinsinden nesne listesi donduren
-     *         ekler() metodu kullanilir.  Kelimenin String cinsinden ifadesi icin icerik().toString()
+     *         ekler() metodu kullanilir.  Kelimenin String cinsinden ifadesi icin icerik().ToString()
      *         metodu kullanilabilir.
      * @see net.zemberek.yapi.Kelime
      */

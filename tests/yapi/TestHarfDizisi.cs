@@ -69,7 +69,7 @@ namespace net.zemberek.tests.yapi
             try
             {
                 dizi.ekle(20, ek);
-                TestCase.Fail("Exception olmai gerekirdi");
+                Assert.Fail("Exception olmai gerekirdi");
                 dizi.ekle(-1, ek);
             }
             catch (IndexOutOfRangeException expected)
@@ -94,7 +94,7 @@ namespace net.zemberek.tests.yapi
             {
                 dizi.harfSil(20, 1);
                 dizi.harfSil(-1, 2);
-                TestCase.Fail("Exception olmasi gerekirdi");
+                Assert.Fail("Exception olmasi gerekirdi");
             }
             catch (IndexOutOfRangeException expected)
             {
@@ -174,7 +174,7 @@ namespace net.zemberek.tests.yapi
         }
 
         [Test]
-        public void testtoStringIndex()
+        public void testToStringIndex()
         {
             HarfDizisi dizi = new HarfDizisi("merhaba", alfabe);
             Assert.AreEqual(dizi.ToString(4), "aba");

@@ -108,7 +108,7 @@ namespace net.zemberek.araclar
                 this.y = y;
             }
 
-            public String toString()
+            public override String ToString()
             {
                 return "(" + x + "," + y + ") " + c;
             }

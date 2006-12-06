@@ -253,7 +253,7 @@ namespace net.zemberek.bilgi.kokler
             return str;
         }
 
-        public String toString()
+        public override String ToString()
         {
             StringBuilder buf = new StringBuilder();
             buf.Append("harf:").Append(harf);

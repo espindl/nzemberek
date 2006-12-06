@@ -267,9 +267,9 @@ namespace net.zemberek.bilgi.kokler
             return null;
         }
 
-        public String toString()
+        public override String ToString()
         {
-            return baslangicDugumu.toString();
+            return baslangicDugumu.ToString();
         }
 
     }

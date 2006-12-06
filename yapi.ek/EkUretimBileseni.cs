@@ -25,11 +25,13 @@ namespace net.zemberek.yapi.ek
         return _harf;
     }
 
-    public String toString() {
+        public override String ToString()
+        {
         return "kural=" + _kural + ", harf=" + (_harf == null ? "" : "" + _harf.charDeger());
     }
 
-    public bool equals(Object o) {
+        public override bool Equals(Object o)
+        {
         if (this == o) return true;
         if (o == null || GetType() != o.GetType()) return false;
 
@@ -41,7 +43,7 @@ namespace net.zemberek.yapi.ek
         return true;
     }
 
-    public int hashCode() {
+    public override int GetHashCode() {
         int result;
         result = (_kural != UretimKurali.YOK ? _kural.GetHashCode() : 0);
         result = 29 * result + (_harf != null ? _harf.GetHashCode() : 0);

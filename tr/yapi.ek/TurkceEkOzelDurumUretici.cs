@@ -4,7 +4,7 @@ using System.Text;
 using log4net;
 using net.zemberek.yapi;
 using net.zemberek.yapi.ek;
-using net.zemberek.yapi.ek;
+
 
 namespace net.zemberek.tr.yapi.ek
 {
@@ -54,7 +54,7 @@ namespace net.zemberek.tr.yapi.ek
         internal TurkceEkOzelDurumTipi(int index, string ad) : base(index, ad)
         {}
 
-        public static EkOzelDurumTipi[] AllValues;
+        public static new EkOzelDurumTipi[] AllValues;
 
         static TurkceEkOzelDurumTipi()
         {

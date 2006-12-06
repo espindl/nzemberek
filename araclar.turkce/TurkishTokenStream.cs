@@ -4,6 +4,8 @@ using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using net.zemberek.istatistik;
+using log4net;
+
 
 namespace net.zemberek.araclar.turkce
 {
@@ -19,8 +21,7 @@ namespace net.zemberek.araclar.turkce
      */
     public class TurkishTokenStream
     {
-        //TODO : IO mapping issue
-        //BufferedReader bis = null;
+        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         StreamReader bis = null;
         Istatistikler statistics = null;
         char[] buffer = new char[1000];
@@ -39,7 +40,7 @@ namespace net.zemberek.araclar.turkce
                 setupReader(fis, encoding);
             } catch (FileNotFoundException e)
             {
-                System.Console.WriteLine(e.StackTrace) ;
+                logger.Error(e.StackTrace);
             }
         }
 
@@ -68,7 +69,7 @@ namespace net.zemberek.araclar.turkce
                 }
                 catch (Exception e)
                 {
-                    System.Console.WriteLine(e.StackTrace) ;
+                    logger.Error(e.StackTrace);
                 }
             }
         }
@@ -96,7 +97,6 @@ namespace net.zemberek.araclar.turkce
                     if (statistics != null) {
                         statistics.processChar(ch);
                     }
-                    //System.Console.WriteLine("Char: "+ ch);
                     if (ch == '-') {
                         hypen = true;
                         continue;
@@ -117,7 +117,7 @@ namespace net.zemberek.araclar.turkce
                         if (kelimeIndex < MAX_KELIME_BOY)
                             kelimeBuffer[kelimeIndex++] = ch;
                         else
-                            System.Console.WriteLine("Lagim tasti " + ch);
+                            logger.Warn("Lagim tasti " + ch);
                         continue;
                     }
 
@@ -148,8 +148,9 @@ namespace net.zemberek.araclar.turkce
                 if (kelimeBasladi) {
                     return new String(kelimeBuffer, 0, kelimeIndex);
                 }
-            } catch (IOException e) {
-                System.Console.WriteLine(e.StackTrace);
+            } catch (IOException e) 
+            {
+                logger.Error(e.StackTrace);
             }
             return null;
         }
@@ -172,7 +173,6 @@ namespace net.zemberek.araclar.turkce
                 while ((readChar = bis.Read()) != -1) {
                     ch = (char) readChar;
 
-                    //System.Console.WriteLine("Char: "+ ch);
                     if (Char.IsLetter(ch)) {
                         cumleBasladi = true;
                         switch (ch) {
@@ -187,7 +187,7 @@ namespace net.zemberek.araclar.turkce
                         if (cumleIndex < MAX_CUMLE_BOY)
                             cumleBuffer[cumleIndex++] = ch;
                         else
-                            System.Console.WriteLine("Lagim tasti " + ch);
+                            logger.Warn("Lagim tasti " + ch);
                         continue;
                     }
 
@@ -201,8 +201,9 @@ namespace net.zemberek.araclar.turkce
 
                     if (cumleIndex < MAX_CUMLE_BOY)
                         cumleBuffer[cumleIndex++] = ch;
-                    else {
-                        System.Console.WriteLine("Lagim tasti " + ch);
+                    else 
+                    {
+                        logger.Error("Lagim tasti " + ch);
                         return null;
                     }
 
@@ -212,8 +213,9 @@ namespace net.zemberek.araclar.turkce
                 if (cumleBasladi) {
                     return new String(kelimeBuffer, 0, cumleIndex);
                 }
-            } catch (IOException e) {
-                System.Console.WriteLine(e.StackTrace) ;
+            } catch (IOException e) 
+            {
+                logger.Error(e.StackTrace);
             }
             return null;
         }

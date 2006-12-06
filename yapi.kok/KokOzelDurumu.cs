@@ -223,7 +223,7 @@ namespace net.zemberek.yapi.kok
          * @param o
          * @return ayni ise true.
          */
-        public bool equals(Object o) {
+        public override bool Equals(Object o) {
         if (this == o) return true;
         if (o == null || GetType() != o.GetType()) return false;
 
@@ -239,7 +239,7 @@ namespace net.zemberek.yapi.kok
          *
          * @return hash code.
          */
-        public int hashCode()
+        public override int GetHashCode()
         {
             return _tip.Ad.GetHashCode() * _tip.Index;
         }

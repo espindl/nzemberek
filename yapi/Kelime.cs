@@ -116,7 +116,7 @@ namespace net.zemberek.yapi
             return _kok;
         }
 
-        public String ToString() {
+        public override String ToString() {
             StringBuilder ekStr = new StringBuilder();
             foreach (Ek ek in _ekler) {
                 ekStr.Append(ek.ad()).Append(" + ");

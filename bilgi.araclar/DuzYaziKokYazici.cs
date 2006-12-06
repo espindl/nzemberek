@@ -8,12 +8,9 @@ using System.Collections.Generic;
 using System.Text;
 using net.zemberek.yapi;
 using net.zemberek.yapi.kok;
+using log4net;
 
-/*
-import java.io.*;
-import java.util.Iterator;
-import java.util.List;
-*/
+
 
 namespace net.zemberek.bilgi.araclar
 {
@@ -23,6 +20,7 @@ namespace net.zemberek.bilgi.araclar
      */
     public class DuzYaziKokYazici : KokYazici
     {
+        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         StreamWriter writer;
 
         public DuzYaziKokYazici(String dosyaAdi)
@@ -52,7 +50,7 @@ namespace net.zemberek.bilgi.araclar
         private String getDuzMetinSozlukForm(Kok kok)
         {
 
-        //icerik olarak iceriign varsa asil halini yoksa normal kok icerigini al.
+        //icerik olarak icerigin varsa asil halini yoksa normal kok icerigini al.
         String icerik = kok.icerik();
         if (kok.asil() != null)
             icerik = kok.asil();
@@ -60,8 +58,9 @@ namespace net.zemberek.bilgi.araclar
         StringBuilder res = new StringBuilder(icerik);
         res.Append(" ");
         // Tipi ekleyelim.
-        if (kok.tip() == null) {
-            System.Console.WriteLine("tipsiz kok:" + kok);
+        if (kok.tip() == KelimeTipi.YOK) 
+        {
+            logger.Warn("tipsiz kok:" + kok);
             return res.ToString();
         }
 

@@ -71,7 +71,6 @@ namespace net.zemberek.tests.kullanim
         {
             string[] actual = zemberek.asciidenTurkceye("dugumsuzlukmus");
             string expected = "düðümsüzlükmüþ";
-            Assert.AreEqual(expected, actual);
             Assert.AreEqual(1, actual.Length);
             Assert.AreEqual(expected, actual[0]);
         }
@@ -81,7 +80,6 @@ namespace net.zemberek.tests.kullanim
         {
             string[] actual = zemberek.asciidenTurkceye("sasirtmis");
             string expected = "þaþýrtmýþ";
-            Assert.AreEqual(expected, actual);
             Assert.AreEqual(1, actual.Length);
             Assert.AreEqual(expected, actual[0]);
         }
@@ -91,7 +89,6 @@ namespace net.zemberek.tests.kullanim
         {
             string[] actual = zemberek.asciidenTurkceye("sebek");
             string expected = "þebek";
-            Assert.AreEqual(expected, actual);
             Assert.AreEqual(1, actual.Length);
             Assert.AreEqual(expected, actual[0]);
         }

@@ -49,9 +49,9 @@ namespace net.zemberek.islemler.cozumleme
                 return ekSirasi;
             }
 
-            public String toString() {
+            public override String ToString() {
                 return " olusan: " + kelime.icerikStr()
-                        + " sonEk: " + kelime.sonEk().toString()
+                        + " sonEk: " + kelime.sonEk().ToString()
                         + " ekSira: " + ekSirasi;
             }
         }

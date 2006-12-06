@@ -107,9 +107,7 @@ namespace net.zemberek.yapi
     public String ayikla(String giris) {
         StringBuilder buf = new StringBuilder(giris.Length);
         for (int i = 0; i < giris.Length; i++) {
-            //TODO giris.CharAt
-            char[] girisC = giris.ToCharArray();
-            if (girisC[i] >= TURKISH_CHAR_MAP_SIZE)
+            if (giris[i] >= TURKISH_CHAR_MAP_SIZE)
                 continue;
             char temiz = temizlemeDizisi[giris[i]];
             if (temiz != ALFABE_DISI_KARAKTER)
@@ -119,10 +117,11 @@ namespace net.zemberek.yapi
     }
 
     public bool cozumlemeyeUygunMu(String giris) {
-        //TODO giris.charat vardı
-        char[] girisC = giris.ToCharArray();
         for (int i = 0; i < giris.Length; i++)
-            if (!turkceMap[girisC[i]] || girisC[i] > TURKISH_CHAR_MAP_SIZE) return false;
+        {
+            if (!turkceMap[giris[i]] || giris[i] > TURKISH_CHAR_MAP_SIZE)
+            { return false; }
+        }
         return true;
     }
 
@@ -368,9 +367,8 @@ namespace net.zemberek.yapi
                 logger.Warn(tum + "ayristirilirken harf cifti  bekleniyordu. " + s + " uygun degil.");
             if (cift[0].Length != 1 || cift[1].Length != 1)
                 logger.Warn(tum + "ayristirilirken tek harf bekleniyordu. " + charStrDizi + " uygun degil");
-            //TODO cift[0].charat ardi
-            char h1 = cift[0].ToCharArray()[0];
-            char h2 = cift[1].ToCharArray()[0];
+            char h1 = cift[0][0];
+            char h2 = cift[1][0];
             ciftler.Add(new HarfCifti(h1, h2));
         }
         return ciftler;

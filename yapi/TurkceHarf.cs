@@ -49,7 +49,7 @@ namespace net.zemberek.yapi
                 this.buyukHarf = true;
         }
 
-        public String toString()
+        public override String ToString()
         {
             return "harf:" + _charDeger;
         }

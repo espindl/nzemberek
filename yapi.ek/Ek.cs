@@ -107,18 +107,18 @@ namespace net.zemberek.yapi.ek
             return _ardisilEkler.Contains(ek);
         }
 
-        public bool equals(Object o) {
-        if (this == o) return true;
-            //TODO gettype lar getclassdı
-        if (o == null || GetType() != o.GetType()) return false;
+        public override bool Equals(Object o) 
+        {
+            if (this == o) return true;
+            if (o == null || this.GetType() != o.GetType()) return false;
 
-        Ek ek = (Ek) o;
+            Ek ek = (Ek) o;
 
-        return !(_ad != null ? !_ad.Equals(ek._ad) : ek._ad != null);
+            return !(_ad != null ? !_ad.Equals(ek._ad) : ek._ad != null);
 
-    }
+        }
 
-        public int hashCode()
+        public override int GetHashCode()
         {
             return (_ad != null ? _ad.GetHashCode() : 0);
         }
@@ -128,7 +128,7 @@ namespace net.zemberek.yapi.ek
             return sesliIleBaslayabilir;
         }
 
-        public String toString()
+        public override String ToString()
         {
             return _ad;
         }

@@ -104,7 +104,7 @@ namespace net.zemberek.tr.yapi.kok
                 Console.Write("kok = " + kok);
                 Environment.Exit(-1);
             }
-            if (!_ozelDurum.equals(ozelDurum(TurkceKokOzelDurumTipi.KUCULTME)))
+            if (!_ozelDurum.Equals(ozelDurum(TurkceKokOzelDurumTipi.KUCULTME)))
                 _ozelDurum.uygula(hdizi);
             if (_ozelDurum.yapiBozucumu())
                 yapiBozucuOzelDurumvar = true;

@@ -2,11 +2,14 @@ using System;
 using System.Collections;
 using System.Text;
 using net.zemberek.istatistik;
+using log4net;
+
 
 namespace net.zemberek.araclar.turkce
 {
     public class TurkceMetinOkuyucu
     {
+        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);		
         private Istatistikler istatistikler = null;
 
         public String[] MetinOku(String path) {
@@ -21,8 +24,8 @@ namespace net.zemberek.araclar.turkce
             if (str == null) break;
             list.Add(str);
         }
-        //TODO : Niye konsola yazýyor, loglasa daha iyi olur... (@tankut)
-        System.Console.WriteLine(" Metin kelime sayisi: " + list.Count);
+        if (logger.IsInfoEnabled)
+            logger.Info(" Metin kelime sayisi : " + list.Count);
         kelimeler = new String[list.Count];
         for (int i = 0; i < list.Count; i++)
         {

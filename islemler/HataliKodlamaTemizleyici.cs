@@ -68,14 +68,15 @@ namespace net.zemberek.islemler
          * @return unicode karsilik.
          */
         private String toNative(String str) {
-            bool end = false;
             StringBuilder yeni = new StringBuilder();
-            while (true) {
+            while (true) 
+            {
                 if (str.StartsWith("\\u")) {
                     char c = (char) int.Parse(str.Substring(2, 6),System.Globalization.NumberStyles.AllowHexSpecifier);
                     yeni.Append(c);
                     str = str.Substring(6);
-                } else {
+                } else 
+                {
                     if (str.Length == 0)
                         break;
                     yeni.Append(str[0]);

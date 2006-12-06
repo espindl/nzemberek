@@ -13,12 +13,18 @@ namespace net.zemberek.islemler
         public BasitDenetlemeCebi(String dosyaAdi) 
         {
             StreamReader rd = new KaynakYukleyici("UTF-8").getReader(dosyaAdi);
-            //TODO cep = new HashedSet<String>(2500);
-            cep = new HashedSet<String>();
-            while (!rd.EndOfStream) {
-                ekle(rd.ReadLine());
+            try
+            {
+                cep = new HashedSet<String>();
+                while (!rd.EndOfStream)
+                {
+                    ekle(rd.ReadLine());
+                }
             }
-            rd.Close();
+            finally
+            {
+                rd.Close();
+            }
         }
 
         public bool kontrol(String str) 
@@ -26,16 +32,20 @@ namespace net.zemberek.islemler
             return cep.Contains(str);
         }
 
-        //TODO synchronized
-        public  void ekle(String s) 
+        public void ekle(String s) 
         {
-            cep.Add(s);
+            lock (this)
+            {
+                cep.Add(s);
+            }
         }
         
-        //TODO synchronized
-        public  void sil(String s) 
+        public void sil(String s) 
         {
-            cep.Remove(s);
+            lock (this)
+            {
+                cep.Remove(s);
+            }
         }
     }
 }

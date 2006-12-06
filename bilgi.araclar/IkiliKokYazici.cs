@@ -19,17 +19,17 @@ namespace net.zemberek.bilgi.araclar
     public void yaz(List<Kok> kokler) {
 
         foreach (Kok kok in kokler) {
-            // KÃ¶k iÃ§erigi
+            // Kök içerigi
             dos.Write(kok.icerik());
 
             // asil icerik ozel karakterler barindiran koklerde olur. yoksa bos string yaz.
             if (kok.asil() != null) {
-                // KÃ¶k asil iÃ§erigi
+                // Kök asil içerigi
                 dos.Write(kok.asil());
             } else
                 dos.Write("");
 
-            // KÃ¶k tipi
+            // Kök tipi
             dos.Write(kok.tip().ToString());
 
             dos.Write(kok.KisaltmaSonSeslisi);
