@@ -54,7 +54,7 @@ namespace net.zemberek.yapi
 
             this.dilAyarlari = dilAyarlari;
             this.dilAdi=dilAyarlari.ad();
-            char c = '/';//File.separatorChar; TODO genellestir
+            char c = '\\';//File.separatorChar; TODO genellestir
             //TODO MERT buradaki Ietlanguagetag > yerinde  getLanguage() vardı
             bilgiDizini = "kaynaklar" + c + dilAyarlari.locale().IetfLanguageTag + c + "bilgi" + c;
             alfabeDosyaAdi = dosyaAdiUret("harf", "txt");

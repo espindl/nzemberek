@@ -124,7 +124,8 @@ namespace net.zemberek.bilgi
          */
         public bool kaynakMevcutmu(String kaynakAdi)
         {
-            if (File.Exists(kaynakAdi) )//|| this.GetType().getResource("/" + kaynakAdi) != null)
+            string dosyaAdresi = string.Format(@"{0}\{1}",System.Windows.Forms.Application.StartupPath,kaynakAdi);
+            if (File.Exists(dosyaAdresi) )//|| this.GetType().getResource("/" + kaynakAdi) != null)
                 return true;
             else
             return false;

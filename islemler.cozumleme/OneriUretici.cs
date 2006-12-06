@@ -64,7 +64,7 @@ namespace net.zemberek.islemler.cozumleme
         if (ayarlar.oneriBilesikKelimeKullan()) {
             for (int i = 1; i < kelime.Length; i++) {
                 String s1 = kelime.Substring(0, i);
-                String s2 = kelime.Substring(i, kelime.Length);
+                String s2 = kelime.Substring(i, kelime.Length-i);
                 if (cozumleyici.denetle(s1) && cozumleyici.denetle(s2)) {
 
                     Set<String> set1 = new HashedSet<String>();

@@ -99,11 +99,6 @@
     <Compile Include="islemler\TurkceYaziTesti.cs" />
     <Compile Include="istatistik\BinaryIstatistikOkuyucu.cs" />
     <Compile Include="istatistik\Istatistikler.cs" />
-    <Compile Include="nzemberek.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>nzemberek.settings</DependentUpon>
-    </Compile>
     <Compile Include="tests\kullanim\RastgeleKelimeUretici.cs" />
     <Compile Include="tests\kullanim\TestAscii.cs" />
     <Compile Include="tests\kullanim\TestCozumle.cs" />
@@ -113,11 +108,16 @@
     <Compile Include="islemler.cozumleme\HarfDizisiKiyaslayici.cs" />
     <Compile Include="javaporttemp\CharSequence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="tests\yapi.alfabe\TestTurkceHarf.cs" />
     <Compile Include="tests\yapi.ek\BaseTestEkler.cs" />
     <Compile Include="tests\yapi.ek\TestEkUreticiTr.cs" />
     <Compile Include="tests\yapi.ek\TestFiilEkleri.cs" />
+    <Compile Include="tests\yapi.ek\TestIsimEkleri.cs" />
+    <Compile Include="tests\yapi.ek\TestSayiEkleri.cs" />
     <Compile Include="tests\yapi.ozeldurum\TestOzelDurumlar.cs" />
     <Compile Include="tests\yapi\TestHarfDizisi.cs" />
+    <Compile Include="tests\yapi\TestHeceBulur.cs" />
+    <Compile Include="tests\yapi\TestKok.cs" />
     <Compile Include="tr\HarfDizisiUretici.cs" />
     <Compile Include="tr\islemler\SoruEkiIsleyici.cs" />
     <Compile Include="tr\islemler\TurkceCozumlemeYardimcisi.cs" />
@@ -185,10 +185,6 @@
     <None Include="kaynaklar\tr\bilgi\kokler_tr.bin" />
     <None Include="kaynaklar\tr\bilgi\kok_istatistik_tr.bin" />
     <None Include="kaynaklar\tr\test\zem_test.properties" />
-    <None Include="nzemberek.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>nzemberek.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="kaynaklar\tr\bilgi\bilisim.txt" />
@@ -220,6 +216,9 @@
     <Content Include="lib\Iesi.Collections.Generic.dll" />
     <Content Include="lib\log4net.dll" />
     <Content Include="lib\nunit.framework.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="tests\islemler.cozumleme\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
