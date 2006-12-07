@@ -37,21 +37,24 @@ namespace net.zemberek.bilgi.araclar
         private char[] AYIRICI_PATTERN = new char[] { ' ' };
         private IDictionary<String, KelimeTipi> _kokTipAdlari = new Dictionary<String,KelimeTipi>();
 
+        string dosyaAdi = string.Empty;
+
+
         // Eger farkli turk dillerine ait kok dosyalarinda farkli turden tip adlari 
         // kullanildiysa bu isimleri KelimeITplerine esleyen bir Map olusturulup bu
         // constructor kullanilabilir. Map icin ornek diger constructor icerisinde 
         // yer almaktadir.
-        public DuzYaziKokOkuyucu(String dosyaAdi,
-                                 KokOzelDurumBilgisi ozelDurumlar,
-                                 Alfabe alfabe,
-                                 IDictionary<String, KelimeTipi> kokTipAdlari)  {
-            reader = new KaynakYukleyici("UTF-8"). getReader(dosyaAdi);
+        public DuzYaziKokOkuyucu(String pDosyaAdi, KokOzelDurumBilgisi ozelDurumlar, Alfabe alfabe, IDictionary<String, KelimeTipi> kokTipAdlari)
+        {
+            dosyaAdi = pDosyaAdi;
             this.ozelDurumlar = ozelDurumlar;
             this.alfabe = alfabe;
             this._kokTipAdlari = kokTipAdlari;
         }
 
-        public List<Kok> hepsiniOku()  {
+
+        public List<Kok> hepsiniOku()
+        {
             List<Kok> list = new List<Kok>();
             Kok kok;
             while ((kok = oku()) != null) {
@@ -64,7 +67,8 @@ namespace net.zemberek.bilgi.araclar
 
         public Kok oku() {
             String line;
-            while (!reader.EndOfStream ) {
+            while (!reader.EndOfStream ) 
+            {
                 line = reader.ReadLine().Trim();
                 if (line.StartsWith("#") || line.Length == 0) 
                     continue;
@@ -99,13 +103,36 @@ namespace net.zemberek.bilgi.araclar
 
                 return kok;
             }
+            this.Kapat();
             return null;
         }
 
         public void Kapat()
         {
             reader.Close();
-            reader.Dispose();
+            reader=null;
+        }
+
+        public void Ac()
+        {
+            //Reader açıksa hata
+            if (reader != null)
+            {
+                throw new ApplicationException("Kök dosyası zaten açık! : " + dosyaAdi);
+            }
+            //Dosya yoksa hata
+            if (!File.Exists(dosyaAdi))
+            {
+                throw new ApplicationException("Kök dosyası yok! : " + dosyaAdi);
+            }
+            reader = new KaynakYukleyici("UTF-8").getReader(dosyaAdi);
+            //Dosya boşsa hata 
+            if (reader.EndOfStream)
+            {
+                reader.Close();
+                reader = null;
+                throw new ApplicationException("Kök dosyası boş! : " + dosyaAdi);
+            }
         }
     }
 }

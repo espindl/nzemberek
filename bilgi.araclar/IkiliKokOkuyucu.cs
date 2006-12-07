@@ -10,74 +10,122 @@ namespace net.zemberek.bilgi.araclar
 {
     public class IkiliKokOkuyucu : KokOkuyucu
     {
-        //TODO MERT java classından bakarak buraları duzelt
         private  Stream dis;
         private KokOzelDurumBilgisi ozelDurumlar;
 
-    public IkiliKokOkuyucu(Stream ist, KokOzelDurumBilgisi ozelDurumlar) {
-        dis = new BufferedStream(ist);
-        this.ozelDurumlar = ozelDurumlar;
-    }
 
-    public IkiliKokOkuyucu(String dosyaAdi, KokOzelDurumBilgisi ozelDurumlar) {
-        //TODO MERT
-        //Stream fis = new KaynakYukleyici("UTF-8").getStream(dosyaAdi);
-        //dis = new BufferedStream(fis);
-        //this.ozelDurumlar = ozelDurumlar;
-    }
-
-    /**
-     * Sözlükteki Tüm kökleri okur ve bir ArrayList olarak döndürür.
-     */
-    public List<Kok> hepsiniOku() {
-        List<Kok> list = new List<Kok>();
-        Kok kok;
-        while ((kok = oku()) != null) {
-            list.Add(kok);
+        public IkiliKokOkuyucu(String pDosyaAdi, KokOzelDurumBilgisi ozelDurumlar) 
+        {
+            dosyaAdi = pDosyaAdi;
+            this.ozelDurumlar = ozelDurumlar;
         }
-        dis.Close();
-        return list;
-    }
 
-    /**
-     * İkili (Binary) sözlükten bir kök okur. çağrıldıkça bir sonraki kökü alır.
-     *
-     * @return bir sonraki kök. Eğer okunacak kök kalmamışsa null
-     */
-    public Kok oku() {
-        //TODO MERT
-        //String icerik;
-        ////kok icerigini oku. eger dosya sonuna gelinmisse (EOFException) null dondur.
-        //try {
-        //    icerik = dis.readUTF();
-        //} catch (EndOfStreamException e) {
-        //    dis.Close();
-        //    return null;
-        //}
-        //String asil = dis.readUTF();
+        public List<Kok> hepsiniOku() {
+            List<Kok> list = new List<Kok>();
+            Kok kok;
+            while ((kok = oku()) != null) {
+                list.Add(kok);
+            }
+            dis.Close();
+            return list;
+        }
 
-        //// Tip bilgisini oku (1 byte)
-        //KelimeTipi tip = KelimeTipi.Tip(dis.Read());
-        //Kok kok = new Kok(icerik, tip);
+        /**
+         * İkili (Binary) sözlükten bir kök okur. çağrıldıkça bir sonraki kökü alır.
+         *
+         * @return bir sonraki kök. Eğer okunacak kök kalmamışsa null
+         */
+        public Kok oku() 
+        {
+            String icerik=string.Empty;
+            //kok icerigini oku. eger dosya sonuna gelinmisse (EndOfStreamException) null dondur.
+            try
+            {
+                icerik = binReader.ReadString();
+            }
+            catch (EndOfStreamException e)
+            {
+                this.Kapat();
+                return null;
+            }
 
-        //if (asil.Length != 0)
-        //    kok.Asil =asil;
+            String asil = binReader.ReadString();
 
-        //kok.KisaltmaSonSeslisi=dis.readChar();
+            // Tip bilgisini oku (1 byte)
+            string tipstr = binReader.ReadByte().ToString();
+            KelimeTipi tip = (KelimeTipi)Enum.Parse(typeof(KelimeTipi), tipstr);
+            Kok kok = new Kok(icerik, tip);
 
-        //// Ã–zel durum sayısını (1 byte) ve ozel durumlari oku.
-        //int ozelDurumSayisi = dis.Read();
-        //for (int i = 0; i < ozelDurumSayisi; i++) {
-        //    int ozelDurum = dis.Read();
-        //    KokOzelDurumu oz = ozelDurumlar.ozelDurum(ozelDurum);
-        //    kok.ozelDurumEkle(oz);
-        //}
-        //int frekans = dis.Read();
-        //if (frekans != 0) {
-        //    kok.Frekans = frekans ;
-        //}
-        //return kok;
-        return null;
-    }
+            if (asil.Length != 0)
+                kok.Asil = asil;
+
+            kok.KisaltmaSonSeslisi = binReader.ReadChar();
+
+            // Özel durum sayısını (1 byte) ve ozel durumlari oku.
+            int ozelDurumSayisi = binReader.ReadByte();
+            for (int i = 0; i < ozelDurumSayisi; i++)
+            {
+                int ozelDurum = binReader.ReadByte();
+                KokOzelDurumu oz = ozelDurumlar.ozelDurum(ozelDurum);
+                kok.ozelDurumEkle(oz);
+            }
+            int frekans = binReader.ReadByte();
+            if (frekans != 0)
+            {
+                kok.Frekans = frekans;
+            }
+            return kok;
+        }
+
+        
+        BinaryReader binReader = null;
+        string dosyaAdi = string.Empty;
+
+
+        public void Ac()
+        {
+            //Reader açıksa hata
+            if (binReader != null)
+            {
+                throw new ApplicationException("Kök dosyası zaten açık! : " + dosyaAdi);
+            }
+            //Dosya yoksa hata
+            if (!File.Exists(dosyaAdi))
+            {
+                throw new ApplicationException("Kök dosyası yok! : " + dosyaAdi);
+            }
+            binReader = new BinaryReader(File.Open(dosyaAdi, FileMode.Open),Encoding.UTF8);
+            //Dosya boşsa hata 
+            if (binReader.PeekChar() == -1)
+            {
+                binReader.Close();
+                binReader = null;
+                throw new ApplicationException("Kök dosyası boş! : " + dosyaAdi);
+            }
+        }
+        
+
+        public void Kapat()
+        {
+            try
+            {
+                binReader.Close();
+            }
+            finally
+            {
+                binReader = null;
+            }
+
+        }
+
+
+        public void Dispose()
+        {
+            if (binReader != null)
+            {
+                binReader.Close();
+                binReader = null;
+            }
+        }
     }
 }

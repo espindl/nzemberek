@@ -60,6 +60,7 @@ namespace net.zemberek.yapi
             alfabeDosyaAdi = dosyaAdiUret("harf", "txt");
             ekDosyaAdi = dosyaAdiUret("ek", "xml");
             kokDosyaAdi = dosyaAdiUret("duzyazi-kilavuz", "txt");
+            //kokDosyaAdi = dosyaAdiUret("kokler", "bin");
             cepDosyaAdi = dosyaAdiUret("kelime_cebi", "txt");
             kokIstatistikDosyaAdi = dosyaAdiUret("kok_istatistik", "bin");
         }
@@ -129,38 +130,40 @@ namespace net.zemberek.yapi
          *
          * @return Sozluk
          */
-        public Sozluk kokler() {
-            if (sozluk != null) {
+        public Sozluk kokler() 
+        {
+            if (sozluk != null) 
+            {
                 return sozluk;
-            } else {
-                if (!new KaynakYukleyici().kaynakMevcutmu(kokDosyaAdi)) {
-                    logger.Info("binary kok dosyasi bulunamadi. proje icerisinden calisildigi varsayilarak \n" +
-                            "calisilan dizine goreceli olarak '" + kokDosyaAdi + "' dosyasi uretilmeye calisacak.\n" +
-                            "eger duz yazki kok bilgilerine erisim saglanamazsa sistem kok bilgisine uretemeycektir. ");
-                    try {
-                        ikiliKokDosyasiUret();
-                    } catch (System.IO.IOException e) {
-                        logger.Fatal("kok bilgilerine erisim saglanamadigindan uygulama calismaya devam edemez. Hata : "+e.Message);
-                        Environment.Exit(-1);
-                    }
+            }
+            if (!new KaynakYukleyici().kaynakMevcutmu(kokDosyaAdi)) {
+                logger.Info("binary kok dosyasi bulunamadi. proje icerisinden calisildigi varsayilarak \n" +
+                        "calisilan dizine goreceli olarak '" + kokDosyaAdi + "' dosyasi uretilmeye calisacak.\n" +
+                        "eger duz yazki kok bilgilerine erisim saglanamazsa sistem kok bilgisine uretemeycektir. ");
+                try {
+                    ikiliKokDosyasiUret();
+                } catch (System.IO.IOException e) {
+                    logger.Fatal("kok bilgilerine erisim saglanamadigindan uygulama calismaya devam edemez. Hata : "+e.Message);
+                    Environment.Exit(-1);
                 }
-                kokOzelDurumlari();
-                logger.Info("Ikili okuyucu uretiliyor:");
-                try
-                {
-                    //                    KokOkuyucu okuyucu = new IkiliKokOkuyucu(kokDosyaAdi, ozelDurumBilgisi);
-                    DuzYaziKokOkuyucu okuyucu = new DuzYaziKokOkuyucu(kokDosyaAdi, ozelDurumBilgisi, alfabe(), KelimeTipleriUtil.KelimeTipleri);
-                    logger.Info("Sozluk ve agac uretiliyor:" + dilAdi);
-                    sozluk = new AgacSozluk(okuyucu, _alfabe, ozelDurumBilgisi);
-                    okuyucu.Kapat();
-                }
-                catch (IOException e)
-                {
-                    logger.Error("sozluk uretilemiyor. Hata : "+e.Message);
-                }
+            }
+            kokOzelDurumlari();
+            logger.Info("Ikili okuyucu uretiliyor:");
+            try
+            {
+//              KokOkuyucu okuyucu = new IkiliKokOkuyucu(kokDosyaAdi, ozelDurumBilgisi);
+                KokOkuyucu okuyucu = new DuzYaziKokOkuyucu(kokDosyaAdi, ozelDurumBilgisi, alfabe(), KelimeTipleriUtil.KelimeTipleri);
+                logger.Info("Sozluk ve agac uretiliyor:" + dilAdi);
+                okuyucu.Ac();
+                sozluk = new AgacSozluk(okuyucu, _alfabe, ozelDurumBilgisi);
+            }
+            catch (IOException e)
+            {
+                logger.Error("sozluk uretilemiyor. Hata : "+e.Message);
             }
             return sozluk;
         }
+
 
         public KokOzelDurumBilgisi kokOzelDurumlari() {
             if (ozelDurumBilgisi != null) {
@@ -247,12 +250,10 @@ namespace net.zemberek.yapi
 
             //kokleri duz yazi dosyalardan oku
             List<Kok> tumKokler = new List<Kok>();
-            foreach (String dosyaAdi in dilAyarlari.duzYaziKokDosyalari()) {
-                KokOkuyucu okuyucu = new DuzYaziKokOkuyucu(
-                        dosyaAdi,
-                        ozelDurumBilgisi,
-                        _alfabe,
-                        dilAyarlari.kokTipiAdlari());
+            foreach (String dosyaAdi in dilAyarlari.duzYaziKokDosyalari()) 
+            {
+                KokOkuyucu okuyucu = new DuzYaziKokOkuyucu(dosyaAdi,ozelDurumBilgisi,_alfabe,dilAyarlari.kokTipiAdlari());
+                okuyucu.Ac();
                 List<Kok> list = okuyucu.hepsiniOku();
                 logger.Info("Okunan kok sayisi: " + list.Count);
                 foreach (Kok kok in list)

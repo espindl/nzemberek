@@ -7,9 +7,9 @@ using net.zemberek.araclar;
 namespace net.zemberek.bilgi.kokler
 {
     /**
- * Hata toleranslÄ± kÃ¶k bulucu hatalÄ± giriÅŸler iÃ§in Ã¶neri Ã¼retmekte kullanÄ±lÄ±r.
+ * Hata toleranslı kök bulucu hatalı girişler için öneri üretmekte kullanılır.
  * <p/>
- * AÄŸacÄ±n "e" harfi ile baÅŸlayan kolu aÅŸaÄŸÄ±daki gibi olsun:
+ * Ağacın "e" harfi ile başlayan kolu aşağıdaki gibi olsun:
  * <p/>
  * <pre>
  * e
@@ -22,15 +22,15 @@ namespace net.zemberek.bilgi.kokler
  * |  |
  * |  |---m
  * |  |  |--a(elma)
- * |  |  |  |--c-(elmacÄ±k)
+ * |  |  |  |--c-(elmacık)
  * |  |  |  |--s-(elmas)
  * |  | ...
  * | ...
  * ...
  * </pre>
  * <p/>
- * "elm" giriÅŸi iÃ§in aÄŸaÃ§ Ã¼zerinde ilerlerken hata mesafesi 1 olduÄŸu mÃ¼ddetÃ§e 
- * ilerlenir. bu sÄ±rada "el, ela, elma" kÃ¶kleri toplanÄ±r.
+ * "elm" girişi için ağaç üzerinde ilerlerken hata mesafesi 1 olduğu müddetçe 
+ * ilerlenir. bu sırada "el, ela, elma" kökleri toplanır.
  *  @author MDA
  */
     public class ToleransliKokBulucu : KokBulucu
@@ -72,15 +72,15 @@ namespace net.zemberek.bilgi.kokler
         if (dugum.getKok() != null) {
             distanceCalculationCount++;
             if (MetinAraclari.isInSubstringEditDistance((String) dugum.getKelime(), giris, tolerans)) {
-            	// Aday kÃ¶k bulundu
+            	// Aday kök bulundu
                 adaylar.Add(dugum.getKok());
             } else {
-                // Mesafe sÄ±nÄ±rÄ± aÅŸÄ±ldÄ±.
+                // Mesafe sınırı aşıldı.
                 return;
             }
         } else {
             if (!MetinAraclari.isInSubstringEditDistance(tester.Trim(), giris, tolerans)) {
-            	// Ara stringde mesafe sÄ±nÄ±rÄ± aÅŸÄ±ldÄ±
+            	// Ara stringde mesafe sınırı aşıldı
                 return;
             }
         }
