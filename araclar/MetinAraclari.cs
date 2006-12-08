@@ -174,7 +174,7 @@ namespace net.zemberek.araclar
                 test = s2.Substring(0, s1.Length - 1);
                 if (inEditDistance(s1, test, distance)) return true;
                 if (s2.Length >= s1.Length + 1) {
-                    test = s2.Substring(0, s1.Length + 1);
+                    test = s2.Substring(0, s1.Length+1);
                     if (inEditDistance(s1, test, distance)) return true;
                 }
             } else if (s1.Length >= s2.Length) {

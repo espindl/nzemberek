@@ -58,7 +58,7 @@ namespace net.zemberek.bilgi
          */
         private StreamReader utf8BomDenetle(StreamReader inpStr)
         {
-
+            //TODO Burayı ele almak lazım
             //if (inpStr == null)
             //    throw new IOException("inputStream is null. throwing exception");
             //if (encoding != null && !encoding.Equals("UTF-8"))
@@ -103,7 +103,7 @@ namespace net.zemberek.bilgi
                         throw new ArgumentException("Ozellik satirinda '=' simgesi bekleniyordu");
                     String key = line.Substring(0, esitlik).Trim();
                     if (line.Length > esitlik - 1)
-                        ozellikler.Add(key, line.Substring(esitlik + 1).Trim());
+                        ozellikler.Add(key, line.Substring(esitlik+1).Trim());
                     else
                         ozellikler.Add(key, "");
                 }

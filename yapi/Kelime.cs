@@ -53,7 +53,7 @@ namespace net.zemberek.yapi
                 buf.Append(ek.ad()).Append(", ");
             }
             if (buf.Length > 2)
-                buf.Remove(buf.Length - 2, buf.Length);
+                buf.Remove(buf.Length - 2,2);
             return buf.ToString();
         }
 
@@ -122,7 +122,7 @@ namespace net.zemberek.yapi
                 ekStr.Append(ek.ad()).Append(" + ");
             }
             if (ekStr.Length > 3)
-                ekStr.Remove(ekStr.Length - 3, ekStr.Length);
+                ekStr.Remove(ekStr.Length - 3, 3);
             return "{Icerik: " + _icerik + " Kok: " + _kok.icerik() + " tip:" + _kok.tip() + "} " +
                     " Ekler:" + ekStr;
         }

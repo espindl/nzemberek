@@ -84,7 +84,6 @@ namespace net.zemberek.tr.yapi
 
         public IDictionary<KelimeTipi, String> baslangiEkAdlari() 
         {
-            //TODO enummapi naapcaz
             //IDictionary<KelimeTipi, String> baslangicEkAdlari = new EnumMap(typeof(KelimeTipi));
             IDictionary<KelimeTipi, String> baslangicEkAdlari = new Dictionary<KelimeTipi,String>();
             baslangicEkAdlari.Add(KelimeTipi.ISIM, TurkceEkAdlari.ISIM_KOK);

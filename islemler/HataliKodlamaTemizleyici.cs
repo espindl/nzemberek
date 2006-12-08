@@ -72,7 +72,7 @@ namespace net.zemberek.islemler
             while (true) 
             {
                 if (str.StartsWith("\\u")) {
-                    char c = (char) int.Parse(str.Substring(2, 6),System.Globalization.NumberStyles.AllowHexSpecifier);
+                    char c = (char) int.Parse(str.Substring(2, 4),System.Globalization.NumberStyles.AllowHexSpecifier);
                     yeni.Append(c);
                     str = str.Substring(6);
                 } else 
