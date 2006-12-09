@@ -23,7 +23,7 @@ namespace net.zemberek.yapi.ek
 
         public abstract HarfDizisi cozumlemeIcinUret(Kelime kelime, HarfDizisi giris, HarfDizisiKiyaslayici kiyaslayici);
 
-        public HarfDizisi olusumIcinUret(Kelime kelime, Ek sonrakiEk)
+        public virtual HarfDizisi olusumIcinUret(Kelime kelime, Ek sonrakiEk)
         {
             return ekUretici.olusumIcinEkUret(kelime.icerik(), sonrakiEk, _uretimBilesenleri);
         }

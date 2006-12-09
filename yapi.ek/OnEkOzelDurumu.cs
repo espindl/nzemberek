@@ -13,7 +13,7 @@ namespace net.zemberek.yapi.ek
                 return null;
         }
 
-        public HarfDizisi olusumIcinUret(Kelime kelime, Ek sonrakiEk)
+        public override HarfDizisi olusumIcinUret(Kelime kelime, Ek sonrakiEk)
         {
             return cozumlemeIcinUret(kelime, null, null);
         }

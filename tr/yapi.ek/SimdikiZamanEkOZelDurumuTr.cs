@@ -38,7 +38,8 @@ public class SimdikiZamanEkOzelDurumuTr : EkOzelDurumu {
         return null;
     }
 
-    public HarfDizisi olusumIcinUret(Kelime kelime, Ek sonrakiEk){
+    public override HarfDizisi olusumIcinUret(Kelime kelime, Ek sonrakiEk)
+    {
         if(sonrakiEk.ad().Equals(TurkceEkAdlari.FIIL_SIMDIKIZAMAN_IYOR))
           return ekUretici.olusumIcinEkUret(kelime.icerik(),sonrakiEk, uretimBilesenleri());
         return null;

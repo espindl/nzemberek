@@ -19,7 +19,8 @@ namespace net.zemberek.tr.yapi.ek
         this.alfabe = alfabe;
     }
 
-    public HarfDizisi cozumlemeIcinEkUret(HarfDizisi ulanacak, HarfDizisi giris, List<EkUretimBileseni> bilesenler) {
+     public HarfDizisi cozumlemeIcinEkUret(HarfDizisi ulanacak, HarfDizisi giris, List<EkUretimBileseni> bilesenler)
+     {
         HarfDizisi sonuc = new HarfDizisi();
         TurkceHarf sonSesli = ulanacak.sonSesli();
         for (int i = 0; i < bilesenler.Count; i++) {
@@ -60,7 +61,8 @@ namespace net.zemberek.tr.yapi.ek
         return sonuc;
     }
 
-    public HarfDizisi olusumIcinEkUret(HarfDizisi ulanacak, Ek sonrakiEk, List<EkUretimBileseni> bilesenler) {
+     public HarfDizisi olusumIcinEkUret(HarfDizisi ulanacak, Ek sonrakiEk, List<EkUretimBileseni> bilesenler)
+     {
         //TODO: gecici olarak bu sekilde
         return cozumlemeIcinEkUret(ulanacak, null, bilesenler);
     }

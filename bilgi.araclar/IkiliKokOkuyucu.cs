@@ -95,6 +95,7 @@ namespace net.zemberek.bilgi.araclar
                 throw new ApplicationException("Kök dosyası yok! : " + dosyaAdi);
             }
             binReader = new BinaryReader(File.Open(dosyaAdi, FileMode.Open),Encoding.UTF8);
+            string ilkbas = binReader.ReadString();
             //Dosya boşsa hata 
             if (binReader.PeekChar() == -1)
             {
