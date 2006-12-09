@@ -62,7 +62,7 @@ namespace net.zemberek.bilgi.kokler
          */
         public void yuru(KokDugumu dugum, String olusan) 
         {
-            String tester = string.Format("{0}{1}", olusan, dugum.getHarf()).Trim();
+            String tester = (olusan + dugum.getHarf()).Trim();
         walkCount++;
         if (dugum.getKok() != null) {
             if (logger.IsInfoEnabled) logger.Info("Kok : " + dugum.getKelime());
@@ -73,12 +73,12 @@ namespace net.zemberek.bilgi.kokler
                 return;
             }
         } else {
-            if (!asciiTolaransliKarsilastir(tester, giris)) {
+            if (asciiTolaransliKarsilastir(tester, giris)) {//TODO böölemi ! idi
                 return;
             }
         }
 
-       int seviye = tester.Length;
+        int seviye = tester.Length - 1; //TODO böölemi -1 yoktu
        if(seviye == giris.Length) return;
        // Uygun tÃ¼m alt dallarda yÃ¼rÃ¼
        foreach (KokDugumu altDugum in dugum.altDugumDizisiGetir()) {

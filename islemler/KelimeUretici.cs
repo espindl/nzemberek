@@ -72,7 +72,7 @@ public class KelimeUretici {
             // eger incelenen ek onceki ekten sonra gelemezse cik.
             if (i > 0) {
                 Ek oncekiEk = ekler[i - 1];
-                if (oncekiEk.ardindanGelebilirMi(ek)) {
+                if (!oncekiEk.ardindanGelebilirMi(ek)) {
                     return ure;
                 }
             }
