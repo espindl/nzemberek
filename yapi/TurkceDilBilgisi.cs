@@ -136,7 +136,7 @@ namespace net.zemberek.yapi
                 return sozluk;
             }
 
-            if (KaynakYukleyici.kaynakMevcutmu(kokDosyaAdi)) 
+            if (!KaynakYukleyici.kaynakMevcutmu(kokDosyaAdi)) 
             {
                 logger.Error("Kök dosyası bulunamadı, sozluk uretilemiyor.");
                 throw new ApplicationException("Kök dosyası bulunamadı.");
