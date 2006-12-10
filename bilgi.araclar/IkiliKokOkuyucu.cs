@@ -10,7 +10,6 @@ namespace net.zemberek.bilgi.araclar
 {
     public class IkiliKokOkuyucu : KokOkuyucu
     {
-        private  Stream dis;
         private KokOzelDurumBilgisi ozelDurumlar;
 
 
@@ -23,10 +22,10 @@ namespace net.zemberek.bilgi.araclar
         public List<Kok> hepsiniOku() {
             List<Kok> list = new List<Kok>();
             Kok kok;
-            while ((kok = oku()) != null) {
+            while ((kok = oku()) != null) 
+            {
                 list.Add(kok);
             }
-            dis.Close();
             return list;
         }
 
@@ -41,7 +40,8 @@ namespace net.zemberek.bilgi.araclar
             //kok icerigini oku. eger dosya sonuna gelinmisse (EndOfStreamException) null dondur.
             try
             {
-                icerik = binReader.ReadString();
+                int len = binReader.ReadByte() * 255 + binReader.ReadByte();
+                icerik = Encoding.UTF8.GetString(binReader.ReadBytes(len));
             }
             catch (EndOfStreamException e)
             {
@@ -49,7 +49,8 @@ namespace net.zemberek.bilgi.araclar
                 return null;
             }
 
-            String asil = binReader.ReadString();
+            int len1 = binReader.ReadByte() * 255 + binReader.ReadByte();
+            String asil = Encoding.UTF8.GetString(binReader.ReadBytes(len1));
 
             // Tip bilgisini oku (1 byte)
             string tipstr = binReader.ReadByte().ToString();
@@ -59,7 +60,9 @@ namespace net.zemberek.bilgi.araclar
             if (asil.Length != 0)
                 kok.Asil = asil;
 
-            kok.KisaltmaSonSeslisi = binReader.ReadChar();
+            char c = Encoding.UTF8.GetChars(binReader.ReadBytes(2))[0];
+            if (char.IsLetter(c))
+                kok.KisaltmaSonSeslisi = c;
 
             // Özel durum sayısını (1 byte) ve ozel durumlari oku.
             int ozelDurumSayisi = binReader.ReadByte();
@@ -69,7 +72,8 @@ namespace net.zemberek.bilgi.araclar
                 KokOzelDurumu oz = ozelDurumlar.ozelDurum(ozelDurum);
                 kok.ozelDurumEkle(oz);
             }
-            int frekans = binReader.ReadByte();
+            int frekans = binReader.ReadByte() * 255 * 255 * 255 + binReader.ReadByte() * 255 * 255
+                        + binReader.ReadByte() * 255 + binReader.ReadByte();
             if (frekans != 0)
             {
                 kok.Frekans = frekans;
@@ -95,7 +99,6 @@ namespace net.zemberek.bilgi.araclar
                 throw new ApplicationException("Kök dosyası yok! : " + dosyaAdi);
             }
             binReader = new BinaryReader(File.Open(dosyaAdi, FileMode.Open),Encoding.UTF8);
-            string ilkbas = binReader.ReadString();
             //Dosya boşsa hata 
             if (binReader.PeekChar() == -1)
             {

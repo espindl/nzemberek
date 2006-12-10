@@ -57,6 +57,7 @@ namespace net.zemberek.tests.yapi
         }
 
         [Test]
+        [ExpectedException(typeof(IndexOutOfRangeException))]
         public void testAradanEkle()
         {
             HarfDizisi dizi = HarfDizisiYap("kale");
@@ -66,19 +67,11 @@ namespace net.zemberek.tests.yapi
             ek = HarfDizisiYap("kara");
             dizi.ekle(0, ek);
             Assert.AreEqual(dizi.ToString(), "karakakule");
-            try
-            {
-                dizi.ekle(20, ek);
-                Assert.Fail("Exception olmai gerekirdi");
-                dizi.ekle(-1, ek);
-            }
-            catch (IndexOutOfRangeException expected)
-            {
-                Assert.IsTrue(true);
-            }
+            dizi.ekle(20, ek);//Bu satýrda hata atmalý
         }
 
         [Test]
+        [ExpectedException(typeof(IndexOutOfRangeException))]
         public void testAradanSil()
         {
             HarfDizisi dizi = HarfDizisiYap("abcdefg");
@@ -89,17 +82,8 @@ namespace net.zemberek.tests.yapi
             Assert.AreEqual(dizi.harfSil(0, 4).ToString(), "efg");
             dizi = HarfDizisiYap("abcdefg");
             Assert.AreEqual(dizi.harfSil(1, 4).ToString(), "afg");
-
-            try
-            {
-                dizi.harfSil(20, 1);
-                dizi.harfSil(-1, 2);
-                Assert.Fail("Exception olmasi gerekirdi");
-            }
-            catch (IndexOutOfRangeException expected)
-            {
-                Assert.IsTrue(true);
-            }
+            dizi.harfSil(20, 1);
+            dizi.harfSil(-1, 2);
         }
 
         [Test]

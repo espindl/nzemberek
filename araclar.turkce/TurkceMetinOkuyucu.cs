@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Text;
-using net.zemberek.istatistik;
+//using net.zemberek.istatistik;
 using log4net;
 
 

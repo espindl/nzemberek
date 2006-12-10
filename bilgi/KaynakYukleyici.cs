@@ -122,7 +122,7 @@ namespace net.zemberek.bilgi
          * @param kaynakAdi
          * @return true-> kaynak erisiminde hata olusmadi false-> kaynak erisiminde hata olustu ya da kaynak=null
          */
-        public bool kaynakMevcutmu(String kaynakAdi)
+        public static bool kaynakMevcutmu(String kaynakAdi)
         {
             //Tankut : Dosyayı startup pathde değil de assemblynin yanında aramalıyız.
 /*          string dosyaAdresi = string.Format(@"{0}\{1}",System.Windows.Forms.Application.StartupPath,kaynakAdi);

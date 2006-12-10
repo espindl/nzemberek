@@ -15,7 +15,7 @@ public class TestKok : TemelTest {
     KokOzelDurumBilgisi koz;
 
     [SetUp]
-    public void once() {
+    public override void once() {
         base.once();
         koz = dilBilgisi.kokOzelDurumlari();
     }

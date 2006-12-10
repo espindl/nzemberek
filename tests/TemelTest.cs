@@ -15,7 +15,7 @@ namespace net.zemberek.tests
         internal Alfabe alfabe;
 
         [SetUp]
-        public void once() 
+        public virtual void once() 
         {
             dilAyarlari = new TurkiyeTurkcesi();
             dilBilgisi = new TurkceDilBilgisi(dilAyarlari);

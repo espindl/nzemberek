@@ -15,7 +15,7 @@ namespace net.zemberek.tests.yapi
     public class TestHeceBulur : TemelTest {
 
         [SetUp]
-        public void once()
+        public override void once()
         {
             base.once();
         }

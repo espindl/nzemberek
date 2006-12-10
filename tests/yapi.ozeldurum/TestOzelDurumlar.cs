@@ -28,7 +28,7 @@ namespace net.zemberek.tests.yapi.ozeldurum
        KokOzelDurumBilgisi koz ;
 
         [SetUp]
-        public void once()
+        public override void once()
         {
             base.once();
             koz = dilBilgisi.kokOzelDurumlari();

@@ -13,38 +13,40 @@ namespace net.zemberek.yapi
         public static String TR_SINIF = "net.zemberek.tr.yapi.TurkiyeTurkcesi";
         public static  String TM_SINIF = "net.zemberek.tm.yapi.Turkmence";
 
-        public static void main(String[] args) 
-        {
-            if (args.Length > 0) 
-            {
-                String dilAdi = args[0].ToLower().Trim();
-                uret(dilAdi);
-                Environment.Exit(0);
-            } 
-            else 
-            {
-                logger.Fatal("Dil adi girmelisiniz (tr,tm,az gibi)");
-                Environment.Exit(1);
-            }
-        }
 
-        public static void uret(String dilAdi) {
-            DilAyarlari dilAyari = null;
+        //TODO : Dosya üretim mekanizmalarını ayırmakta fayda var. (@tankut)
+        //public static void main(String[] args) 
+        //{
+        //    if (args.Length > 0) 
+        //    {
+        //        String dilAdi = args[0].ToLower().Trim();
+        //        uret(dilAdi);
+        //        Environment.Exit(0);
+        //    } 
+        //    else 
+        //    {
+        //        logger.Fatal("Dil adi girmelisiniz (tr,tm,az gibi)");
+        //        Environment.Exit(1);
+        //    }
+        //}
 
-            if (dilAdi.Equals("tr"))
-                dilAyari = dilAyarUret(TR_SINIF);
-            else if (dilAdi.Equals("tm"))
-                dilAyari = dilAyarUret(TM_SINIF);
-            else 
-            {
-                logger.Fatal("Dil sinifi bulunamiyor : " + dilAdi);
-                Environment.Exit(1);
-            }
+        //public static void uret(String dilAdi) {
+        //    DilAyarlari dilAyari = null;
 
-            new TurkceDilBilgisi(dilAyari).ikiliKokDosyasiUret();
+        //    if (dilAdi.Equals("tr"))
+        //        dilAyari = dilAyarUret(TR_SINIF);
+        //    else if (dilAdi.Equals("tm"))
+        //        dilAyari = dilAyarUret(TM_SINIF);
+        //    else 
+        //    {
+        //        logger.Fatal("Dil sinifi bulunamiyor : " + dilAdi);
+        //        Environment.Exit(1);
+        //    }
+
+        //    new TurkceDilBilgisi(dilAyari).ikiliKokDosyasiUret();
 
 
-        }
+        //}
 
         public static DilAyarlari dilAyarUret(String sinifadi) {
             Type c = null;

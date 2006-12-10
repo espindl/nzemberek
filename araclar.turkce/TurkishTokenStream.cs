@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Text;
-using net.zemberek.istatistik;
+//using net.zemberek.istatistik;
 using log4net;
 
 
@@ -23,7 +23,7 @@ namespace net.zemberek.araclar.turkce
     {
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         StreamReader bis = null;
-        Istatistikler statistics = null;
+//        Istatistikler statistics = null;
         char[] buffer = new char[1000];
 
         /**
@@ -94,9 +94,9 @@ namespace net.zemberek.araclar.turkce
                 // TODO: bir char buffer'e toptan okuyup islemek hýz kazandirir mi?
                 while ((readChar = bis.Read()) != -1) {
                     ch = (char) readChar;
-                    if (statistics != null) {
-                        statistics.processChar(ch);
-                    }
+                    //if (statistics != null) {
+                    //    statistics.processChar(ch);
+                    //}
                     if (ch == '-') {
                         hypen = true;
                         continue;
@@ -244,9 +244,9 @@ namespace net.zemberek.araclar.turkce
             return false;
         }
         
-        public void setStatistics(Istatistikler statistics) {
-            this.statistics = statistics;
-        }
+        //public void setStatistics(Istatistikler statistics) {
+        //    this.statistics = statistics;
+        //}
 
     }
 }

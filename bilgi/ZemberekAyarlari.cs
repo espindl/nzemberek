@@ -13,7 +13,6 @@ namespace net.zemberek.bilgi
     {
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);		
 
-        private  NameValueCollection konfigurasyon;
         private bool _oneriDeasciifierKullan = true;
         private int oneriMax = 12;
         private bool _oneriKokFrekansKullan = true;

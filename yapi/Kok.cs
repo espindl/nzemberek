@@ -77,7 +77,7 @@ namespace net.zemberek.yapi
 		// String icinde yer alir. Aksi halde null.
 		private System.String asil_Renamed_Field;
 		// bazi kisaltmalara ek eklenebilmesi icin kisaltmanin asil halinin son seslisine ihtiyac duyulur.
-		private char kisaltmaSonSeslisi;
+		private char kisaltmaSonSeslisi=char.MinValue;
 		// Kok'un ozel karakterlerden tmeizlenmis hali. Genel olarak kok icerigi olarak bu String kullanilir.
 		private System.String _icerik;
 		private KelimeTipi _tip=KelimeTipi.YOK;

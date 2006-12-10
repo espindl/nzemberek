@@ -1,230 +1,230 @@
-/*
- * Created on 15.Mar.2004
- */
+///*
+// * Created on 15.Mar.2004
+// */
 
-using System;
-using System.Collections;
-using System.Text;
-using net.zemberek.yapi;
-
-
-/*
-import net.zemberek.islemler.Heceleyici;
-import net.zemberek.yapi.Kelime;
-import net.zemberek.yapi.Kok;
-import net.zemberek.yapi.DilBilgisi;
-*/
-
-namespace net.zemberek.istatistik
-{
-    /**
-     * @author MDA
-     */
-    public class Istatistikler
-    {
-/*        private Heceleyici heceleyici;
-        private HeceIstatistikleri heceIstatistikleri = new HeceIstatistikleri();
-        private KarakterIstatistikleri karakterIstatistikleri = new KarakterIstatistikleri();
-        private KokIstatistikleri kokIstatistikleri = new KokIstatistikleri();
-        private EkIstatistikleri ekIstatistikleri = new EkIstatistikleri();
-        private KelimeIstatistikleri kelimeIstatistikleri = new KelimeIstatistikleri();
-        private KelimeIstatistikleri ikiliHarfIstatistikleri = new KelimeIstatistikleri();
-        private IkiliIstatistikleri ikiliIstatistikleri = new IkiliIstatistikleri();
-        private IkiliIstatistikleri kokIkiliIstatistikleri = new IkiliIstatistikleri();
-        private IkiliIstatistikleri heceIkiliIstatistikleri = new IkiliIstatistikleri();
-*/
-        private IList altIstatistikler = null;
-        private int kelimeSayisi = 0;
-        private int hatalar = 0;
-        private int dogrular = 0;
-
-        private int heceLimit = 0;
-        private int kokLimit = 0;
-        private int kelimeLimit = 0;
-
-        public Istatistikler(DilBilgisi dil)
-        {
-//            this.heceleyici = new Heceleyici(dil.alfabe(), dil.heceBulucu());
-        }
+//using System;
+//using System.Collections;
+//using System.Text;
+//using net.zemberek.yapi;
 
 
-        public void setLimit(int heceLimit, int kokLimit, int kelimeLimit)
-        {
-            this.heceLimit = heceLimit;
-            this.kokLimit = kokLimit;
-            this.kelimeLimit = kelimeLimit;
-        }
-/*
-        public void kokIstatistikGuncelle(Kok kok, Kelime kelime)
-        {
-            kokIstatistikleri.sonucGuncelle(kok, kelime);
-        }
+///*
+//import net.zemberek.islemler.Heceleyici;
+//import net.zemberek.yapi.Kelime;
+//import net.zemberek.yapi.Kok;
+//import net.zemberek.yapi.DilBilgisi;
+//*/
 
-        public void ekIstatistikleriGuncelle(Kelime kelime)
-        {
-            ekIstatistikleri.istatistikGuncelle(kelime);
-        }
+//namespace net.zemberek.istatistik
+//{
+//    /**
+//     * @author MDA
+//     */
+//    public class Istatistikler
+//    {
+///*        private Heceleyici heceleyici;
+//        private HeceIstatistikleri heceIstatistikleri = new HeceIstatistikleri();
+//        private KarakterIstatistikleri karakterIstatistikleri = new KarakterIstatistikleri();
+//        private KokIstatistikleri kokIstatistikleri = new KokIstatistikleri();
+//        private EkIstatistikleri ekIstatistikleri = new EkIstatistikleri();
+//        private KelimeIstatistikleri kelimeIstatistikleri = new KelimeIstatistikleri();
+//        private KelimeIstatistikleri ikiliHarfIstatistikleri = new KelimeIstatistikleri();
+//        private IkiliIstatistikleri ikiliIstatistikleri = new IkiliIstatistikleri();
+//        private IkiliIstatistikleri kokIkiliIstatistikleri = new IkiliIstatistikleri();
+//        private IkiliIstatistikleri heceIkiliIstatistikleri = new IkiliIstatistikleri();
+//*/
+//        private IList altIstatistikler = null;
+//        private int kelimeSayisi = 0;
+//        private int hatalar = 0;
+//        private int dogrular = 0;
 
-        public void kelimeIstatistikGuncelle(Kelime kelime)
-        {
-            kelimeIstatistikleri.isle(kelime.icerikStr());
-        }
+//        private int heceLimit = 0;
+//        private int kokLimit = 0;
+//        private int kelimeLimit = 0;
 
-        public void ikiliIstatistikGuncelle(Kok kok, Kelime kelime)
-        {
-            ikiliIstatistikleri.sonucGuncelle(kelime.icerikStr());
-        }
-*/
-        public void karakterIstatistikGuncelle(Kok kok)
-        {
-        }
+//        public Istatistikler(DilBilgisi dil)
+//        {
+////            this.heceleyici = new Heceleyici(dil.alfabe(), dil.heceBulucu());
+//        }
 
-        public void processChar(char ch)
-        {
-        }
 
-        public IList getAltIstatistikler()
-        {
-            return altIstatistikler;
-        }
-/*
-        public void addAltIstatistik(Istatistikler istatistik)
-        {
-            altIstatistikler.add(istatistik);
-        }
+//        public void setLimit(int heceLimit, int kokLimit, int kelimeLimit)
+//        {
+//            this.heceLimit = heceLimit;
+//            this.kokLimit = kokLimit;
+//            this.kelimeLimit = kelimeLimit;
+//        }
+///*
+//        public void kokIstatistikGuncelle(Kok kok, Kelime kelime)
+//        {
+//            kokIstatistikleri.sonucGuncelle(kok, kelime);
+//        }
 
-        public void removeAltIstatistik(Istatistikler istatistik)
-        {
-            altIstatistikler.remove(istatistik);
-        }
+//        public void ekIstatistikleriGuncelle(Kelime kelime)
+//        {
+//            ekIstatistikleri.istatistikGuncelle(kelime);
+//        }
 
-        public ArrayList getKokListesi()
-        {
-            return kokIstatistikleri.getKokListesi();
-        }
+//        public void kelimeIstatistikGuncelle(Kelime kelime)
+//        {
+//            kelimeIstatistikleri.isle(kelime.icerikStr());
+//        }
 
-        public long getKelimeSayisi()
-        {
-            return kokIstatistikleri.getToplamKelimeSayisi();
-        }
-*/
-        public void sonlandir()
-        {
-/*            kokIstatistikleri.tamamla();
-            heceIstatistikleri.tamamla();
-            ekIstatistikleri.tamamla();
-            karakterIstatistikleri.tamamla();
-            kelimeIstatistikleri.tamamla();
-            ikiliIstatistikleri.tamamla();
-            kokIkiliIstatistikleri.tamamla();
-            ikiliHarfIstatistikleri.tamamla();
-            heceIkiliIstatistikleri.tamamla();
-*/      }
+//        public void ikiliIstatistikGuncelle(Kok kok, Kelime kelime)
+//        {
+//            ikiliIstatistikleri.sonucGuncelle(kelime.icerikStr());
+//        }
+//*/
+//        public void karakterIstatistikGuncelle(Kok kok)
+//        {
+//        }
 
-        public void hepsiniGuncelle(String giris, Kelime[] kelimeler)
-        {
-/*            if (kelimeler == null)
-            {
-                hatalar++;
-                return;
-            }
-            if (kelimeler.Length > 0)
-            {
-                dogrular++;
-                kelimeSayisi++;
-                foreach (char c in giris)
-                {
-                    karakterIstatistikleri.processChar(c);
-                }
-                Kelime kelime = kelimeler[0];
-                kokIstatistikleri.sonucGuncelle(kelime.kok(), kelime);
-                ekIstatistikleri.istatistikGuncelle(kelime);
-                String[] heceler = heceleyici.hecele(giris);
-                for (int j = 0; j < heceler.length; j++)
-                {
-                    heceIstatistikleri.guncelle(heceler[j]);
-                    heceIkiliIstatistikleri.sonucGuncelle(heceler[j]);
-                }
-                kelimeIstatistikleri.isle(giris);
-                for (int i = 0; i < giris.length() - 2; i++)
-                {
-                    ikiliHarfIstatistikleri.isle(giris.substring(i, i + 2));
-                }
-                ikiliIstatistikleri.sonucGuncelle(kelime.icerikStr());
-                kokIkiliIstatistikleri.sonucGuncelle(kelime.kok().icerik());
-            }
-*/      }
-        public int getHeceLimit()
-        {
-            return heceLimit;
-        }
-        public void setHeceLimit(int heceLimit)
-        {
-            this.heceLimit = heceLimit;
-        }
-        public int getKelimeLimit()
-        {
-            return kelimeLimit;
-        }
-        public void setKelimeLimit(int kelimeLimit)
-        {
-            this.kelimeLimit = kelimeLimit;
-        }
-        public int getKokLimit()
-        {
-            return kokLimit;
-        }
-        public void setKokLimit(int kokLimit)
-        {
-            this.kokLimit = kokLimit;
-        }
+//        public void processChar(char ch)
+//        {
+//        }
 
-/*
-        public HeceIstatistikleri getHeceIstatistikleri()
-        {
-            return heceIstatistikleri;
-        }
+//        public IList getAltIstatistikler()
+//        {
+//            return altIstatistikler;
+//        }
+///*
+//        public void addAltIstatistik(Istatistikler istatistik)
+//        {
+//            altIstatistikler.add(istatistik);
+//        }
 
-        public KokIstatistikleri getKokIstatistikleri()
-        {
-            return kokIstatistikleri;
-        }
+//        public void removeAltIstatistik(Istatistikler istatistik)
+//        {
+//            altIstatistikler.remove(istatistik);
+//        }
 
-        public EkIstatistikleri getEkIstatistikleri()
-        {
-            return ekIstatistikleri;
-        }
+//        public ArrayList getKokListesi()
+//        {
+//            return kokIstatistikleri.getKokListesi();
+//        }
 
-        public KarakterIstatistikleri getKarakterIstatistikleri()
-        {
-            return karakterIstatistikleri;
-        }
+//        public long getKelimeSayisi()
+//        {
+//            return kokIstatistikleri.getToplamKelimeSayisi();
+//        }
+//*/
+//        public void sonlandir()
+//        {
+///*            kokIstatistikleri.tamamla();
+//            heceIstatistikleri.tamamla();
+//            ekIstatistikleri.tamamla();
+//            karakterIstatistikleri.tamamla();
+//            kelimeIstatistikleri.tamamla();
+//            ikiliIstatistikleri.tamamla();
+//            kokIkiliIstatistikleri.tamamla();
+//            ikiliHarfIstatistikleri.tamamla();
+//            heceIkiliIstatistikleri.tamamla();
+//*/      }
 
-        public KelimeIstatistikleri getKelimeIstatistikleri()
-        {
-            return kelimeIstatistikleri;
-        }
+//        public void hepsiniGuncelle(String giris, Kelime[] kelimeler)
+//        {
+///*            if (kelimeler == null)
+//            {
+//                hatalar++;
+//                return;
+//            }
+//            if (kelimeler.Length > 0)
+//            {
+//                dogrular++;
+//                kelimeSayisi++;
+//                foreach (char c in giris)
+//                {
+//                    karakterIstatistikleri.processChar(c);
+//                }
+//                Kelime kelime = kelimeler[0];
+//                kokIstatistikleri.sonucGuncelle(kelime.kok(), kelime);
+//                ekIstatistikleri.istatistikGuncelle(kelime);
+//                String[] heceler = heceleyici.hecele(giris);
+//                for (int j = 0; j < heceler.length; j++)
+//                {
+//                    heceIstatistikleri.guncelle(heceler[j]);
+//                    heceIkiliIstatistikleri.sonucGuncelle(heceler[j]);
+//                }
+//                kelimeIstatistikleri.isle(giris);
+//                for (int i = 0; i < giris.length() - 2; i++)
+//                {
+//                    ikiliHarfIstatistikleri.isle(giris.substring(i, i + 2));
+//                }
+//                ikiliIstatistikleri.sonucGuncelle(kelime.icerikStr());
+//                kokIkiliIstatistikleri.sonucGuncelle(kelime.kok().icerik());
+//            }
+//*/      }
+//        public int getHeceLimit()
+//        {
+//            return heceLimit;
+//        }
+//        public void setHeceLimit(int heceLimit)
+//        {
+//            this.heceLimit = heceLimit;
+//        }
+//        public int getKelimeLimit()
+//        {
+//            return kelimeLimit;
+//        }
+//        public void setKelimeLimit(int kelimeLimit)
+//        {
+//            this.kelimeLimit = kelimeLimit;
+//        }
+//        public int getKokLimit()
+//        {
+//            return kokLimit;
+//        }
+//        public void setKokLimit(int kokLimit)
+//        {
+//            this.kokLimit = kokLimit;
+//        }
+
+///*
+//        public HeceIstatistikleri getHeceIstatistikleri()
+//        {
+//            return heceIstatistikleri;
+//        }
+
+//        public KokIstatistikleri getKokIstatistikleri()
+//        {
+//            return kokIstatistikleri;
+//        }
+
+//        public EkIstatistikleri getEkIstatistikleri()
+//        {
+//            return ekIstatistikleri;
+//        }
+
+//        public KarakterIstatistikleri getKarakterIstatistikleri()
+//        {
+//            return karakterIstatistikleri;
+//        }
+
+//        public KelimeIstatistikleri getKelimeIstatistikleri()
+//        {
+//            return kelimeIstatistikleri;
+//        }
  
 
-        public IkiliIstatistikleri getIkiliIstatistikleri()
-        {
-            return ikiliIstatistikleri;
-        }
+//        public IkiliIstatistikleri getIkiliIstatistikleri()
+//        {
+//            return ikiliIstatistikleri;
+//        }
 
-        public IkiliIstatistikleri getKokIkiliIstatistikleri()
-        {
-            return kokIkiliIstatistikleri;
-        }
+//        public IkiliIstatistikleri getKokIkiliIstatistikleri()
+//        {
+//            return kokIkiliIstatistikleri;
+//        }
 
-        public KelimeIstatistikleri getIkiliHarfIstatistikleri()
-        {
-            return ikiliHarfIstatistikleri;
-        }
+//        public KelimeIstatistikleri getIkiliHarfIstatistikleri()
+//        {
+//            return ikiliHarfIstatistikleri;
+//        }
 
-        public IkiliIstatistikleri getHeceIkiliIstatistikleri()
-        {
-            return heceIkiliIstatistikleri;
-        }
-*/
-    }
-}
+//        public IkiliIstatistikleri getHeceIkiliIstatistikleri()
+//        {
+//            return heceIkiliIstatistikleri;
+//        }
+//*/
+//    }
+//}

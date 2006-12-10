@@ -12,7 +12,7 @@ using net.zemberek.yapi.kok;
 using net.zemberek.bilgi;
 using net.zemberek.bilgi.kokler;
 using net.zemberek.islemler;
-using net.zemberek.istatistik;
+//using net.zemberek.istatistik;
 using net.zemberek.islemler.cozumleme;
 using net.zemberek.bilgi.araclar;
 
@@ -59,8 +59,7 @@ namespace net.zemberek.yapi
             bilgiDizini = "kaynaklar" + c + dilAyarlari.locale().IetfLanguageTag + c + "bilgi" + c;
             alfabeDosyaAdi = dosyaAdiUret("harf", "txt");
             ekDosyaAdi = dosyaAdiUret("ek", "xml");
-            kokDosyaAdi = dosyaAdiUret("duzyazi-kilavuz", "txt");
-            //kokDosyaAdi = dosyaAdiUret("kokler", "bin");
+            kokDosyaAdi = dosyaAdiUret("kokler", "bin");
             cepDosyaAdi = dosyaAdiUret("kelime_cebi", "txt");
             kokIstatistikDosyaAdi = dosyaAdiUret("kok_istatistik", "bin");
         }
@@ -136,8 +135,12 @@ namespace net.zemberek.yapi
             {
                 return sozluk;
             }
-            if (!new KaynakYukleyici().kaynakMevcutmu(kokDosyaAdi)) {
-                logger.Info("binary kok dosyasi bulunamadi. proje icerisinden calisildigi varsayilarak \n" +
+
+            if (KaynakYukleyici.kaynakMevcutmu(kokDosyaAdi)) 
+            {
+                logger.Error("Kök dosyası bulunamadı, sozluk uretilemiyor.");
+                throw new ApplicationException("Kök dosyası bulunamadı.");
+/*                logger.Info("binary kok dosyasi bulunamadi. proje icerisinden calisildigi varsayilarak \n" +
                         "calisilan dizine goreceli olarak '" + kokDosyaAdi + "' dosyasi uretilmeye calisacak.\n" +
                         "eger duz yazki kok bilgilerine erisim saglanamazsa sistem kok bilgisine uretemeycektir. ");
                 try {
@@ -145,21 +148,21 @@ namespace net.zemberek.yapi
                 } catch (System.IO.IOException e) {
                     logger.Fatal("kok bilgilerine erisim saglanamadigindan uygulama calismaya devam edemez. Hata : "+e.Message);
                     Environment.Exit(-1);
-                }
+                }*/
             }
             kokOzelDurumlari();
             logger.Info("Ikili okuyucu uretiliyor:");
             try
             {
-//              KokOkuyucu okuyucu = new IkiliKokOkuyucu(kokDosyaAdi, ozelDurumBilgisi);
-                KokOkuyucu okuyucu = new DuzYaziKokOkuyucu(kokDosyaAdi, ozelDurumBilgisi, alfabe(), KelimeTipleriUtil.KelimeTipleri);
+                KokOkuyucu okuyucu = new IkiliKokOkuyucu(kokDosyaAdi, ozelDurumBilgisi);
                 logger.Info("Sozluk ve agac uretiliyor:" + dilAdi);
                 okuyucu.Ac();
                 sozluk = new AgacSozluk(okuyucu, _alfabe, ozelDurumBilgisi);
             }
-            catch (IOException e)
+            catch (Exception e)
             {
                 logger.Error("sozluk uretilemiyor. Hata : "+e.Message);
+                throw new ApplicationException("sozluk uretilemiyor. Hata : "+e.Message);
             }
             return sozluk;
         }
@@ -236,64 +239,65 @@ namespace net.zemberek.yapi
             return yardimci;
         }
 
-        /**
-         * Bu metod ile ikili kok bilgisi dosyasi (kokler_xx.bin uretilir.)
-         * Eger uretim sirasinda istatistik bilgisi mevcutsa bu da kullanilir.
-         *
-         * @throws IOException
-         */
-        public void ikiliKokDosyasiUret() {
-            alfabe();
-            ekler();
-            kokOzelDurumlari();
-            logger.Info("Ikili sozluk dosyasi olusturuluyor...");
+        //TODO : Dosya üretim mekanizmalarını ayırmakta fayda var. (@tankut)
+        ///**
+        // * Bu metod ile ikili kok bilgisi dosyasi (kokler_xx.bin uretilir.)
+        // * Eger uretim sirasinda istatistik bilgisi mevcutsa bu da kullanilir.
+        // *
+        // * @throws IOException
+        // */
+        //public void ikiliKokDosyasiUret() {
+        //    alfabe();
+        //    ekler();
+        //    kokOzelDurumlari();
+        //    logger.Info("Ikili sozluk dosyasi olusturuluyor...");
 
-            //kokleri duz yazi dosyalardan oku
-            List<Kok> tumKokler = new List<Kok>();
-            foreach (String dosyaAdi in dilAyarlari.duzYaziKokDosyalari()) 
-            {
-                KokOkuyucu okuyucu = new DuzYaziKokOkuyucu(dosyaAdi,ozelDurumBilgisi,_alfabe,dilAyarlari.kokTipiAdlari());
-                okuyucu.Ac();
-                List<Kok> list = okuyucu.hepsiniOku();
-                logger.Info("Okunan kok sayisi: " + list.Count);
-                foreach (Kok kok in list)
-                {
-                    tumKokler.Add(kok);
-                }
-            }
-            logger.Info("Toplam kok sayisi:" + tumKokler.Count);
+        //    //kokleri duz yazi dosyalardan oku
+        //    List<Kok> tumKokler = new List<Kok>();
+        //    foreach (String dosyaAdi in dilAyarlari.duzYaziKokDosyalari()) 
+        //    {
+        //        KokOkuyucu okuyucu = new DuzYaziKokOkuyucu(dosyaAdi,ozelDurumBilgisi,_alfabe,dilAyarlari.kokTipiAdlari());
+        //        okuyucu.Ac();
+        //        List<Kok> list = okuyucu.hepsiniOku();
+        //        logger.Info("Okunan kok sayisi: " + list.Count);
+        //        foreach (Kok kok in list)
+        //        {
+        //            tumKokler.Add(kok);
+        //        }
+        //    }
+        //    logger.Info("Toplam kok sayisi:" + tumKokler.Count);
 
-            AgacSozluk sozluk = new AgacSozluk(tumKokler, _alfabe, ozelDurumBilgisi);
+        //    AgacSozluk sozluk = new AgacSozluk(tumKokler, _alfabe, ozelDurumBilgisi);
 
-            if (File.Exists(kokIstatistikDosyaAdi)) {
-                // istatistikleri koklere bagla.
-                BinaryIstatistikOkuyucu istatistikOkuyucu = new BinaryIstatistikOkuyucu();
-                istatistikOkuyucu.initialize(kokIstatistikDosyaAdi);
-                istatistikOkuyucu.oku(sozluk);
-            } else {
-                logger.Warn("istatistik dosyasina erisilemedi, kok dosyasi istatistik bilgisi icermeyecek." + kokIstatistikDosyaAdi);
-            }
-            // kokleri ikili olarak kaydet.
-            IkiliKokYazici ozelYazici = new IkiliKokYazici(kokDosyaAdi);
-            ozelYazici.yaz(tumKokler);
-        }
+        //    if (File.Exists(kokIstatistikDosyaAdi)) {
+        //        // istatistikleri koklere bagla.
+        //        BinaryIstatistikOkuyucu istatistikOkuyucu = new BinaryIstatistikOkuyucu();
+        //        istatistikOkuyucu.initialize(kokIstatistikDosyaAdi);
+        //        istatistikOkuyucu.oku(sozluk);
+        //    } else {
+        //        logger.Warn("istatistik dosyasina erisilemedi, kok dosyasi istatistik bilgisi icermeyecek." + kokIstatistikDosyaAdi);
+        //    }
+        //    // kokleri ikili olarak kaydet.
+        //    IkiliKokYazici ozelYazici = new IkiliKokYazici(kokDosyaAdi);
+        //    ozelYazici.yaz(tumKokler);
+        //}
 
-        /**
-         * Ana sinif calistiginda ikiliKokDosyasiUret uret sinifini calistirir. Eger parametre olarak
-         * dil ayar sinifi adi gonderilirse iliskili dil icin uretim yapar. aksi halde Turkiye Turkcesi icin
-         * ikili kok-sozluk dosyasini olusturur.
-         *
-         * @param args
-         * @throws Exception
-         */
-        public static void main(String[] args) {
+        ///**
+        // * Ana sinif calistiginda ikiliKokDosyasiUret uret sinifini calistirir. Eger parametre olarak
+        // * dil ayar sinifi adi gonderilirse iliskili dil icin uretim yapar. aksi halde Turkiye Turkcesi icin
+        // * ikili kok-sozluk dosyasini olusturur.
+        // *
+        // * @param args
+        // * @throws Exception
+        // */
+        //public static void main(String[] args) {
 
-            Type c = Type.GetType("net.zemberek.tr.yapi.TurkiyeTurkcesi");
-            if (args.Length > 0) {
-                String dilAyarSinifi = args[0];
-                c = Type.GetType(dilAyarSinifi);
-            }
-            new TurkceDilBilgisi((DilAyarlari)Assembly.GetAssembly(Type.GetType("net.zemberek.tr.yapi")).CreateInstance("net.zemberek.tr.yapi.TurkiyeTurkcesi"));
-        }
+        //    Type c = Type.GetType("net.zemberek.tr.yapi.TurkiyeTurkcesi");
+        //    if (args.Length > 0) {
+        //        String dilAyarSinifi = args[0];
+        //        c = Type.GetType(dilAyarSinifi);
+        //    }
+        //    new TurkceDilBilgisi((DilAyarlari)Assembly.GetAssembly(Type.GetType("net.zemberek.tr.yapi")).CreateInstance("net.zemberek.tr.yapi.TurkiyeTurkcesi"));
+        //}
     }
 }
