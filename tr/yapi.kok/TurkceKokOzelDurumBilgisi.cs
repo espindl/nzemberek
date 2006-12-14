@@ -1,4 +1,5 @@
-﻿using System;
+﻿// V 0.1
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -53,15 +54,16 @@ namespace net.zemberek.tr.yapi.kok
                     secimlik(true).
                     yapiBozucu(true));
 
-            HarfDizisi yu = new HarfDizisi("yu", alfabe);
-            ekle(uretici(TurkceKokOzelDurumTipi.SU_OZEL_DURUMU, new Ulama(yu)).yapiBozucu(true));
+            //HarfDizisi yu = new HarfDizisi("yu", alfabe);
+            //ekle(uretici(TurkceKokOzelDurumTipi.SU_OZEL_DURUMU, new Ulama(yu)).yapiBozucu(true));
 
             HarfDizisi n = new HarfDizisi("n", alfabe);
             ekle(uretici(TurkceKokOzelDurumTipi.ZAMIR_SESLI_OZEL, new Ulama(n)).yapiBozucu(true));
 
             ekle(uretici(TurkceKokOzelDurumTipi.ISIM_TAMLAMASI, new BosHarfDizisiIslemi()).ekKisitlayici(true));
 
-            bosOzelDurumEkle(new KokOzelDurumTipi[]{TurkceKokOzelDurumTipi.YALIN,
+            bosOzelDurumEkle(new KokOzelDurumTipi[]{
+                    TurkceKokOzelDurumTipi.YALIN,
                     TurkceKokOzelDurumTipi.EK_OZEL_DURUMU,
                     TurkceKokOzelDurumTipi.GENIS_ZAMAN,
                     TurkceKokOzelDurumTipi.FIIL_GECISSIZ,
@@ -73,7 +75,8 @@ namespace net.zemberek.tr.yapi.kok
                     TurkceKokOzelDurumTipi.ZAMIR_IM,
                     TurkceKokOzelDurumTipi.ZAMIR_IN,
                     TurkceKokOzelDurumTipi.KISALTMA_SON_SESLI,
-                    TurkceKokOzelDurumTipi.KISALTMA_SON_SESSIZ});
+                    TurkceKokOzelDurumTipi.KISALTMA_SON_SESSIZ,
+                    TurkceKokOzelDurumTipi.SU_OZEL_DURUMU});
         }
 
         public TurkceKokOzelDurumBilgisi(EkYonetici ekler, Alfabe alfabe):base(ekler,alfabe)
@@ -97,12 +100,19 @@ namespace net.zemberek.tr.yapi.kok
             eskiSonsesliInce = hdizi.sonSesli().inceSesliMi();
 
         bool yapiBozucuOzelDurumvar = false;
+        //ters sesli ozel durumu yapi bozucu ama sadece seslinin tipini degistirdiginden
+        //islemeye gerek yok.
+        if (kok.ozelDurumDizisi().Length == 1 && kok.ozelDurumIceriyormu(TurkceKokOzelDurumTipi.TERS_SESLI_EK))
+            return new String[0];
+
         // kok uzerindeki ozel durumlar basta sona taranip ozel durum koke uygulaniyor.
         foreach (KokOzelDurumu _ozelDurum in kok.ozelDurumDizisi()) {
             // kucultme ozel durumunda problem var, cunku kok'te hem kucultme hem yumusama uygulaniyor.
             if (_ozelDurum == null) {
-                Console.Write("kok = " + kok);
-                Environment.Exit(-1);
+                //Console.Write("kok = " + kok);
+                //Environment.Exit(-1);
+                logger.Warn("null ozle durum!. Kok:" + kok);
+                return new String[0];
             }
             if (!_ozelDurum.Equals(ozelDurum(TurkceKokOzelDurumTipi.KUCULTME)))
                 _ozelDurum.uygula(hdizi);

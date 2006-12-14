@@ -1,4 +1,5 @@
-﻿using System;
+﻿// V 0.1
+using System;
 using System.Collections.Generic;
 using System.Text;
 //using log4net;
@@ -6,24 +7,23 @@ using System.Text;
 
 namespace net.zemberek.araclar
 {
-    // TODO : B sınıf Java tarafında değişti mi? (@tankut)
     public class MetinAraclari
     {
         //TODO : Java tarafında Logger var ama kullanılmıyor? (@tankut)
         //private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private static JaroWinkler jaroWinkler = new JaroWinkler();
 
-        /**
-         * Verilen iki karakterin arasındakli klavye mesafesini döndürür (Q). 
-         * @param c1
-         * @param c2
-         * @return tuslar arasi mesafe
-         */
-        public static int klavyeMesafesi(char c1, char c2)
-        {
-            // TODO : Ana proje tuştakımı yapısında değişiklik var (@tankut)
-            return 0;// QTusTakimi.mesafeHesapla(c1, c2);
-        }
+        ///**
+        // * Verilen iki karakterin arasındakli klavye mesafesini döndürür (Q). 
+        // * @param c1
+        // * @param c2
+        // * @return tuslar arasi mesafe
+        // */
+        //public static int klavyeMesafesi(char c1, char c2)
+        //{
+        //    // TODO : Ana proje tuştakımı yapısında değişiklik var (@tankut)
+        //    return 0;// QTusTakimi.mesafeHesapla(c1, c2);
+        //}
 
         /**
          * Degistirilmis Levenshtein Edit Dist. algoritması. transpozisyonları da 1 düzeltme mesafesi

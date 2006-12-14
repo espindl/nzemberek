@@ -1,3 +1,4 @@
+// V 0.1
 using System;
 using net.zemberek.yapi.ek;
 using net.zemberek.yapi.kok;
@@ -97,13 +98,12 @@ namespace net.zemberek.yapi
 		}
 		
 		public virtual bool ozelDurumIceriyormu(KokOzelDurumTipi tip)
-		{
-			//UPGRADE_ISSUE: The following fragment of code could not be parsed and was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1156'"
-			foreach(KokOzelDurumu oz in ozelDurumlar)
-			{
-				if (oz.indeks() == tip.Index)
-					return true;
-			}
+		{            
+            foreach (KokOzelDurumu oz in ozelDurumlar)
+            {
+                if (oz.indeks() == tip.Index) // TODO Buraya oz!=null yazmazsam hata alýyordu bakalým
+                    return true;
+            }
 			return false;
 		}
 		
@@ -196,7 +196,7 @@ namespace net.zemberek.yapi
 				return false;
 			foreach(KokOzelDurumu ozelDurum in ozelDurumlar)
 			{
-				if (ozelDurum.yapiBozucumu())
+				if (ozelDurum.yapiBozucumu()) //TODO Buraya da != null eklemek zorunda kaldým mert (bakacaðým anlamadým)
 					return true;
 			}
 			return false;

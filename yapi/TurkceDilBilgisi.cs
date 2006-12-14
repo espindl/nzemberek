@@ -205,21 +205,38 @@ namespace net.zemberek.yapi
             return _cep;
         }
 
-        public HeceBulucu heceBulucu() {
-            if (heceleyici != null) {
+        public HeceBulucu heceBulucu()
+        {
+            if (heceleyici != null)
+            {
                 return heceleyici;
-            } else {
+            }
+            else
+            {
+                Type clazz = null;
                 alfabe();
-                try {
-                    Type clazz = dilAyarlari.heceBulucuSinifi();
+                try
+                {
+                    clazz = dilAyarlari.heceBulucuSinifi();
                     ConstructorInfo ci = clazz.GetConstructor(new Type[] { typeof(Alfabe) });
-                    heceleyici = (HeceBulucu)ci.Invoke(new object[] { _alfabe });
-                } catch (Exception e) {
-                    logger.Warn("heceleyici nesnesi uretilemiyor. heceleme islemi basarisiz olacak.Hata : "+e.Message);
+                    if (ci == null)
+                    {
+                        ci = clazz.GetConstructor(new Type[] { });
+                        heceleyici = (HeceBulucu)ci.Invoke(new object[] { });
+                    }
+                    else
+                    {
+                        heceleyici = (HeceBulucu)ci.Invoke(new object[] { _alfabe });
+                    }
+                }
+                catch (Exception e)
+                {
+                    logger.Warn("heceleyici nesnesi uretilemiyor. heceleme islemi basarisiz olacak.Hata : " + e.Message);
                 }
             }
             return heceleyici;
         }
+
 
         public CozumlemeYardimcisi cozumlemeYardimcisi() {
             if (yardimci != null) {

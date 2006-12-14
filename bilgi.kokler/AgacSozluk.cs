@@ -23,11 +23,13 @@ namespace net.zemberek.bilgi.kokler
      * @param alfabe : KullanÄ±lan TÃ¼rk dili alfabesi
      * @param ozelDurumlar : Dile ait kÃ¶k Ã¶zel durumlarÄ±nÄ± taÅŸÄ±yan nesne
      */
-    public AgacSozluk(KokOkuyucu okuyucu, Alfabe alfabe, KokOzelDurumBilgisi ozelDurumlar) {
+    public AgacSozluk(KokOkuyucu okuyucu, Alfabe alfabe, KokOzelDurumBilgisi ozelDurumlar) 
+    {
         this.ozelDurumlar = ozelDurumlar;
         agac = new KokAgaci(new KokDugumu(), alfabe);
         Kok kok;
-        while ((kok = okuyucu.oku()) != null) {
+        while ((kok = okuyucu.oku()) != null)
+        {
             ekle(kok);
         }
         agacKokBulucuFactory = new AgacKokBulucuUretici(this.agac);

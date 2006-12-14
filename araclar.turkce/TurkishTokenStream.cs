@@ -1,249 +1,239 @@
-//Created on 15.Mar.2004
 using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Text;
-//using net.zemberek.istatistik;
 using log4net;
-
 
 namespace net.zemberek.araclar.turkce
 {
-    /**
-     * TurkishTokenStream
-     * Verilen bir doayadan veya herhangi bir stream'dan Türkce kelimeleri
-     * sirayla almak için kullanilir. Ýki constructor'u vardýr, istenirse verilen bir
-     * dosyayi istenirse de herhangi bir inputstream'ý isleyebilir.
-     * Biraz optimizasyona ihtiyaci var ,ama corpus.txt deki tüm kelimeleri tek tek
-     * nextWord() ile cekmek yaklasik 0.8 saniye aldi. (Athlon 900)
-     *
-     * @author MDA & GBA
-     */
+    /// <summary>
+    /// TurkishTokenStream
+    /// Verilen bir doayadan veya herhangi bir stream'dan Türkce kelimeleri sirayla almak için kullanilir.
+    /// Ýki constructor'u vardýr, istenirse verilen bir dosyayi istenirse de herhangi bir inputstream'ý isleyebilir.
+    /// Biraz optimizasyona ihtiyaci var.
+    /// </summary>
     public class TurkishTokenStream
     {
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        StreamReader bis = null;
-//        Istatistikler statistics = null;
-        char[] buffer = new char[1000];
+        private static int MAX_KELIME_BOY = 256;
+        public static int MAX_CUMLE_BOY = 4000;
+        
+        private StreamReader _streamReader = null;
+        private char[] kelimeBuffer = new char[MAX_KELIME_BOY];
+        private char[] cumleBuffer = new char[MAX_CUMLE_BOY];
 
-        /**
-         * Dosyadan kelime okuyan TurkishTokenStream oluþturur
-         *
-         * @param fileName
-         * @param encoding: default için null verin
-         */
+        /// <summary>
+        /// Dosyadan kelime okuyan TurkishTokenStream oluþturur
+        /// </summary>
+        /// <param name="fileName">fileName</param>
+        /// <param name="encoding">encoding: default için null verin</param>
         public TurkishTokenStream(String fileName, String encoding)
         {
-            try 
+            try
             {
-                Stream fis = new FileStream(fileName, FileMode.Open);
-                setupReader(fis, encoding);
-            } catch (FileNotFoundException e)
+                Stream fileStream = new FileStream(fileName, FileMode.Open);
+                this.setupReader(fileStream, encoding);
+            }
+            catch (FileNotFoundException e)
             {
-                logger.Error(e.StackTrace);
+                logger.Error("Dosya bulunamadý. Aranan dosya:" + fileName +  e.StackTrace);
             }
         }
 
-        /**
-         * Herhangibir input Streaminden'den kelime okuyan TurkishTokenStream oluþturur.
-         *
-         * @param is
-         * @param encoding : default için null verin
-         */
-        public TurkishTokenStream(Stream ins, String encoding)
+        /// <summary>
+        /// Herhangibir input Streaminden'den kelime okuyan TurkishTokenStream oluþturur.
+        /// </summary>
+        /// <param name="ins">ins</param>
+        /// <param name="encoding">encoding: default için null verin</param>
+        public TurkishTokenStream(Stream inputStream, String encoding)
         {
-            setupReader(ins, encoding);
+            this.setupReader(inputStream, encoding);
         }
 
-        private void setupReader(Stream ins, String encoding)
+        /// <summary>
+        /// Doðrudan StreamReader verilen constructor *mert
+        /// </summary>
+        /// <param name="streamReader">streamReader</param>
+        public TurkishTokenStream(StreamReader streamReader)
+        {
+            _streamReader = streamReader;
+        }
+
+        private void setupReader(Stream inputStream, String encoding)
         {
             if (encoding == null)
-            {
-                bis = new StreamReader(ins);
-            }
+            { _streamReader = new StreamReader(inputStream); }
             else
             {
                 try
                 {
-                    bis = new StreamReader(ins, Encoding.GetEncoding(encoding));
+                    _streamReader = new StreamReader(inputStream, Encoding.GetEncoding(encoding));
                 }
                 catch (Exception e)
                 {
-                    logger.Error(e.StackTrace);
+                    logger.Error("Streamreader olusturulurken hata olustu." + e.StackTrace);
                 }
             }
         }
 
-        public static int MAX_KELIME_BOY = 256;
-        private char[] kelimeBuffer = new char[MAX_KELIME_BOY];
-
-        /**
-         * Metindeki veya stream'deki bir sonraki kelimeyi getirir
-         * - Büyük harfleri küçültür
-         * - Noktalama iþaretlerini yutar.
-         *
-         * @return Sonraki kelime, eðer kelime kalmamýþsa null
-         */
-        public String nextWord() {
+        /// <summary>
+        /// Metindeki veya stream'deki bir sonraki kelimeyi getirir
+        /// - Büyük harfleri küçültür > neden@mert
+        /// - Noktalama iþaretlerini yutar  > neden@mert
+        /// </summary>
+        public String nextWord()
+        {
             char ch;
             int readChar;
             bool kelimeBasladi = false;
             int kelimeIndex = 0;
             bool hypen = false;
-            try {
-                // TODO: bir char buffer'e toptan okuyup islemek hýz kazandirir mi?
-                while ((readChar = bis.Read()) != -1) {
-                    ch = (char) readChar;
-                    //if (statistics != null) {
-                    //    statistics.processChar(ch);
-                    //}
-                    if (ch == '-') {
+            try
+            {
+                while ((readChar = _streamReader.Read()) != -1)
+                {
+                    ch = (char)readChar;
+                    if (ch == '-')
+                    {
                         hypen = true;
                         continue;
                     }
-                    if (Char.IsLetter(ch)) {
+                    if (Char.IsLetter(ch) || (kelimeBasladi == true & (ch == '\'' || ch == '-')))
+                    {
                         kelimeBasladi = true;
                         hypen = false;
-                        //cumleBasladi = true;
-                        switch (ch) {
-                            case 'I':
-                                ch = '\u0131';
-                                break; // dotless small i
-                                // Buraya sapkalý a vs. gibi karakter donusumlari de eklenebilir.
-                            default  :
-                                ch = Char.ToLower(ch);
-                                break;
-                        }
                         if (kelimeIndex < MAX_KELIME_BOY)
                             kelimeBuffer[kelimeIndex++] = ch;
                         else
-                            logger.Warn("Lagim tasti " + ch);
+                            System.Console.WriteLine("Maksimum kelime boyu asildi. " + ch);
                         continue;
                     }
 
-                    if (Char.IsWhiteSpace(ch)) {
+                    if (Char.IsWhiteSpace(ch))
+                    {
                         if (hypen) continue;
 
-                        if (kelimeBasladi) {
+                        if (kelimeBasladi)
+                        {
                             return new String(kelimeBuffer, 0, kelimeIndex);
                         }
                         kelimeBasladi = false;
                         kelimeIndex = 0;
                         continue;
-                    } 
-                    
-                    // harfimiz bir cumle sinirlayici
-                    if (isSentenceDelimiter(ch)) {
-                        /* if (cumleBasladi)
-                         {
-                             // kelimeyi cumleye ekle.
-                             cumleTamamlandi = true;
-                         }
-                         continue;*/
                     }
-
                 }
-                
-                // Tüm karakterler bitti, son kalan kelime varsa onu da getir.
-                if (kelimeBasladi) {
+
+                // Tum karakterler bitti, son kalan kelime varsa onu da getir.
+                if (kelimeBasladi)
+                {
                     return new String(kelimeBuffer, 0, kelimeIndex);
                 }
-            } catch (IOException e) 
+            }
+            catch (IOException e)
             {
-                logger.Error(e.StackTrace);
+                logger.Error("Kelimeler okunurken hata olustu. " + e.StackTrace);
             }
             return null;
         }
 
+        ///// <summary>
+        ///// Metindeki veya stream'deki bir sonraki cümleyi getirir
+        ///// @return Sonraki cümle, eðer kalmamýþsa null
+        ///// </summary>
+        //public String nextSentence()
+        //{
+        //    char ch;
+        //    int readChar;
+        //    bool cumleBasladi = false;
+        //    int cumleIndex = 0;
+        //    try
+        //    {
+        //        // TODO: bir char buffer'e toptan okuyup islemek hýz kazandirir mi? (sanmam)
+        //        while ((readChar = _streamReader.Read()) != -1)
+        //        {
+        //            ch = (char)readChar;
 
-        public static int MAX_CUMLE_BOY = 4000;
-        private char[] cumleBuffer = new char[MAX_CUMLE_BOY];
+        //            if (Char.IsLetter(ch))
+        //            {
+        //                cumleBasladi = true;
+        //                switch (ch)
+        //                {
+        //                    case 'I':
+        //                        ch = '\u0131';
+        //                        break; // dotless small i
+        //                    // Buraya sapkalý a vs. gibi karakter donusumlari de eklenebilir.
+        //                    default:
+        //                        ch = Char.ToLower(ch);
+        //                        break;
+        //                }
+        //                if (cumleIndex < MAX_CUMLE_BOY)
+        //                    cumleBuffer[cumleIndex++] = ch;
+        //                else
+        //                    logger.Warn("Lagim tasti " + ch);
+        //                continue;
+        //            }
 
-        /**
-         * Metindeki veya stream'deki bir sonraki cümleyi getirir
-         * @return Sonraki cümle, eðer kalmamýþsa null
-         */
-        public String nextSentence() {
-            char ch;
-            int readChar;
-            bool cumleBasladi = false;
-            int cumleIndex = 0;
-            try {
-                // TODO: bir char buffer'e toptan okuyup islemek hýz kazandirir mi? (sanmam)
-                while ((readChar = bis.Read()) != -1) {
-                    ch = (char) readChar;
+        //            // harfimiz bir cumle sinirlayici
+        //            if (isSentenceDelimiter(ch))
+        //            {
+        //                if (cumleBasladi)
+        //                {
+        //                    return new String(cumleBuffer, 0, cumleIndex);
+        //                }
+        //                continue;
+        //            }
 
-                    if (Char.IsLetter(ch)) {
-                        cumleBasladi = true;
-                        switch (ch) {
-                            case 'I':
-                                ch = '\u0131';
-                                break; // dotless small i
-                                // Buraya sapkalý a vs. gibi karakter donusumlari de eklenebilir.
-                            default  :
-                                ch = Char.ToLower(ch);
-                                break;
-                        }
-                        if (cumleIndex < MAX_CUMLE_BOY)
-                            cumleBuffer[cumleIndex++] = ch;
-                        else
-                            logger.Warn("Lagim tasti " + ch);
-                        continue;
-                    }
+        //            if (cumleIndex < MAX_CUMLE_BOY)
+        //                cumleBuffer[cumleIndex++] = ch;
+        //            else
+        //            {
+        //                logger.Error("Lagim tasti " + ch);
+        //                return null;
+        //            }
 
-                    // harfimiz bir cumle sinirlayici
-                    if (isSentenceDelimiter(ch)) {
-                        if (cumleBasladi) {
-                            return new String(cumleBuffer, 0, cumleIndex);
-                        }
-                        continue;
-                    }
+        //        }
 
-                    if (cumleIndex < MAX_CUMLE_BOY)
-                        cumleBuffer[cumleIndex++] = ch;
-                    else 
-                    {
-                        logger.Error("Lagim tasti " + ch);
-                        return null;
-                    }
+        //        // Tüm karakterler bitti, son kalan kelime varsa onu da getir.
+        //        if (cumleBasladi)
+        //        {
+        //            return new String(kelimeBuffer, 0, cumleIndex);
+        //        }
+        //    }
+        //    catch (IOException e)
+        //    {
+        //        logger.Error(e.StackTrace);
+        //    }
+        //    return null;
+        //}
 
-                }
-                
-                // Tüm karakterler bitti, son kalan kelime varsa onu da getir.
-                if (cumleBasladi) {
-                    return new String(kelimeBuffer, 0, cumleIndex);
-                }
-            } catch (IOException e) 
-            {
-                logger.Error(e.StackTrace);
-            }
-            return null;
-        }
+        //public bool isSentenceDelimiter(char ch)
+        //{
+        //    if (ch == '.' ||
+        //            ch == ':' ||
+        //            ch == '!' ||
+        //            ch == '?'
+        //    )
+        //        return true;
+        //    return false;
 
-        public char harfIsle(char chIn) {
-            char ch;
-            switch (chIn) {
-                case 'I':
-                    ch = '\u0131';
-                    break; // dotless small i
-                    // Buraya sapkalý a vs. gibi karakter donusumlari de eklenebilir.
-                default  :
-                    ch = Char.ToLower(chIn);
-                    break;
-            }
-            return ch;
-        }
-
-        public bool isSentenceDelimiter(char ch) {
-            if (ch == '.' ||
-                    ch == ':' ||
-                    ch == '!' ||
-                    ch == '?'
-            )
-                return true;
-            return false;
-        }
+        //}
         
+        //public char harfIsle(char chIn)
+        //{
+        //    char ch;
+        //    switch (chIn)
+        //    {
+        //        case 'I':
+        //            ch = '\u0131';
+        //            break; // dotless small i
+        //        // Buraya sapkalý a vs. gibi karakter donusumlari de eklenebilir.
+        //        default:
+        //            ch = Char.ToLower(chIn);
+        //            break;
+        //    }
+        //    return ch;
+        //}
+
         //public void setStatistics(Istatistikler statistics) {
         //    this.statistics = statistics;
         //}

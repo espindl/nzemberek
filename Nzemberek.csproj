@@ -126,6 +126,7 @@
     <Compile Include="tr\yapi.ek\EkUreticiTr.cs" />
     <Compile Include="tr\yapi.ek\GenisZamanEkOzelDurumuTr.cs" />
     <Compile Include="tr\yapi.ek\SimdikiZamanEkOZelDurumuTr.cs" />
+    <Compile Include="tr\yapi.ek\SuOzelDurumu.cs" />
     <Compile Include="tr\yapi.ek\TurkceEkAdlari.cs" />
     <Compile Include="tr\yapi.ek\TurkceEkOzelDurumUretici.cs" />
     <Compile Include="tr\yapi.kok\TurkceKokOzelDurumBilgisi.cs" />
@@ -185,6 +186,7 @@
     <None Include="kaynaklar\tr\bilgi\kokler_tr.bin" />
     <None Include="kaynaklar\tr\bilgi\kok_istatistik_tr.bin" />
     <None Include="kaynaklar\tr\test\zem_test.properties" />
+    <None Include="Nzemberek.build" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="kaynaklar\tr\bilgi\bilisim.txt" />
@@ -218,7 +220,10 @@
     <Content Include="lib\nunit.framework.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="dagitim\bin\" />
+    <Folder Include="tests\bin\" />
     <Folder Include="tests\islemler.cozumleme\" />
+    <Folder Include="tests\reports\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

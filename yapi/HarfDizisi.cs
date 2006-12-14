@@ -1,3 +1,4 @@
+// V 0.1
 using System;
 using System.Text;
 using System.Collections.Generic;
@@ -85,7 +86,7 @@ namespace net.zemberek.yapi
 		/// <summary> 
 		/// gelen TurkceHarf dizisini icerige kopyalar.
 		/// </summary>
-		/// <param name="dizi">kopyalancak TurkceHarf dizisi.
+        /// <param name="aDizi">kopyalancak TurkceHarf dizisi.
 		/// </param>
         private HarfDizisi(TurkceHarf[] aDizi)
 		{

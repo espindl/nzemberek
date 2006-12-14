@@ -1,4 +1,5 @@
-﻿using System;
+﻿// V 0.1
+using System;
 using System.Collections.Generic;
 using System.Text;
 using log4net;
@@ -10,18 +11,27 @@ namespace net.zemberek.tr.yapi.ek
 {
  public class EkUreticiTr : EkUretici {
 
-     internal static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
     private TurkceSesliUretici sesliUretici;
-    private Alfabe alfabe;
+     public TurkceHarf HARF_a;
+     public TurkceHarf HARF_e;
+     public TurkceHarf HARF_i;
+     public TurkceHarf HARF_ii;
+     public TurkceHarf HARF_u;
+     public TurkceHarf HARF_uu;
 
     public EkUreticiTr(Alfabe alfabe) {
-        this.sesliUretici = new TurkceSesliUretici(alfabe);
-        this.alfabe = alfabe;
+         this.sesliUretici = new TurkceSesliUretici(alfabe);
+         HARF_a = alfabe.harf('a');
+         HARF_e = alfabe.harf('e');
+         HARF_i = alfabe.harf('i');
+         HARF_ii = alfabe.harf(Alfabe.CHAR_ii);
+         HARF_u = alfabe.harf('u');
+         HARF_uu = alfabe.harf(Alfabe.CHAR_uu);
     }
 
      public HarfDizisi cozumlemeIcinEkUret(HarfDizisi ulanacak, HarfDizisi giris, List<EkUretimBileseni> bilesenler)
      {
-        HarfDizisi sonuc = new HarfDizisi();
+        HarfDizisi sonuc = new HarfDizisi(4);
         TurkceHarf sonSesli = ulanacak.sonSesli();
         for (int i = 0; i < bilesenler.Count; i++) {
             EkUretimBileseni ekUretimBileseni = bilesenler[i];
@@ -37,7 +47,7 @@ namespace net.zemberek.tr.yapi.ek
                 case UretimKurali.SERTLESTIR:
                     if (ulanacak.sonHarf().sertMi())
                         sonuc.ekle(harf.sertDonusum());
-                    else
+                   else
                         sonuc.ekle(harf);
                     break;
                 case UretimKurali.SESLI_AE:
@@ -71,29 +81,30 @@ namespace net.zemberek.tr.yapi.ek
         Set<TurkceHarf> kume = new HashedSet<TurkceHarf>();//TOREMEMBER 4
         for (int i=0; i< bilesenler.Count; i++) {
             EkUretimBileseni bilesen = bilesenler[i];
+            TurkceHarf harf = bilesen.harf();
             switch (bilesen.kural()) {
                 case UretimKurali.HARF:
-                    kume.Add(bilesen.harf());
+                    kume.Add(harf);
                     return kume;
                 case UretimKurali.KAYNASTIR:
-                    kume.Add(bilesen.harf());
+                    kume.Add(harf);
                     break;
                 case UretimKurali.SERTLESTIR:
-                    kume.Add(bilesen.harf());
-                    kume.Add(bilesen.harf().sertDonusum());
+                    kume.Add(harf);
+                    kume.Add(harf.sertDonusum());
                     return kume;
                 case UretimKurali.SESLI_AE:
-                      kume.Add(alfabe.harf('a'));
-                      kume.Add(alfabe.harf('e'));
+                      kume.Add(HARF_a);
+                      kume.Add(HARF_e);
                       if (i > 0)
                           return kume;
                       else
                           break;
                 case UretimKurali.SESLI_IU:
-                      kume.Add(alfabe.harf('i'));
-                      kume.Add(alfabe.harf('u'));
-                      kume.Add(alfabe.harf(Alfabe.CHAR_ii));
-                      kume.Add(alfabe.harf(Alfabe.CHAR_uu));
+                    kume.Add(HARF_i);
+                    kume.Add(HARF_u);
+                      kume.Add(HARF_ii);
+                      kume.Add(HARF_uu);
                       if (i > 0)
                           return kume;
                       else

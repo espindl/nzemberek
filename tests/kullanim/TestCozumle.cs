@@ -26,6 +26,7 @@ namespace net.zemberek.tests.kullanim
         [Test]
         public void testCozumle1()
         {
+            zemberek = new Zemberek(new TurkiyeTurkcesi());
             string str = "kedi";
             Assert.IsTrue(zemberek.kelimeDenetle(str));
             Kelime[] sonuc = zemberek.kelimeCozumle(str);
@@ -41,6 +42,7 @@ namespace net.zemberek.tests.kullanim
         [Test]
         public void testCozumle2()
         {
+            zemberek = new Zemberek(new TurkiyeTurkcesi());
             string str = "kediciklerin";
             Assert.IsTrue(zemberek.kelimeDenetle(str));
             Kelime[] sonuc = zemberek.kelimeCozumle(str);
@@ -68,6 +70,7 @@ namespace net.zemberek.tests.kullanim
         [Test]
         public void testCozumle3()
         {
+            zemberek = new Zemberek(new TurkiyeTurkcesi());
             string str = "getirttirebilirsiniz";
             Assert.IsTrue(zemberek.kelimeDenetle(str));
             Kelime[] sonuc = zemberek.kelimeCozumle(str);
@@ -86,5 +89,6 @@ namespace net.zemberek.tests.kullanim
             Assert.AreEqual("FIIL_KISI_SIZ", ekler[5].ad());
         }
 
+        
     }
 }

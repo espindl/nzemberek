@@ -1,4 +1,5 @@
-﻿using System;
+﻿// V 0.1
+using System;
 using System.Collections.Generic;
 using System.Text;
 using log4net;
@@ -37,6 +38,8 @@ namespace net.zemberek.tr.yapi.ek
                     return new GenisZamanEkOzelDurumuTr();
                 case "SIMDIKI_ZAMAN":
                     return new SimdikiZamanEkOzelDurumuTr(alfabe);
+                case "SU":
+                    return new SuOzelDurumu();
 /*                case "ZAMAN_KI":
                     return new ZamanKiOzelDurumu();*/
             }
@@ -50,6 +53,7 @@ namespace net.zemberek.tr.yapi.ek
         public readonly static TemelEkOzelDurumuTipi EDILGEN = new TemelEkOzelDurumuTipi(TemelEkOzelDurumuTipi.Length + 1, "EDILGEN");
         public readonly static TemelEkOzelDurumuTipi GENIS_ZAMAN = new TemelEkOzelDurumuTipi(TemelEkOzelDurumuTipi.Length + 2, "GENIS_ZAMAN");
         public readonly static TemelEkOzelDurumuTipi SIMDIKI_ZAMAN = new TemelEkOzelDurumuTipi(TemelEkOzelDurumuTipi.Length + 3, "SIMDIKI_ZAMAN");
+        public readonly static TemelEkOzelDurumuTipi SU = new TemelEkOzelDurumuTipi(TemelEkOzelDurumuTipi.Length + 4, "SU");
 //        public readonly static TemelEkOzelDurumuTipi ZAMAN_KI = new TemelEkOzelDurumuTipi(TemelEkOzelDurumuTipi.Length + 4, "ZAMAN_KI");
 
         internal TurkceEkOzelDurumTipi(int index, string ad) : base(index, ad)
@@ -59,12 +63,13 @@ namespace net.zemberek.tr.yapi.ek
 
         static TurkceEkOzelDurumTipi()
         {
-            AllValues = new EkOzelDurumTipi[TemelEkOzelDurumuTipi.Length + 4];
+            AllValues = new EkOzelDurumTipi[TemelEkOzelDurumuTipi.Length + 5];
             Array.Copy(TemelEkOzelDurumuTipi.AllValues,AllValues,TemelEkOzelDurumuTipi.Length);
             AllValues[TemelEkOzelDurumuTipi.Length]=BERABERLIK_IS;
             AllValues[TemelEkOzelDurumuTipi.Length+1]=EDILGEN;
             AllValues[TemelEkOzelDurumuTipi.Length+2]=GENIS_ZAMAN;
             AllValues[TemelEkOzelDurumuTipi.Length+3]=SIMDIKI_ZAMAN;
+            AllValues[TemelEkOzelDurumuTipi.Length+4] = SU;
 //            AllValues[TemelEkOzelDurumuTipi.Length+4]= ZAMAN_KI;
         }
     }

@@ -10,7 +10,7 @@ ascii-disi=ç,ğ,ı,ö,ş,ü,Ç,İ,Ğ,Ö,Ş,Ü
 turkce-ascii=ç-c,Ç-C,ğ-g,Ğ-G,ı-i,İ-I,ö-o,Ö-O,ş-s,Ş-S,ü-u,Ü-U,â-a,î-i,û-u
 yumusama-donusum=ç-c,g-ğ,k-ğ,p-b,t-d
 ayiklama=.,-,',"
-ayiklama-donusum=â-a,î-i,û-ü
+ayiklama-donusum=â-a,î-i,û-u
 
 # secimlik ozellikler:
 
@@ -23,4 +23,4 @@ ascii-turkce=c-ç,g-ğ,i-ı,I-İ,o-ö,s-ş,u-ü,a-â,C-Ç,G-Ğ,O-Ö,S-Ş,U-Ü
 
 # incelebilen kalin sesliler. bu sesliler kalin orjinallerinin aynisidir ancak kalin degil incedir.
 # sadece bir ozel durum icin kullanilir (saat->saatler orenginde oldugu gibi. ikinci a harfi ince).
-ozel-ince-sesli=a,ı,u
+ozel-ince-sesli=a,ı,u,o

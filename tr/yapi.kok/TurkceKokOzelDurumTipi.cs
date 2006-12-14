@@ -1,4 +1,5 @@
-﻿using System;
+﻿// V 0.1
+using System;
 using System.Collections.Generic;
 using System.Text;
 using net.zemberek.yapi.kok;
@@ -100,14 +101,8 @@ namespace net.zemberek.tr.yapi.kok
                                                 TurkceEkAdlari.ISIM_CIKMA_DEN,
                                                 TurkceEkAdlari.ISIM_COGUL_LER});
         
-        public readonly static TurkceKokOzelDurumTipi SU_OZEL_DURUMU = new TurkceKokOzelDurumTipi(11,"FARKLI_KAYNASTIRMA",new string[]{
-                                                TurkceEkAdlari.ISIM_SAHIPLIK_BEN_IM,
-                                                TurkceEkAdlari.ISIM_SAHIPLIK_SEN_IN,
-                                                TurkceEkAdlari.ISIM_SAHIPLIK_O_I,
-                                                TurkceEkAdlari.ISIM_SAHIPLIK_BIZ_IMIZ,
-                                                TurkceEkAdlari.ISIM_SAHIPLIK_SIZ_INIZ});
         
-        public readonly static TurkceKokOzelDurumTipi ZAMIR_SESLI_OZEL = new TurkceKokOzelDurumTipi(12,"ZAMIR_SESLI_OZEL",new string[]{
+        public readonly static TurkceKokOzelDurumTipi ZAMIR_SESLI_OZEL = new TurkceKokOzelDurumTipi(11,"ZAMIR_SESLI_OZEL",new string[]{
                                                 TurkceEkAdlari.ISIM_YONELME_E,
                                                 TurkceEkAdlari.ISIM_KALMA_DE,
                                                 TurkceEkAdlari.ISIM_CIKMA_DEN,
@@ -125,7 +120,7 @@ namespace net.zemberek.tr.yapi.kok
          * mesela: acemborusu -> acemborulari seklinde. bu kokler sistemde ozel sekilde saklaniyor.
          * acemborusu -> acemboru IS_TAM seklinde tanimlanmistir. ayni sekilde zeytinyag IS_TAM gibi
          */    
-        public readonly static TurkceKokOzelDurumTipi ISIM_TAMLAMASI = new TurkceKokOzelDurumTipi(13,"IS_TAM",new string[]{
+        public readonly static TurkceKokOzelDurumTipi ISIM_TAMLAMASI = new TurkceKokOzelDurumTipi(12,"IS_TAM",new string[]{
                                                 TurkceEkAdlari.ISIM_SAHIPLIK_BEN_IM,
                                                 TurkceEkAdlari.ISIM_SAHIPLIK_SEN_IN,
                                                 TurkceEkAdlari.ISIM_SAHIPLIK_O_I,
@@ -141,18 +136,19 @@ namespace net.zemberek.tr.yapi.kok
                                                 TurkceEkAdlari.ISIM_DURUM_LIK,
                                                 TurkceEkAdlari.ISIM_KUCULTME_CEGIZ,
                                                 TurkceEkAdlari.ISIM_ILGI_CI});        
-        public readonly static TurkceKokOzelDurumTipi YALIN = new TurkceKokOzelDurumTipi(14,"YAL");
-        public readonly static TurkceKokOzelDurumTipi GENIS_ZAMAN = new TurkceKokOzelDurumTipi(15,"GEN");
-        public readonly static TurkceKokOzelDurumTipi EK_OZEL_DURUMU = new TurkceKokOzelDurumTipi(16,"EK");
-        public readonly static TurkceKokOzelDurumTipi FIIL_GECISSIZ = new TurkceKokOzelDurumTipi(17,"GEC");
-        public readonly static TurkceKokOzelDurumTipi KAYNASTIRMA_N = new TurkceKokOzelDurumTipi(18,"KAYNASTIRMA_N");
-        public readonly static TurkceKokOzelDurumTipi KESMESIZ = new TurkceKokOzelDurumTipi(19, "KESMESIZ");
-        public readonly static TurkceKokOzelDurumTipi TIRE = new TurkceKokOzelDurumTipi(20,"TIRE");
-        public readonly static TurkceKokOzelDurumTipi KESME = new TurkceKokOzelDurumTipi(21,"KESME");
-        public readonly static TurkceKokOzelDurumTipi OZEL_IC_KARAKTER = new TurkceKokOzelDurumTipi(22,"OZEL_IC_KARAKTER");
-        public readonly static TurkceKokOzelDurumTipi ZAMIR_IM = new TurkceKokOzelDurumTipi(23,"ZAMIR_IM");
-        public readonly static TurkceKokOzelDurumTipi ZAMIR_IN = new TurkceKokOzelDurumTipi(24,"ZAMIR_IN");
-        public readonly static TurkceKokOzelDurumTipi KISALTMA_SON_SESLI = new TurkceKokOzelDurumTipi(25,"SON");
-        public readonly static TurkceKokOzelDurumTipi KISALTMA_SON_SESSIZ = new TurkceKokOzelDurumTipi(26,"SON_N");
-    }
+        public readonly static TurkceKokOzelDurumTipi YALIN = new TurkceKokOzelDurumTipi(13,"YAL");
+        public readonly static TurkceKokOzelDurumTipi GENIS_ZAMAN = new TurkceKokOzelDurumTipi(14,"GEN");
+        public readonly static TurkceKokOzelDurumTipi EK_OZEL_DURUMU = new TurkceKokOzelDurumTipi(15,"EK");
+        public readonly static TurkceKokOzelDurumTipi FIIL_GECISSIZ = new TurkceKokOzelDurumTipi(16,"GEC");
+        public readonly static TurkceKokOzelDurumTipi KAYNASTIRMA_N = new TurkceKokOzelDurumTipi(17,"KAYNASTIRMA_N");
+        public readonly static TurkceKokOzelDurumTipi KESMESIZ = new TurkceKokOzelDurumTipi(18, "KESMESIZ");
+        public readonly static TurkceKokOzelDurumTipi TIRE = new TurkceKokOzelDurumTipi(19,"TIRE");
+        public readonly static TurkceKokOzelDurumTipi KESME = new TurkceKokOzelDurumTipi(20,"KESME");
+        public readonly static TurkceKokOzelDurumTipi OZEL_IC_KARAKTER = new TurkceKokOzelDurumTipi(21,"OZEL_IC_KARAKTER");
+        public readonly static TurkceKokOzelDurumTipi ZAMIR_IM = new TurkceKokOzelDurumTipi(22,"ZAMIR_IM");
+        public readonly static TurkceKokOzelDurumTipi ZAMIR_IN = new TurkceKokOzelDurumTipi(23,"ZAMIR_IN");
+        public readonly static TurkceKokOzelDurumTipi KISALTMA_SON_SESLI = new TurkceKokOzelDurumTipi(24,"SON");
+        public readonly static TurkceKokOzelDurumTipi KISALTMA_SON_SESSIZ = new TurkceKokOzelDurumTipi(25,"SON_N");
+        public readonly static TurkceKokOzelDurumTipi SU_OZEL_DURUMU = new TurkceKokOzelDurumTipi(26, "FARKLI_KAYNASTIRMA");
+          }
 }

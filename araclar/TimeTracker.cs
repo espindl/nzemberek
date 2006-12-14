@@ -1,3 +1,4 @@
+// V 0.1
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -27,7 +28,7 @@ namespace net.zemberek.araclar
     {
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public static int MAX_TIMETRACKER_USERS = 500;
-        public static readonly long BOLUCU = 1000000000L;
+        //public static readonly long BOLUCU = 1000000000L;
         private static IDictionary<String, TimerElement> users = new Dictionary<String, TimerElement>();
 
         /**
@@ -59,7 +60,7 @@ namespace net.zemberek.araclar
          */
         public static long getElapsedTime(String name)
         {
-            TimerElement timer = users[name];
+            TimerElement timer = (TimerElement)users[name];
             if (timer == null)
                 return -1;
             timer.refresh();
@@ -75,7 +76,7 @@ namespace net.zemberek.araclar
          */
         public static long getTimeDelta(String name)
         {
-            TimerElement timer = users[name];
+            TimerElement timer = (TimerElement)users[name];
             if (timer == null)
                 return -1;
             timer.refresh();
@@ -92,11 +93,11 @@ namespace net.zemberek.araclar
          */
         public static String getElapsedTimeString(String name)
         {
-            TimerElement timer = users[name];
+            TimerElement timer = (TimerElement)users[name];
             if (timer == null)
                 return "Geçersiz Kronometre: " + name;
             timer.refresh();
-            return "Delta: " + (double)timer.getDiff() / BOLUCU + " s. Elapsed: " + (double)timer.getElapsedTime() / BOLUCU + " s.";
+            return "Delta: " + (float)timer.getDiff() / 1000 + " s. Elapsed: " + (float)timer.getElapsedTime() / 1000 + " s.";
         }
 
         /**
@@ -105,7 +106,7 @@ namespace net.zemberek.araclar
          */
         public static String getElapsedTimeStringAsMillis(String name)
         {
-            TimerElement timer = users[name];
+            TimerElement timer = (TimerElement)users[name];
             if (timer == null)
                 return "Geçersiz Kronometre: " + name;
             timer.refresh();
@@ -119,13 +120,13 @@ namespace net.zemberek.araclar
          */
         public static long getItemsPerSecond(String name, long itemCount)
         {
-            TimerElement timer = users[name];
+            TimerElement timer = (TimerElement)users[name];
             if (timer == null)
                 return -1;
             timer.refresh();
             long items = 0;
             if (timer.getElapsedTime() > 0)
-                items = (BOLUCU * itemCount) / timer.getElapsedTime();
+                items = (1000 * itemCount) / timer.getElapsedTime();
             return items;
         }
 
@@ -138,12 +139,12 @@ namespace net.zemberek.araclar
          */
         public static String stopClock(String name)
         {
-            TimerElement timer = users[name];
+            TimerElement timer = (TimerElement)users[name];
             if (timer == null)
                 return name + " : Geçersiz Kronometre";
             timer.refresh();
             users.Remove(name);
-            return "" + (float)timer.getElapsedTime() / BOLUCU + "sn."
+            return "" + (float)timer.getElapsedTime() / 1000 + "sn."
                    + "(" + timer.getElapsedTime() + " ms.)";
         }
 
