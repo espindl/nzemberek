@@ -1,3 +1,5 @@
+//V 0.1
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -196,7 +198,7 @@ namespace net.zemberek.bilgi.kokler
                 // Uzun olan dugumun (yeni gelen) eklenmesi, es anlamlilari kotar
                 newNode.addNode(new KokDugumu(hd[idx], icerik, kok));
                 oncekiDugum.temizle();
-                return;
+//Tankut Java-R42 ile silindi.                return;
             }
 
             /**
@@ -234,7 +236,7 @@ namespace net.zemberek.bilgi.kokler
                 newNode.kopyala(oncekiDugum);
                 // Es seslileri tasi.
                 oncekiDugum.temizle();
-                return;
+//Tankut Java-R42 ile silindi.                return;
             }
         }
 

@@ -76,6 +76,7 @@ namespace net.zemberek.yapi
             kopya.buyukHarf = buyukHarf;
             kopya.asciiDisi = asciiDisi;
             kopya.duzSesli = duzSesli;
+            kopya.yuvarlakSesli = yuvarlakSesli;
             kopya._yumusama = _yumusama;
             kopya._sertDonusum = _sertDonusum;
             kopya._turkceDonusum = _turkceDonusum;

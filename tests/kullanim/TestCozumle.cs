@@ -1,3 +1,5 @@
+//V 0.1
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -89,6 +91,58 @@ namespace net.zemberek.tests.kullanim
             Assert.AreEqual("FIIL_KISI_SIZ", ekler[5].ad());
         }
 
-        
+        [Test]
+        public void testCozumle_Suyuyla()
+        {
+            string str = "suyuyla";
+            Assert.IsTrue(zemberek.kelimeDenetle(str));
+            Kelime[] sonuc = zemberek.kelimeCozumle(str);
+            Assert.AreEqual(2, sonuc.Length);
+            Kok kok = sonuc[0].kok();
+            Assert.AreEqual("su", kok.icerik());
+            List<Ek> ekler = sonuc[0].ekler();
+            Assert.AreEqual(3, ekler.Count);
+            Assert.AreEqual("ISIM_KOK", ekler[0].ad());
+            Assert.AreEqual("ISIM_TAMLAMA_I", ekler[1].ad());
+            Assert.AreEqual("ISIM_BIRLIKTELIK_LE", ekler[2].ad());
+
+            kok = sonuc[1].kok();
+            Assert.AreEqual("su", kok.icerik());
+            ekler = sonuc[1].ekler();
+            Assert.AreEqual(3, ekler.Count);
+            Assert.AreEqual("ISIM_KOK", ekler[0].ad());
+            Assert.AreEqual("ISIM_SAHIPLIK_O_I", ekler[1].ad());
+            Assert.AreEqual("ISIM_BIRLIKTELIK_LE", ekler[2].ad());
+        }
+
+        [Test]
+        public void testCozumle_Sembolu()
+        {
+            string str = "sembolü";
+            Assert.IsTrue(zemberek.kelimeDenetle(str));
+            Kelime[] sonuc = zemberek.kelimeCozumle(str);
+            Assert.AreEqual(3, sonuc.Length);
+
+            Kok kok = sonuc[0].kok();
+            Assert.AreEqual("sembol", kok.icerik());
+            List<Ek> ekler = sonuc[0].ekler();
+            Assert.AreEqual(2, ekler.Count);
+            Assert.AreEqual("ISIM_KOK", ekler[0].ad());
+            Assert.AreEqual("ISIM_TAMLAMA_I", ekler[1].ad());
+
+            kok = sonuc[1].kok();
+            Assert.AreEqual("sembol", kok.icerik());
+            ekler = sonuc[1].ekler();
+            Assert.AreEqual(2, ekler.Count);
+            Assert.AreEqual("ISIM_KOK", ekler[0].ad());
+            Assert.AreEqual("ISIM_BELIRTME_I", ekler[1].ad());
+
+            kok = sonuc[2].kok();
+            Assert.AreEqual("sembol", kok.icerik());
+            ekler = sonuc[2].ekler();
+            Assert.AreEqual(2, ekler.Count);
+            Assert.AreEqual("ISIM_KOK", ekler[0].ad());
+            Assert.AreEqual("ISIM_SAHIPLIK_O_I", ekler[1].ad());
+         }
     }
 }

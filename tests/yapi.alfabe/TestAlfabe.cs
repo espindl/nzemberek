@@ -43,14 +43,14 @@ namespace net.zemberek.tests.yapi.alfabe
         }
 
         [Test]
-        [Ignore("Hatali yazilmis gibi, kucuk (noktasiz) i giriyor buyuk yapip buyuk noktali i ile karsilastiriyor")]
-        public void testLowerUpperCase() {
-            TurkceHarf ii = alfabe.harf(Alfabe.CHAR_ii);
-            TurkceHarf harfI = alfabe.buyukHarf(ii);
-            Assert.AreEqual(harfI.charDeger(), Alfabe.CHAR_II);
+        public void testLowerUpperCase() 
+        {
+            TurkceHarf kucukI = alfabe.harf(Alfabe.CHAR_ii);
+            TurkceHarf harfI = alfabe.buyukHarf(kucukI);
+            Assert.AreEqual(harfI.charDeger(),'I');
             TurkceHarf i = alfabe.harf('i');
             TurkceHarf harfBuyuki = alfabe.buyukHarf(i);
-            Assert.AreEqual(harfBuyuki.charDeger(), 'I');
+            Assert.AreEqual(harfBuyuki.charDeger(), 'İ');
         }
     }
 }

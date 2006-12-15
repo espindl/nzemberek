@@ -234,6 +234,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>COPY $(ProjectDir)kaynaklar\tr\bilgi\duzyazi-kilavuz.txt  $(ProjectDir)$(OutDir)kaynaklar\tr\bilgi\duzyazi-kilavuz_tr.txt</PostBuildEvent>
+    <PostBuildEvent>COPY $(ProjectDir)kaynaklar\tr\bilgi\*.*  $(ProjectDir)$(OutDir)kaynaklar\tr\bilgi\</PostBuildEvent>
   </PropertyGroup>
 </Project>

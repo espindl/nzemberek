@@ -1,6 +1,7 @@
 /*
  * Created on 30.Tem.2005
- *
+ * 
+ * V0.1
  */
 
 using System;
@@ -11,19 +12,22 @@ namespace net.zemberek.araclar
 {
     public class TusTakimi
     {
+
         // Standart Türkçe Q Klavye haritasý.
         public static char[][] qKlavyeHaritasi = new char[][]{
         new char[]{'1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '*', '-'},
         new char[]{'q', 'w', 'e', 'r', 't', 'y', 'u', '\u0131', 'o', 'p', '\u011f', '\u00fc'},
-        new char[]{'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', '\u015f', 'i', ','},
+        new char[]{'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', '\u015f', 'i', ',', '#'},
         new char[]{'z', 'x', 'c', 'v', 'b', 'n', 'm', '\u00f6', '\u00e7', '.', '.','.'}};
 
+        
         // Standart Türkçe F Klavye haritasý.
         public static char[][] fKlavyeHaritasi = new char[][]{
         new char[]{'1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '*', '-'},
         new char[]{'f', 'g', '\u011f', '\u0131', 'o', 'd', 'r', 'n', 'h', 'p', 'q', 'w'},
         new char[]{'u', 'i', 'e', 'a', '\u00fc', 't', 'k', 'm', 'l', 'y','\u015f', 'x'},
         new char[]{'j', '\u00f6', 'v', 'c', '\u00e7', 'z', 's', 'b', '.', ','}};
+
 
         private char[][] klavyeHaritasi = null;
         private IDictionary<Char, KarakterKoordinati> koordinatlar = new Dictionary<Char, KarakterKoordinati>();
@@ -91,10 +95,11 @@ namespace net.zemberek.araclar
             return normalizeMesafe;
         }
 
-        public String toStirng()
+        public String ToStirng()
         {
             return koordinatlar.ToString();
         }
+
 
         public class KarakterKoordinati
         {
@@ -116,4 +121,3 @@ namespace net.zemberek.araclar
 
     }
 }
-

@@ -28,8 +28,11 @@ namespace net.zemberek.yapi.kok
         {
             for (int i = dizi.Length - 1; i >= 0; i--)
             {
-                if (!dizi.harf(i).inceSesliMi())
+                TurkceHarf h = dizi.harf(i);
+                if (h.sesliMi() && !h.inceSesliMi())
+                {
                     dizi.harfDegistir(i, _alfabe.kalinSesliIncelt(dizi.harf(i)));
+                }
             }
         }
 

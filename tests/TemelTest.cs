@@ -7,7 +7,6 @@ using net.zemberek.tr.yapi;
 
 namespace net.zemberek.tests
 {
-    [TestFixture]
     public class TemelTest
     {
         internal DilBilgisi dilBilgisi;
