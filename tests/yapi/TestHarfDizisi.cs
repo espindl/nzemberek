@@ -11,7 +11,7 @@ namespace net.zemberek.tests.yapi
     public class TestHarfDizisi
     {
         //TODO :  testler alfabe yüklemeyi tamamlayýnca çalýþacak.
-        Alfabe alfabe = new Alfabe(@"..\..\tests\yapi\test_harf_tr.txt", "tr");
+        Alfabe alfabe = new Alfabe(@"kaynaklar\tr\test\test_harf_tr.txt", "tr");
         String str;
         HarfDizisi dizi1;
 

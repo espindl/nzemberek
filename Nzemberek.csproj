@@ -213,7 +213,7 @@
     <Content Include="kaynaklar\tr\test\toleransli-cozumleme-test.txt" />
     <Content Include="kaynaklar\tr\test\tree_test_sozluk.txt" />
     <Content Include="kaynaklar\tr\test\turkceHarfBuilder_.txt" />
-    <Content Include="tests\bilgi\test_harf_tr.txt" />
+    <Content Include="kaynaklar\tr\test\test_harf_tr.txt" />
     <Content Include="lib\Iesi.Collections.dll" />
     <Content Include="lib\Iesi.Collections.Generic.dll" />
     <Content Include="lib\log4net.dll" />

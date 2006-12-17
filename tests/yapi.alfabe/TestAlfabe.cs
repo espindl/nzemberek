@@ -14,7 +14,7 @@ namespace net.zemberek.tests.yapi.alfabe
 
         [SetUp]
         public void setUp() {
-            alfabe = new Alfabe(@"..\..\tests\yapi\test_harf_tr.txt","tr");
+            alfabe = new Alfabe(@"kaynaklar\tr\test\test_harf_tr.txt", "tr");
         }
 
         [Test]

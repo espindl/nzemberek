@@ -11,7 +11,7 @@ namespace net.zemberek.tests.yapi
     {
         [Test]
         public void testKodlamaliKaynakYuklyici() {
-            IDictionary<String, String> harfler = new KaynakYukleyici().kodlamaliOzellikDosyasiOku(@"..\..\tests\bilgi\test_harf_tr.txt");
+            IDictionary<String, String> harfler = new KaynakYukleyici().kodlamaliOzellikDosyasiOku(@"kaynaklar\tr\test\test_harf_tr.txt");
             String test = "e,i,ö,ü";
             Assert.AreEqual(test, harfler["ince-sesli"]);
         }

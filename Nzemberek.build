@@ -47,9 +47,9 @@
   </target>
 
   <target name="runtests" depends="nunitbuild">
-    <nunit2 failonerror="false">
+    <nunit2 failonerror="true">
       <formatter type="Xml" usefile="true"  extension=".xml" outputdir="${reportsDir}" />
-      <test assemblyname="${unitTestDir}/${filename}.dll" appconfig="app.config" />
+      <test assemblyname="${unitTestDir}/${filename}.dll" />
     </nunit2>
   </target>
 
@@ -59,6 +59,7 @@
         <include name="${thirdPartyLib}/Iesi.Collections.dll" />
         <include name="${thirdPartyLib}/Iesi.Collections.Generic.dll" />
         <include name="${thirdPartyLib}/log4net.dll" />
+        <include name="${thirdPartyLib}/nunit.framework.dll" />
       </fileset>
     </copy>
     <csc target="library" debug="true" output="${unitTestDir}/${filename}.dll">
@@ -74,8 +75,7 @@
     <mkdir dir="${unitTestDir}/kaynaklar/tr/test"  />
     <copy flatten="false" todir="${unitTestDir}/kaynaklar/tr/bilgi">
       <fileset basedir="kaynaklar/tr/bilgi">
-        <include name="*.txt" />
-        <include name="*.bin" />
+        <include name="*.*" />
       </fileset>
     </copy>
     <copy flatten="false" todir="${unitTestDir}/kaynaklar/tr/test">
@@ -84,11 +84,8 @@
         <include name="*.properties" />
       </fileset>
     </copy>
-    <copy flatten="false" todir="${unitTestDir}">
-      <fileset basedir="${testdir}">
-        <include name="app.config" />
-      </fileset>
-    </copy>
+    <copy file="${testdir}/app.config" tofile="${unitTestDir}/Nzemberek.dll.config" />
+    <copy file="app.config" tofile="${unitTestDir}/app.config" />
   </target>
 
   <target name="clean" description="cleans the working and test directory">
