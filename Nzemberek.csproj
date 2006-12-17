@@ -220,10 +220,7 @@
     <Content Include="lib\nunit.framework.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="dagitim\bin\" />
-    <Folder Include="tests\bin\" />
     <Folder Include="tests\islemler.cozumleme\" />
-    <Folder Include="tests\reports\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

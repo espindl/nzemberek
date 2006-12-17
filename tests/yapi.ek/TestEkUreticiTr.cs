@@ -37,8 +37,8 @@ namespace net.zemberek.tests.yapi.ek
              
         }
 
-        [Test]
-        private void olusumTesti(String kural, String[] olusumlar) {
+        public void olusumTesti(String kural, String[] olusumlar)
+        {
     /*        Set beklenen = new HashSet();
             for (String s : olusumlar)
                 beklenen.add(new HarfDizisi(s, TurkceAlfabe.ref()));

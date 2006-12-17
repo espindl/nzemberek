@@ -20,15 +20,16 @@ namespace net.zemberek.tests.kullanim
         private static Zemberek zemberek;
 
         [SetUp]
-        public void Setup()
+        public override void once() 
         {
+            base.once();
             zemberek = new Zemberek(new TurkiyeTurkcesi());
         }
 
         [Test]
         public void testCozumle1()
         {
-            zemberek = new Zemberek(new TurkiyeTurkcesi());
+            //zemberek = new Zemberek(new TurkiyeTurkcesi());
             string str = "kedi";
             Assert.IsTrue(zemberek.kelimeDenetle(str));
             Kelime[] sonuc = zemberek.kelimeCozumle(str);
@@ -44,7 +45,7 @@ namespace net.zemberek.tests.kullanim
         [Test]
         public void testCozumle2()
         {
-            zemberek = new Zemberek(new TurkiyeTurkcesi());
+            //zemberek = new Zemberek(new TurkiyeTurkcesi());
             string str = "kediciklerin";
             Assert.IsTrue(zemberek.kelimeDenetle(str));
             Kelime[] sonuc = zemberek.kelimeCozumle(str);
@@ -72,7 +73,7 @@ namespace net.zemberek.tests.kullanim
         [Test]
         public void testCozumle3()
         {
-            zemberek = new Zemberek(new TurkiyeTurkcesi());
+            //zemberek = new Zemberek(new TurkiyeTurkcesi());
             string str = "getirttirebilirsiniz";
             Assert.IsTrue(zemberek.kelimeDenetle(str));
             Kelime[] sonuc = zemberek.kelimeCozumle(str);
@@ -94,6 +95,7 @@ namespace net.zemberek.tests.kullanim
         [Test]
         public void testCozumle_Suyuyla()
         {
+            //zemberek = new Zemberek(new TurkiyeTurkcesi());
             string str = "suyuyla";
             Assert.IsTrue(zemberek.kelimeDenetle(str));
             Kelime[] sonuc = zemberek.kelimeCozumle(str);

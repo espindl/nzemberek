@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="NZemberek" default="copyfiles" xmlns="http://nant.sourceforge.net/release/0.85/nant.xsd">
+	<property name="filename" value="NZemberek"/>
+	
+  <property name="testdir"  value="tests"/>
+	<property name= "binaryDir" 	value= "dagitim" />
+	<property name= "thirdPartyLib" value= "lib" />
+  <property name= "unitTestDir"	value= "${testdir}\bin" />
+  <property name= "reportsDir" 	value= "${testdir}\reports" />
+  
+  <property name= "solution.debug" value="false"/>
+	
+	<assemblyfileset id ="refs">
+		<include name="${thirdPartyLib}/nunit.framework.dll" />
+		<include name="${thirdPartyLib}/Iesi.Collections.dll" />
+		<include name="${thirdPartyLib}/Iesi.Collections.Generic.dll" />
+		<include name="${thirdPartyLib}/log4net.dll" />
+	</assemblyfileset>
+
+  <target name="copyfiles" depends="releasebuild">
+    <mkdir dir="${binaryDir}/kaynaklar/tr/bilgi"  />
+    <copy flatten="false" todir="${binaryDir}/kaynaklar/tr/bilgi">
+      <fileset basedir="kaynaklar/tr/bilgi">
+        <include name="ek_tr.xml" />
+        <include name="kokler_tr.bin" />
+        <include name="harf_tr.txt" />
+      </fileset>
+    </copy>
+    <copy flatten="true" todir="${binaryDir}">
+      <fileset>
+        <include name="${thirdPartyLib}/Iesi.Collections.dll" />
+        <include name="${thirdPartyLib}/Iesi.Collections.Generic.dll" />
+        <include name="${thirdPartyLib}/log4net.dll" />
+        <include name="app.config" />
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="releasebuild" depends="runtests">
+    <csc target="library" debug="${solution.debug}" output="${binaryDir}/${filename}.dll">
+      <sources>
+        <include name="**/*.cs"/>
+        <exclude name="tests/**"/>
+      </sources>
+      <references refid="refs"/>
+    </csc>
+  </target>
+
+  <target name="runtests" depends="nunitbuild">
+    <nunit2 failonerror="false">
+      <formatter type="Xml" usefile="true"  extension=".xml" outputdir="${reportsDir}" />
+      <test assemblyname="${unitTestDir}/${filename}.dll" appconfig="app.config" />
+    </nunit2>
+  </target>
+
+  <target name="nunitbuild" depends="prepForTests">
+    <copy flatten="true" todir="${unitTestDir}">
+      <fileset>
+        <include name="${thirdPartyLib}/Iesi.Collections.dll" />
+        <include name="${thirdPartyLib}/Iesi.Collections.Generic.dll" />
+        <include name="${thirdPartyLib}/log4net.dll" />
+      </fileset>
+    </copy>
+    <csc target="library" debug="true" output="${unitTestDir}/${filename}.dll">
+      <sources>
+        <include name="**/*.cs"/>
+      </sources>
+      <references refid="refs"/>
+    </csc>
+  </target>
+
+  <target name="prepForTests" depends="clean">
+    <mkdir dir="${unitTestDir}/kaynaklar/tr/bilgi"  />
+    <mkdir dir="${unitTestDir}/kaynaklar/tr/test"  />
+    <copy flatten="false" todir="${unitTestDir}/kaynaklar/tr/bilgi">
+      <fileset basedir="kaynaklar/tr/bilgi">
+        <include name="*.txt" />
+        <include name="*.bin" />
+      </fileset>
+    </copy>
+    <copy flatten="false" todir="${unitTestDir}/kaynaklar/tr/test">
+      <fileset basedir="kaynaklar/tr/test">
+        <include name="*.txt" />
+        <include name="*.properties" />
+      </fileset>
+    </copy>
+    <copy flatten="false" todir="${unitTestDir}">
+      <fileset basedir="${testdir}">
+        <include name="app.config" />
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="clean" description="cleans the working and test directory">
+    <mkdir dir="${binaryDir}/" failonerror="true" unless="${directory::exists(&apos;${binaryDir}/&apos;)}"/>
+    <mkdir dir="${unitTestDir}/" failonerror="true" unless="${directory::exists(&apos;${unitTestDir}/&apos;)}"/>
+    <delete failonerror="false">
+      <fileset>
+        <include name="${binaryDir}/*.*"/>
+        <include name="${unitTestDir}/**"/>
+      </fileset>
+    </delete>
+    
+  </target>
+</project>

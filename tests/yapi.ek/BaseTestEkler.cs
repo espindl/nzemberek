@@ -12,10 +12,11 @@ namespace net.zemberek.tests.yapi.ek
      * User: aakin
      * Date: Feb 24, 2004
      */
-    [TestFixture]
     public class BaseTestEkler : TemelTest {
 
         protected Kelime[] kelimeler;
+
+
 
         protected void olusanEkKontrol(String[] strs, String[] gercek, Ek ek) {
             String[] olusanEkler;

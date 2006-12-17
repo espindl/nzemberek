@@ -10,12 +10,14 @@ namespace net.zemberek.tests.yapi.ek
 {
     /**
  */
+    [TestFixture]
 public class TestFiilEkleri : BaseTestEkler 
 {
 
     private Ek GetEk(String ad) {
         return  dilBilgisi.ekler().ek(ad);
     }
+
 
     [Test]
     public void testFiilCesine() {
