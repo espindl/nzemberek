@@ -9,9 +9,9 @@ using log4net;
 [assembly: AssemblyTitle("Nzemberek")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Türkiye Ýþ Bankasý")]
+[assembly: AssemblyCompany("Community Project")]
 [assembly: AssemblyProduct("Nzemberek")]
-[assembly: AssemblyCopyright("Copyright © Türkiye Ýþ Bankasý 2006")]
+[assembly: AssemblyCopyright("Copyleft")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

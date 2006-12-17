@@ -1,4 +1,6 @@
-﻿using System;
+﻿//V 0.1
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using net.zemberek.yapi;
@@ -70,12 +72,16 @@ public class KelimeUretici {
             Ek ek = ekler[i];
 
             // eger incelenen ek onceki ekten sonra gelemezse cik.
-            if (i > 0) {
+            if (i > 0) 
+            {
                 Ek oncekiEk = ekler[i - 1];
-                if (!oncekiEk.ardindanGelebilirMi(ek)) {
+                if (!oncekiEk.ardindanGelebilirMi(ek)) 
+                {
                     return ure;
                 }
             }
+
+
 
             //olusum icin kural belirle ve eki olustur.
             HarfDizisi ekOlusumu;
