@@ -35,10 +35,10 @@ namespace net.zemberek.bilgi.kokler
         void ekle(Kok kok);
 
         /**
-         * Bu metod kÃ¶kbulucu fabrikasÄ± elde etmek iÃ§in kullanÄ±lÄ±r. GerÃ§ekleyen sÃ¶zlÃ¼k sÄ±nÄ±flarÄ± bu
-         * metodda kendi KÃ¶k bulucu fabrikasÄ± gerÃ§eklemelerinin bir instancesini geri dÃ¶ndÃ¼rmelidirler.
+         * Bu metod kökbulucu fabrikası elde etmek için kullanılır. Gerçekleyen sözlük sınıfları bu
+         * metodda kendi Kök bulucu fabrikası gerçeklemelerinin bir instancesini geri döndürmelidirler.
          *
-         * @return SÃ¶zlÃ¼k
+         * @return Sözlük
          * @see AgacSozluk
          */
         KokBulucuUretici getKokBulucuFactory();

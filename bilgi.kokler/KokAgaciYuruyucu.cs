@@ -28,7 +28,7 @@ namespace net.zemberek.bilgi.kokler
         /**
          *
          * @param sozluk Taranacak sozluk
-         * @param set Yurume sırasında bulunan düÄŸümler toplanmak istiyorsa buraya bir set gönderilir.
+         * @param set Yurume sırasında bulunan düğümler toplanmak istiyorsa buraya bir set gönderilir.
          * istenmiyorsa null verilir.
          */
         public KokAgaciYuruyucu(Sozluk sozluk, Set<Kok> set)

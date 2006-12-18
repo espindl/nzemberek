@@ -56,7 +56,7 @@ namespace net.zemberek.yapi
             this.dilAdi=dilAyarlari.ad();
             char c = '\\';//File.separatorChar; TODO genellestir
             //TODO MERT buradaki Ietlanguagetag > yerinde  getLanguage() vardı
-            bilgiDizini = "kaynaklar" + c + dilAyarlari.locale().IetfLanguageTag + c + "bilgi" + c;
+            bilgiDizini = "kaynaklar" + c + dilAyarlari.locale().TwoLetterISOLanguageName + c + "bilgi" + c;
             alfabeDosyaAdi = dosyaAdiUret("harf", "txt");
             ekDosyaAdi = dosyaAdiUret("ek", "xml");
             kokDosyaAdi = dosyaAdiUret("kokler", "bin");
@@ -77,7 +77,7 @@ namespace net.zemberek.yapi
          * @return olusan kaynak dosyasi adi.
          */
         private String dosyaAdiUret(String kok, String uzanti) {
-            return bilgiDizini + kok + '_' + dilAyarlari.locale().IetfLanguageTag + '.' + uzanti;
+            return bilgiDizini + kok + '_' + dilAyarlari.locale().TwoLetterISOLanguageName + '.' + uzanti;
         }
 
         public Alfabe alfabe() {
@@ -88,7 +88,7 @@ namespace net.zemberek.yapi
                     logger.Info("Alfabe uretiliyor:" + dilAdi);
                     Type clazz = dilAyarlari.alfabeSinifi();
                     ConstructorInfo ci = clazz.GetConstructor(new Type[] { typeof(String), typeof(String) });
-                    _alfabe = (Alfabe)ci.Invoke(new object[] { alfabeDosyaAdi, dilAyarlari.locale().IetfLanguageTag });
+                    _alfabe = (Alfabe)ci.Invoke(new object[] { alfabeDosyaAdi, dilAyarlari.locale().TwoLetterISOLanguageName });
                 } catch (Exception e) {
                     logger.Fatal("Alfabe uretilemiyor. muhtemel dosya erisim hatasi.");
                     e.StackTrace.ToString();

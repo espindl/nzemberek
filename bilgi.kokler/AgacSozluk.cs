@@ -19,9 +19,9 @@ namespace net.zemberek.bilgi.kokler
     /**
      * constructor.
      *
-     * @param okuyucu: SÃ¶zlÃ¼kler mutlaka bir sÃ¶zlÃ¼k okuyucu ile ilklendirilir.
-     * @param alfabe : KullanÄ±lan TÃ¼rk dili alfabesi
-     * @param ozelDurumlar : Dile ait kÃ¶k Ã¶zel durumlarÄ±nÄ± taÅŸÄ±yan nesne
+     * @param okuyucu: Sözlükler mutlaka bir sözlük okuyucu ile ilklendirilir.
+     * @param alfabe : Kullanılan Türk dili alfabesi
+     * @param ozelDurumlar : Dile ait kök özel durumlarını taşıyan nesne
      */
     public AgacSozluk(KokOkuyucu okuyucu, Alfabe alfabe, KokOzelDurumBilgisi ozelDurumlar) 
     {
@@ -52,11 +52,11 @@ namespace net.zemberek.bilgi.kokler
     }
 
     /**
-     * Verilen bir kÃ¶kÃ¼ sÃ¶zlÃ¼kte arar.
+     * Verilen bir kökü sözlükte arar.
      *
-     * @param str: Aranan kÃ¶k
-     * @return EÄŸer aranan kÃ¶k varsa, eÅŸ seslileri ile beraber kÃ¶k nesnesini de
-     * taÅŸÄ±yan bir List<Kok>, aranan kÃ¶k yoksa null;
+     * @param str: Aranan kök
+     * @return Eğer aranan kök varsa, eş seslileri ile beraber kök nesnesini de
+     * taşıyan bir List<Kok>, aranan kök yoksa null;
      */
     public List<Kok> kokBul(String str) {
         return agac.bul(str);
@@ -78,12 +78,12 @@ namespace net.zemberek.bilgi.kokler
     }
 
     /**
-     * Verilen kÃ¶kÃ¼ sÃ¶zlÃ¼ÄŸe ekler. Eklemeden once koke ait ozel durumlar varsa bunlar denetlenir.
+     * Verilen kökü sözlüğe ekler. Eklemeden once koke ait ozel durumlar varsa bunlar denetlenir.
      * Eger kok ozel durumlari kok yapisini bozacak sekilde ise ozel durumlarin koke uyarlanmis halleride
      * agaca eklenir. bu sekilde bozulmus kok formlarini iceren kelimeler icin kok bulma
      * islemi basari ile gerceklestirilebilir.
      *
-     * @param kok: SÃ¶zlÃ¼ÄŸe eklenecek olan kÃ¶k nesnesi.
+     * @param kok: Sözlüğe eklenecek olan kök nesnesi.
      */
     public void ekle(Kok kok) {
         kok.Indeks = indeks++;
@@ -104,8 +104,8 @@ namespace net.zemberek.bilgi.kokler
     }
 
     /**
-     * KÃ¶k seÃ§iciler, sÃ¶zlÃ¼kten alÄ±nan bir fabrika ile elde edilirler.
-     * Ã–rneÄŸin:
+     * Kök seçiciler, sözlükten alınan bir fabrika ile elde edilirler.
+     * Ã–rneğin:
      * <pre>
      * KokBulucu kokSecici = kokler.getKokBulucuFactory().getKesinKokBulucu();
      * </pre>
@@ -115,7 +115,7 @@ namespace net.zemberek.bilgi.kokler
     }
 
     /**
-     * AÄŸaÃ§ sÃ¶zlÃ¼k iÃ§in fabrika gerÃ§eklemesi
+     * Ağaç sözlük için fabrika gerçeklemesi
      *
      * @author MDA
      */

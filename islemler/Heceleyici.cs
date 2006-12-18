@@ -66,12 +66,12 @@ public class Heceleyici {
     }
 
     /**
-     * Verilen kelime iÃ§in sonHeceHarfSayisi indekslerini bir dizi iÃ§inde dÃ¶ndÃ¼rÃ¼r
+     * Verilen kelime için sonHeceHarfSayisi indekslerini bir dizi içinde döndürür
      *
      * @param giris : Hece indeksleri belirlenecek
      * @return Hece indekslerini tutan bir int[]
-     *         Ã–rnek: "merhaba" kelimesi iÃ§in 0,3,5
-     *         "tÃ¼rklerin" kelimesi iÃ§in 0,4,6
+     *         Ã–rnek: "merhaba" kelimesi için 0,3,5
+     *         "türklerin" kelimesi için 0,4,6
      */
     public int[] heceIndeksleriniBul(String giris) {
         giris = alfabe.ayikla(giris);

@@ -30,7 +30,7 @@ namespace net.zemberek.istatistik
                     //System.out.println("Kok : " + kokStr + " Freq : " + frekans);
                     ICollection<Kok> col = sozluk.kokBul(kokStr);
                     if (col == null) {
-                	    // sonraki koke geÃ§.
+                	    // sonraki koke geç.
                 	    continue;
                     }
                     sayac++;

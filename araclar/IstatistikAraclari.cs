@@ -17,11 +17,11 @@ namespace net.zemberek.araclar
         public static string df2 = "#0.00000";
 
         /**
-         * Verilen girisin toplamÄ±n yÃ¼zde kaÃ§Ä±nÄ± oluÅŸturduÄŸunu dÃ¶ndÃ¼rÃ¼r.
+         * Verilen girisin toplamın yüzde kaçını oluşturduğunu döndürür.
          * @param input
          * @param total
          * @return input, toplamin %kaci ise.
-         * EÄŸer total 0 ise -1 
+         * Eğer total 0 ise -1 
          * 
          */
         public static double yuzdeHesapla(long input, long total)
@@ -31,8 +31,8 @@ namespace net.zemberek.araclar
         }
 
         /**
-         * Yuzde hesaplamasÄ±nÄ±n aynÄ±sÄ±, sadece formatlÄ± String olarak dÃ¶ndÃ¼rÃ¼r.
-         * @param input : giriÅŸ 
+         * Yuzde hesaplamasının aynısı, sadece formatlı String olarak döndürür.
+         * @param input : giriş 
          * @param total : toplam
          * @return
          */
@@ -43,7 +43,7 @@ namespace net.zemberek.araclar
         }
 
         /**
-         * Gene yuzde hesabÄ±. ama bu sefer virgÃ¼lden sonra 5 basamak hassasiyet
+         * Gene yuzde hesabı. ama bu sefer virgülden sonra 5 basamak hassasiyet
          * @return
          */
         public static String onbindeHesaplaStr(long input, long total)

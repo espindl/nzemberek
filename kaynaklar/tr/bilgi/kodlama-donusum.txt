@@ -16,7 +16,7 @@
 # --------utf-8 donusum bozulmalari (hep c4,b0 kullanimina dikkat.)
 # =C4=B0
 # =3DC4=3DB0
-# Ä° (\u00c4\u00b0)
+# Ý (\u00c4\u00b0)
 # --------ISO donusum bozulmalari
 # =DD
 # --------HTML4 ve onluk karsiliklar
@@ -40,7 +40,7 @@
 \u00fc:&uuml;
 # Â³
 \u00fc:\u00c2\u00b3
-# Ã¼
+# ü
 \u00fc:\u00c3\u00bc
 # ÃfÂ¼
 \u00fc:\u00c3f\u00c2\u00bc
@@ -84,7 +84,7 @@
 \u015f:=C5=9F
 \u015f:=FE
 \u015f:&#351;
-# ÅŸ
+# þ
 \u015f:\u00c5\u009f
 # ? donusumleri
 \u015f:\u00fe
@@ -112,7 +112,7 @@
 \u0130:=DD
 \u0130:&#304;
 \u0130:\u00dd
-# Ä°
+# Ý
 \u0130:\u00c3\u009d                                                                                                                                       # 00dd	221	?	&Yacute;	Y with acute accent	Yacute
 # ? donusumleri
 \u0130:\u00dd
@@ -132,7 +132,7 @@
 \u00c7:=C7
 \u00c7:&Ccedil;
 \u00c7:&#199;
-# Ã‡
+# Ç
 \u00c7:\u00c3\u0087
 # Ã\?
 
@@ -144,7 +144,7 @@
 \u0131:=C4=B1
 \u0131:=FD
 \u0131:&#305;
-# Ä±
+# ý
 \u0131:\u00c4\u00b1
 # ? donusumleri
 \u0131:\u00fd
@@ -166,10 +166,10 @@
 \u00e7:=E7
 \u00e7:&#231;
 \u00e7:&ccedil;
-# Ã§
+# ç
 \u00e7:\u00c3\u00a7
 # ÃfÂ§
-# ã§
+# ç
 
 #----------------------------------------------------------------------------------
 # ð, <g(>, Turkce kucuk yumusak g, LATIN SMALL LETTER G WITH BREVE, u011f, &#287; UTF-8 (c4, 9f)
@@ -179,7 +179,7 @@
 \u011f:=C4=9F
 \u011f:=F0
 \u011f:&#287;
-# ÄŸ
+# ð
 \u011f:\u00c4\u009f
 # ? donusumleri
 \u011f:\u00f0
@@ -235,7 +235,7 @@
 \u00f6:=F6
 \u00f6:&ouml;
 \u00f6:&#246;
-# Ã¶
+# ö
 \u00f6:\u00c3\u00b6
 #ÃfÂ¶
 

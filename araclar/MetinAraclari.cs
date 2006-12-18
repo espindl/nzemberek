@@ -150,8 +150,8 @@ namespace net.zemberek.araclar
 
 
         /**
-         * Verilen s1 stringinin verilen distance düzeltme mesafesi Ã§erÃ§evesinde
-         * s2 stringinin alt stringi olup olmadıÄŸını dÃ¶ndürürr. Ã–rneÄŸin:
+         * Verilen s1 stringinin verilen distance düzeltme mesafesi çerçevesinde
+         * s2 stringinin alt stringi olup olmadığını döndürürr. Ã–rneğin:
          * <pre>
          * isInSubStringLevenshteinDistance("elma","ekmalar",1) -> true
          * isInSubStringLevenshteinDistance("elma","emalar",1) -> true
@@ -159,7 +159,7 @@ namespace net.zemberek.araclar
          * </pre>
          *
          * @param s1       :
-         * @param s2       : s1'i distance düzeltme mesafesi iÃ§inde kapsayıp kapsamadıÄŸı araÅŸtırılan String
+         * @param s2       : s1'i distance düzeltme mesafesi içinde kapsayıp kapsamadığı araştırılan String
          * @param distance : düzeltme mesafesi
          * @return eger istenilen mesafede is true.
          */

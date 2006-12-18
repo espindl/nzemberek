@@ -13,15 +13,15 @@ using net.zemberek.yapi.kok;
 namespace net.zemberek.bilgi.araclar
 {
     /**
- * BinarySozlukOkuyucu sÄ±nÄ±fÄ± dÃ¼zyazÄ± olarak dÃ¼zenlenmiÅŸ sÃ¶zlÃ¼ÄŸÃ¼ okur.
- * AÅŸaÄŸÄ±daki kod parÃ§asÄ± bir binary sÃ¶zlÃ¼kteki tÃ¼m kÃ¶kleri okur.
+ * BinarySozlukOkuyucu sınıfı düzyazı olarak düzenlenmiş sözlüğü okur.
+ * Aşağıdaki kod parçası bir binary sözlükteki tüm kökleri okur.
  * <pre>
  * ...
  * KokOkuyucu okuyucu = new DuzYaziKokOkuyucu();
  * okuyucu.initialize("kaynaklar/kb/duzyazi-kokler.txt");
  * Kok kok = null;
  * while((kok = sozlukOkuyucu.oku())!= null){
- *      ekle(kok); // Elde edilen kÃ¶k nesnesi ile ne gerekiyorsa yap.
+ *      ekle(kok); // Elde edilen kök nesnesi ile ne gerekiyorsa yap.
  * }
  * ...
  * </pre>

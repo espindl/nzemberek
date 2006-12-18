@@ -62,7 +62,7 @@ namespace net.zemberek.bilgi
                 _oneriDeasciifierKullan = boolOku("oneri.deasciifierKullan");
                 _oneriKokFrekansKullan = boolOku("oneri.kokFrekansKullan");
                 _oneriBilesikKelimeKullan = boolOku("oneri.bilesikKelimeKullan");
-                oneriMax = Int32.Parse(ConfigurationManager.AppSettings["oneri.max"]);
+                oneriMax = Int32.Parse(ConfigurationSettings.AppSettings["oneri.max"]);
                 _disKaynakErisimi = boolOku("bilgi.disKaynakErisimi");
                 _cepKullan = boolOku("denetleme.cepKullan");
                 //TODO loglama seviyeleri log4netin configi ile yapılacak (@tankut)
@@ -71,15 +71,15 @@ namespace net.zemberek.bilgi
                 {
                     //TODO gerekebilir : if(Directory.Exists(ConfigurationManager.AppSettings["bilgi.dizin")))
                     // ve buralar gözden gecemeli
-                    string dizin = ConfigurationManager.AppSettings["bilgi.dizin"];
+                    string dizin = ConfigurationSettings.AppSettings["bilgi.dizin"];
                     bilgiDizini = new Uri(dizin);
-                    bilgiEk = new Uri(dizin+"/"+ConfigurationManager.AppSettings["bilgi.ekler"]);
+                    bilgiEk = new Uri(dizin + "/" + ConfigurationSettings.AppSettings["bilgi.ekler"]);
                     File.OpenRead(bilgiEk.ToString());
-                    bilgiKokler = new Uri(dizin + "/" + ConfigurationManager.AppSettings["bilgi.kokler"]);
+                    bilgiKokler = new Uri(dizin + "/" + ConfigurationSettings.AppSettings["bilgi.kokler"]);
                     File.OpenRead(bilgiKokler.ToString());
-                    bilgiAlfabe = new Uri(dizin + "/" + ConfigurationManager.AppSettings["bilgi.harf"]);
+                    bilgiAlfabe = new Uri(dizin + "/" + ConfigurationSettings.AppSettings["bilgi.harf"]);
                     File.OpenRead(bilgiAlfabe.ToString());
-                    bilgiCep = new Uri(dizin + "/" + ConfigurationManager.AppSettings["bilgi.harf"]);
+                    bilgiCep = new Uri(dizin + "/" + ConfigurationSettings.AppSettings["bilgi.harf"]);
                     File.OpenRead(bilgiCep.ToString());
                 }
             } 
@@ -95,7 +95,7 @@ namespace net.zemberek.bilgi
 
         private bool boolOku(String anahtar)
         {
-            return bool.Parse(ConfigurationManager.AppSettings[anahtar]);
+            return bool.Parse(ConfigurationSettings.AppSettings[anahtar]);
         }
 
 
@@ -148,5 +148,24 @@ namespace net.zemberek.bilgi
         {
             return _cepKullan;
         }
+
+        //private static NameValueCollection GetSettingsForRuntime()
+        //{
+        //    Version mono = new Version(1,2,2);
+        //    Version net20 = new Version(2,0);
+        //    Version cur = Environment.Version;
+        //    Type type = null;
+        //    if (cur < net20)
+        //    {
+        //        type = typeof(ConfigurationSettings);
+        //    }
+        //    else
+        //    {
+        //        type = typeof(ConfigurationManager);
+        //    }
+        //    System.Reflection.PropertyInfo prop = type.GetProperty("AppSettings", System.Reflection.BindingFlags.Static);
+        //    NameValueCollection settings = (NameValueCollection)prop.GetValue(null, null);
+        //    return settings;
+        //}
     }
 }
