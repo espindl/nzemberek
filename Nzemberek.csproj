@@ -15,7 +15,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;net</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -36,9 +36,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\Iesi.Collections.Generic.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+    <Reference Include="log4net-net-2.0, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\log4net.dll</HintPath>
+      <HintPath>lib\log4net-net-2.0.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=2.2.8.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -219,7 +219,8 @@
     <Content Include="kaynaklar\tr\test\test_harf_tr.txt" />
     <Content Include="lib\Iesi.Collections.dll" />
     <Content Include="lib\Iesi.Collections.Generic.dll" />
-    <Content Include="lib\log4net.dll" />
+    <Content Include="lib\log4net-mono-2.0.dll" />
+    <Content Include="lib\log4net-net-2.0.dll" />
     <Content Include="lib\nunit.framework.dll" />
   </ItemGroup>
   <ItemGroup>

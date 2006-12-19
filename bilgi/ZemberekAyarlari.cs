@@ -1,4 +1,29 @@
-﻿using System;
+﻿/* ***** BEGIN LICENSE BLOCK *****
+ * Version: MPL 1.1
+ *
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is Zemberek Doğal Dil İşleme Kütüphanesi.
+ *
+ * The Initial Developer of the Original Code is
+ * Ahmet A. Akın, Mehmet D. Akın.
+ * Portions created by the Initial Developer are Copyright (C) 2006
+ * the Initial Developer. All Rights Reserved.
+ *
+ * Contributor(s):
+ *   Mert Derman
+ *   Tankut Tekeli
+ * ***** END LICENSE BLOCK ***** */
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
@@ -59,10 +84,11 @@ namespace net.zemberek.bilgi
         {
             try 
             {
+                NameValueCollection settings = GetSettings();
                 _oneriDeasciifierKullan = boolOku("oneri.deasciifierKullan");
                 _oneriKokFrekansKullan = boolOku("oneri.kokFrekansKullan");
                 _oneriBilesikKelimeKullan = boolOku("oneri.bilesikKelimeKullan");
-                oneriMax = Int32.Parse(ConfigurationSettings.AppSettings["oneri.max"]);
+                oneriMax = Int32.Parse(settings["oneri.max"]);
                 _disKaynakErisimi = boolOku("bilgi.disKaynakErisimi");
                 _cepKullan = boolOku("denetleme.cepKullan");
                 //TODO loglama seviyeleri log4netin configi ile yapılacak (@tankut)
@@ -71,15 +97,15 @@ namespace net.zemberek.bilgi
                 {
                     //TODO gerekebilir : if(Directory.Exists(ConfigurationManager.AppSettings["bilgi.dizin")))
                     // ve buralar gözden gecemeli
-                    string dizin = ConfigurationSettings.AppSettings["bilgi.dizin"];
+                    string dizin = settings["bilgi.dizin"];
                     bilgiDizini = new Uri(dizin);
-                    bilgiEk = new Uri(dizin + "/" + ConfigurationSettings.AppSettings["bilgi.ekler"]);
+                    bilgiEk = new Uri(dizin + "/" + settings["bilgi.ekler"]);
                     File.OpenRead(bilgiEk.ToString());
-                    bilgiKokler = new Uri(dizin + "/" + ConfigurationSettings.AppSettings["bilgi.kokler"]);
+                    bilgiKokler = new Uri(dizin + "/" + settings["bilgi.kokler"]);
                     File.OpenRead(bilgiKokler.ToString());
-                    bilgiAlfabe = new Uri(dizin + "/" + ConfigurationSettings.AppSettings["bilgi.harf"]);
+                    bilgiAlfabe = new Uri(dizin + "/" + settings["bilgi.harf"]);
                     File.OpenRead(bilgiAlfabe.ToString());
-                    bilgiCep = new Uri(dizin + "/" + ConfigurationSettings.AppSettings["bilgi.harf"]);
+                    bilgiCep = new Uri(dizin + "/" + settings["bilgi.harf"]);
                     File.OpenRead(bilgiCep.ToString());
                 }
             } 
@@ -93,9 +119,19 @@ namespace net.zemberek.bilgi
             }
         }
 
+        private NameValueCollection GetSettings()
+        {
+#if mono
+            NameValueCollection settings = ConfigurationSettings.AppSettings;
+#endif
+#if net
+            NameValueCollection settings = ConfigurationManager.AppSettings;
+#endif
+            return settings;
+        }
         private bool boolOku(String anahtar)
         {
-            return bool.Parse(ConfigurationSettings.AppSettings[anahtar]);
+            return bool.Parse(GetSettings()[anahtar]);
         }
 
 
