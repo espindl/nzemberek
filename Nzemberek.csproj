@@ -186,7 +186,10 @@
     <None Include="kaynaklar\tr\bilgi\kokler_tr.bin" />
     <None Include="kaynaklar\tr\bilgi\kok_istatistik_tr.bin" />
     <None Include="kaynaklar\tr\test\zem_test.properties" />
-    <None Include="Nzemberek.build" />
+    <None Include="Nzemberek.build">
+      <SubType>
+      </SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="kaynaklar\tr\bilgi\bilisim.txt" />

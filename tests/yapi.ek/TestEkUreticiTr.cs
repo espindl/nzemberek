@@ -27,7 +27,7 @@ namespace net.zemberek.tests.yapi.ek
                 if (s.StartsWith("#") || s.Trim().Length == 0) continue;
                 String kuralKelimesi = s.Substring(0, s.IndexOf(':'));
                 String[] olusumlar = s.Substring(s.IndexOf(':') + 1).Trim().Split(' ');
-                System.Console.WriteLine("okunan kelime:" + kuralKelimesi + " olusumlar:" + olusumlar.ToString());
+                //System.Console.WriteLine("okunan kelime:" + kuralKelimesi + " olusumlar:" + olusumlar.ToString());
                 olusumTesti(kuralKelimesi, olusumlar);
             }
             reader.Close();
