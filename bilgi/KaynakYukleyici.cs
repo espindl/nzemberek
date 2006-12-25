@@ -156,7 +156,7 @@ namespace net.zemberek.bilgi
             else
             return false;
  */
-            return File.Exists(Environment.CurrentDirectory + "\\" + kaynakAdi);
+            return File.Exists(Environment.CurrentDirectory + System.IO.Path.DirectorySeparatorChar + kaynakAdi);
         }
 
         /**
