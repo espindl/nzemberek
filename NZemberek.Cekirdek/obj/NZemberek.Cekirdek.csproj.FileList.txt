@@ -1,0 +1,8 @@
+obj\Debug\ResolveAssemblyReference.cache
+bin\Debug\NZemberek.Cekirdek.dll
+bin\Debug\NZemberek.Cekirdek.pdb
+bin\Debug\Iesi.Collections.dll
+bin\Debug\Iesi.Collections.Generic.dll
+bin\Debug\log4net-net-2.0.dll
+obj\Debug\NZemberek.Cekirdek.dll
+obj\Debug\NZemberek.Cekirdek.pdb

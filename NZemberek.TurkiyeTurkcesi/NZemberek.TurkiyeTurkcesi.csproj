@@ -1,0 +1,80 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1D82BC97-4688-421C-B32A-D1FC7E2423B1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NZemberek.TurkiyeTurkcesi</RootNamespace>
+    <AssemblyName>NZemberek.TurkiyeTurkcesi</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Iesi.Collections, Version=1.0.0.1, Culture=neutral, PublicKeyToken=154fdcb44c4484fc">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Kutuphaneler\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections.Generic, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Kutuphaneler\Iesi.Collections.Generic.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net-net-2.0, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Kutuphaneler\log4net-net-2.0.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="islemler\SoruEkiIsleyici.cs" />
+    <Compile Include="islemler\TurkceCozumlemeYardimcisi.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="yapi.ek\BeraberlikIsOzelDurumu.cs" />
+    <Compile Include="yapi.ek\EdilgenOzelDurumu.cs" />
+    <Compile Include="yapi.ek\EkUreticiTr.cs" />
+    <Compile Include="yapi.ek\GenisZamanEkOzelDurumuTr.cs" />
+    <Compile Include="yapi.ek\SimdikiZamanEkOZelDurumuTr.cs" />
+    <Compile Include="yapi.ek\SuOzelDurumu.cs" />
+    <Compile Include="yapi.ek\TurkceEkAdlari.cs" />
+    <Compile Include="yapi.ek\TurkceEkOzelDurumUretici.cs" />
+    <Compile Include="yapi.kok\TurkceKokOzelDurumBilgisi.cs" />
+    <Compile Include="yapi.kok\TurkceKokOzelDurumTipi.cs" />
+    <Compile Include="yapi.kok\YumusamaNk.cs" />
+    <Compile Include="yapi\TRDilFabrikasi.cs" />
+    <Compile Include="yapi\TurkceHeceBulucu.cs" />
+    <Compile Include="yapi\TurkceSesliUretici.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NZemberek.Cekirdek\NZemberek.Cekirdek.csproj">
+      <Project>{DE2F1045-4436-4483-81D8-C369BA176AC5}</Project>
+      <Name>NZemberek.Cekirdek</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

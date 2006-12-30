@@ -1,0 +1,133 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DE2F1045-4436-4483-81D8-C369BA176AC5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NZemberek.Cekirdek</RootNamespace>
+    <AssemblyName>NZemberek.Cekirdek</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;net</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Iesi.Collections, Version=1.0.0.1, Culture=neutral, PublicKeyToken=154fdcb44c4484fc">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Kutuphaneler\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections.Generic, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Kutuphaneler\Iesi.Collections.Generic.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net-net-2.0, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Kutuphaneler\log4net-net-2.0.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="araclar.turkce\YaziBirimi.cs" />
+    <Compile Include="araclar.turkce\YaziBirimiTipi.cs" />
+    <Compile Include="araclar.turkce\YaziIsleyici.cs" />
+    <Compile Include="araclar\JaroWinkler.cs" />
+    <Compile Include="araclar\MetinAraclari.cs" />
+    <Compile Include="bilgi.araclar\IkiliKokOkuyucu.cs" />
+    <Compile Include="bilgi.araclar\KokOkuyucu.cs" />
+    <Compile Include="bilgi.kokler\AgacSozluk.cs" />
+    <Compile Include="bilgi.kokler\AsciiKokBulucu.cs" />
+    <Compile Include="bilgi.kokler\KesinKokBulucu.cs" />
+    <Compile Include="bilgi.kokler\KokAgaci.cs" />
+    <Compile Include="bilgi.kokler\KokBulucu.cs" />
+    <Compile Include="bilgi.kokler\KokBulucuUretici.cs" />
+    <Compile Include="bilgi.kokler\KokDugumu.cs" />
+    <Compile Include="bilgi.kokler\Sozluk.cs" />
+    <Compile Include="bilgi.kokler\ToleransliKokBulucu.cs" />
+    <Compile Include="bilgi\KaynakYukleyici.cs" />
+    <Compile Include="bilgi\ZemberekAyarlari.cs" />
+    <Compile Include="erisim\Zemberek.cs" />
+    <Compile Include="islemler.cozumleme\AsciiToleransliHDKiyaslayici.cs" />
+    <Compile Include="islemler.cozumleme\BasitKelimeYigini.cs" />
+    <Compile Include="islemler.cozumleme\CozumlemeYardimcisi.cs" />
+    <Compile Include="islemler.cozumleme\HarfDizisiKiyaslayici.cs" />
+    <Compile Include="islemler.cozumleme\KelimeCozumleyici.cs" />
+    <Compile Include="islemler.cozumleme\KesinHDKiyaslayici.cs" />
+    <Compile Include="islemler.cozumleme\OneriUretici.cs" />
+    <Compile Include="islemler.cozumleme\StandartCozumleyici.cs" />
+    <Compile Include="islemler.cozumleme\ToleransliCozumleyici.cs" />
+    <Compile Include="islemler\AsciiDonusturucu.cs" />
+    <Compile Include="islemler\BasitDenetlemeCebi.cs" />
+    <Compile Include="islemler\DenetlemeCebi.cs" />
+    <Compile Include="islemler\HataliKodlamaTemizleyici.cs" />
+    <Compile Include="islemler\Heceleyici.cs" />
+    <Compile Include="islemler\KelimeKokFrekansKiyaslayici.cs" />
+    <Compile Include="islemler\KelimeUretici.cs" />
+    <Compile Include="islemler\TurkceYaziTesti.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="yapi.ek\Ek.cs" />
+    <Compile Include="yapi.ek\EkOzelDurumTipi.cs" />
+    <Compile Include="yapi.ek\EkOzelDurumu.cs" />
+    <Compile Include="yapi.ek\EkOzelDurumUretici.cs" />
+    <Compile Include="yapi.ek\EkUretici.cs" />
+    <Compile Include="yapi.ek\EkUretimBileseni.cs" />
+    <Compile Include="yapi.ek\EkYonetici.cs" />
+    <Compile Include="yapi.ek\OldurganEkOzelDurumu.cs" />
+    <Compile Include="yapi.ek\OnEkOzelDurumu.cs" />
+    <Compile Include="yapi.ek\SonHarfYumusamaOzelDurumu.cs" />
+    <Compile Include="yapi.ek\TemelEkOzelDurumUretici.cs" />
+    <Compile Include="yapi.ek\TemelEkYonetici.cs" />
+    <Compile Include="yapi.ek\UretimKurali.cs" />
+    <Compile Include="yapi.ek\XmlEkOkuyucu.cs" />
+    <Compile Include="yapi.ek\ZamanKiOzelDurumu.cs" />
+    <Compile Include="yapi.kok\AraSesliDusmesi.cs" />
+    <Compile Include="yapi.kok\BosHarfDizisiIslemi.cs" />
+    <Compile Include="yapi.kok\Ciftleme.cs" />
+    <Compile Include="yapi.kok\HarfDizisiIslemi.cs" />
+    <Compile Include="yapi.kok\KokOzelDurumBilgisi.cs" />
+    <Compile Include="yapi.kok\KokOzelDurumTipi.cs" />
+    <Compile Include="yapi.kok\KokOzelDurumu.cs" />
+    <Compile Include="yapi.kok\SonHarfDusmesi.cs" />
+    <Compile Include="yapi.kok\SonSesliIncelt.cs" />
+    <Compile Include="yapi.kok\TemelKokOzelDurumBilgisi.cs" />
+    <Compile Include="yapi.kok\Ulama.cs" />
+    <Compile Include="yapi.kok\YeniIcerikAta.cs" />
+    <Compile Include="yapi.kok\Yumusama.cs" />
+    <Compile Include="yapi\Alfabe.cs" />
+    <Compile Include="yapi\Collections.cs" />
+    <Compile Include="yapi\IDilFabrikasi.cs" />
+    <Compile Include="yapi\HarfDizisi.cs" />
+    <Compile Include="yapi\HeceBulucu.cs" />
+    <Compile Include="yapi\Kelime.cs" />
+    <Compile Include="yapi\KelimeTipi.cs" />
+    <Compile Include="yapi\Kok.cs" />
+    <Compile Include="yapi\SesliUretici.cs" />
+    <Compile Include="yapi\TurkceHarf.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

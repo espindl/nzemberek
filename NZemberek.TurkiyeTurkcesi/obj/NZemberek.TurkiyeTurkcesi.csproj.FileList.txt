@@ -1,0 +1,10 @@
+obj\Debug\ResolveAssemblyReference.cache
+bin\Debug\NZemberek.TurkiyeTurkcesi.dll
+bin\Debug\NZemberek.TurkiyeTurkcesi.pdb
+bin\Debug\Iesi.Collections.dll
+bin\Debug\Iesi.Collections.Generic.dll
+bin\Debug\log4net-net-2.0.dll
+bin\Debug\NZemberek.Cekirdek.dll
+bin\Debug\NZemberek.Cekirdek.pdb
+obj\Debug\NZemberek.TurkiyeTurkcesi.dll
+obj\Debug\NZemberek.TurkiyeTurkcesi.pdb
