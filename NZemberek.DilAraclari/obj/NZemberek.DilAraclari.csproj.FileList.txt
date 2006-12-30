@@ -1,5 +1,0 @@
-bin\Debug\NZemberek.DilAraclari.dll
-bin\Debug\NZemberek.DilAraclari.pdb
-obj\Debug\ResolveAssemblyReference.cache
-obj\Debug\NZemberek.DilAraclari.dll
-obj\Debug\NZemberek.DilAraclari.pdb
