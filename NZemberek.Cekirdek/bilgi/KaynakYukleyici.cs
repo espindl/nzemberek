@@ -173,7 +173,6 @@ namespace net.zemberek.bilgi
             if (sr == null)
                 throw new IOException(kaynakAdi + " erisimi saglanamadi, Elde edilen Stream degeri null!");
             return sr; //TODO encoding vardı burda
-            //return null;
         }
 
         /**

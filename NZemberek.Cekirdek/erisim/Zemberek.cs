@@ -39,14 +39,15 @@ using System.Reflection;
 
 namespace net.zemberek.erisim
 {
-    /**
-     * <b>ENin</b>This is a facade for accessing the high level functions of the Zemberek library.
-     * This class should be created only once per language.
-     *
-     * <b>TRin</b>Zemberek projesine ust seviye erisim icin kullanilan sinif.
-     * Ilk olsum sirasinda kokler okuma ve agac olusumu nedeniyle belli bir miktar gecikme
-     * yasanabilir. Bu sinifin her dil icin sadece bir defa olusturulmasi onerilir.
-     */
+
+    /// <summary>
+    /// EN : This is a facade for accessing the high level functions of the Zemberek library.
+    /// This class should be created only once per language.
+    /// 
+    /// TR : Zemberek projesine ust seviye erisim icin kullanilan sinif.
+    /// Ýlklendirilmesi köklerin okunmasý ve agac olusumu nedeniyle pahalidir.
+    /// Bu nedenle bu sinifin sadece bir defa olusturulmasi onerilir.
+    /// </summary>
     public class Zemberek
     {
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -119,7 +120,13 @@ namespace net.zemberek.erisim
             _kelimeUretici = new KelimeUretici(_dilFabrikasi.alfabe(), _dilFabrikasi.cozumlemeYardimcisi());
         }
 
-        private String[] KelimeArrayToStringArray(Kelime[] kelimeler)
+        /// <summary>
+        /// Verilen kelime dizisini kelimenin 'ToString' metodu ile string dizisine çevirir.
+        /// Yani çözümleme sonuçlarýný döner.
+        /// </summary>
+        /// <param name="kelimeler"></param>
+        /// <returns></returns>
+        private String[] CozumStringeCevir(Kelime[] kelimeler)
         {
             String[] retStrings = new String[kelimeler.Length];
             for(int i=0;i<kelimeler.Length;i++)
@@ -128,6 +135,30 @@ namespace net.zemberek.erisim
             }
             return retStrings;
         }
+
+        /// <summary>
+        /// Verilen kelime dizisini kelime içerikleri ile string dizisine çevirir.
+        /// Ýçeriði ayný olan çözümlerden sadece birinin içeriðini yani ayrýk sonuçlarý döner.
+        /// </summary>
+        /// <param name="kelimeler"></param>
+        /// <returns></returns>
+        private String[] IcerikStringeCevir(Kelime[] kelimeler)
+        {
+            ArrayList olusumlar = new ArrayList(kelimeler.Length);
+            foreach (Kelime kelime in kelimeler)
+            {
+                String olusum = kelime.icerikStr();
+                if (!olusumlar.Contains(olusum))
+                {
+                    olusumlar.Add(olusum);
+                }
+            }
+            //kumeyi tekrar diziye donustur.
+            string[] retStrings=new string[olusumlar.Count];
+            olusumlar.CopyTo(retStrings);
+            return retStrings;
+        }
+
 
         //TODO Bunlarý dýþarý sunmaktan vazgeçmeliydik vazgeçtik
         ///**
@@ -236,7 +267,7 @@ namespace net.zemberek.erisim
          */
         public String[] kelimeCozumle(String giris)
         {
-            return KelimeArrayToStringArray(_cozumleyici.cozumle(giris));
+            return CozumStringeCevir(_cozumleyici.cozumle(giris));
         }
 
         /**
@@ -257,7 +288,7 @@ namespace net.zemberek.erisim
         {
             Kelime[] sonuclar = _asciiToleransliCozumleyici.cozumle(giris);
             Array.Sort(sonuclar, new KelimeKokFrekansKiyaslayici());
-            return KelimeArrayToStringArray(sonuclar);
+            return CozumStringeCevir(sonuclar);
         }
 
         /**
@@ -274,18 +305,8 @@ namespace net.zemberek.erisim
         //TODO Burayý düzelteceðiz
         public String[] asciidenTurkceye(String giris)
         {
-            //Kelime[] kelimeler = asciiCozumle(giris);
-            //// cift olusumlari temizle.
-            //ArrayList olusumlar = new ArrayList(kelimeler.Length);
-            //foreach (Kelime kelime in kelimeler)
-            //{
-            //    String olusum = kelime.icerikStr();
-            //    if (!olusumlar.Contains(olusum))
-            //        olusumlar.Add(olusum);
-            //}
-            ////kumeyi tekrar diziye donustur.
-            //return (string[])olusumlar.ToArray(typeof(string));
-            return null;
+            Kelime[] kelimeler = _asciiToleransliCozumleyici.cozumle(giris); ;
+            return IcerikStringeCevir(kelimeler);
         }
 
         /**

@@ -82,8 +82,6 @@ namespace net.zemberek.bilgi
                 dilAyarlari[0] = settings["dilAyarlari.KutuphaneAdi"];
                 dilAyarlari[1] = settings["dilAyarlari.SinifAdi"];
                 dilAyarlari[2] = settings["dilAyarlari.KaynakDizini"];
-                //TODO loglama seviyeleri log4netin configi ile yapılacak (@tankut)
-                //Kayitci.genelKayitSeviyesiAyarla(_kayitSeviyesi);
                 if (_disKaynakErisimi) 
                 {
                     //TODO gerekebilir : if(Directory.Exists(ConfigurationManager.AppSettings["bilgi.dizin")))
