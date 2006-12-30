@@ -68,7 +68,7 @@ namespace net.zemberek.bilgi.araclar
                 int len = binReader.ReadByte() * 255 + binReader.ReadByte();
                 icerik = Encoding.UTF8.GetString(binReader.ReadBytes(len));
             }
-            catch (EndOfStreamException e)
+            catch (EndOfStreamException)
             {
                 this.Kapat();
                 return null;
