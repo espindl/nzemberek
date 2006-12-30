@@ -74,9 +74,25 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Testler\app.config">
+    <None Include="kaynaklar\kokler.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="kaynaklar\kok_istatistik.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Testler\app.config">
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="kaynaklar\ek.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="kaynaklar\harf.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="kaynaklar\kelime_cebi.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
