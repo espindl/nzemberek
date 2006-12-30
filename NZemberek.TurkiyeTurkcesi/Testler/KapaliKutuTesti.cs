@@ -50,7 +50,7 @@ namespace NZemberek.TurkiyeTurkcesi.Testler
             Assert.IsTrue(zemberek.kelimeDenetle(str));
             string[] sonuc = zemberek.kelimeCozumle(str);
             Assert.AreEqual(1, sonuc.Length);
-            Assert.AreEqual("kedi", sonuc[0]);
+            Assert.AreEqual("{Icerik: kedi Kok: kedi tip:ISIM}  Ekler:ISIM_KOK", sonuc[0]);
         }
     }
 }

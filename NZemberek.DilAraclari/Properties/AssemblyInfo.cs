@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("NZemberek.DilAraclari")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Türkiye Ýþ Bankasý")]
+[assembly: AssemblyCompany("Community Project")]
 [assembly: AssemblyProduct("NZemberek.DilAraclari")]
-[assembly: AssemblyCopyright("Copyright © Türkiye Ýþ Bankasý 2006")]
+[assembly: AssemblyCopyright("Copyleft")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
