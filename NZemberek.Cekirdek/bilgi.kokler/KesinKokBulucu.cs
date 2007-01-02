@@ -63,7 +63,7 @@ namespace net.zemberek.bilgi.kokler
                 if (node.getKok() != null) 
                 {
                     // buradaki kodu daha basit ama biraz yavas hale getirdim.
-                    if (giris.StartsWith((String) node.getKelime())) 
+                    if (giris.StartsWith(node.Kelime)) 
                     {
                         node.tumKokleriEkle(adaylar);
                     }

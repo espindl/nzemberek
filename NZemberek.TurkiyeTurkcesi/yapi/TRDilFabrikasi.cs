@@ -108,7 +108,7 @@ namespace NZemberek.TurkiyeTurkcesi.yapi
                 KokOkuyucu okuyucu = new IkiliKokOkuyucu(kokDosyaAdi, ozelDurumBilgisi);
                 logger.Info("Sozluk ve agac uretiliyor:" + dilAdi);
                 okuyucu.Ac();
-                sozluk = new AgacSozluk(okuyucu, alfabe(), ozelDurumBilgisi);
+                sozluk = new AgacSozluk(alfabe(), ozelDurumBilgisi, okuyucu);
             }
             catch (Exception e)
             {

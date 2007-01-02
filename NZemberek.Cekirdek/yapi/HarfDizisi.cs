@@ -36,7 +36,7 @@ namespace net.zemberek.yapi
 	/// String gibi genel bir tasiyici degil ara islem nesnesi olarak kullanilmasi onerilir.
 	/// String'den farkli olarak "degistirilebilir" bir yapidadir ve Thread-safe degildir.
 	/// </summary>
-	public class HarfDizisi : IEnumerable<Char>
+	public class HarfDizisi //: IEnumerable<Char>
 	{
 		private TurkceHarf[] dizi;
         //TODO : Bu boy deðerini harf arrayinin size deðeri üzerinden saðlamak daha akýllýca.
@@ -554,126 +554,9 @@ namespace net.zemberek.yapi
 			return sonuc;
 		}
 		
-/*TODO Tankut Alfabe-Deneme 
-		/// <returns> hepsi buyuk harf ise true, boy=0 dahil.
-		/// </returns>
-		public virtual bool hepsiBuyukHarfmi()
-		{
-			for (int i = 0; i < boy; i++)
-			{
-				if (!dizi[i].buyukHarfMi())
-					return false;
-			}
-			return true;
-		}
- */ 
-
-
-
-        #region IEnumerable Members
-
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return new CharEnumerator(this);
-        }
-
-        #endregion
-
-        #region IEnumerable<char> Members
-
-        public IEnumerator<char> GetEnumerator()
-        {
-            return new CharEnumerator(this);
-        }
-
-        #endregion
-        //--------- asagidaki metodlar CharSequence arayuzu icin hazirlandi. -----
-		
-        private class CharEnumerator : IEnumerator<Char>
-        {
-            private HarfDizisi harfDizisi;
-            private int cursor = -1;
-
-
-            public CharEnumerator(HarfDizisi hd)
-            {
-                harfDizisi = hd;
-            }
-            
-            #region IEnumerator<char> Members
-
-            public char Current
-            {
-                get 
-                {
-                    try
-                    {
-                        return harfDizisi.dizi[cursor].CharDeger;
-                    }
-                    catch
-                    {
-                        return char.MinValue;
-                    }
-                }
-            }
-
-            #endregion
-
-            #region IDisposable Members
-
-            public void Dispose(){}
-
-            #endregion
-
-            #region IEnumerator Members
-
-            object System.Collections.IEnumerator.Current
-            {
-                get 
-                {
-                    try
-                    {
-                        return harfDizisi.dizi[cursor].CharDeger;
-                    }
-                    catch
-                    {
-                        return null;
-                    }
-                }
-            }
-
-            public bool MoveNext()
-            {
-                cursor++;
-                return (harfDizisi.dizi.Length > cursor);
-            }
-
-            public void Reset()
-            {
-                cursor = -1;
-            }
-
-            #endregion
-        }
-
         public int Length
         {
             get { return boy; }
         }
-
-        public char CharAt(int i)
-        {
-            return dizi[i].CharDeger;
-        }
-		
-		public HarfDizisi subSequence(int start, int end)
-		{
-			if (end < start)
-				return null;
-			TurkceHarf[] yeniHarfler = new TurkceHarf[end - start];
-		    Array.Copy(dizi, start, yeniHarfler, 0, end - start);
-			return new HarfDizisi(yeniHarfler);
-		}
-
     }
 }

@@ -55,6 +55,9 @@ namespace net.zemberek.bilgi.kokler
     */
     public class KokDugumu
     {
+        //Düðümün aðaçtaki seviyesi
+        private int level;
+
         private AltDugumListesi altDugumler = null;
         // Her düðüm bir harfle ifade edilir.
         private char harf;
@@ -63,22 +66,28 @@ namespace net.zemberek.bilgi.kokler
         // Düðümðn taþýdýðý kök
         private Kok kok = null;
         // Kökün deðiþmiþ halini tutan string
-        private IEnumerable<char> kelime = null;
+        private string kelime = null;
 
-        public KokDugumu()
+        public KokDugumu(int pLevel)
         {
+            level = pLevel;
         }
 
-        public KokDugumu(char harf)
+        public KokDugumu(int pLevel, char harf):this(pLevel)
         {
             this.harf = harf;
         }
 
-        public KokDugumu(char harf, IEnumerable<char> icerik, Kok kok)
+        public KokDugumu(int pLevel, char harf, string icerik, Kok kok):this(pLevel,harf)
         {
-            this.harf = harf;
             this.kok = kok;
             if (!icerik.Equals(kok.icerik())) this.kelime = icerik;
+        }
+
+        public int Level
+        {
+            get { return level; }
+            set { level = value; }
         }
 
         /**
@@ -103,7 +112,7 @@ namespace net.zemberek.bilgi.kokler
          * @param dugum
          * @return Eklenen düðüm
          */
-        public KokDugumu addNode(KokDugumu dugum)
+        private KokDugumu addNode(KokDugumu dugum)
         {
             if (altDugumler == null)
             {
@@ -113,6 +122,17 @@ namespace net.zemberek.bilgi.kokler
             return dugum;
         }
 
+        public KokDugumu DugumEkle(char harf)
+        {
+            KokDugumu yeniDugum = new KokDugumu(this.Level + 1, harf);
+            return this.addNode(yeniDugum);
+        }
+
+        public KokDugumu DugumEkle(char harf, string icerik, Kok kok)
+        {
+            KokDugumu yeniDugum = new KokDugumu(this.Level + 1, harf, icerik, kok);
+            return this.addNode(yeniDugum);
+        }
         /**
          * @return tum alt dugumler. dizi olarak.
          */
@@ -158,17 +178,18 @@ namespace net.zemberek.bilgi.kokler
             return esSesliler;
         }
 
-        public IEnumerable<char> getKelime()
+
+        public string Kelime
         {
-            if (kelime != null) return kelime;
-            if (kok != null) return kok.icerik();
-            return null;
+            get
+            {
+                if (kelime != null) return kelime;
+                if (kok != null) return kok.icerik();
+                return null;
+            }
+            set { kelime = value; }
         }
 
-        public void setKelime(IEnumerable<char> kelime)
-        {
-            this.kelime = kelime;
-        }
 
         /**
          * @return düðüme baðlý kök ve eþ seslilerin hepsini bir listeye 
@@ -216,19 +237,24 @@ namespace net.zemberek.bilgi.kokler
         public void kopyala(KokDugumu kaynak)
         {
             this.kok = kaynak.getKok();
-            this.kelime = kaynak.getKelime();
+            this.kelime = kaynak.Kelime;
             this.esSesliler = kaynak.getEsSesliler();
         }
 
-        public char getHarf()
+        public KokDugumu KokuDallandir()
         {
-            return harf;
+            KokDugumu aNewNode = this.DugumEkle(this.Kelime[this.Level]);
+            aNewNode.kopyala(this);
+            this.temizle();
+            return aNewNode;
         }
 
-        public void setHarf(char harf)
+        public char Harf
         {
-            this.harf = harf;
+            get { return harf; }
+//            set { harf = value; }
         }
+
 
         /**
          * Düðümün ve alt düðümlerinin aðaç yapýsý þeklinde string gösterimini döndürür.
@@ -299,6 +325,7 @@ namespace net.zemberek.bilgi.kokler
          *
          */
         private static readonly int CEP_BUYUKLUGU = 3;
+
         private sealed class AltDugumListesi
         {
             KokDugumu[] dugumler = new KokDugumu[CEP_BUYUKLUGU];
@@ -319,11 +346,11 @@ namespace net.zemberek.bilgi.kokler
                         tumDugumler = new Dictionary<Char, KokDugumu>(CEP_BUYUKLUGU + 2);
                         for (int i = 0; i < CEP_BUYUKLUGU; i++)
                         {
-                            tumDugumler.Add(dugumler[i].getHarf(), dugumler[i]);
+                            tumDugumler.Add(dugumler[i].Harf, dugumler[i]);
                         }
                         dugumler = null;
                     }
-                    tumDugumler.Add(dugum.getHarf(), dugum);
+                    tumDugumler.Add(dugum.Harf, dugum);
                 }
                 else
                 {
@@ -342,7 +369,7 @@ namespace net.zemberek.bilgi.kokler
                 {
                     for (int i = 0; i < index; i++)
                     {
-                        if (dugumler[i].getHarf() == giris)
+                        if (dugumler[i].Harf == giris)
                         {
                             return dugumler[i];
                         }

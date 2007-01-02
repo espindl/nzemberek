@@ -88,12 +88,12 @@ namespace net.zemberek.bilgi.kokler
          */
         public void yuru(KokDugumu dugum, String olusan) 
         {
-            String tester = (olusan + dugum.getHarf()).Trim();
+            String tester = (olusan + dugum.Harf).Trim();
             walkCount++;
             if (dugum.getKok() != null) 
             {
-                if (logger.IsInfoEnabled) logger.Info("Kok : " + dugum.getKelime());
-                if (asciiTolaransliKarsilastir((String) dugum.getKelime(), giris)) 
+                if (logger.IsInfoEnabled) logger.Info("Kok : " + dugum.Kelime);
+                if (asciiTolaransliKarsilastir((String) dugum.Kelime, giris)) 
                 {
                     // Aday kok bulundu.
                     dugum.tumKokleriEkle(adaylar);
@@ -118,7 +118,7 @@ namespace net.zemberek.bilgi.kokler
             {
                if (altDugum != null) 
                {
-                   if (agac.getAlfabe().asciiToleransliKiyasla(altDugum.getHarf(), giris[seviye]))
+                   if (agac.getAlfabe().asciiToleransliKiyasla(altDugum.Harf, giris[seviye]))
                        this.yuru(altDugum, tester);
                }
             }

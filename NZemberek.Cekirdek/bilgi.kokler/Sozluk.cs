@@ -53,11 +53,10 @@ namespace net.zemberek.bilgi.kokler
         // */
         //ICollection<Kok> tumKokler();
 
-        /**
-         * sozluge kok ekler.
-         *
-         * @param kok
-         */
+        /// <summary>
+        /// Verilen kökü sözlüğe ekler.
+        /// </summary>
+        /// <param name="kok">Sözlüğe eklenecek olan kök nesnesi.</param>
         void ekle(Kok kok);
 
         /**

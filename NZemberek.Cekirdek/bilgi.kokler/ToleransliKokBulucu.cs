@@ -93,10 +93,10 @@ namespace net.zemberek.bilgi.kokler
 
         private void yuru(KokDugumu dugum, String olusan) {
         String tester = olusan;
-        tester += dugum.getHarf();
+        tester += dugum.Harf;
         if (dugum.getKok() != null) {
             distanceCalculationCount++;
-            if (MetinAraclari.isInSubstringEditDistance((String) dugum.getKelime(), giris, tolerans)) {
+            if (MetinAraclari.isInSubstringEditDistance((String) dugum.Kelime, giris, tolerans)) {
             	// Aday kök bulundu
                 adaylar.Add(dugum.getKok());
             } else {
