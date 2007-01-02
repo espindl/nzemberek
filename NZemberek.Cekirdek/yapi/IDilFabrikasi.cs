@@ -65,7 +65,7 @@ namespace net.zemberek.yapi
          * eger varsa dile ozgu hece bulma nesnesi.
          * @return hecebulma nesnesi
          */
-        HeceBulucu heceBulucu();
+        IHeceleyici heceleyici();
 
         /**
          * dile ozgu cozumleme yardimcisi nesnesi. bu nesne cozumleme sirasinda kullanilan

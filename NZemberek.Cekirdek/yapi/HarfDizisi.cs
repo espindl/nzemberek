@@ -481,7 +481,16 @@ namespace net.zemberek.yapi
 			boy -= harfSayisi;
 			return this;
 		}
-		
+
+        public HarfDizisi subSequence(int start, int end)
+        {
+            if (end < start)
+                return null;
+            TurkceHarf[] yeniHarfler = new TurkceHarf[end - start];
+            Array.Copy(dizi, start, yeniHarfler, 0, end - start);
+            return new HarfDizisi(yeniHarfler);
+        }
+
 		/// <summary> ilk harfi dondurur. eger harf yoksa TANIMSIZ_HARF doner.
 		/// 
 		/// </summary>

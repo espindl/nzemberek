@@ -63,6 +63,7 @@
     <Compile Include="yapi.kok\TurkceKokOzelDurumBilgisi.cs" />
     <Compile Include="yapi.kok\TurkceKokOzelDurumTipi.cs" />
     <Compile Include="yapi.kok\YumusamaNk.cs" />
+    <Compile Include="yapi\TRHeceleyici.cs" />
     <Compile Include="yapi\TRDilFabrikasi.cs" />
     <Compile Include="yapi\TurkceHeceBulucu.cs" />
     <Compile Include="yapi\TurkceSesliUretici.cs" />

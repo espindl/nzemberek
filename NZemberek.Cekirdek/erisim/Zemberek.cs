@@ -59,7 +59,7 @@ namespace net.zemberek.erisim
         private TurkceYaziTesti _turkceTest;
         private OneriUretici _oneriUretici;
         private AsciiDonusturucu _asciiDonusturucu;
-        private Heceleyici _heceleyici;
+        private IHeceleyici _heceleyici;
         private ZemberekAyarlari _ayarlar;
         private IDilFabrikasi _dilFabrikasi;
 
@@ -115,7 +115,7 @@ namespace net.zemberek.erisim
             _turkceTest = new TurkceYaziTesti(_cozumleyici, _asciiToleransliCozumleyici);
 
             _asciiDonusturucu = new AsciiDonusturucu(_dilFabrikasi.alfabe());
-            _heceleyici = new Heceleyici(_dilFabrikasi.alfabe(), _dilFabrikasi.heceBulucu());
+            _heceleyici = _dilFabrikasi.heceleyici(); // new Heceleyici(_dilFabrikasi.alfabe(), _dilFabrikasi.heceBulucu());
 
             _kelimeUretici = new KelimeUretici(_dilFabrikasi.alfabe(), _dilFabrikasi.cozumlemeYardimcisi());
         }

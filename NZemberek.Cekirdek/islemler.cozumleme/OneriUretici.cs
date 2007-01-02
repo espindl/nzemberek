@@ -22,12 +22,6 @@
  *   Mert Derman
  *   Tankut Tekeli
  * ***** END LICENSE BLOCK ***** */
-
-/*
- * Created on 27.May.2005
- * MDA
- */
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,21 +33,24 @@ using Iesi.Collections;
 using Iesi.Collections.Generic;
 using net.zemberek.javaporttemp;
 
-
 namespace net.zemberek.islemler.cozumleme
 {
+    /// <summary>
+    /// Hatali kelimeler icin kullanilan kelime uretme mekanizmasini icerir.
+    /// Su anda kokte bir ekte bir mesafeye kadar olmak uzere Levenshtein duzeltme mesafesine 
+    /// uyan tum onerileri deasciifier'den donus degeri olarak gelen onerileri ve kelimenin 
+    /// ayrik iki kelimeden olusmasi durumu icin onerileri bulabilmekte 
+    /// </summary>
     public class OneriUretici
     {
-        private KelimeCozumleyici cozumleyici, asciiToleransliCozumleyici;
+        private KelimeCozumleyici cozumleyici;
+        private KelimeCozumleyici asciiToleransliCozumleyici;
         private ToleransliCozumleyici toleransliCozumleyici;
         private CozumlemeYardimcisi yardimci;
         private ZemberekAyarlari ayarlar;
 
-
-        public OneriUretici(CozumlemeYardimcisi yardimci,
-                            KelimeCozumleyici cozumleyici,
-                            KelimeCozumleyici asciiToleransliCozumleyici,
-                            ToleransliCozumleyici toleransliCozumleyici,
+        public OneriUretici(CozumlemeYardimcisi yardimci, KelimeCozumleyici cozumleyici,
+                            KelimeCozumleyici asciiToleransliCozumleyici, ToleransliCozumleyici toleransliCozumleyici,
                             ZemberekAyarlari ayarlar)
         {
             this.yardimci = yardimci;
@@ -63,105 +60,129 @@ namespace net.zemberek.islemler.cozumleme
             this.ayarlar = ayarlar;
         }
 
-        /**
-         * Verilen kelime için öneri üretir.
-         * Yapýlan öneriler þu þekildedir:
-         * - Kökte 1, ekte 1 mesafeye kadar olmak üzere Levenshtein düzeltme mesafesine uyan tüm öneriler
-         * - Deasciifier'den dönüþ deðeri olarak gelen öneriler
-         * - Kelimenin ayrýk iki kelimeden oluþmasý durumu için öneriler
-         *
-         * @param kelime : Öneri yapýlmasý istenen giriþ kelimesi
-         * @return String[] olarak öneriler
-         *         Eðer öneri yoksa sifir uzunluklu dizi.
-         */
-        public String[] oner(String kelime) {
-        // Once hatalý kelime için tek kelimelik önerileri bulmaya çalýþ
-        Kelime[] oneriler = toleransliCozumleyici.cozumle(kelime);
-        
-        //Deasciifierden bir þey var mý?
-        Kelime[] asciiTurkceOneriler = new Kelime[0];
-        if (ayarlar.oneriDeasciifierKullan())
-            asciiTurkceOneriler = asciiToleransliCozumleyici.cozumle(kelime);
+        /// <summary>
+        /// Verilen kelime icin oneri uretir. Yapilan oneriler simdilik sunlardir.
+        /// -Kokte ekte mesafeye kadar olmak uzere Levenshtein duzeltme mesafesine uyan tum oneriler 
+        /// -Deasciifier'den donus degeri olarak gelen oneriler 
+        /// -Kelimenin ayrik iki kelimeden olusmasi durumu icin oneriler 
+        /// </summary>
+        /// <param name="kelime">oneri uretilecek kelime</param>
+        /// <returns>String[] oneriler. Oneri yoksa sifir uzunluklu dizi.</returns>
+        public String[] oner(String kelime)
+        {
+            Kelime[] oneriler = toleransliCozumleyici.cozumle(kelime);        // Once hatali kelime icin tek kelimelik onerileri bulmaya calisalim
+            Kelime[] asciiTurkceOneriler = asciiDonusumuOnerileriBul(kelime); // Deasciifierden gelebilecek onerilere bakalim
+            Set<String> ayriYazimOnerileri = ayriYazimOnerileriniBul(kelime); // Kelime yanlislikla bitisik yazilmis iki kelimeden mi olusmus?
+            
+            if (oneriler.Length == 0 && ayriYazimOnerileri.Count == 0 && asciiTurkceOneriler.Length == 0)
+            { return new String[0]; /*Oneri olusmadiysa donelim*/ }
 
-        Set<String> ayriYazimOnerileri = Collections.EMPTY_SET_STRING;
+            List<String> sonucListesi = onerileriToparla(oneriler, asciiTurkceOneriler); // Onerileri puanlandirmak icin bir listeye koyalim
+            List<String> rafineListe = onerileriRafineEt(sonucListesi); // Cift sonuclari liste sirasini bozmadan iptal edelim
+            this.ayriYazimOnerileriniEkle(ayriYazimOnerileri, rafineListe); // Son olarak yer kalmissa ayri yazilim onerilerini ekle 
 
-        // Kelime yanlislikla bitisik yazilmis iki kelimeden mi olusmus?
-        if (ayarlar.oneriBilesikKelimeKullan()) {
-            for (int i = 1; i < kelime.Length; i++) {
-                String s1 = kelime.Substring(0, i);
-                String s2 = kelime.Substring(i, kelime.Length-i);
-                if (cozumleyici.denetle(s1) && cozumleyici.denetle(s2)) {
-
-                    Set<String> set1 = new HashedSet<String>();
-                    Kelime[] kelimeler1 = cozumleyici.cozumle(s1);
-                    foreach (Kelime kelime1 in kelimeler1) {
-                        yardimci.kelimeBicimlendir(kelime1);
-                        set1.Add(kelime1.icerik().ToString());
-                    }
-
-                    Set<String> set2 = new HashedSet<String>();
-                    Kelime[] kelimeler2 = cozumleyici.cozumle(s2);
-                    foreach (Kelime kelime1 in kelimeler2) {
-                        yardimci.kelimeBicimlendir(kelime1);
-                        set2.Add(kelime1.icerik().ToString());
-                    }
-
-                    if (ayriYazimOnerileri.Count == 0) {
-                        ayriYazimOnerileri = new HashedSet<String>();
-                    }
-
-                    foreach (String str1 in set1) {
-                        foreach (String str2 in set2) {
-                            ayriYazimOnerileri.Add(str1 + " " + str2);
-                        }
-                    }
-                }
-            }
+            return rafineListe.ToArray();
         }
 
-        // erken donus..
-        if (oneriler.Length == 0 && ayriYazimOnerileri.Count == 0 && asciiTurkceOneriler.Length == 0) {
-            return new String[0];
-        }
-
-        // Onerileri puanlandýrmak için bir listeye koy
-        List<Kelime> oneriList = new List<Kelime>();
-        oneriList.AddRange(new List<Kelime>(oneriler));
-        oneriList.AddRange(new List<Kelime>(asciiTurkceOneriler));
-
-        // Frekansa göre sýrala
-        oneriList.Sort(new KelimeKokFrekansKiyaslayici());
-
-        // Dönüþ listesi string olacak, Yeni bir liste oluþtur. 
-        List<String> sonucListesi = new List<String>();
-        foreach (Kelime anOneriList in oneriList) {
-            sonucListesi.Add(anOneriList.icerik().ToString());
-        }
-
-        //Çift sonuçlarý liste sirasýný bozmadan iptal et.
-        List<String> rafineListe = new List<String>();
-        foreach (String aday in sonucListesi) {
-            bool aynisiVar = false;
-            foreach (String aRafineListe in rafineListe) {
-                if (aday.Equals(aRafineListe)) {
-                    aynisiVar = true;
+        private void ayriYazimOnerileriniEkle(Set<String> ayriYazimOnerileri, List<String> rafineListe)
+        {
+            foreach (String oneri in ayriYazimOnerileri)
+            {
+                if (rafineListe.Count < ayarlar.getOneriMax())
+                    rafineListe.Add(oneri);
+                else
                     break;
-                }
             }
-            if (!aynisiVar && rafineListe.Count < ayarlar.getOneriMax()) {
-                rafineListe.Add(aday);
-            }
-        }
-        	
-        // Son olarak yer kalmýþsa ayrý yazýlým önerilerini ekle
-        foreach (String oneri in ayriYazimOnerileri) {
-            if (rafineListe.Count < ayarlar.getOneriMax())
-                rafineListe.Add(oneri);
-            else
-                break;
         }
 
-        return rafineListe.ToArray();
-    }
+        private List<String> onerileriRafineEt(List<String> girisListesi)
+        {
+            Dictionary<string, int> rafineListe = new Dictionary<string, int>();
+            List<string> sonListe = new List<string>();
+            foreach (String str in girisListesi)
+            {
+                if (!rafineListe.ContainsKey(str) && sonListe.Count < ayarlar.getOneriMax())
+                {
+                    rafineListe.Add(str, 0);
+                    sonListe.Add(str);
+                }
+            }
+            return sonListe;
+        }
+
+        private static List<String> onerileriToparla(Kelime[] oneriler, Kelime[] asciiTurkceOneriler)
+        {
+            List<Kelime> oneriList = new List<Kelime>();
+            oneriList.AddRange(oneriler);
+            oneriList.AddRange(asciiTurkceOneriler);
+
+            oneriList.Sort(new KelimeKokFrekansKiyaslayici()); // Frekansa gore siralayalim
+
+            List<String> sonucListesi = new List<String>(); // Donus icin yeni bir liste olusturalim
+            foreach (Kelime anOneriList in oneriList)
+            {
+                sonucListesi.Add(anOneriList.icerik().ToString());
+            }
+            return sonucListesi;
+        }
+
+        private Kelime[] asciiDonusumuOnerileriBul(String kelime)
+        {
+            Kelime[] asciiTurkceOneriler = new Kelime[0];
+            if (ayarlar.oneriDeasciifierKullan())
+            {
+                asciiTurkceOneriler = asciiToleransliCozumleyici.cozumle(kelime);
+            }
+            return asciiTurkceOneriler;
+        }
+
+        private Set<String> ayriYazimOnerileriniBul(String kelime)
+        {
+            Set<String> ayriYazimOnerileri = Collections.EMPTY_SET_STRING;
+            if (ayarlar.oneriBilesikKelimeKullan())
+            {
+                for (int i = 1; i < kelime.Length; i++)
+                {
+                    String s1 = kelime.Substring(0, i);
+                    String s2 = kelime.Substring(i, kelime.Length - i);
+                    if (cozumleyici.denetle(s1) && cozumleyici.denetle(s2))
+                    {
+                        if (ayriYazimOnerileri.Count == 0)
+                        {  ayriYazimOnerileri = new HashedSet<String>(); }
+                        ayriYazimOnerileri.AddAll(this.ayriYazimlariOlustur(s1, s2));
+                    }
+                }
+            }
+            return ayriYazimOnerileri;
+        }
+
+        private Set<String> ayriYazimlariOlustur(String s1, String s2)
+        {
+            Set<String> ayriYazimOnerileri = new HashedSet<String>();
+            
+            Set<String> set1 = parcayiCozumle(s1);
+            Set<String> set2 = parcayiCozumle(s2);
+            
+            foreach (String str1 in set1)
+            {
+                foreach (String str2 in set2)
+                {
+                    ayriYazimOnerileri.Add(str1 + " " + str2);
+                }
+            }
+            return ayriYazimOnerileri;
+        }
+
+        private Set<String> parcayiCozumle(String s)
+        {
+            Set<String> set = new HashedSet<String>();
+            Kelime[] kelimeler = cozumleyici.cozumle(s);
+            foreach (Kelime kelime in kelimeler)
+            {
+                yardimci.kelimeBicimlendir(kelime);
+                set.Add(kelime.icerik().ToString());
+            }
+            return set;
+        }
     }
 }

@@ -78,7 +78,7 @@
     <Compile Include="islemler\BasitDenetlemeCebi.cs" />
     <Compile Include="islemler\DenetlemeCebi.cs" />
     <Compile Include="islemler\HataliKodlamaTemizleyici.cs" />
-    <Compile Include="islemler\Heceleyici.cs" />
+    <Compile Include="yapi\IHeceleyici.cs" />
     <Compile Include="islemler\KelimeKokFrekansKiyaslayici.cs" />
     <Compile Include="islemler\KelimeUretici.cs" />
     <Compile Include="islemler\TurkceYaziTesti.cs" />
@@ -115,7 +115,6 @@
     <Compile Include="yapi\Collections.cs" />
     <Compile Include="yapi\IDilFabrikasi.cs" />
     <Compile Include="yapi\HarfDizisi.cs" />
-    <Compile Include="yapi\HeceBulucu.cs" />
     <Compile Include="yapi\Kelime.cs" />
     <Compile Include="yapi\KelimeTipi.cs" />
     <Compile Include="yapi\Kok.cs" />

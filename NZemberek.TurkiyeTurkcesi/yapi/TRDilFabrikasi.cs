@@ -29,7 +29,7 @@ namespace NZemberek.TurkiyeTurkcesi.yapi
         private CozumlemeYardimcisi yardimci;
         private EkYonetici ekYonetici;
         private KokOzelDurumBilgisi ozelDurumBilgisi;
-        private HeceBulucu heceleyici;
+        private IHeceleyici _heceleyici;
 
         private String bilgiDizini;
 
@@ -63,6 +63,7 @@ namespace NZemberek.TurkiyeTurkcesi.yapi
             set { cepKullan = value; }
 
         }
+        
         public Alfabe alfabe()
         {
             if (_alfabe != null) 
@@ -131,16 +132,17 @@ namespace NZemberek.TurkiyeTurkcesi.yapi
             }
         }
 
-        public HeceBulucu heceBulucu()
+        public IHeceleyici heceleyici()
         {
-            if (heceleyici != null)
+            if (_heceleyici != null)
             {
-                return heceleyici;
+                return _heceleyici;
             }
             else
             {
-                heceleyici = new TurkceHeceBulucu();
-                return heceleyici;
+                //_heceleyici = new TurkceHeceBulucu(_alfabe);
+                _heceleyici = new TRHeceleyici(_alfabe);
+                return _heceleyici;
             }
         }
 
