@@ -52,6 +52,7 @@
     <Compile Include="islemler\TurkceCozumlemeYardimcisi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Testler\KapaliKutuTesti.cs" />
+    <Compile Include="Testler\TestYardimcisi.cs" />
     <Compile Include="yapi.ek\BeraberlikIsOzelDurumu.cs" />
     <Compile Include="yapi.ek\EdilgenOzelDurumu.cs" />
     <Compile Include="yapi.ek\EkUreticiTr.cs" />

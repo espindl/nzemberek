@@ -26,6 +26,14 @@ namespace NZemberek.TurkiyeTurkcesi.yapi
             throw new Exception("The method or operation is not implemented.");
         }
 
+        /// <summary>
+        /// Turkcede kelime icinde iki unlu arasindaki unsuz kendinden sonraki unluyle hece kurar.
+        /// Ayrica iki unlu yanyana ise bunlarda hece yapicidir. 
+        /// Tanimlarindan yola cikar.Once heceyapici harflerin yerlerini bulur ve bunlara gore 
+        /// hecelere ayırır.
+        /// </summary>
+        /// <param name="giris"></param>
+        /// <returns></returns>
         public string[] hecele(string giris)
         {
             HarfDizisi kelime = new HarfDizisi(giris, _alfabe);
