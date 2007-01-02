@@ -52,7 +52,7 @@ namespace net.zemberek.yapi.ek
 
         public override String ToString()
         {
-        return "kural=" + _kural + ", harf=" + (_harf == null ? "" : "" + _harf.charDeger());
+        return "kural=" + _kural + ", harf=" + (_harf == null ? "" : "" + _harf.CharDeger);
     }
 
         public override bool Equals(Object o)

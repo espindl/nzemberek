@@ -55,13 +55,13 @@ public class TurkceSesliUretici : SesliUretici {
     }
 
     public TurkceHarf sesliBelirleIU(TurkceHarf sonSesli) {
-        if (sonSesli.inceSesliMi() && sonSesli.duzSesliMi())
+        if (sonSesli.InceSesli && sonSesli.DuzSesli)
             return HARF_i;
-        if (!sonSesli.inceSesliMi() && sonSesli.duzSesliMi())
+        if (!sonSesli.InceSesli && sonSesli.DuzSesli)
             return HARF_ii;
-        if (!sonSesli.inceSesliMi() && sonSesli.yuvarlakSesliMi())
+        if (!sonSesli.InceSesli && sonSesli.YuvarlakSesli)
             return HARF_u;
-        if (sonSesli.inceSesliMi() && sonSesli.yuvarlakSesliMi())
+        if (sonSesli.InceSesli && sonSesli.YuvarlakSesli)
             return HARF_uu;
         return Alfabe.TANIMSIZ_HARF;
     }
@@ -71,7 +71,7 @@ public class TurkceSesliUretici : SesliUretici {
     }
 
     public  TurkceHarf sesliBelirleAE(TurkceHarf sonSesli) {
-        if (sonSesli.inceSesliMi())
+        if (sonSesli.InceSesli)
             return HARF_e;
         else
             return HARF_a;

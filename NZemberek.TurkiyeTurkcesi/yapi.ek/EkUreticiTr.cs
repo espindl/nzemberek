@@ -66,17 +66,17 @@ namespace net.zemberek.tr.yapi.ek
                     sonuc.ekle(harf);
                     break;
                 case UretimKurali.KAYNASTIR:
-                    if (ulanacak.sonHarf().sesliMi())
+                    if (ulanacak.sonHarf().Sesli)
                         sonuc.ekle(harf);
                     break;
                 case UretimKurali.SERTLESTIR:
-                    if (ulanacak.sonHarf().sertMi())
-                        sonuc.ekle(harf.sertDonusum());
+                    if (ulanacak.sonHarf().Sert)
+                        sonuc.ekle(harf.SertDonusum);
                    else
                         sonuc.ekle(harf);
                     break;
                 case UretimKurali.SESLI_AE:
-                    if (i == 0 && ulanacak.sonHarf().sesliMi())
+                    if (i == 0 && ulanacak.sonHarf().Sesli)
                         break;
                     else {
                         sonSesli = sesliUretici.sesliBelirleAE(sonSesli);
@@ -84,7 +84,7 @@ namespace net.zemberek.tr.yapi.ek
                     }
                     break;
                 case UretimKurali.SESLI_IU:
-                    if (i == 0 && ulanacak.sonHarf().sesliMi())
+                    if (i == 0 && ulanacak.sonHarf().Sesli)
                         break;
                     else {
                         sonSesli = sesliUretici.sesliBelirleIU(sonSesli);
@@ -116,7 +116,7 @@ namespace net.zemberek.tr.yapi.ek
                     break;
                 case UretimKurali.SERTLESTIR:
                     kume.Add(harf);
-                    kume.Add(harf.sertDonusum());
+                    kume.Add(harf.SertDonusum);
                     return kume;
                 case UretimKurali.SESLI_AE:
                       kume.Add(HARF_a);

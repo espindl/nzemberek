@@ -122,7 +122,7 @@ namespace net.zemberek.tr.yapi.kok
         // nakit -> nakde seklinde. normal kosullarda "nakda" olusmasi gerekirdi.
         bool eskiSonsesliInce = false;
         if (kok.ozelDurumIceriyormu(TurkceKokOzelDurumTipi.ISIM_SESLI_DUSMESI))
-            eskiSonsesliInce = hdizi.sonSesli().inceSesliMi();
+            eskiSonsesliInce = hdizi.sonSesli().InceSesli;
 
         bool yapiBozucuOzelDurumvar = false;
         //ters sesli ozel durumu yapi bozucu ama sadece seslinin tipini degistirdiginden
@@ -149,7 +149,7 @@ namespace net.zemberek.tr.yapi.kok
         if (kok.ozelDurumIceriyormu(TurkceKokOzelDurumTipi.ISIM_SESLI_DUSMESI)
                 || kok.ozelDurumIceriyormu(TurkceKokOzelDurumTipi.FIIL_ARA_SESLI_DUSMESI))
         {
-            if (!hdizi.sonSesli().inceSesliMi() && eskiSonsesliInce)
+            if (!hdizi.sonSesli().InceSesli && eskiSonsesliInce)
                 kok.ozelDurumEkle(ozelDurumlar[TurkceKokOzelDurumTipi.TERS_SESLI_EK]);
         }
 
@@ -175,7 +175,7 @@ namespace net.zemberek.tr.yapi.kok
             // eger bir fiilin son harfi sesli ise bu dogrudan simdiki zaman ozel durumu olarak ele alinir.
             // bu ozel durum bilgi tabaninda ayrica belirtilmedigi icin burada kok'e eklenir.  aramak -> ar(a)Iyor
             char sonChar = kok.icerik()[kok.icerik().Length - 1];
-            if (kok.tip() == KelimeTipi.FIIL && alfabe.harf(sonChar).sesliMi())
+            if (kok.tip() == KelimeTipi.FIIL && alfabe.harf(sonChar).Sesli)
             {
                 //demek-yemek fiilleri icin bu uygulama yapilamaz.
                 if (!kok.ozelDurumIceriyormu(TurkceKokOzelDurumTipi.FIIL_KOK_BOZULMASI))
@@ -200,7 +200,7 @@ namespace net.zemberek.tr.yapi.kok
                     {
                         String parca = _ozelDurum.Substring(loc + 1);
                         char sonSesli = parca[0];
-                        if (!alfabe.harf(sonSesli).sesliMi())
+                        if (!alfabe.harf(sonSesli).Sesli)
                             logger.Warn("Hatali kisaltma harfi.. Sesli bekleniyordu." + _ozelDurum);
                         kok.KisaltmaSonSeslisi = sonSesli;
                         if (parca.Length > 1)
@@ -213,7 +213,7 @@ namespace net.zemberek.tr.yapi.kok
                     else
                     {
                         char sonHarf = kok.icerik()[kok.icerik().Length - 1];
-                        if (!alfabe.harf(sonHarf).sesliMi())
+                        if (!alfabe.harf(sonHarf).Sesli)
                         {
                             kok.KisaltmaSonSeslisi='e';
                             kok.ozelDurumEkle(ozelDurumlar[TurkceKokOzelDurumTipi.KISALTMA_SON_SESLI]);

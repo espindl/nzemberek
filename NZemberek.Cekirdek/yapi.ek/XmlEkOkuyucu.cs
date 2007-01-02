@@ -322,7 +322,7 @@ namespace net.zemberek.yapi.ek
                 TurkceHarf harf = uretimBileseni.harf();
                 if (i == 0 || (i == 1 && bilesenler[0].kural() == UretimKurali.KAYNASTIR))
                 {
-                    if (harf.sesliMi())
+                    if (harf.Sesli)
                         ek.setSesliIleBaslayabilir(true);
                     switch (uretimBileseni.kural())
                     {

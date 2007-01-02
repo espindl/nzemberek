@@ -38,7 +38,7 @@ namespace net.zemberek.yapi.ek
 
     public override HarfDizisi cozumlemeIcinUret(Kelime kelime, HarfDizisi giris, HarfDizisiKiyaslayici kiyaslayici) {
         TurkceHarf son = kelime.sonHarf();
-        if (son.sesliMi() || ((son.charDeger()=='r') || son.charDeger()==('l'))
+        if (son.Sesli || ((son.CharDeger=='r') || son.CharDeger==('l'))
                 && kelime.icerik().sesliSayisi() > 1) {
             return T;
         }

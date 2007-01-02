@@ -40,7 +40,7 @@ namespace net.zemberek.yapi.ek
                 return null;
             }
             int harfPozisyonu = kelime.boy() + ek.Length;
-            if (giris.harf(harfPozisyonu).sesliMi())
+            if (giris.harf(harfPozisyonu).Sesli)
                 return ek;
             return null;
         }

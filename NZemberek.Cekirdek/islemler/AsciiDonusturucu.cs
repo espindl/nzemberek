@@ -47,8 +47,8 @@ namespace net.zemberek.islemler
             {
                 TurkceHarf harf = alfabe.harf(chars[i]);
                 if (harf != null && harf != Alfabe.TANIMSIZ_HARF)
-                    if (harf.asciiDonusum() != null)
-                        chars[i] = harf.asciiDonusum().charDeger();
+                    if (harf.AsciiDonusum != null)
+                        chars[i] = harf.AsciiDonusum.CharDeger;
             }
             return new String(chars);
         }

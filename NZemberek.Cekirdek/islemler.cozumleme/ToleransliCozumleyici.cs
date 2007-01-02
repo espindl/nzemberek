@@ -169,10 +169,11 @@ namespace net.zemberek.islemler.cozumleme
                         kelimeYigini.koy((Kelime)kelime.Clone(), ardisilEkSirasi);
                 ardisilEkSirasi = 0;
                 // ek ekleneceginde yumusama yapilip yapilmayacagi belirleniyor.. aci
-                if (olusanEk.harf(0).sesliMi()
-                        && kelime.sonHarf().sertMi()
+                if (olusanEk.harf(0).Sesli
+                        && kelime.sonHarf().Sert
                         && kelime.ekler().Count > 1
-                        && olusanEk.ilkHarf().sertDonusum()!=null) {
+                        && olusanEk.ilkHarf().SertDonusum!=null) 
+                {
                     kelime.icerik().sonHarfYumusat();
                 }
                 kelime.icerikEkle(olusanEk);

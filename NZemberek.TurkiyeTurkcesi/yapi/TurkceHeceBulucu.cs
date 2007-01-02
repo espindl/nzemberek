@@ -58,13 +58,13 @@ namespace net.zemberek.tr.yapi
             if (boy == 0)
                 return -1;
 
-            if (harf.sesliMi())
+            if (harf.Sesli)
             {
                 //kelime sadece sesli.
                 if (boy == 1)
                     return 1;
                 //onceki harf sesli kelime="saa" ise son ek "a"
-                if (oncekiHarf.sesliMi())
+                if (oncekiHarf.Sesli)
                     return 1;
                 //onceki harf sessiz ise ve kelime sadece 2 harf ise hece tum kelime. "ya"
                 if (boy == 2)
@@ -73,7 +73,7 @@ namespace net.zemberek.tr.yapi
                 TurkceHarf ikiOncekiHarf = kelime.harf(boy - 3);
 
                 // steteskp > ste
-                if (!ikiOncekiHarf.sesliMi() && boy == 3)
+                if (!ikiOncekiHarf.Sesli && boy == 3)
                 {
                     return 3;
                 }
@@ -87,16 +87,16 @@ namespace net.zemberek.tr.yapi
                     return -1;
 
                 TurkceHarf ikiOncekiHarf = kelime.harf(boy - 3);
-                if (oncekiHarf.sesliMi())
+                if (oncekiHarf.Sesli)
                 {
 
                     //kelime iki harfli (el, al) ya da iki onceki harf sesli (saat)
-                    if (boy == 2 || ikiOncekiHarf.sesliMi())
+                    if (boy == 2 || ikiOncekiHarf.Sesli)
                         return 2;
 
                     TurkceHarf ucOncekiHarf = kelime.harf(boy - 4);
                     // kelime uc harfli (kal, sel) ya da uc onceki harf sesli (kanat),
-                    if (boy == 3 || ucOncekiHarf.sesliMi())
+                    if (boy == 3 || ucOncekiHarf.Sesli)
                         return 3;
 
                     //kelime dort harfli ise yukaridaki kurallari gecmesi nedeniyle hecelenemez sayiyoruz.
@@ -105,7 +105,7 @@ namespace net.zemberek.tr.yapi
                         return -1;
 
                     TurkceHarf dortOncekiHarf = kelime.harf(boy - 5);
-                    if (!dortOncekiHarf.sesliMi())
+                    if (!dortOncekiHarf.Sesli)
                         return 3;
                     return 3;
                 }
@@ -113,10 +113,10 @@ namespace net.zemberek.tr.yapi
                 {
 
 
-                        if (boy == 2 || !ikiOncekiHarf.sesliMi())
+                        if (boy == 2 || !ikiOncekiHarf.Sesli)
                             return -1;
                         TurkceHarf ucOncekiHarf = kelime.harf(boy - 4);
-                        if (boy > 3 && !ucOncekiHarf.sesliMi())
+                        if (boy > 3 && !ucOncekiHarf.Sesli)
                             return 4;
                         return 3;
 

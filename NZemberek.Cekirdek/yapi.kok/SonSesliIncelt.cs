@@ -54,7 +54,7 @@ namespace net.zemberek.yapi.kok
             for (int i = dizi.Length - 1; i >= 0; i--)
             {
                 TurkceHarf h = dizi.harf(i);
-                if (h.sesliMi() && !h.inceSesliMi())
+                if (h.Sesli && !h.InceSesli)
                 {
                     dizi.harfDegistir(i, _alfabe.kalinSesliIncelt(dizi.harf(i)));
                 }

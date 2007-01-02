@@ -118,7 +118,7 @@ public class KelimeUretici {
             //TODO: asagidaki bolum dil ozel. muhtemelen olusumIcinURet metodu duzletilirse gerek kalmaz.
             // ek son harf yumusatmayi kendimiz hallediyoruz (eger yalin ek ise bu islemi pas geciyoruz.)
             if (i > 1) {
-                if (kelime.sonHarf().sertMi() && ekOlusumu.ilkHarf().sesliMi())
+                if (kelime.sonHarf().Sert && ekOlusumu.ilkHarf().Sesli)
                     kelime.icerik().sonHarfYumusat();
             }
 

@@ -24,19 +24,14 @@
  * ***** END LICENSE BLOCK ***** */
 
 using System;
+using System.Xml.Serialization;
+
 
 namespace net.zemberek.yapi
 {
 	/// <summary> Turkce Harf bilgilerini tasiyan sinif</summary>
     public sealed class TurkceHarf : System.ICloneable
     {
-        ////public char CharDeger
-        ////{
-        ////    set
-        ////    {
-        ////        this.charDeger_Renamed_Field = value;
-        ////    }
-        ////}
         // Harfin bilgisayar karsiligi.
         private char _charDeger;
         // Harfin kullanilan dil alfabesindeki sirasi
@@ -74,6 +69,9 @@ namespace net.zemberek.yapi
                 this.buyukHarf = true;
         }
 
+        public TurkceHarf()
+        { }
+
         public override String ToString()
         {
             return "harf:" + _charDeger;
@@ -83,11 +81,11 @@ namespace net.zemberek.yapi
         {
 
             //eger harf icerikleri ayni degilse turkce-ascii donusumleri kiyaslanir.
-            if (_charDeger != ha.charDeger())
+            if (_charDeger != ha.CharDeger)
             {
-                if (_asciiDonusum != null && _asciiDonusum.charDeger() == ha.charDeger())
+                if (_asciiDonusum != null && _asciiDonusum.CharDeger == ha.CharDeger)
                     return true;
-                return _turkceDonusum != null && _turkceDonusum.charDeger() == ha.charDeger();
+                return _turkceDonusum != null && _turkceDonusum.CharDeger == ha.CharDeger;
             }
             return true;
         }
@@ -97,10 +95,10 @@ namespace net.zemberek.yapi
             TurkceHarf kopya = new TurkceHarf(_charDeger, _alfabetikSira);
             kopya.sert = sert;
             kopya.sesli = sesli;
-            kopya.inceSesli = inceSesli;
+            kopya.InceSesli = inceSesli;
             kopya.buyukHarf = buyukHarf;
             kopya.asciiDisi = asciiDisi;
-            kopya.duzSesli = duzSesli;
+            kopya.DuzSesli = duzSesli;
             kopya.yuvarlakSesli = yuvarlakSesli;
             kopya._yumusama = _yumusama;
             kopya._sertDonusum = _sertDonusum;
@@ -109,134 +107,88 @@ namespace net.zemberek.yapi
             return kopya;
         }
 
-        public char charDeger()
+        public char CharDeger
         {
-            return _charDeger;
+            get { return _charDeger; }
+            set { _charDeger = value; }
         }
 
-        public void setCharDeger(char charDeger)
+        public int AlfabetikSira
         {
-            this._charDeger = charDeger;
+            get { return _alfabetikSira; }
+            set { _alfabetikSira = value; }
+
         }
 
-        public int alfabetikSira()
+        public bool Sesli
         {
-            return _alfabetikSira;
+            get { return sesli; }
+            set { sesli = value; }
         }
 
-        public void setAlfabetikSira(int alfabetikSira)
+        public bool Sert
         {
-            this._alfabetikSira = alfabetikSira;
+            get { return sert; }
+            set { sert = value; }
         }
 
-        public bool sesliMi()
+        public bool InceSesli
         {
-            return sesli;
+            get {return inceSesli;}
+            set { inceSesli = value; }
         }
 
-        public void setSesli(bool sesli)
+        public bool YuvarlakSesli
         {
-            this.sesli = sesli;
+            get { return yuvarlakSesli; }
+            set { yuvarlakSesli = value; }
         }
 
-        public bool sertMi()
+        public bool DuzSesli
         {
-            return sert;
+            get { return duzSesli; }
+            set { duzSesli = value; }
         }
 
-        public void setSert(bool sert)
+        public bool BuyukHarf
         {
-            this.sert = sert;
+            get { return buyukHarf; }
+            set { buyukHarf = value; }
         }
 
-        public bool inceSesliMi()
+        public bool AsciiDisi
         {
-            return inceSesli;
+            get { return asciiDisi; }
+            set { asciiDisi = value; }
         }
 
-        public void setInceSesli(bool inceSesli)
+
+        [XmlIgnore]
+        public TurkceHarf Yumusama
         {
-            this.inceSesli = inceSesli;
+            get { return _yumusama; }
+            set { _yumusama = value; }
         }
 
-        public bool buyukHarfMi()
+        [XmlIgnore]
+        public TurkceHarf SertDonusum
         {
-            return buyukHarf;
+            get { return _sertDonusum; }
+            set { _sertDonusum = value; }
         }
 
-        public void setBuyukHarf(bool buyukHarf)
+        [XmlIgnore]
+        public TurkceHarf TurkceDonusum
         {
-            this.buyukHarf = buyukHarf;
+            get { return _turkceDonusum; }
+            set { _turkceDonusum = value; }
         }
 
-        public bool asciiDisindaMi()
+        [XmlIgnore]
+        public TurkceHarf AsciiDonusum
         {
-            return asciiDisi;
-        }
-
-        public void setAsciiDisi(bool asciiDisi)
-        {
-            this.asciiDisi = asciiDisi;
-        }
-
-        public bool duzSesliMi()
-        {
-            return duzSesli;
-        }
-
-        public void setDuzSesli(bool duzSesli)
-        {
-            this.duzSesli = duzSesli;
-        }
-
-        public bool yuvarlakSesliMi()
-        {
-            return yuvarlakSesli;
-        }
-
-        public void setYuvarlakSesli(bool yuvarlakSesli)
-        {
-            this.yuvarlakSesli = yuvarlakSesli;
-        }
-
-        public TurkceHarf yumusama()
-        {
-            return _yumusama;
-        }
-
-        public void setYumusama(TurkceHarf yumusama)
-        {
-            this._yumusama = yumusama;
-        }
-
-        public TurkceHarf sertDonusum()
-        {
-            return _sertDonusum;
-        }
-
-        public void setSertDonusum(TurkceHarf sertDonusum)
-        {
-            this._sertDonusum = sertDonusum;
-        }
-
-        public TurkceHarf turkceDonusum()
-        {
-            return _turkceDonusum;
-        }
-
-        public void setTurkceDonusum(TurkceHarf turkceDonusum)
-        {
-            this._turkceDonusum = turkceDonusum;
-        }
-
-        public TurkceHarf asciiDonusum()
-        {
-            return _asciiDonusum;
-        }
-
-        public void setAsciiDonusum(TurkceHarf asciiDonusum)
-        {
-            this._asciiDonusum = asciiDonusum;
+            get { return _asciiDonusum; }
+            set { _asciiDonusum = value; }
         }
     }
 }

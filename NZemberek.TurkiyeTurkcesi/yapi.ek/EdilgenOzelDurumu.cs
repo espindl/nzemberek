@@ -52,7 +52,7 @@ public class EdilgenOzelDurumu : EkOzelDurumu {
 
     public override HarfDizisi cozumlemeIcinUret(Kelime kelime, HarfDizisi giris, HarfDizisiKiyaslayici kiyaslayici) {
         TurkceHarf son = kelime.sonHarf();
-        if(son.sesliMi())
+        if(son.Sesli)
           return new HarfDizisi(0);
         HarfDizisi sonuc = new HarfDizisi();
         if (kelime.kok().ozelDurumIceriyormu(TurkceKokOzelDurumTipi.FIIL_ARA_SESLI_DUSMESI)) {

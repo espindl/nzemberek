@@ -150,7 +150,7 @@ namespace net.zemberek.yapi
 		{
 			for (int i = boy - 1; i >= 0; i--)
 			{
-				if (dizi[i].sesliMi())
+				if (dizi[i].Sesli)
 					return dizi[i];
 			}
 			return Alfabe.TANIMSIZ_HARF;
@@ -292,7 +292,7 @@ namespace net.zemberek.yapi
 		{
 			for (int i = basla; i < boy; i++)
 			{
-				if (dizi[i].sesliMi())
+				if (dizi[i].Sesli)
 					return dizi[i];
 			}
 			return Alfabe.TANIMSIZ_HARF;
@@ -320,7 +320,7 @@ namespace net.zemberek.yapi
 				return false;
 			for (int i = 0; i < boy; i++)
 			{
-				if (this.dizi[i].charDeger() != harfDizisi.dizi[i].charDeger())
+				if (this.dizi[i].CharDeger != harfDizisi.dizi[i].CharDeger)
 					return false;
 			}
 			return true;
@@ -385,7 +385,7 @@ namespace net.zemberek.yapi
 			if (boy < baslangic + kelime.Length)
 				return false;
 			for (int i = 0; i < kelime.Length; i++)
-				if (dizi[baslangic + i].charDeger() != kelime.harf(i).charDeger())
+				if (dizi[baslangic + i].CharDeger != kelime.harf(i).CharDeger)
 					return false;
 			return true;
 		}
@@ -397,7 +397,7 @@ namespace net.zemberek.yapi
 			if (giris.Length > this.boy)
 				return false;
 			for (int i = 0; i < giris.Length; i++)
-				if (dizi[i].charDeger() != giris.harf(i).charDeger())
+				if (dizi[i].CharDeger != giris.harf(i).CharDeger)
 					return false;
 			return true;
 		}
@@ -422,9 +422,9 @@ namespace net.zemberek.yapi
 		{
 			if (boy == 0)
 				return ;
-			TurkceHarf yum = dizi[boy - 1].yumusama();
+			TurkceHarf yum = dizi[boy - 1].Yumusama;
 			if (yum != null)
-				dizi[boy - 1] = dizi[boy - 1].yumusama();
+				dizi[boy - 1] = dizi[boy - 1].Yumusama;
 		}
 		
 		/// <summary> son harfi siler. eger harf yoksa hicbir etki yapmaz.</summary>
@@ -517,7 +517,7 @@ namespace net.zemberek.yapi
 				return "";
 			StringBuilder s = new StringBuilder(boy - index);
 			for (int i = index; i < boy; i++)
-				s.Append(dizi[i].charDeger());
+				s.Append(dizi[i].CharDeger);
 			return s.ToString();
 		}
 
@@ -526,7 +526,7 @@ namespace net.zemberek.yapi
             StringBuilder str = new StringBuilder();
             for(int i=0;i < this.boy;i++)
             {
-                str.Append(dizi[i].charDeger());
+                str.Append(dizi[i].CharDeger);
             }
             return str.ToString(); ;
         }
@@ -548,12 +548,13 @@ namespace net.zemberek.yapi
 			int sonuc = 0;
 			for (int i = 0; i < boy; i++)
 			{
-				if (dizi[i].sesliMi())
+				if (dizi[i].Sesli)
 					sonuc++;
 			}
 			return sonuc;
 		}
 		
+/*TODO Tankut Alfabe-Deneme 
 		/// <returns> hepsi buyuk harf ise true, boy=0 dahil.
 		/// </returns>
 		public virtual bool hepsiBuyukHarfmi()
@@ -565,6 +566,7 @@ namespace net.zemberek.yapi
 			}
 			return true;
 		}
+ */ 
 
 
 
@@ -606,7 +608,7 @@ namespace net.zemberek.yapi
                 {
                     try
                     {
-                        return harfDizisi.dizi[cursor].charDeger();
+                        return harfDizisi.dizi[cursor].CharDeger;
                     }
                     catch
                     {
@@ -631,7 +633,7 @@ namespace net.zemberek.yapi
                 {
                     try
                     {
-                        return harfDizisi.dizi[cursor].charDeger();
+                        return harfDizisi.dizi[cursor].CharDeger;
                     }
                     catch
                     {
@@ -661,7 +663,7 @@ namespace net.zemberek.yapi
 
         public char CharAt(int i)
         {
-            return dizi[i].charDeger();
+            return dizi[i].CharDeger;
         }
 		
 		public HarfDizisi subSequence(int start, int end)
