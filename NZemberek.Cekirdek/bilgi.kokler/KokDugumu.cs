@@ -63,7 +63,7 @@ namespace net.zemberek.bilgi.kokler
         private char harf;
         // eþ seslileri taþýyan liste (Kok nesneleri taþýr)
         private List<Kok> esSesliler = null;
-        // Düðümðn taþýdýðý kök
+        // Düðümün taþýdýðý kök
         private Kok kok = null;
         // Kökün deðiþmiþ halini tutan string
         private string kelime = null;
@@ -128,9 +128,9 @@ namespace net.zemberek.bilgi.kokler
             return this.addNode(yeniDugum);
         }
 
-        public KokDugumu DugumEkle(char harf, string icerik, Kok kok)
+        public KokDugumu DugumEkle(string icerik, Kok kok)
         {
-            KokDugumu yeniDugum = new KokDugumu(this.Level + 1, harf, icerik, kok);
+            KokDugumu yeniDugum = new KokDugumu(this.Level + 1, icerik[this.Level], icerik, kok);
             return this.addNode(yeniDugum);
         }
         /**
@@ -241,8 +241,16 @@ namespace net.zemberek.bilgi.kokler
             this.esSesliler = kaynak.getEsSesliler();
         }
 
+        /// <summary>
+        /// Düðüme baðlý kelimeyi bir seviye ileri düðüm oluþturarak ona aktarýr.
+        /// </summary>
+        /// <returns></returns>
         public KokDugumu KokuDallandir()
         {
+            if (!this.KisayolDugumu)
+            {
+                throw new ApplicationException("Düðüm içeriði ilerletilmeye uygun deðil.");
+            }
             KokDugumu aNewNode = this.DugumEkle(this.Kelime[this.Level]);
             aNewNode.kopyala(this);
             this.temizle();
@@ -255,6 +263,18 @@ namespace net.zemberek.bilgi.kokler
 //            set { harf = value; }
         }
 
+        /// <summary>
+        /// Eðer düðüm seviyesinden uzun bir köke iþaret ediyor ise true döner.
+        /// Eðer tam kendi içeriðine iþaret ediyorsa veya herhangi bir köke iþaret etmiyorsa false döner.
+        /// Bu özellik aðacýn oluþturulmasý sýrasýnda düðümün iþaret ettiði kökün alt düðümlere ilerletilmesi gerektiðinde kullanýlýr.
+        /// </summary>
+        public bool KisayolDugumu
+        {
+            get
+            {
+                return (this.Kelime != null && level < this.Kelime.Length);
+            }
+        }
 
         /**
          * Düðümün ve alt düðümlerinin aðaç yapýsý þeklinde string gösterimini döndürür.

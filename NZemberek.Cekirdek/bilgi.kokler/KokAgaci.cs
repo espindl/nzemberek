@@ -86,32 +86,122 @@ namespace net.zemberek.bilgi.kokler
             return nodeCount;
         }
 
-        /**
-         * Verilen kök icerigini aðaca ekler.
-         *
-         * @param icerik
-         * @param kok
-         */
+
+        private KokDugumu IcerikDugumuBul(string icerik)
+        {
+            KokDugumu parent = baslangicDugumu;
+            KokDugumu child = null;
+            while (parent.Level < icerik.Length)
+            {
+                child = parent.altDugumGetir(icerik[parent.Level]);
+                if (child != null)
+                {
+                    parent = child;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return parent;
+        }
+
+
+        public void ekle2(string icerik, Kok kok)
+        {
+            // Ýçerik için mevcut aðaçta inilebilecek en derin düðümü bul.
+            KokDugumu dugum = this.IcerikDugumuBul(icerik);
+            while (true)
+            {
+                // Aðaç üzerinde ilerlerken kelimemizin sonuna kadar gitmiþsek
+                if (dugum.Level == icerik.Length)
+                {
+                    //kelimemizi bu düðüme ekleriz.
+                    //örnek : içerik="istif ISIM", düðüm = f(level:5).
+                    SonHarfDugumuneEkle(icerik, kok, dugum);
+                    return;
+                }
+                // Kelimenin sonuna kadar gitmedik...
+                else
+                {
+                    // bu düðüme baðlý bir kök yoksa 
+                    if (dugum.getKok() == null)
+                    {
+                        //bu kök için bir düðüm oluþturup ekleriz.
+                        dugum.DugumEkle(icerik, kok);
+                        return;
+                    }
+                    // bu düðüme baðlý bir kök var...
+                    else
+                    {
+                        // bu düðümün içeriði eldeki içerik ile ayný ise o zaman bir eþsesli bulduk.
+                        if (dugum.Kelime.Equals(icerik))
+                        {
+                            // eþsesliyi ekleriz. (Eþsesli eklemede sadece kök ekleniyor, içerik deðiþtirilmiyor.
+                            //örnek : içerik="yüz SAYI", düðüm = ü(level:2,kök="yüz FIIL").
+                            dugum.kokEkle(kok);
+                            return;
+                        }
+                        // eþsesli deðil...
+                        else
+                        {
+                            //düðüm bir kýsayol deðilse 
+                            if (!dugum.KisayolDugumu)
+                            {
+                                //yeni içeriði alt düðüm olarak ekleriz.
+                                //örnek : içerik="istifra ISIM", düðüm = f(level:5,kök="istif ISIM").
+                                dugum.DugumEkle(icerik, kok);
+                                return;
+                            }
+                            //kýsayol düðümü
+                            else
+                            {
+                                //öncelikle düðümdeki kökü bir ilerletiriz.
+                                KokDugumu yenidugum = dugum.KokuDallandir();
+                                if (yenidugum.Harf == icerik[dugum.Level])
+                                {
+                                    dugum = yenidugum;
+                                    continue;
+                                }
+                                else
+                                {
+                                    dugum.DugumEkle(icerik, kok);
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        
+
+        /// <summary>
+        /// Verilen kökü ve içeriði düðümleri oluþturarak aðaca ekler.
+        /// </summary>
+        /// <param name="icerik"></param>
+        /// <param name="kok"></param>
         public void ekle(String icerik, Kok kok)
         {
             KokDugumu node = baslangicDugumu;
             KokDugumu oncekiDugum = null;
-            int idx = 0;
+            int level = 0;
             // null alt düðüm bulana dek veya kelimenin sonuna dek alt düðümlerde ilerle
-            while (idx < icerik.Length)
+            while (level < icerik.Length)
             {
                 oncekiDugum = node;
-                node = node.altDugumGetir(icerik[idx]);
+                node = node.altDugumGetir(icerik[level]);
                 if (node == null) break;
-                idx++;
+                level++;
             }
             /**
              * Aðaç üzerinde ilerlerken kelimemizin sonuna kadar gitmiþiz.
              * kelimemizi bu düðüme ekleriz.
              */
-            if (idx == icerik.Length)
+            if (level == icerik.Length)
             {
-                SonHarfDugumuneEkle(icerik, kok, node, idx);
+                SonHarfDugumuneEkle(icerik, kok, node);
                 return;
             }
 
@@ -119,9 +209,9 @@ namespace net.zemberek.bilgi.kokler
             /**
              * Kaldýðýmýz düðüme baðlý bir kök yoksa bu kök için bir düðüm oluþturup ekleriz.
              */
-            if (oncekiDugum.getKok() == null && idx < icerik.Length)
+            if (oncekiDugum.getKok() == null && level < icerik.Length)
             {
-                oncekiDugum.DugumEkle(icerik[idx], icerik, kok);
+                oncekiDugum.DugumEkle(icerik, kok);
                 return;
             }
 
@@ -151,25 +241,25 @@ namespace net.zemberek.bilgi.kokler
             string oncekiDugumIcerigi = oncekiDugum.Kelime;
             KokDugumu newNode = oncekiDugum;
 
-            if (idx == oncekiDugumIcerigi.Length)
+            if (level == oncekiDugumIcerigi.Length)
             {
-                newNode.DugumEkle(icerik[idx], icerik, kok);
+                newNode.DugumEkle(icerik, kok);
                 return;
             }
 
             if (oncekiDugumIcerigi.Length <= icerik.Length)
             {
-                while (idx < oncekiDugumIcerigi.Length && oncekiDugumIcerigi[idx] == icerik[idx])
+                while (level < oncekiDugumIcerigi.Length && oncekiDugumIcerigi[level] == icerik[level])
                 {
-                    newNode = newNode.DugumEkle(oncekiDugumIcerigi[idx]);
-                    idx++;
+                    newNode = newNode.DugumEkle(oncekiDugumIcerigi[level]);
+                    level++;
                 }
 
                 // Kisa dugumun eklenmesi.
-                if (idx < oncekiDugumIcerigi.Length)
+                if (level < oncekiDugumIcerigi.Length)
                 {
                     //newNode.KokuDallandir();
-                    KokDugumu temp = newNode.DugumEkle(oncekiDugumIcerigi[idx]);
+                    KokDugumu temp = newNode.DugumEkle(oncekiDugumIcerigi[level]);
                     temp.kopyala(oncekiDugum);
                 }
                 else
@@ -178,7 +268,7 @@ namespace net.zemberek.bilgi.kokler
                 }
 
                 // Uzun olan dugumun (yeni gelen) eklenmesi, es anlamlilari kotar
-                newNode.DugumEkle(icerik[idx], icerik, kok);
+                newNode.DugumEkle(icerik, kok);
                 oncekiDugum.temizle();
             }
 
@@ -196,15 +286,15 @@ namespace net.zemberek.bilgi.kokler
 
             else
             {
-                while (idx < icerik.Length && icerik[idx] == oncekiDugumIcerigi[idx])
+                while (level < icerik.Length && icerik[level] == oncekiDugumIcerigi[level])
                 {
-                    newNode = newNode.DugumEkle(icerik[idx]);
-                    idx++;
+                    newNode = newNode.DugumEkle(icerik[level]);
+                    level++;
                 }
                 // Kisa dugumun eklenmesi.
-                if (idx < icerik.Length)
+                if (level < icerik.Length)
                 {
-                    newNode.DugumEkle(icerik[idx], icerik, kok);
+                    newNode.DugumEkle(icerik, kok);
                 }
                 else
                 {
@@ -213,12 +303,13 @@ namespace net.zemberek.bilgi.kokler
                 }
 
                 // Uzun olan dugumun (yeni gelen) eklenmesi.
-                newNode = newNode.DugumEkle(oncekiDugumIcerigi[idx]);
+                newNode = newNode.DugumEkle(oncekiDugumIcerigi[level]);
                 newNode.kopyala(oncekiDugum);
                 // Es seslileri tasi.
                 oncekiDugum.temizle();
             }
         }
+
 
         /**
          * Aranan bir kök düðümünü bulur.
@@ -228,17 +319,16 @@ namespace net.zemberek.bilgi.kokler
          */
         public List<Kok> bul(String str)
         {
-            char[] girisChars = str.ToCharArray();
             int girisIndex = 0;
             // Basit bir tree traverse algoritmasý ile kelime bulunur.
             KokDugumu node = baslangicDugumu;
-            while (node != null && girisIndex < girisChars.Length)
+            while (node != null && girisIndex < str.Length)
             {
                 if (node.Kelime != null && node.Kelime.Equals(str))
                 {
                     break;
                 }
-                node = node.altDugumGetir(girisChars[girisIndex++]);
+                node = node.altDugumGetir(str[girisIndex++]);
             }
             if (node != null)
             {
@@ -273,7 +363,7 @@ namespace net.zemberek.bilgi.kokler
         /// <param name="icerik"></param>
         /// <param name="kok"></param>
         /// <param name="node"></param>
-        private static void SonHarfDugumuneEkle(String icerik, Kok kok, KokDugumu node, int idx)
+        private static void SonHarfDugumuneEkle(String icerik, Kok kok, KokDugumu node)
         {
             if (node.altDugumVarMi())
             {
@@ -292,7 +382,6 @@ namespace net.zemberek.bilgi.kokler
                 node.Kelime = icerik;
             }
         }
-
     }
 
 }

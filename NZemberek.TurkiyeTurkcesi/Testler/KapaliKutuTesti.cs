@@ -251,7 +251,7 @@ namespace NZemberek.TurkiyeTurkcesi.Testler
         [Test]
         public void testDenetle_HepsiDogru()
         {
-            List<String> dogrular = TestYardimcisi.satirlariOku("kaynaklar_test/hepsi-dogru.txt");
+            List<String> dogrular = TestYardimcisi.satirlariOku("Testler\\hepsi-dogru.txt");
             foreach (String s in dogrular)
             {
                 Assert.IsTrue(zemberek.kelimeDenetle(s),"Denetlemede hata! "+ s + " kelimesi dogru olmaliydi.");
@@ -261,7 +261,7 @@ namespace NZemberek.TurkiyeTurkcesi.Testler
         [Test]
         public void testDenetle_HepsiYanlis()
         {
-            List<String> yanlislar = TestYardimcisi.satirlariOku("kaynaklar_test/hepsi-yanlis.txt");
+            List<String> yanlislar = TestYardimcisi.satirlariOku("Testler\\hepsi-yanlis.txt");
             foreach (String s in yanlislar)
             {
                 Assert.IsTrue(!zemberek.kelimeDenetle(s), "Denetlemede hata! " + s + " kelimesi yanlis olmaliydi.");
