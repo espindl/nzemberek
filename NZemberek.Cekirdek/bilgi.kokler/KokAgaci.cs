@@ -107,7 +107,7 @@ namespace net.zemberek.bilgi.kokler
         }
 
 
-        public void ekle2(string icerik, Kok kok)
+        public void ekle(string icerik, Kok kok)
         {
             // Ýçerik için mevcut aðaçta inilebilecek en derin düðümü bul.
             KokDugumu dugum = this.IcerikDugumuBul(icerik);
@@ -182,133 +182,133 @@ namespace net.zemberek.bilgi.kokler
         /// </summary>
         /// <param name="icerik"></param>
         /// <param name="kok"></param>
-        public void ekle(String icerik, Kok kok)
-        {
-            KokDugumu node = baslangicDugumu;
-            KokDugumu oncekiDugum = null;
-            int level = 0;
-            // null alt düðüm bulana dek veya kelimenin sonuna dek alt düðümlerde ilerle
-            while (level < icerik.Length)
-            {
-                oncekiDugum = node;
-                node = node.altDugumGetir(icerik[level]);
-                if (node == null) break;
-                level++;
-            }
-            /**
-             * Aðaç üzerinde ilerlerken kelimemizin sonuna kadar gitmiþiz.
-             * kelimemizi bu düðüme ekleriz.
-             */
-            if (level == icerik.Length)
-            {
-                SonHarfDugumuneEkle(icerik, kok, node);
-                return;
-            }
+        //public void ekle(String icerik, Kok kok)
+        //{
+        //    KokDugumu node = baslangicDugumu;
+        //    KokDugumu oncekiDugum = null;
+        //    int level = 0;
+        //    // null alt düðüm bulana dek veya kelimenin sonuna dek alt düðümlerde ilerle
+        //    while (level < icerik.Length)
+        //    {
+        //        oncekiDugum = node;
+        //        node = node.altDugumGetir(icerik[level]);
+        //        if (node == null) break;
+        //        level++;
+        //    }
+        //    /**
+        //     * Aðaç üzerinde ilerlerken kelimemizin sonuna kadar gitmiþiz.
+        //     * kelimemizi bu düðüme ekleriz.
+        //     */
+        //    if (level == icerik.Length)
+        //    {
+        //        SonHarfDugumuneEkle(icerik, kok, node);
+        //        return;
+        //    }
 
 
-            /**
-             * Kaldýðýmýz düðüme baðlý bir kök yoksa bu kök için bir düðüm oluþturup ekleriz.
-             */
-            if (oncekiDugum.getKok() == null && level < icerik.Length)
-            {
-                oncekiDugum.DugumEkle(icerik, kok);
-                return;
-            }
+        //    /**
+        //     * Kaldýðýmýz düðüme baðlý bir kök yoksa bu kök için bir düðüm oluþturup ekleriz.
+        //     */
+        //    if (oncekiDugum.getKok() == null && level < icerik.Length)
+        //    {
+        //        oncekiDugum.DugumEkle(icerik, kok);
+        //        return;
+        //    }
 
-            if (oncekiDugum.Kelime.Equals(icerik))
-            {
-                oncekiDugum.kokEkle(kok);
-                return;
-            }
+        //    if (oncekiDugum.Kelime.Equals(icerik))
+        //    {
+        //        oncekiDugum.kokEkle(kok);
+        //        return;
+        //    }
 
-            /**
-             * Düðümde duran "istimlak" ve gelen kök = "istimbot" için,
-             * i-s-t-i-m
-             * e kadar ilerler. daha sonra "istimlak" için "l" düðümünü oluþturup kökü baðlar
-             * i-s-t-i-m-l-->istimlak
-             * sonra da diðer düðüm için "b" düðümünü oluþturup gene "m" düðümüne baðlar
-             * i-s-t-i-m-l-->istimlak
-             *         |-b-->istimbot
-             *
-             * Eðer istimlak düðümü baðlanmýþsa ve "istim" düðümü eklenmek üzere 
-             * elimize gelmiþe
-             * i-s-t-i-m-l-->istimlak
-             * tan sonra istim, "m" düðümüne doðrudan baðlanýr.
-             * i-s-t-i-m-l-->istimlak
-             *         |-->istim
-             *
-             */
-            string oncekiDugumIcerigi = oncekiDugum.Kelime;
-            KokDugumu newNode = oncekiDugum;
+        //    /**
+        //     * Düðümde duran "istimlak" ve gelen kök = "istimbot" için,
+        //     * i-s-t-i-m
+        //     * e kadar ilerler. daha sonra "istimlak" için "l" düðümünü oluþturup kökü baðlar
+        //     * i-s-t-i-m-l-->istimlak
+        //     * sonra da diðer düðüm için "b" düðümünü oluþturup gene "m" düðümüne baðlar
+        //     * i-s-t-i-m-l-->istimlak
+        //     *         |-b-->istimbot
+        //     *
+        //     * Eðer istimlak düðümü baðlanmýþsa ve "istim" düðümü eklenmek üzere 
+        //     * elimize gelmiþe
+        //     * i-s-t-i-m-l-->istimlak
+        //     * tan sonra istim, "m" düðümüne doðrudan baðlanýr.
+        //     * i-s-t-i-m-l-->istimlak
+        //     *         |-->istim
+        //     *
+        //     */
+        //    string oncekiDugumIcerigi = oncekiDugum.Kelime;
+        //    KokDugumu newNode = oncekiDugum;
 
-            if (level == oncekiDugumIcerigi.Length)
-            {
-                newNode.DugumEkle(icerik, kok);
-                return;
-            }
+        //    if (level == oncekiDugumIcerigi.Length)
+        //    {
+        //        newNode.DugumEkle(icerik, kok);
+        //        return;
+        //    }
 
-            if (oncekiDugumIcerigi.Length <= icerik.Length)
-            {
-                while (level < oncekiDugumIcerigi.Length && oncekiDugumIcerigi[level] == icerik[level])
-                {
-                    newNode = newNode.DugumEkle(oncekiDugumIcerigi[level]);
-                    level++;
-                }
+        //    if (oncekiDugumIcerigi.Length <= icerik.Length)
+        //    {
+        //        while (level < oncekiDugumIcerigi.Length && oncekiDugumIcerigi[level] == icerik[level])
+        //        {
+        //            newNode = newNode.DugumEkle(oncekiDugumIcerigi[level]);
+        //            level++;
+        //        }
 
-                // Kisa dugumun eklenmesi.
-                if (level < oncekiDugumIcerigi.Length)
-                {
-                    //newNode.KokuDallandir();
-                    KokDugumu temp = newNode.DugumEkle(oncekiDugumIcerigi[level]);
-                    temp.kopyala(oncekiDugum);
-                }
-                else
-                {
-                    newNode.kopyala(oncekiDugum);
-                }
+        //        // Kisa dugumun eklenmesi.
+        //        if (level < oncekiDugumIcerigi.Length)
+        //        {
+        //            //newNode.KokuDallandir();
+        //            KokDugumu temp = newNode.DugumEkle(oncekiDugumIcerigi[level]);
+        //            temp.kopyala(oncekiDugum);
+        //        }
+        //        else
+        //        {
+        //            newNode.kopyala(oncekiDugum);
+        //        }
 
-                // Uzun olan dugumun (yeni gelen) eklenmesi, es anlamlilari kotar
-                newNode.DugumEkle(icerik, kok);
-                oncekiDugum.temizle();
-            }
+        //        // Uzun olan dugumun (yeni gelen) eklenmesi, es anlamlilari kotar
+        //        newNode.DugumEkle(icerik, kok);
+        //        oncekiDugum.temizle();
+        //    }
 
-            /**
-             *
-             * Eðer köke önce "istimlak" ve sonra "istifa" gelirse
-             * i-s-t-i-m-l-->istimlak
-             * daha sonra gene son ortak harf olan "i" ye "f" karakterli düðümü
-             * oluþturup istifayý baðlar
-             * istimlak ta "m" düðümüne baðlý kalýr.
-             * i-s-t-i-m-->istimlak
-             *       |-f-->istifa
-             *
-             */
+        //    /**
+        //     *
+        //     * Eðer köke önce "istimlak" ve sonra "istifa" gelirse
+        //     * i-s-t-i-m-l-->istimlak
+        //     * daha sonra gene son ortak harf olan "i" ye "f" karakterli düðümü
+        //     * oluþturup istifayý baðlar
+        //     * istimlak ta "m" düðümüne baðlý kalýr.
+        //     * i-s-t-i-m-->istimlak
+        //     *       |-f-->istifa
+        //     *
+        //     */
 
-            else
-            {
-                while (level < icerik.Length && icerik[level] == oncekiDugumIcerigi[level])
-                {
-                    newNode = newNode.DugumEkle(icerik[level]);
-                    level++;
-                }
-                // Kisa dugumun eklenmesi.
-                if (level < icerik.Length)
-                {
-                    newNode.DugumEkle(icerik, kok);
-                }
-                else
-                {
-                    newNode.kokEkle(kok);
-                    newNode.Kelime = icerik;
-                }
+        //    else
+        //    {
+        //        while (level < icerik.Length && icerik[level] == oncekiDugumIcerigi[level])
+        //        {
+        //            newNode = newNode.DugumEkle(icerik[level]);
+        //            level++;
+        //        }
+        //        // Kisa dugumun eklenmesi.
+        //        if (level < icerik.Length)
+        //        {
+        //            newNode.DugumEkle(icerik, kok);
+        //        }
+        //        else
+        //        {
+        //            newNode.kokEkle(kok);
+        //            newNode.Kelime = icerik;
+        //        }
 
-                // Uzun olan dugumun (yeni gelen) eklenmesi.
-                newNode = newNode.DugumEkle(oncekiDugumIcerigi[level]);
-                newNode.kopyala(oncekiDugum);
-                // Es seslileri tasi.
-                oncekiDugum.temizle();
-            }
-        }
+        //        // Uzun olan dugumun (yeni gelen) eklenmesi.
+        //        newNode = newNode.DugumEkle(oncekiDugumIcerigi[level]);
+        //        newNode.kopyala(oncekiDugum);
+        //        // Es seslileri tasi.
+        //        oncekiDugum.temizle();
+        //    }
+        //}
 
 
         /**
@@ -317,6 +317,8 @@ namespace net.zemberek.bilgi.kokler
          * @param str
          * @return Aranan kök ve eþ seslilerini taþýyan liste, bulunamazsa null.
          */
+
+
         public List<Kok> bul(String str)
         {
             int girisIndex = 0;

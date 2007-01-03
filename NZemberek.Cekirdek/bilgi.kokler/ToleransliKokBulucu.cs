@@ -91,30 +91,41 @@ namespace net.zemberek.bilgi.kokler
             return adaylar;
         }
 
-        private void yuru(KokDugumu dugum, String olusan) {
-        String tester = olusan;
-        tester += dugum.Harf;
-        if (dugum.getKok() != null) {
-            distanceCalculationCount++;
-            if (MetinAraclari.isInSubstringEditDistance((String) dugum.Kelime, giris, tolerans)) {
-            	// Aday kök bulundu
-                adaylar.Add(dugum.getKok());
-            } else {
-                // Mesafe sınırı aşıldı.
-                return;
+        private void yuru(KokDugumu dugum, String olusan)
+        {
+            String tester = olusan;
+            if (dugum.Harf != '\0')
+                tester += dugum.Harf;
+            if (dugum.getKok() != null)
+            {
+                distanceCalculationCount++;
+                if (MetinAraclari.isInSubstringEditDistance(dugum.Kelime, giris, tolerans))
+                {
+                    // Aday kök bulundu
+                    adaylar.Add(dugum.getKok());
+                }
+                else
+                {
+                    // Mesafe sınırı aşıldı.
+                    return;
+                }
             }
-        } else {
-            if (!MetinAraclari.isInSubstringEditDistance(tester.Trim(), giris, tolerans)) {
-            	// Ara stringde mesafe sınırı aşıldı
-                return;
+            else
+            {
+                if (!MetinAraclari.isInSubstringEditDistance(tester.Trim(), giris, tolerans))
+                {
+                    // Ara stringde mesafe sınırı aşıldı
+                    return;
+                }
             }
-        }
 
-        foreach (KokDugumu altDugum in dugum.altDugumDizisiGetir()) {
-            if (altDugum != null) {
-                this.yuru(altDugum, tester);
+            foreach (KokDugumu altDugum in dugum.altDugumDizisiGetir())
+            {
+                if (altDugum != null)
+                {
+                    this.yuru(altDugum, tester);
+                }
             }
         }
-    }
     }
 }
