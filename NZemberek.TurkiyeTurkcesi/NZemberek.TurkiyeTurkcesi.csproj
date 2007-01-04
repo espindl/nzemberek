@@ -48,26 +48,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="islemler\SoruEkiIsleyici.cs" />
-    <Compile Include="islemler\TurkceCozumlemeYardimcisi.cs" />
+    <Compile Include="Islemler\SoruEkiIsleyici.cs" />
+    <Compile Include="Islemler\TurkceCozumlemeYardimcisi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Testler\KapaliKutuTesti.cs" />
     <Compile Include="Testler\TestYardimcisi.cs" />
-    <Compile Include="yapi.ek\BeraberlikIsOzelDurumu.cs" />
-    <Compile Include="yapi.ek\EdilgenOzelDurumu.cs" />
-    <Compile Include="yapi.ek\EkUreticiTr.cs" />
-    <Compile Include="yapi.ek\GenisZamanEkOzelDurumuTr.cs" />
-    <Compile Include="yapi.ek\SimdikiZamanEkOZelDurumuTr.cs" />
-    <Compile Include="yapi.ek\SuOzelDurumu.cs" />
-    <Compile Include="yapi.ek\TurkceEkAdlari.cs" />
-    <Compile Include="yapi.ek\TurkceEkOzelDurumUretici.cs" />
-    <Compile Include="yapi.kok\TurkceKokOzelDurumBilgisi.cs" />
-    <Compile Include="yapi.kok\TurkceKokOzelDurumTipi.cs" />
-    <Compile Include="yapi.kok\YumusamaNk.cs" />
-    <Compile Include="yapi\TRHeceleyici.cs" />
-    <Compile Include="yapi\TRDilFabrikasi.cs" />
-    <Compile Include="yapi\TurkceHeceBulucu.cs" />
-    <Compile Include="yapi\TurkceSesliUretici.cs" />
+    <Compile Include="Yapi\BeraberlikIsOzelDurumu.cs" />
+    <Compile Include="Yapi\EdilgenOzelDurumu.cs" />
+    <Compile Include="Yapi\EkUreticiTr.cs" />
+    <Compile Include="Yapi\GenisZamanEkOzelDurumuTr.cs" />
+    <Compile Include="Yapi\SimdikiZamanEkOZelDurumuTr.cs" />
+    <Compile Include="Yapi\SuOzelDurumu.cs" />
+    <Compile Include="Yapi\TurkceEkAdlari.cs" />
+    <Compile Include="Yapi\TurkceEkOzelDurumUretici.cs" />
+    <Compile Include="Yapi\TurkceKokOzelDurumBilgisi.cs" />
+    <Compile Include="Yapi\TurkceKokOzelDurumTipi.cs" />
+    <Compile Include="Yapi\YumusamaNk.cs" />
+    <Compile Include="Yapi\TRHeceleyici.cs" />
+    <Compile Include="Yapi\TRDilFabrikasi.cs" />
+    <Compile Include="Yapi\TurkceHeceBulucu.cs" />
+    <Compile Include="Yapi\TurkceSesliUretici.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NZemberek.Cekirdek\NZemberek.Cekirdek.csproj">
@@ -76,23 +76,23 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="kaynaklar\kokler.bin">
+    <None Include="Kaynaklar\kokler.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="kaynaklar\kok_istatistik.bin">
+    <None Include="Kaynaklar\kok_istatistik.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Testler\app.config">
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="kaynaklar\ek.xml">
+    <Content Include="Kaynaklar\ek.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="kaynaklar\harf.txt">
+    <Content Include="Kaynaklar\harf.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="kaynaklar\kelime_cebi.txt">
+    <Content Include="Kaynaklar\kelime_cebi.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Testler\hepsi-dogru.txt">

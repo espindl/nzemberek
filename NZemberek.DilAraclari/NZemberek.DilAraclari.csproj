@@ -45,15 +45,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="araclar.turkce\TurkceMetinOkuyucu.cs" />
-    <Compile Include="araclar.turkce\TurkishTokenStream.cs" />
-    <Compile Include="araclar\IstatistikAraclari.cs" />
-    <Compile Include="araclar\TimeTracker.cs" />
-    <Compile Include="araclar\TusTakimi.cs" />
-    <Compile Include="bilgi.araclar\DuzYaziKokOkuyucu.cs" />
-    <Compile Include="bilgi.araclar\DuzYaziKokYazici.cs" />
-    <Compile Include="bilgi.araclar\IkiliKokYazici.cs" />
-    <Compile Include="bilgi.araclar\KokYazici.cs" />
+    <Compile Include="Araclar.Turkce\TurkceMetinOkuyucu.cs" />
+    <Compile Include="Araclar.Turkce\TurkishTokenStream.cs" />
+    <Compile Include="Araclar\IstatistikAraclari.cs" />
+    <Compile Include="Araclar\TimeTracker.cs" />
+    <Compile Include="Araclar\TusTakimi.cs" />
+    <Compile Include="Bilgi.Araclar\DuzYaziKokOkuyucu.cs" />
+    <Compile Include="Bilgi.Araclar\DuzYaziKokYazici.cs" />
+    <Compile Include="Bilgi.Araclar\IkiliKokYazici.cs" />
+    <Compile Include="Bilgi.Araclar\KokYazici.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

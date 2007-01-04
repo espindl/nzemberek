@@ -26,7 +26,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using net.zemberek.erisim;
+using NZemberek.Cekirdek.Erisim;
 using NUnit.Framework;
 
 
