@@ -24,6 +24,7 @@
  * ***** END LICENSE BLOCK ***** */
 
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
@@ -36,11 +37,10 @@ namespace net.zemberek.tests.yapi
     {
         [Test]
         public void testKodlamaliKaynakYuklyici() {
-            IDictionary<String, String> harfler = new KaynakYukleyici().kodlamaliOzellikDosyasiOku(@"kaynaklar\tr\test\test_harf_tr.txt");
+            IDictionary<String, String> harfler = new KaynakYukleyici().kodlamaliOzellikDosyasiOku(String.Format("kaynaklar{0}tr{1}test{2}test_harf_tr.txt", Path.DirectorySeparatorChar, Path.DirectorySeparatorChar, Path.DirectorySeparatorChar));
             String test = "e,i,ö,ü";
             Assert.AreEqual(test, harfler["ince-sesli"]);
         }
-
             
 
         //[Test]

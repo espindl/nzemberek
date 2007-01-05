@@ -93,7 +93,8 @@ namespace net.zemberek.bilgi.kokler
 
         private void yuru(KokDugumu dugum, String olusan) {
         String tester = olusan;
-        tester += dugum.getHarf();
+        if (dugum.getHarf() != '\0')
+            tester += dugum.getHarf();
         if (dugum.getKok() != null) {
             distanceCalculationCount++;
             if (MetinAraclari.isInSubstringEditDistance((String) dugum.getKelime(), giris, tolerans)) {

@@ -102,6 +102,7 @@
     <Compile Include="tests\kullanim\RastgeleKelimeUretici.cs" />
     <Compile Include="tests\kullanim\TestAscii.cs" />
     <Compile Include="tests\kullanim\TestCozumle.cs" />
+    <Compile Include="tests\kullanim\TestHepsiniDenetle.cs" />
     <Compile Include="tests\TemelTest.cs" />
     <Compile Include="tests\yapi.alfabe\TestAlfabe.cs" />
     <Compile Include="tests\bilgi\TestKaynakYukleyici.cs" />

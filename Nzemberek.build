@@ -34,11 +34,11 @@
   <property name="log4net.dll.name" value="log4net-${nant.settings.currentframework}.dll"/>
   
   
-  <property name="testdir"  value="tests"/>
-	<property name= "binaryDir" 	value= "dagitim" />
+  <property name= "testdir"       value="tests"/>
+	<property name= "binaryDir" 	  value= "dagitim" />
 	<property name= "thirdPartyLib" value= "lib" />
-  <property name= "unitTestDir"	value= "${testdir}\bin" />
-  <property name= "reportsDir" 	value= "${testdir}\reports" />
+  <property name= "unitTestDir"	  value= "${testdir}/bin" />
+  <property name= "reportsDir" 	  value= "${testdir}/reports" />
   
   <property name= "solution.debug" value="false"  />
 	
@@ -117,7 +117,7 @@
       </fileset>
     </copy>
     <copy file="${testdir}/app.config" tofile="${unitTestDir}/Nzemberek.dll.config" />
-    <copy file="app.config" tofile="${unitTestDir}/app.config" />
+    <!--copy file="app.config" tofile="${unitTestDir}/app.config" /-->
   </target>
 
   <target name="clean" verbose="true" description="cleans the working and test directory">

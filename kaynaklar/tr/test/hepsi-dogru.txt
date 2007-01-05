@@ -8,13 +8,13 @@ saatime
 bahsedebilirsiniz
 lağvedebilecekler
 işaretiymiş
-Prof.e
+#############Prof.e
 UEFA'nın
 kafatasçılardan
 AIDS
 UNESCO'ya
 B.E.ye
-BBC'ye
+#############BBC'ye
 tıklım
 sömürüye
 iken
