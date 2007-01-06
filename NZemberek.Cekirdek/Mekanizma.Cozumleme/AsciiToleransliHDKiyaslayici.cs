@@ -1,4 +1,4 @@
-ï»¿/* ***** BEGIN LICENSE BLOCK *****
+/* ***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
  *
  * The contents of this file are subject to the Mozilla Public License Version
@@ -11,10 +11,10 @@
  * for the specific language governing rights and limitations under the
  * License.
  *
- * The Original Code is Zemberek DoÄŸal Dil Ä°ÅŸleme KÃ¼tÃ¼phanesi.
+ * The Original Code is Zemberek Doðal Dil Ýþleme Kütüphanesi.
  *
  * The Initial Developer of the Original Code is
- * Ahmet A. AkÄ±n, Mehmet D. AkÄ±n.
+ * Ahmet A. Akýn, Mehmet D. Akýn.
  * Portions created by the Initial Developer are Copyright (C) 2006
  * the Initial Developer. All Rights Reserved.
  *
@@ -28,21 +28,29 @@ using System.Collections.Generic;
 using System.Text;
 using NZemberek.Cekirdek.Yapi;
 
-namespace NZemberek.TrTurkcesi
+
+namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
 {
-    public class HarfDizisiUretici
+    public class AsciiToleransliHDKiyaslayici : HarfDizisiKiyaslayici
     {
 
-        Alfabe alfabe;
+        #region HarfDizisiKiyaslayici Members
 
-        public HarfDizisiUretici(Alfabe alfabe)
+        public bool  kiyasla(HarfDizisi h1, HarfDizisi h2)
         {
-            this.alfabe = alfabe;
+            return h1.asciiToleransliKiyasla(h2);
         }
 
-        public HarfDizisi uret(String str)
+        public bool  bastanKiyasla(HarfDizisi h1, HarfDizisi h2)
         {
-            return new HarfDizisi(str, alfabe);
+            return h1.asciiToleransliBastanKiyasla(h2);
         }
+
+        public bool  aradanKiyasla(HarfDizisi h1, HarfDizisi h2, int baslangic)
+        {
+            return h1.asciiToleransliAradanKiyasla(baslangic, h2);
+        }
+
+        #endregion
     }
 }

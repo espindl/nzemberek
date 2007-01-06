@@ -46,14 +46,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Araclar.Turkce\TurkceMetinOkuyucu.cs" />
-    <Compile Include="Araclar.Turkce\TurkishTokenStream.cs" />
-    <Compile Include="Araclar\IstatistikAraclari.cs" />
+    <Compile Include="Araclar.Turkce\TurkceSembolAkimi.cs" />
+    <Compile Include="Araclar\IstatistikHesaplayici.cs" />
     <Compile Include="Araclar\TimeTracker.cs" />
     <Compile Include="Araclar\TusTakimi.cs" />
-    <Compile Include="Bilgi.Araclar\DuzYaziKokOkuyucu.cs" />
-    <Compile Include="Bilgi.Araclar\DuzYaziKokYazici.cs" />
-    <Compile Include="Bilgi.Araclar\IkiliKokYazici.cs" />
-    <Compile Include="Bilgi.Araclar\KokYazici.cs" />
+    <Compile Include="KokSozlugu\DuzYaziKokOkuyucu.cs" />
+    <Compile Include="KokSozlugu\DuzYaziKokYazici.cs" />
+    <Compile Include="KokSozlugu\IkiliKokYazici.cs" />
+    <Compile Include="KokSozlugu\IKokYazici.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

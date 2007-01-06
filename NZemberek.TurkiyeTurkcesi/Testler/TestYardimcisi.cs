@@ -4,7 +4,7 @@ using System.Text;
 using System.IO;
 using System.Globalization;
 
-namespace NZemberek.TurkiyeTurkcesi.Testler
+namespace NZemberek.TrTurkcesi.Testler
 {
     class TestYardimcisi
     {

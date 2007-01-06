@@ -26,23 +26,15 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using NZemberek.Cekirdek.Yapi;
 
-namespace NZemberek.TrTurkcesi
+namespace NZemberek.Cekirdek.Mekanizma
 {
-    public class HarfDizisiUretici
+    public interface DenetlemeCebi
     {
+        bool kontrol(String str);
 
-        Alfabe alfabe;
+        void ekle(String s);
 
-        public HarfDizisiUretici(Alfabe alfabe)
-        {
-            this.alfabe = alfabe;
-        }
-
-        public HarfDizisi uret(String str)
-        {
-            return new HarfDizisi(str, alfabe);
-        }
+        void sil(String s);
     }
 }

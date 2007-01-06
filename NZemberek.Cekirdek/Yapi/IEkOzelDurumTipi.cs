@@ -24,25 +24,12 @@
  * ***** END LICENSE BLOCK ***** */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
-using NZemberek.Cekirdek.Yapi;
 
-namespace NZemberek.TrTurkcesi
+namespace NZemberek.Cekirdek.Yapi
 {
-    public class HarfDizisiUretici
+    public interface EkOzelDurumTipi
     {
-
-        Alfabe alfabe;
-
-        public HarfDizisiUretici(Alfabe alfabe)
-        {
-            this.alfabe = alfabe;
-        }
-
-        public HarfDizisi uret(String str)
-        {
-            return new HarfDizisi(str, alfabe);
-        }
+        String Ad{get;}
+        int Index{get;}
     }
 }

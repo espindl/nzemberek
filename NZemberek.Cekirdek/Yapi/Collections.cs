@@ -23,26 +23,22 @@
  *   Tankut Tekeli
  * ***** END LICENSE BLOCK ***** */
 
+// V 0.1
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Iesi.Collections.Generic;
 using NZemberek.Cekirdek.Yapi;
 
-namespace NZemberek.TrTurkcesi
+namespace net.zemberek.javaporttemp
 {
-    public class HarfDizisiUretici
+    //TODO Bu tamamen yokolmalı....
+    public abstract class Collections
     {
-
-        Alfabe alfabe;
-
-        public HarfDizisiUretici(Alfabe alfabe)
-        {
-            this.alfabe = alfabe;
-        }
-
-        public HarfDizisi uret(String str)
-        {
-            return new HarfDizisi(str, alfabe);
-        }
+        public static readonly List<object> EMPTY_LIST = new List<object>();
+        public static readonly List<Kelime> EMPTY_LIST_KELIME = new List<Kelime>();
+        public static readonly Set<Ek> EMPTY_SET = new HashedSet<Ek>();// (System.Collections.IList)System.Collections.ArrayList.ReadOnly(new System.Collections.ArrayList());
+        public static readonly Set<String> EMPTY_SET_STRING = new HashedSet<String>();
+        public static readonly Kelime[] BOS_KELIME_DIZISI = new Kelime[0];
     }
 }

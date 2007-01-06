@@ -23,26 +23,33 @@
  *   Tankut Tekeli
  * ***** END LICENSE BLOCK ***** */
 
+// V 0.1
 using System;
 using System.Collections.Generic;
 using System.Text;
 using NZemberek.Cekirdek.Yapi;
+using NZemberek.Cekirdek.Mekanizma.Cozumleme;
+using NZemberek.TrTurkcesi.Yapi;
 
-namespace NZemberek.TrTurkcesi
+namespace NZemberek.TrTurkcesi.Yapi
 {
-    public class HarfDizisiUretici
-    {
 
-        Alfabe alfabe;
+/**
+ * 'su' kokune kaynastirma iceren cesitli ekler eklendiginde normal kaynastirma harfi yerine
+ * 'y' harfi kullanilir.
+ */
+public class SuOzelDurumu : EkOzelDurumu {
 
-        public HarfDizisiUretici(Alfabe alfabe)
-        {
-            this.alfabe = alfabe;
-        }
-
-        public HarfDizisi uret(String str)
-        {
-            return new HarfDizisi(str, alfabe);
-        }
+    public override HarfDizisi cozumlemeIcinUret(Kelime kelime, HarfDizisi giris, HarfDizisiKiyaslayici kiyaslayici) {
+        if(kelime.gercekEkYok() && kelime.kok().ozelDurumIceriyormu(TurkceKokOzelDurumTipi.SU_OZEL_DURUMU))
+           return ekUretici.cozumlemeIcinEkUret(kelime.icerik(), giris, uretimBilesenleri());
+        return null;
     }
+
+    public override HarfDizisi olusumIcinUret(Kelime kelime, Ek sonrakiEk)
+    {
+        return cozumlemeIcinUret(kelime, null, null);
+    }
+}
+
 }

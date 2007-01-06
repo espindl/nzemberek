@@ -48,8 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Islemler\SoruEkiIsleyici.cs" />
-    <Compile Include="Islemler\TurkceCozumlemeYardimcisi.cs" />
+    <Compile Include="HarfDizisiUretici.cs" />
+    <Compile Include="Mekanizma\SoruEkiIsleyici.cs" />
+    <Compile Include="Mekanizma\TurkceCozumlemeYardimcisi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Testler\KapaliKutuTesti.cs" />
     <Compile Include="Testler\TestYardimcisi.cs" />

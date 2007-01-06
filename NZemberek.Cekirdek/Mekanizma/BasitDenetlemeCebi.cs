@@ -24,25 +24,55 @@
  * ***** END LICENSE BLOCK ***** */
 
 using System;
-using System.Collections.Generic;
+using Iesi.Collections.Generic;
 using System.Text;
-using NZemberek.Cekirdek.Yapi;
+using System.IO;
 
-namespace NZemberek.TrTurkcesi
+using NZemberek.Cekirdek.Araclar;
+
+
+namespace NZemberek.Cekirdek.Mekanizma
 {
-    public class HarfDizisiUretici
+    public class BasitDenetlemeCebi : DenetlemeCebi
     {
+        private Set<String> cep;
 
-        Alfabe alfabe;
-
-        public HarfDizisiUretici(Alfabe alfabe)
+        public BasitDenetlemeCebi(String dosyaAdi) 
         {
-            this.alfabe = alfabe;
+            StreamReader rd = new KaynakYukleyici("UTF-8").getReader(dosyaAdi);
+            try
+            {
+                cep = new HashedSet<String>();
+                while (!rd.EndOfStream)
+                {
+                    ekle(rd.ReadLine());
+                }
+            }
+            finally
+            {
+                rd.Close();
+            }
         }
 
-        public HarfDizisi uret(String str)
+        public bool kontrol(String str) 
         {
-            return new HarfDizisi(str, alfabe);
+            return cep.Contains(str);
+        }
+
+        public void ekle(String s) 
+        {
+            lock (this)
+            {
+                cep.Add(s);
+            }
+        }
+        
+        public void sil(String s) 
+        {
+            lock (this)
+            {
+                cep.Remove(s);
+            }
         }
     }
 }

@@ -26,23 +26,15 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using NZemberek.Cekirdek.Yapi;
 
-namespace NZemberek.TrTurkcesi
+namespace NZemberek.Cekirdek.KokSozlugu
 {
-    public class HarfDizisiUretici
+    public interface KokBulucuUretici
     {
+        IKokBulucu KesinKokBulucuGetir();
 
-        Alfabe alfabe;
+        IKokBulucu ToleransliKokBulucuGetir(int tolerans);
 
-        public HarfDizisiUretici(Alfabe alfabe)
-        {
-            this.alfabe = alfabe;
-        }
-
-        public HarfDizisi uret(String str)
-        {
-            return new HarfDizisi(str, alfabe);
-        }
+        IKokBulucu AsciiKokBulucuGetir();
     }
 }

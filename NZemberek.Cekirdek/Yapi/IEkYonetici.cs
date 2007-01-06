@@ -24,25 +24,24 @@
  * ***** END LICENSE BLOCK ***** */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
+
 using NZemberek.Cekirdek.Yapi;
 
-namespace NZemberek.TrTurkcesi
+namespace NZemberek.Cekirdek.Yapi
 {
-    public class HarfDizisiUretici
+    public interface EkYonetici
     {
+        /**
+     * istenilen isimli ek'i dondurur
+     */
+        Ek ek(String ad);
 
-        Alfabe alfabe;
-
-        public HarfDizisiUretici(Alfabe alfabe)
-        {
-            this.alfabe = alfabe;
-        }
-
-        public HarfDizisi uret(String str)
-        {
-            return new HarfDizisi(str, alfabe);
-        }
+        /**
+         * Kok nesnesinin tipine gore gelebilecek ilk ek'i dondurur.
+         * Baslangic ekleri bilgisi dil tarafindan belirlenir.
+         * @return ilk Ek, eger kok tipi baslangic ekleri <baslangicEkleri>
+         *         haritasinda belirtilmemisse BOS_EK doner.
+         */
+        Ek ilkEkBelirle(Kok kok);
     }
 }

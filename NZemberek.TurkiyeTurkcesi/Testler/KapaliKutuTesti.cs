@@ -26,11 +26,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using NZemberek.Cekirdek.Erisim;
+using NZemberek;
 using NUnit.Framework;
 
 
-namespace NZemberek.TurkiyeTurkcesi.Testler
+namespace NZemberek.TrTurkcesi.Testler
 {
     [TestFixture]
     public class KapaliKutuTesti

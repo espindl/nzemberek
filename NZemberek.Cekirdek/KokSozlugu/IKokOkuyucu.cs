@@ -28,21 +28,35 @@ using System.Collections.Generic;
 using System.Text;
 using NZemberek.Cekirdek.Yapi;
 
-namespace NZemberek.TrTurkcesi
+namespace NZemberek.Cekirdek.KokSozlugu
 {
-    public class HarfDizisiUretici
+    /// <summary>
+    /// Kök ağacını oluşturan kök nesnelerini bir kaynaktan sırayla veya topluca okur.
+    /// Once 'Ac', sonra tek tek 'Oku' veya 'hepsiniOku'.
+    /// Eğer sonuna kadar okunmuşsa okuyucu kendiliğinden kapanır, yoksa 'Kapat'mak gerekir.
+    /// </summary>
+    public interface IKokOkuyucu
     {
+        /// <summary>
+        /// Sözlükteki Tüm kökleri okur ve bir ArrayList olarak döndürür.
+        /// </summary>
+        List<Kok> HepsiniOku();
 
-        Alfabe alfabe;
+        /// <summary>
+        /// Kaynaktan bir kök okur, çağrıldıkça bir sonraki kökü alır.
+        /// Dosyanın sonuna gelirse dosyayı kapatır.
+        /// </summary>
+        /// <returns>bir sonraki kök. Eğer okunacak kök kalmamışsa null</returns>
+        Kok Oku();
 
-        public HarfDizisiUretici(Alfabe alfabe)
-        {
-            this.alfabe = alfabe;
-        }
+        /// <summary>
+        /// Kaynağı okumak için açar.
+        /// </summary>
+        void Ac();
 
-        public HarfDizisi uret(String str)
-        {
-            return new HarfDizisi(str, alfabe);
-        }
+        /// <summary>
+        /// Okunan kaynağı kapatır.
+        /// </summary>
+        void Kapat();
     }
 }

@@ -23,26 +23,16 @@
  *   Tankut Tekeli
  * ***** END LICENSE BLOCK ***** */
 
-using System;
-using System.Collections.Generic;
-using System.Text;
 using NZemberek.Cekirdek.Yapi;
 
-namespace NZemberek.TrTurkcesi
+namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
 {
-    public class HarfDizisiUretici
+    public interface HarfDizisiKiyaslayici
     {
+         bool kiyasla(HarfDizisi h1, HarfDizisi h2);
 
-        Alfabe alfabe;
+         bool bastanKiyasla(HarfDizisi h1, HarfDizisi h2);
 
-        public HarfDizisiUretici(Alfabe alfabe)
-        {
-            this.alfabe = alfabe;
-        }
-
-        public HarfDizisi uret(String str)
-        {
-            return new HarfDizisi(str, alfabe);
-        }
+         bool aradanKiyasla(HarfDizisi h1, HarfDizisi h2, int baslangic);
     }
 }

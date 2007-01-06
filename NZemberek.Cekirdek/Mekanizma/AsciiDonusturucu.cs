@@ -1,4 +1,4 @@
-ï»¿/* ***** BEGIN LICENSE BLOCK *****
+/* ***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
  *
  * The contents of this file are subject to the Mozilla Public License Version
@@ -11,10 +11,10 @@
  * for the specific language governing rights and limitations under the
  * License.
  *
- * The Original Code is Zemberek DoÄŸal Dil Ä°ÅŸleme KÃ¼tÃ¼phanesi.
+ * The Original Code is Zemberek Doðal Dil Ýþleme Kütüphanesi.
  *
  * The Initial Developer of the Original Code is
- * Ahmet A. AkÄ±n, Mehmet D. AkÄ±n.
+ * Ahmet A. Akýn, Mehmet D. Akýn.
  * Portions created by the Initial Developer are Copyright (C) 2006
  * the Initial Developer. All Rights Reserved.
  *
@@ -28,21 +28,30 @@ using System.Collections.Generic;
 using System.Text;
 using NZemberek.Cekirdek.Yapi;
 
-namespace NZemberek.TrTurkcesi
-{
-    public class HarfDizisiUretici
-    {
 
+namespace NZemberek.Cekirdek.Mekanizma
+{
+    public class AsciiDonusturucu
+    {
         Alfabe alfabe;
 
-        public HarfDizisiUretici(Alfabe alfabe)
+        public AsciiDonusturucu(Alfabe alfabe)
         {
             this.alfabe = alfabe;
         }
 
-        public HarfDizisi uret(String str)
+        public String toAscii(String giris)
         {
-            return new HarfDizisi(str, alfabe);
+            char[] chars = giris.ToCharArray();
+            for (int i = 0; i < chars.Length; i++)
+            {
+                TurkceHarf harf = alfabe.harf(chars[i]);
+                if (harf != null && harf != Alfabe.TANIMSIZ_HARF)
+                    if (harf.AsciiDonusum != null)
+                        chars[i] = harf.AsciiDonusum.CharDeger;
+            }
+            return new String(chars);
         }
     }
 }
+

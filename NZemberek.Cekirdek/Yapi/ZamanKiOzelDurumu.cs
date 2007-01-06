@@ -26,23 +26,24 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using NZemberek.Cekirdek.Yapi;
+using NZemberek.Cekirdek.Mekanizma.Cozumleme;
 
-namespace NZemberek.TrTurkcesi
+namespace NZemberek.Cekirdek.Yapi
 {
-    public class HarfDizisiUretici
+    public class ZamanKiOzelDurumu : EkOzelDurumu
     {
-
-        Alfabe alfabe;
-
-        public HarfDizisiUretici(Alfabe alfabe)
+        public override HarfDizisi cozumlemeIcinUret(Kelime kelime, HarfDizisi giris, HarfDizisiKiyaslayici kiyaslayici)
         {
-            this.alfabe = alfabe;
+            TurkceHarf sonSesli = kelime.icerik().sonSesli();
+            if (sonSesli.CharDeger == 'u' || sonSesli.CharDeger == Alfabe.CHAR_uu)
+                return ekUretici.cozumlemeIcinEkUret(kelime.icerik(), giris, _uretimBilesenleri);
+            else
+                return null;
         }
 
-        public HarfDizisi uret(String str)
+        public override HarfDizisi olusumIcinUret(Kelime kelime, Ek sonrakiEk)
         {
-            return new HarfDizisi(str, alfabe);
+            return cozumlemeIcinUret(kelime, null, null);
         }
     }
 }

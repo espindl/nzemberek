@@ -28,21 +28,23 @@ using System.Collections.Generic;
 using System.Text;
 using NZemberek.Cekirdek.Yapi;
 
-namespace NZemberek.TrTurkcesi
+namespace NZemberek.TrTurkcesi.Yapi
 {
-    public class HarfDizisiUretici
+    public class YumusamaNk : HarfDizisiIslemi
     {
+        
+    private HarfDizisi NK;
+    private Alfabe alfabe;
 
-        Alfabe alfabe;
 
-        public HarfDizisiUretici(Alfabe alfabe)
-        {
-            this.alfabe = alfabe;
-        }
+    public YumusamaNk(Alfabe alfabe) {
+        this.alfabe = alfabe;
+        NK = new HarfDizisi("nk", alfabe);
+    }
 
-        public HarfDizisi uret(String str)
-        {
-            return new HarfDizisi(str, alfabe);
-        }
+    public void uygula(HarfDizisi dizi) {
+        if (dizi.aradanKiyasla(dizi.Length - 2, NK))
+            dizi.harfDegistir(dizi.Length - 1, alfabe.harf('g'));
+    }
     }
 }

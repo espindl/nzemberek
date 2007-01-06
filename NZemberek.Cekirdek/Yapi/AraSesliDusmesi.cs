@@ -1,4 +1,4 @@
-ï»¿/* ***** BEGIN LICENSE BLOCK *****
+/* ***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
  *
  * The contents of this file are subject to the Mozilla Public License Version
@@ -11,10 +11,10 @@
  * for the specific language governing rights and limitations under the
  * License.
  *
- * The Original Code is Zemberek DoÄŸal Dil Ä°ÅŸleme KÃ¼tÃ¼phanesi.
+ * The Original Code is Zemberek Doðal Dil Ýþleme Kütüphanesi.
  *
  * The Initial Developer of the Original Code is
- * Ahmet A. AkÄ±n, Mehmet D. AkÄ±n.
+ * Ahmet A. Akýn, Mehmet D. Akýn.
  * Portions created by the Initial Developer are Copyright (C) 2006
  * the Initial Developer. All Rights Reserved.
  *
@@ -26,23 +26,20 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using NZemberek.Cekirdek.Yapi;
 
-namespace NZemberek.TrTurkcesi
+namespace NZemberek.Cekirdek.Yapi
 {
-    public class HarfDizisiUretici
+    /**
+     * Basitce harf dizisinin sondan bir onceki harfini siler.
+     * User: ahmet
+     * Date: Aug 28, 2005
+     */
+    public class AraSesliDusmesi : HarfDizisiIslemi 
     {
-
-        Alfabe alfabe;
-
-        public HarfDizisiUretici(Alfabe alfabe)
+        public void uygula(HarfDizisi dizi) 
         {
-            this.alfabe = alfabe;
-        }
-
-        public HarfDizisi uret(String str)
-        {
-            return new HarfDizisi(str, alfabe);
+            if (dizi.Length >= 2)
+                dizi.harfSil(dizi.Length - 2);
         }
     }
 }

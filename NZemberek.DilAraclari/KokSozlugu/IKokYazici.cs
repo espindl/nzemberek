@@ -28,21 +28,13 @@ using System.Collections.Generic;
 using System.Text;
 using NZemberek.Cekirdek.Yapi;
 
-namespace NZemberek.TrTurkcesi
+
+namespace NZemberek.DilAraclari.KokSozlugu
 {
-    public class HarfDizisiUretici
-    {
+public interface IKokYazici {
 
-        Alfabe alfabe;
+    void yaz(List<Kok> kokler) ;
 
-        public HarfDizisiUretici(Alfabe alfabe)
-        {
-            this.alfabe = alfabe;
-        }
+}
 
-        public HarfDizisi uret(String str)
-        {
-            return new HarfDizisi(str, alfabe);
-        }
-    }
 }

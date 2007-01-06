@@ -24,25 +24,30 @@
  * ***** END LICENSE BLOCK ***** */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
-using NZemberek.Cekirdek.Yapi;
+using NZemberek.Cekirdek.Mekanizma.Cozumleme;
 
-namespace NZemberek.TrTurkcesi
+namespace NZemberek.Cekirdek.Yapi
 {
-    public class HarfDizisiUretici
+    public class SonHarfYumusamaOzelDurumu : EkOzelDurumu
     {
-
-        Alfabe alfabe;
-
-        public HarfDizisiUretici(Alfabe alfabe)
+        public override HarfDizisi cozumlemeIcinUret(Kelime kelime, HarfDizisi giris, HarfDizisiKiyaslayici kiyaslayici)
         {
-            this.alfabe = alfabe;
+            HarfDizisi ek = ekUretici.cozumlemeIcinEkUret(kelime.icerik(), giris, _uretimBilesenleri);
+            // XXXX gibi Turkce harf tasimayan stringler icin koruma.
+            // TODO: Daha dogru bir yontem bulunmali.
+            if (ek == null)
+            {
+                return null;
+            }
+            int harfPozisyonu = kelime.boy() + ek.Length;
+            if (giris.harf(harfPozisyonu).Sesli)
+                return ek;
+            return null;
         }
 
-        public HarfDizisi uret(String str)
+        public override HarfDizisi olusumIcinUret(Kelime kelime, Ek sonrakiEk)
         {
-            return new HarfDizisi(str, alfabe);
+            return null;
         }
     }
 }
