@@ -33,6 +33,10 @@ namespace NZemberek.Cekirdek.Yapi
 
     public class Kelime : System.ICloneable
     {
+        public static readonly List<Kelime> EMPTY_LIST_KELIME = new List<Kelime>();
+        public static readonly Kelime[] BOS_KELIME_DIZISI = new Kelime[] { };
+
+
         private static HarfDizisi BOS_ICERIK = new HarfDizisi(0);
         private HarfDizisi _icerik = BOS_ICERIK;
         private Kok _kok;

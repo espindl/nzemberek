@@ -27,7 +27,8 @@
 using System;
 using System.Text;
 using System.Collections.Generic;
-using net.zemberek.javaporttemp;
+using NZemberek.Cekirdek.Kolleksiyonlar;
+
 
 namespace NZemberek.Cekirdek.Yapi
 {

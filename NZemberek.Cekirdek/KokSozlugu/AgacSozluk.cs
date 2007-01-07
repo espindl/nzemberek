@@ -28,14 +28,13 @@ using System.Collections.Generic;
 using System.Text;
 using NZemberek.Cekirdek.Yapi;
 using NZemberek.Cekirdek.KokSozlugu;
-using Iesi.Collections.Generic;
+
 
 namespace NZemberek.Cekirdek.KokSozlugu
 {
     public class AgacSozluk : ISozluk
     {
         private KokAgaci agac = null;
-        private AgacKokBulucuUretici agacKokBulucuFactory = null;
         private KokOzelDurumBilgisi ozelDurumlar;
         private int indeks = 0;
 
@@ -43,7 +42,6 @@ namespace NZemberek.Cekirdek.KokSozlugu
         {
             agac = new KokAgaci(new KokDugumu(0), alfabe);
             this.ozelDurumlar = ozelDurumlar;
-            agacKokBulucuFactory = new AgacKokBulucuUretici(this.agac);
         }
 
         public AgacSozluk(Alfabe alfabe, KokOzelDurumBilgisi ozelDurumlar, IKokOkuyucu okuyucu):this(alfabe, ozelDurumlar)
@@ -63,37 +61,6 @@ namespace NZemberek.Cekirdek.KokSozlugu
             }
         }
 
-        /**
-         * Verilen bir kökü sözlükte arar.
-         *
-         * @param str: Aranan kök
-         * @return Eğer aranan kök varsa, eş seslileri ile beraber kök nesnesini de
-         * taşıyan bir List<Kok>, aranan kök yoksa null;
-         */
-        public List<Kok> KokBul(String str)
-        {
-            return agac.bul(str);
-        }
-
-        public Kok KokBul(String str, KelimeTipi tip)
-        {
-            List<Kok> kokler = agac.bul(str);
-            foreach (Kok kok in kokler)
-            {
-                if (kok.tip() == tip) return kok;
-            }
-            return null;
-        }
-
-        //TODO TANKUT Kılım dedi
-        //public ICollection<Kok> tumKokler() {
-        //    HashedSet<Kok> set = new HashedSet<Kok>();
-        //    KokAgaciYuruyucu yuruyucu = new KokAgaciYuruyucu(this, set);
-        //    yuruyucu.agaciTara();
-        //    return set;
-        //}
-
-
         /// <summary>
         /// Verilen kökü sözlüğe ekler. Eklemeden once koke ait ozel durumlar varsa bunlar denetlenir.
         /// Eger kok ozel durumlari kok yapisini bozacak sekilde ise ozel durumlarin koke uyarlanmis halleride
@@ -101,7 +68,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
         /// islemi basari ile gerceklestirilebilir.
         /// </summary>
         /// <param name="kok">Sözlüğe eklenecek olan kök nesnesi.</param>
-        public void KokEkle(Kok kok)
+        private void KokEkle(Kok kok)
         {
             kok.Indeks = indeks++;
             agac.ekle(kok.icerik(), kok);
@@ -115,55 +82,19 @@ namespace NZemberek.Cekirdek.KokSozlugu
             }
         }
 
-        /**
-         * @return Returns the agac.
-         */
-        public KokAgaci getAgac()
+        public IKokBulucu KesinKokBulucuGetir()
         {
-            return agac;
+            return new KesinKokBulucu(agac);
         }
 
-        /**
-         * Kök seçiciler, sözlükten alınan bir fabrika ile elde edilirler.
-         * Ã–rneğin:
-         * <pre>
-         * KokBulucu kokSecici = kokler.getKokBulucuFactory().getKesinKokBulucu();
-         * </pre>
-         */
-        public KokBulucuUretici KokBulucuFabrikasiGetir()
+        public IKokBulucu ToleransliKokBulucuGetir(int tolerans)
         {
-            return agacKokBulucuFactory;
+            return new ToleransliKokBulucu(agac, tolerans);
         }
 
-        /**
-         * Ağaç sözlük için fabrika gerçeklemesi
-         *
-         * @author MDA
-         */
-        class AgacKokBulucuUretici : KokBulucuUretici
+        public IKokBulucu AsciiKokBulucuGetir()
         {
-
-            KokAgaci agac = null;
-
-            public AgacKokBulucuUretici(KokAgaci agac)
-            {
-                this.agac = agac;
-            }
-
-            public IKokBulucu KesinKokBulucuGetir()
-            {
-                return new KesinKokBulucu(this.agac);
-            }
-
-            public IKokBulucu ToleransliKokBulucuGetir(int tolerans)
-            {
-                return new ToleransliKokBulucu(this.agac, tolerans);
-            }
-
-            public IKokBulucu AsciiKokBulucuGetir()
-            {
-                return new AsciiKokBulucu(this.agac);
-            }
+            return new AsciiKokBulucu(agac);
         }
     }
 }

@@ -165,6 +165,5 @@ namespace NZemberek.Cekirdek.Araclar
             return n; // first n characters are the same
         }
 
-
     }
 }

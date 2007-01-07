@@ -25,8 +25,8 @@
 
 using System;
 using NZemberek.Cekirdek.Yapi;
-using Iesi.Collections.Generic;
-using Iesi.Collections;
+using NZemberek.Cekirdek.Kolleksiyonlar;
+
 
 namespace NZemberek.Cekirdek.Yapi
 {
@@ -52,7 +52,7 @@ namespace NZemberek.Cekirdek.Yapi
          * bazi ozel durumlar sadece bazi eklerin koke eklenmesi ile olusur. Bu listede
          * bu ekler yer alir.
          */
-        private Set<Ek> _gelebilecekEkler = new HashedSet<Ek>();
+        private HashSet<Ek> _gelebilecekEkler = new HashSet<Ek>();
 
         /**
          * Eger ozel durum kokun yapisini bozuyorsa true.
@@ -92,7 +92,7 @@ namespace NZemberek.Cekirdek.Yapi
         public class Uretici
         {
 
-            internal Set<Ek> _gelebilecekEkler = new HashedSet<Ek>();
+            internal HashSet<Ek> _gelebilecekEkler = new HashSet<Ek>();
             internal bool _sesliEkIleOlusur = false;
             internal bool _yapiBozucu = false;
             internal bool _secimlik = false;
@@ -107,7 +107,7 @@ namespace NZemberek.Cekirdek.Yapi
                 this._islem = islem;
             }
 
-            public Uretici gelebilecekEkler(Set<Ek> ekler)
+            public Uretici gelebilecekEkler(HashSet<Ek> ekler)
             {
                 this._gelebilecekEkler = ekler;
                 return this;
@@ -188,7 +188,7 @@ namespace NZemberek.Cekirdek.Yapi
             return _sesliEkIleOlusur;
         }
 
-        public Set<Ek> geleibilecekEkler()
+        public HashSet<Ek> geleibilecekEkler()
         {
             return _gelebilecekEkler;
         }

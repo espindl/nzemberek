@@ -183,7 +183,7 @@ namespace NZemberek.TrTurkcesi.Testler
         public void testOner_Gidiktler()
         {
             string[] actual = zemberek.oner("gidiktler");
-            string[] expected = new string[] { "gidikler", "gidikeler", "gidiktiler", "gidikteler" };
+            string[] expected = new string[] { "gidikler", "gidikteler", "gidiktiler", "gidikeler" };
             Assert.AreEqual(expected[0], actual[0]);
             Assert.AreEqual(expected[1], actual[1]);
             Assert.AreEqual(expected[2], actual[2]);

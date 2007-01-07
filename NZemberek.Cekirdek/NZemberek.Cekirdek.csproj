@@ -28,14 +28,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Iesi.Collections, Version=1.0.0.1, Culture=neutral, PublicKeyToken=154fdcb44c4484fc">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Kutuphaneler\Iesi.Collections.dll</HintPath>
-    </Reference>
-    <Reference Include="Iesi.Collections.Generic, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Kutuphaneler\Iesi.Collections.Generic.dll</HintPath>
-    </Reference>
     <Reference Include="log4net-net-2.0, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Kutuphaneler\log4net-net-2.0.dll</HintPath>
@@ -46,6 +38,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Kolleksiyonlar\HashSet.cs" />
     <Compile Include="MetinOkuma\YaziBirimi.cs" />
     <Compile Include="MetinOkuma\YaziBirimiTipi.cs" />
     <Compile Include="MetinOkuma\YaziIsleyici.cs" />
@@ -58,7 +51,6 @@
     <Compile Include="KokSozlugu\KesinKokBulucu.cs" />
     <Compile Include="KokSozlugu\KokAgaci.cs" />
     <Compile Include="KokSozlugu\IKokBulucu.cs" />
-    <Compile Include="KokSozlugu\IKokBulucuUretici.cs" />
     <Compile Include="KokSozlugu\KokDugumu.cs" />
     <Compile Include="KokSozlugu\ISozluk.cs" />
     <Compile Include="KokSozlugu\ToleransliKokBulucu.cs" />
@@ -112,7 +104,6 @@
     <Compile Include="Yapi\YeniIcerikAta.cs" />
     <Compile Include="Yapi\Yumusama.cs" />
     <Compile Include="Yapi\Alfabe.cs" />
-    <Compile Include="Yapi\Collections.cs" />
     <Compile Include="Yapi\IDilFabrikasi.cs" />
     <Compile Include="Yapi\HarfDizisi.cs" />
     <Compile Include="Yapi\Kelime.cs" />

@@ -44,15 +44,9 @@ namespace NZemberek
         private bool _oneriDeasciifierKullan = true;
         private int oneriMax = 12;
         private bool _oneriKokFrekansKullan = true;
-        //private bool _disKaynakErisimi = false;
         private bool _oneriBilesikKelimeKullan = true;
         private bool _cepKullan = true;
 
-        //private Uri bilgiEk;
-        //private Uri bilgiKokler;
-        //private Uri bilgiAlfabe;
-        //private Uri bilgiDizini;
-        //private Uri bilgiCep;
         private string[] dilAyarlari = new string[3];
         
 
@@ -77,26 +71,10 @@ namespace NZemberek
                 _oneriKokFrekansKullan = boolOku("oneri.kokFrekansKullan");
                 _oneriBilesikKelimeKullan = boolOku("oneri.bilesikKelimeKullan");
                 oneriMax = Int32.Parse(settings["oneri.max"]);
-                //_disKaynakErisimi = boolOku("bilgi.disKaynakErisimi");
                 _cepKullan = boolOku("denetleme.cepKullan");
                 dilAyarlari[0] = settings["dilAyarlari.KutuphaneAdi"];
                 dilAyarlari[1] = settings["dilAyarlari.SinifAdi"];
                 dilAyarlari[2] = settings["dilAyarlari.KaynakDizini"];
-                //if (_disKaynakErisimi) 
-                //{
-                //    //TODO gerekebilir : if(Directory.Exists(ConfigurationManager.AppSettings["bilgi.dizin")))
-                //    // ve buralar gözden gecemeli
-                //    string dizin = settings["bilgi.dizin"];
-                //    bilgiDizini = new Uri(dizin);
-                //    bilgiEk = new Uri(dizin + "/" + settings["bilgi.ekler"]);
-                //    File.OpenRead(bilgiEk.ToString());
-                //    bilgiKokler = new Uri(dizin + "/" + settings["bilgi.kokler"]);
-                //    File.OpenRead(bilgiKokler.ToString());
-                //    bilgiAlfabe = new Uri(dizin + "/" + settings["bilgi.harf"]);
-                //    File.OpenRead(bilgiAlfabe.ToString());
-                //    bilgiCep = new Uri(dizin + "/" + settings["bilgi.harf"]);
-                //    File.OpenRead(bilgiCep.ToString());
-                //}
             } 
             catch (FormatException e) 
             {
@@ -118,6 +96,7 @@ namespace NZemberek
 #endif
             return settings;
         }
+
         private bool boolOku(String anahtar)
         {
             return bool.Parse(GetSettings()[anahtar]);
@@ -139,35 +118,6 @@ namespace NZemberek
         public bool oneriKokFrekansKullan() {
             return _oneriKokFrekansKullan;
         }
-
-        //public Uri getBilgiEk() {
-        //    return bilgiEk;
-        //}
-
-        //public Uri getBilgiKokler()
-        //{
-        //    return bilgiKokler;
-        //}
-
-        //public Uri getBilgiDizini()
-        //{
-        //    return bilgiDizini;
-        //}
-
-        //public Uri getBilgiAlfabe()
-        //{
-        //    return bilgiAlfabe;
-        //}
-
-        //public Uri getBilgiCep()
-        //{
-        //    return bilgiCep;
-        //}
-
-        //public bool disKaynakErisimi() 
-        //{
-        //    return _disKaynakErisimi;
-        //}
 
         public bool cepKullan() 
         {

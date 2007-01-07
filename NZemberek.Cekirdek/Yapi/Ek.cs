@@ -27,10 +27,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Runtime.Serialization;
-using Iesi.Collections.Generic;
-using Iesi.Collections;
-using NZemberek.Cekirdek.Mekanizma.Cozumleme;
+
 using NZemberek.Cekirdek.Yapi;
+using NZemberek.Cekirdek.Kolleksiyonlar;
+using NZemberek.Cekirdek.Mekanizma.Cozumleme;
+
 
 namespace NZemberek.Cekirdek.Yapi
 {
@@ -43,6 +44,8 @@ namespace NZemberek.Cekirdek.Yapi
     [Serializable]
     public class Ek     
     {
+        public static readonly HashSet<Ek> EMPTY_SET = new HashSet<Ek>();
+
         //bu ekten sonra elebilecek eklerin listesi.
         private List<Ek> _ardisilEkler = new List<Ek>();
 
@@ -67,17 +70,17 @@ namespace NZemberek.Cekirdek.Yapi
 
         private bool iyelikEki = false;
 
-        private Set<TurkceHarf> baslangicHarfleri;
+        private HashSet<TurkceHarf> baslangicHarfleri;
 
         /**
          * ilk harfler kumesine gelen kumeyi ekler.
          * @param harfler
          */
-        public void baslangicHarfleriEkle(Set<TurkceHarf> harfler) {
+        public void baslangicHarfleriEkle(HashSet<TurkceHarf> harfler) {
             if(harfler==null)
               return;        
             if(baslangicHarfleri==null)
-              baslangicHarfleri = new HashedSet<TurkceHarf>(); //TODO (5) idi
+              baslangicHarfleri = new HashSet<TurkceHarf>(); //TODO (5) idi
             this.baslangicHarfleri.AddAll(harfler);
         }
 

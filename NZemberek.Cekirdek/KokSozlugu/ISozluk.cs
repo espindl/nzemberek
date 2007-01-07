@@ -33,42 +33,11 @@ namespace NZemberek.Cekirdek.KokSozlugu
 {
     public interface ISozluk
     {
-        /**
-     * str seklinde yazilan tum kelime koklerini dondurur. str kokun istisna hali de olabilir.
-     *
-     * @param str
-     * @return kok listesi.
-     */
-        List<Kok> KokBul(String str);
+        IKokBulucu KesinKokBulucuGetir();
 
+        IKokBulucu ToleransliKokBulucuGetir(int tolerans);
 
-        Kok KokBul(String str, KelimeTipi tip);
+        IKokBulucu AsciiKokBulucuGetir();
 
-        //TODO Gereksiz gibi
-        ///**
-        // * sozluk icindeki normal ya da kok ozel durumu seklindeki tum kok iceriklerini bir
-        // * Koleksiyon nesnesi olarak dondurur.
-        // *
-        // * @return tum kokleri iceren Collection nesnesi
-        // */
-        //ICollection<Kok> tumKokler();
-
-        /// <summary>
-        /// Verilen kökü sözlüğe ekler.
-        /// </summary>
-        /// <param name="kok">Sözlüğe eklenecek olan kök nesnesi.</param>
-        void KokEkle(Kok kok);
-
-        /**
-         * Bu metod kökbulucu fabrikası elde etmek için kullanılır. Gerçekleyen sözlük sınıfları bu
-         * metodda kendi Kök bulucu fabrikası gerçeklemelerinin bir instancesini geri döndürmelidirler.
-         *
-         * @return Sözlük
-         * @see AgacSozluk
-         */
-        KokBulucuUretici KokBulucuFabrikasiGetir();
-
-        //TODO TANKUT kılım dedi
-        //KokAgaci getAgac();
     }
 }

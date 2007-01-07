@@ -24,25 +24,25 @@
  * ***** END LICENSE BLOCK ***** */
 
 using System;
-using Iesi.Collections.Generic;
 using System.Text;
 using System.IO;
 
 using NZemberek.Cekirdek.Araclar;
+using NZemberek.Cekirdek.Kolleksiyonlar;
 
 
 namespace NZemberek.Cekirdek.Mekanizma
 {
     public class BasitDenetlemeCebi : DenetlemeCebi
     {
-        private Set<String> cep;
+        private HashSet<String> cep;
 
         public BasitDenetlemeCebi(String dosyaAdi) 
         {
             StreamReader rd = new KaynakYukleyici("UTF-8").getReader(dosyaAdi);
             try
             {
-                cep = new HashedSet<String>();
+                cep = new HashSet<String>();
                 while (!rd.EndOfStream)
                 {
                     ekle(rd.ReadLine());

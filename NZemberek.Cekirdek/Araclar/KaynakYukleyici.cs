@@ -203,26 +203,5 @@ namespace NZemberek.Cekirdek.Araclar
             //}
             //return stream;
         }
-
-        ///**
-        // * Properties dosyasi yukler.
-        // */
-        //public NameValueCollection konfigurasyonYukle(Uri uri)
-        //{
-        //    string[] names = ConfigurationManager.AppSettings.g
-        //    NameValueCollection appStgs = ConfigurationManager.AppSettings.get;
-        //    Properties props = new Properties();
-        //    props.load(getStream(uri.toURL().getPath()));
-        //    log.info("Dis properties stream erisimi saglandi:" + uri + " kodlama:" + encoding);
-        //    return props;
-        //}
-
-        //public Properties konfigurasyonYukle(String dosya)
-        //{
-        //    Properties props = new Properties();
-        //    props.load(getStream(dosya));
-        //    log.info("properties kaynak erisimi saglandi:" + dosya + " kodlama:" + encoding);
-        //    return props;
-        //}
     }
 }

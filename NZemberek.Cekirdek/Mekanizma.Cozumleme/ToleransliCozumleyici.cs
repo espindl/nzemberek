@@ -30,8 +30,8 @@ using System.Text;
 using log4net;
 using NZemberek.Cekirdek.KokSozlugu;
 using NZemberek.Cekirdek.Yapi;
-using net.zemberek.javaporttemp;
 using NZemberek.Cekirdek.Araclar;
+using NZemberek.Cekirdek.Kolleksiyonlar;
 
 
 namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
@@ -62,7 +62,7 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
     public Kelime[] cozumle(String strGiris) {
         String strIslenmis = alfabe.ayikla(strGiris);
         if (strIslenmis.Length == 0)
-            return Collections.BOS_KELIME_DIZISI;
+            return Kelime.BOS_KELIME_DIZISI;
         List<Kok> kokler = kokBulucu.AdayKokleriGetir(strIslenmis);
         List<Kelime> cozumler = new List<Kelime>();
         if (logger.IsInfoEnabled) logger.Info("Giris: " + strIslenmis + ", Adaylar: " + kokler);

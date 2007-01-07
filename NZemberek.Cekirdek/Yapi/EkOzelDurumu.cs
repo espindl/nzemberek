@@ -26,10 +26,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Iesi.Collections;
-using Iesi.Collections.Generic;
+
 using NZemberek.Cekirdek.Mekanizma.Cozumleme;
-using net.zemberek.javaporttemp;
+using NZemberek.Cekirdek.Kolleksiyonlar;
+
 
 namespace NZemberek.Cekirdek.Yapi
 {
@@ -42,7 +42,7 @@ namespace NZemberek.Cekirdek.Yapi
     public abstract class EkOzelDurumu
     {
         protected String _ad;
-        protected Set<Ek> onEkler = Collections.EMPTY_SET;
+        protected HashSet<Ek> onEkler = Ek.EMPTY_SET;
         protected EkUretici ekUretici;
         protected List<EkUretimBileseni> _uretimBilesenleri;
 
@@ -63,12 +63,12 @@ namespace NZemberek.Cekirdek.Yapi
             this._ad = ad;
         }
 
-        public Set<Ek> getOnEkler()
+        public HashSet<Ek> getOnEkler()
         {
             return onEkler;
         }
 
-        public void setOnEkler(Set<Ek> onEkler)
+        public void setOnEkler(HashSet<Ek> onEkler)
         {
             this.onEkler = onEkler;
         }

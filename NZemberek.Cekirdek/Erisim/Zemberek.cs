@@ -80,7 +80,7 @@ namespace NZemberek
             //Sozluk hazirla.
             ISozluk kokler = _dilFabrikasi.kokler();
             //Normal denetleyici-cozumleyici olusumu
-            IKokBulucu kokBulucu = kokler.KokBulucuFabrikasiGetir().KesinKokBulucuGetir();
+            IKokBulucu kokBulucu = kokler.KesinKokBulucuGetir();
             _cozumleyici = new StandartCozumleyici(
                     kokBulucu,
                     new KesinHDKiyaslayici(),
@@ -89,7 +89,7 @@ namespace NZemberek
                     _dilFabrikasi.cozumlemeYardimcisi());
 
             // ASCII-Turkce donusturucu icin tukce toleransli cozumleyici olusumu.
-            IKokBulucu turkceToleransliKokBulucu = kokler.KokBulucuFabrikasiGetir().AsciiKokBulucuGetir();
+            IKokBulucu turkceToleransliKokBulucu = kokler.AsciiKokBulucuGetir();
             _asciiToleransliCozumleyici = new StandartCozumleyici(
                     turkceToleransliKokBulucu,
                     new AsciiToleransliHDKiyaslayici(),
@@ -97,7 +97,7 @@ namespace NZemberek
                     _dilFabrikasi.ekler(),
                     _dilFabrikasi.cozumlemeYardimcisi());
 
-            IKokBulucu toleransliBulucu = kokler.KokBulucuFabrikasiGetir().ToleransliKokBulucuGetir(1);
+            IKokBulucu toleransliBulucu = kokler.ToleransliKokBulucuGetir(1);
             ToleransliCozumleyici toleransliCozumleyici = new ToleransliCozumleyici(
                     toleransliBulucu,
                     _dilFabrikasi.ekler(),

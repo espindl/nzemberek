@@ -29,11 +29,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
-using Iesi.Collections.Generic;
-using log4net;
-using Iesi.Collections;
 
-using net.zemberek.javaporttemp;
+using log4net;
+
+using NZemberek.Cekirdek.Kolleksiyonlar;
 
 
 
@@ -48,7 +47,7 @@ namespace NZemberek.Cekirdek.Yapi
     {
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private IDictionary<String, Set<Ek>> ekKumeleri = new Dictionary<String, Set<Ek>>();
+        private IDictionary<String, HashSet<Ek>> ekKumeleri = new Dictionary<String, HashSet<Ek>>();
         private IDictionary<String, Ek> ekler = new Dictionary<String, Ek>();
 
         private readonly String xmlEkDosyasi;
@@ -116,7 +115,7 @@ namespace NZemberek.Cekirdek.Yapi
             foreach (XmlElement ekKumeEl in xmlKumeler)
             {
                 String kumeAdi = ekKumeEl.GetAttribute("ad");
-                Set<Ek> kumeEkleri = new HashedSet<Ek>();
+                HashSet<Ek> kumeEkleri = new HashSet<Ek>();
                 XmlNodeList xmlKumeEkleri = ekKumeEl.SelectNodes("ek");
                 foreach (XmlElement ekEl in xmlKumeEkleri)
                 {
@@ -204,7 +203,7 @@ namespace NZemberek.Cekirdek.Yapi
                 XmlNodeList oneklerElements = element.SelectNodes("on-ek");
                 if (oneklerElements != null)
                 {
-                    Set<Ek> onekler = new HashedSet<Ek>();
+                    HashSet<Ek> onekler = new HashSet<Ek>();
                     foreach (XmlElement onekEl in oneklerElements)
                     {
                         String onekAdi = onekEl.InnerText;
@@ -232,7 +231,7 @@ namespace NZemberek.Cekirdek.Yapi
         private List<Ek> ardisilEkleriOlustur(Ek anaEk, XmlElement ekElement)
         {
 
-            Set<Ek> ardisilEkSet = new HashedSet<Ek>();
+            HashSet<Ek> ardisilEkSet = new HashSet<Ek>();
             XmlElement ardisilEklerEl = (XmlElement)ekElement.SelectNodes("ardisil-ekler")[0];
             if (ardisilEklerEl == null) return new List<Ek>();
 
@@ -252,7 +251,7 @@ namespace NZemberek.Cekirdek.Yapi
             foreach (XmlElement element in kumeEkler)
             {
                 String kumeAdi = element.InnerText;
-                Set<Ek> kumeEkleri = ekKumeleri[kumeAdi];
+                HashSet<Ek> kumeEkleri = ekKumeleri[kumeAdi];
                 if (kumeEkleri == null)
                     exit("kume bulunamiyor..." + kumeAdi);
                 ardisilEkSet.AddAll(kumeEkleri);
@@ -353,8 +352,8 @@ namespace NZemberek.Cekirdek.Yapi
             kuralTablosu.Add('>', UretimKurali.SERTLESTIR);
         }
 
-        private readonly Set<Char> sesliKurallari = new HashedSet<Char>(new Char[]{ 'A', 'I', 'E', 'Y' });
-        private readonly Set<Char> harfKurallari = new HashedSet<Char>(new Char[] { '+', '>' });
+        private readonly HashSet<Char> sesliKurallari = new HashSet<Char>(new Char[]{ 'A', 'I', 'E', 'Y' });
+        private readonly HashSet<Char> harfKurallari = new HashSet<Char>(new Char[] { '+', '>' });
 
 
         private List<EkUretimBileseni> ekUretimKelimesiCozumle(String uretimKelimesi)

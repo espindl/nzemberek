@@ -29,7 +29,8 @@ using System.Text;
 using log4net;
 using NZemberek.Cekirdek.Yapi;
 using NZemberek.Cekirdek.KokSozlugu;
-using net.zemberek.javaporttemp;
+using NZemberek.Cekirdek.Kolleksiyonlar;
+
 
 namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
 {
@@ -82,7 +83,7 @@ public class StandartCozumleyici : KelimeCozumleyici {
         //on islemler
         String strIslenmis = alfabe.ayikla(strGiris);
         if (!alfabe.cozumlemeyeUygunMu(strIslenmis) || strIslenmis.Length == 0)
-            return Collections.BOS_KELIME_DIZISI;
+            return Kelime.BOS_KELIME_DIZISI;
 
         //kok adaylarinin bulunmasi.
         List<Kok> kokler = kokBulucu.AdayKokleriGetir(strIslenmis);
@@ -139,7 +140,7 @@ public class StandartCozumleyici : KelimeCozumleyici {
         BasitKelimeYigini kelimeYigini = new BasitKelimeYigini();
         Ek bulunanEk = kelime.sonEk();
         int ardisilEkSirasi = 0;
-        List<Kelime> uygunSonuclar = Collections.EMPTY_LIST_KELIME;
+        List<Kelime> uygunSonuclar = Kelime.EMPTY_LIST_KELIME;
         TurkceHarf ilkEkHarfi= giris.harf(kelime.boy());
         while (true) {
             //bulunan son ekten sonra gelebilecek eklerden siradakini al.

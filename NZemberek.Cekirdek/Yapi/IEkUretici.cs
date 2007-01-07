@@ -25,8 +25,10 @@
 
 using System;
 using System.Collections.Generic;
-using Iesi.Collections.Generic;
 using NZemberek.Cekirdek.Yapi;
+using NZemberek.Cekirdek.Kolleksiyonlar;
+
+
 namespace NZemberek.Cekirdek.Yapi
 {
 
@@ -65,7 +67,7 @@ namespace NZemberek.Cekirdek.Yapi
          * @param bilesenler
          * @return olasi baslangic harfleri bir Set icerisinde.
          */
-        Set<TurkceHarf> olasiBaslangicHarfleri(List<EkUretimBileseni> bilesenler);
+        HashSet<TurkceHarf> olasiBaslangicHarfleri(List<EkUretimBileseni> bilesenler);
     }
 
 

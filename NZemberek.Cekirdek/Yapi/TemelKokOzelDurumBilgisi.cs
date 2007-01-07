@@ -27,9 +27,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using log4net;
-using Iesi.Collections;
-using Iesi.Collections.Generic;
+
 using NZemberek.Cekirdek.Yapi;
+using NZemberek.Cekirdek.Kolleksiyonlar;
 
 
 namespace NZemberek.Cekirdek.Yapi
@@ -76,7 +76,7 @@ namespace NZemberek.Cekirdek.Yapi
             // eger varsa kok adlarini kullanarak iliskili ekleri bul ve bir Set'e ata.
             String[] ekAdlari = tip.EkAdlari;
             if (ekAdlari.Length > 0) {
-                Set<Ek> set = new HashedSet<Ek>();
+                HashSet<Ek> set = new HashSet<Ek>();
                 foreach (String s in ekAdlari) {
                     Ek ek = ekYonetici.ek(s);
                     if (ek != null) {
