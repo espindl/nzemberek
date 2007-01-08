@@ -58,9 +58,9 @@ public class TurkceCozumlemeYardimcisi : ICozumlemeYardimcisi {
         if (kok.Tip.Equals(KelimeTipi.KISALTMA)) {
             //cozumleme sirasinda eklenmis Harf varsa onlari Sil.
             int silinecek = kok.Icerik.Length;
-            if (kok.OzelDurumIceriyormu(TurkceKokOzelDurumTipi.KISALTMA_SON_SESSIZ))
+            if (kok.OzelDurumIceriyormu(TurkceKokOzelDurumYonetici.KISALTMA_SON_SESSIZ))
                 silinecek += 2;
-            if (kok.OzelDurumIceriyormu(TurkceKokOzelDurumTipi.KISALTMA_SON_SESLI))
+            if (kok.OzelDurumIceriyormu(TurkceKokOzelDurumYonetici.KISALTMA_SON_SESLI))
                 silinecek++;
             //kelimenin olusan kismindan kokun icereigini Sil.
             olusan.HarfSil(0, silinecek);
@@ -75,7 +75,7 @@ public class TurkceCozumlemeYardimcisi : ICozumlemeYardimcisi {
 
         } else if (kok.Tip == KelimeTipi.OZEL) {
             olusan.HarfDegistir(0, alfabe.BuyukHarf(olusan.IlkHarf()));
-            if (kok.OzelDurumIceriyormu(TurkceKokOzelDurumTipi.KESMESIZ))
+            if (kok.OzelDurumIceriyormu(TurkceKokOzelDurumYonetici.KESMESIZ))
                 return;
             List<Ek> ekler = kelime.Ekler;
             if (ekler.Count > 1) {
@@ -116,7 +116,7 @@ public class TurkceCozumlemeYardimcisi : ICozumlemeYardimcisi {
         } else if (kelime.Kok.Tip == KelimeTipi.OZEL) {
             if (Char.IsLower(giris[0]))
                 return false;
-            if (kelime.Kok.OzelDurumIceriyormu(TurkceKokOzelDurumTipi.KESMESIZ))
+            if (kelime.Kok.OzelDurumIceriyormu(TurkceKokOzelDurumYonetici.KESMESIZ))
                 return true;
             List<Ek> ekler = kelime.Ekler;
             if (ekler.Count > 1) {
@@ -151,7 +151,7 @@ public class TurkceCozumlemeYardimcisi : ICozumlemeYardimcisi {
             else
                 girisDizi.Ekle(h);
             kokDizi.Ekle(h);
-            if (kok.OzelDurumIceriyormu(TurkceKokOzelDurumTipi.KISALTMA_SON_SESSIZ)) {
+            if (kok.OzelDurumIceriyormu(TurkceKokOzelDurumYonetici.KISALTMA_SON_SESSIZ)) {
                 //gene toleransli cozumleyicinin hata vermemesi icin asagidaki kontrole ihtiyacimiz var
                 if (kokBoyu < girisDizi.Boy)
                     girisDizi.Ekle(kokBoyu + 1, alfabe.Harf('b'));

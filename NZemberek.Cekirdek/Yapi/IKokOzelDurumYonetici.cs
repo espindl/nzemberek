@@ -30,9 +30,9 @@ using NZemberek.Cekirdek.Yapi;
 
 namespace NZemberek.Cekirdek.Yapi
 {
-    public interface IKokOzelDurumBilgisi
+    public interface IKokOzelDurumYonetici
     {
-        KokOzelDurumu OzelDurum(IKokOzelDurumTipi tip);
+//        KokOzelDurumu OzelDurum(IKokOzelDurumTipi tip);
 
         /// <summary>
         /// KisaAd ile belirtilen ozel durumu dondurur.
@@ -51,6 +51,8 @@ namespace NZemberek.Cekirdek.Yapi
         /// </summary>
         /// <param name="kok"></param>
         void OzelDurumBelirle(Kok kok);
+
+        HarfDizisi OzelDurumUygula(Kok kok, Ek ek);
 
         /// <summary>
         /// Duz yazi kok listesinden okunan dile ozel ozel durumlarin kok'e atanmasi islemi burada yapilir.

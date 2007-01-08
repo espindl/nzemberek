@@ -60,7 +60,7 @@ namespace NZemberek.DilAraclari.KokSozlugu
     {
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);		
         private Alfabe alfabe;
-        private IKokOzelDurumBilgisi ozelDurumlar;
+        private IKokOzelDurumYonetici ozelDurumlar;
         protected StreamReader reader;
         //private static Pattern AYIRICI_PATTERN = Pattern.compile("[ ]+");
         private char[] AYIRICI_PATTERN = new char[] { ' ' };
@@ -73,7 +73,7 @@ namespace NZemberek.DilAraclari.KokSozlugu
         // kullanildiysa bu isimleri KelimeITplerine esleyen bir Map olusturulup bu
         // constructor kullanilabilir. Map icin ornek diger constructor icerisinde 
         // yer almaktadir.
-        public DuzYaziKokOkuyucu(String pDosyaAdi, IKokOzelDurumBilgisi ozelDurumlar, Alfabe alfabe, IDictionary<String, KelimeTipi> kokTipAdlari)
+        public DuzYaziKokOkuyucu(String pDosyaAdi, IKokOzelDurumYonetici ozelDurumlar, Alfabe alfabe, IDictionary<String, KelimeTipi> kokTipAdlari)
         {
             dosyaAdi = pDosyaAdi;
             this.ozelDurumlar = ozelDurumlar;

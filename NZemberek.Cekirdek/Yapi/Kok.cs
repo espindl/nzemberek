@@ -31,7 +31,25 @@ namespace NZemberek.Cekirdek.Yapi
 {
 	public class Kok
 	{
-		virtual public KelimeTipi Tip
+        private static readonly KokOzelDurumu[] BOS_OZEL_DURUM_DIZISI = new KokOzelDurumu[0];
+
+
+        private int indeks;
+        // Eger bir kok icinde Alfabe disi karakter barindiriyorsa (nokta, tire gibi) orjinal hali bu
+        // String icinde yer alir. Aksi halde null.
+        private String asil_Renamed_Field;
+        // bazi kisaltmalara ek eklenebilmesi icin kisaltmanin asil halinin son seslisine ihtiyac duyulur.
+        private char kisaltmaSonSeslisi = char.MinValue;
+        // Kok'un ozel karakterlerden tmeizlenmis hali. Genel olarak kok icerigi olarak bu String kullanilir.
+        private System.String _icerik;
+
+        private KelimeTipi _tip = KelimeTipi.YOK;
+
+        private string[] kokOzelDurumlari = new string[] { };
+
+        private int frekans;
+        
+        public KelimeTipi Tip
 		{
             get
             {
@@ -43,7 +61,7 @@ namespace NZemberek.Cekirdek.Yapi
 			}
 			
 		}
-		virtual public System.String Icerik
+		public System.String Icerik
 		{
             get
             {
@@ -55,7 +73,7 @@ namespace NZemberek.Cekirdek.Yapi
 			}
 			
 		}
-		virtual public int Indeks
+		public int Indeks
 		{
 			get
 			{
@@ -68,7 +86,7 @@ namespace NZemberek.Cekirdek.Yapi
 			}
 			
 		}
-		virtual public int Frekans
+		public int Frekans
 		{
 			get
 			{
@@ -81,7 +99,7 @@ namespace NZemberek.Cekirdek.Yapi
 			}
 			
 		}
-		virtual public String Asil
+		public String Asil
 		{
             get
             {
@@ -93,7 +111,7 @@ namespace NZemberek.Cekirdek.Yapi
 			}
 			
 		}
-		virtual public char KisaltmaSonSeslisi
+		public char KisaltmaSonSeslisi
 		{
 			get
 			{
@@ -106,69 +124,54 @@ namespace NZemberek.Cekirdek.Yapi
 			}
 			
 		}
-		
-		private static readonly KokOzelDurumu[] BOS_OZEL_DURUM_DIZISI = new KokOzelDurumu[0];
-		
-		private int indeks;
-		// Eger bir kok icinde Alfabe disi karakter barindiriyorsa (nokta, tire gibi) orjinal hali bu
-		// String icinde yer alir. Aksi halde null.
-		private String asil_Renamed_Field;
-		// bazi kisaltmalara ek eklenebilmesi icin kisaltmanin asil halinin son seslisine ihtiyac duyulur.
-		private char kisaltmaSonSeslisi=char.MinValue;
-		// Kok'un ozel karakterlerden tmeizlenmis hali. Genel olarak kok icerigi olarak bu String kullanilir.
-		private System.String _icerik;
-		private KelimeTipi _tip=KelimeTipi.YOK;
-		//performans ve kaynak tuketimini nedeniyle icin ozel durumlari Set yerine diziye koyduk.
-		private KokOzelDurumu[] ozelDurumlar = BOS_OZEL_DURUM_DIZISI;
-		
-		private int frekans;
-		
-		public virtual bool OzelDurumVarmi()
+
+
+        public bool OzelDurumVarmi()
 		{
-			return ozelDurumlar.Length > 0;
+            return kokOzelDurumlari.Length > 0;
 		}
+
+        public string[] KokOzelDurumlariGetir()
+        {
+            return kokOzelDurumlari;
+        }
 		
-		public virtual KokOzelDurumu[] OzelDurumDizisi()
-		{
-			return ozelDurumlar;
-		}
-		
-		public virtual bool OzelDurumIceriyormu(IKokOzelDurumTipi tip)
+		public bool OzelDurumIceriyormu(string ad)
 		{            
-            foreach (KokOzelDurumu oz in ozelDurumlar)
+            foreach (string durum in kokOzelDurumlari)
             {
-                if (oz.Indeks() == tip.Index) // TODO Buraya oz!=null yazmazsam hata alýyordu bakalým
+                if (durum == ad)
                     return true;
             }
 			return false;
 		}
 
-        /// <summary> koke ozel durum ekler. burada dizi kullaniminda kaynak konusunda cimrilik ettigimizden
+        /// <summary> 
+        /// koke ozel durum ekler. burada dizi kullaniminda kaynak konusunda cimrilik ettigimizden
 		/// her yeni ozel durum icin dizi boyutunu bir buyuttuk. ayrica tekrar olmamasini da sagliyoruz.
 		/// Normalde bu islem Set icin cok daha kolay bir yapida olabilirdi set.add() ancak Set'in kaynak tuketimi
 		/// diziden daha fazla.
-		/// 
 		/// </summary>
 		/// <param name="OzelDurum">
 		/// </param>
-		public virtual void  OzelDurumEkle(KokOzelDurumu ozelDurum)
+		public virtual void  OzelDurumEkle(string ozelDurum)
 		{
-			if (ozelDurumlar.Length == 0)
+			if (kokOzelDurumlari.Length == 0)
 			{
-				ozelDurumlar = new KokOzelDurumu[1];
-				ozelDurumlar[0] = ozelDurum;
+                kokOzelDurumlari = new string[1];
+                kokOzelDurumlari[0] = ozelDurum;
 			}
 			else
 			{
-				if (OzelDurumIceriyormu(ozelDurum.Tip()))
+				if (OzelDurumIceriyormu(ozelDurum))
 					return ;
-				KokOzelDurumu[] yeni = new KokOzelDurumu[ozelDurumlar.Length + 1];
-				for (int i = 0; i < ozelDurumlar.Length; i++)
+                string[] yeni = new string[kokOzelDurumlari.Length + 1];
+                for (int i = 0; i < kokOzelDurumlari.Length; i++)
 				{
-					yeni[i] = ozelDurumlar[i];
+                    yeni[i] = kokOzelDurumlari[i];
 				}
-				yeni[ozelDurumlar.Length] = ozelDurum;
-				this.ozelDurumlar = yeni;
+                yeni[kokOzelDurumlari.Length] = ozelDurum;
+                this.kokOzelDurumlari = yeni;
 			}
 		}
 		
@@ -177,18 +180,18 @@ namespace NZemberek.Cekirdek.Yapi
 		/// </summary>
 		/// <param name="Tip">
 		/// </param>
-		public virtual void  OzelDurumCikar(IKokOzelDurumTipi tip)
+		public virtual void  OzelDurumCikar(string ozelDurum)
 		{
-			if (!OzelDurumIceriyormu(tip))
+			if (!OzelDurumIceriyormu(ozelDurum))
 				return ;
-			KokOzelDurumu[] yeni = new KokOzelDurumu[ozelDurumlar.Length - 1];
+            string[] yeni = new string[kokOzelDurumlari.Length - 1];
 			int j = 0;
-			foreach(KokOzelDurumu oz in ozelDurumlar)
+			foreach(string durum in kokOzelDurumlari)
 			{
-				if (!oz.Tip().Equals(tip))
-					yeni[j++] = oz;
+				if (durum != ozelDurum)
+					yeni[j++] = durum;
 			}
-			this.ozelDurumlar = yeni;
+			this.kokOzelDurumlari = yeni;
 		}
 		
 		public Kok(System.String icerik)
@@ -205,39 +208,22 @@ namespace NZemberek.Cekirdek.Yapi
 		public override String ToString()
 		{
 			System.String strOzel = "";
-			foreach(KokOzelDurumu ozelDurum in ozelDurumlar)
+            foreach (string ozelDurum in kokOzelDurumlari)
 			{
 				if (ozelDurum != null)
-					strOzel += (ozelDurum.KisaAd() + " ");
+					strOzel += (ozelDurum + " ");
 			}
 			return _icerik + " " + _tip + " " + strOzel;
 		}
-		
-		public virtual HarfDizisi OzelDurumUygula(Alfabe alfabe, Ek ek)
+
+        private bool yapiBozucuOzelDurumVar = false;
+		public virtual bool YapiBozucuOzelDurumVar
 		{
-			HarfDizisi dizi = new HarfDizisi(this._icerik, alfabe);
-			foreach(KokOzelDurumu ozelDurum in ozelDurumlar)
-			{
-				if (ozelDurum.YapiBozucu() && ozelDurum.Olusabilir(ek))
-					ozelDurum.Uygula(dizi);
-				if (!ozelDurum.Olusabilir(ek) && ozelDurum.EkKisitlayici())
-					return null;
-			}
-			return dizi;
+            get { return yapiBozucuOzelDurumVar; }
+            set { yapiBozucuOzelDurumVar = value; }
 		}
 		
-		public virtual bool YapiBozucuOzelDurumVar()
-		{
-			if (ozelDurumlar.Length == 0)
-				return false;
-			foreach(KokOzelDurumu ozelDurum in ozelDurumlar)
-			{
-				if (ozelDurum.YapiBozucu()) //TODO Buraya da != null eklemek zorunda kaldým mert (bakacaðým anlamadým)
-					return true;
-			}
-			return false;
-		}
-		
+
 		public override bool Equals(System.Object o)
 		{
 			if (this == o)
@@ -249,7 +235,7 @@ namespace NZemberek.Cekirdek.Yapi
 			
 			if (_icerik != null?!_icerik.Equals(kok._icerik):kok._icerik != null)
 				return false;
-			if (ozelDurumlar != null?!ozelDurumlar.Equals(kok.ozelDurumlar):kok.ozelDurumlar != null)
+            if (kokOzelDurumlari != null ? !kokOzelDurumlari.Equals(kok.kokOzelDurumlari) : kok.kokOzelDurumlari != null)
 				return false;
             if (TipVarmi() ? !_tip.Equals(kok._tip) : kok.TipVarmi())
 				return false;
@@ -262,7 +248,7 @@ namespace NZemberek.Cekirdek.Yapi
 			int result;
 			result = (_icerik != null?_icerik.GetHashCode():0);
             result = 29 * result + (TipVarmi() ? _tip.GetHashCode() : 0);
-			result = 29 * result + (ozelDurumlar != null?ozelDurumlar.GetHashCode():0);
+            result = 29 * result + (kokOzelDurumlari != null ? kokOzelDurumlari.GetHashCode() : 0);
 			return result;
 		}
 

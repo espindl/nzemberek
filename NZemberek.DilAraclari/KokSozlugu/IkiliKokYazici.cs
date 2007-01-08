@@ -59,10 +59,14 @@ namespace NZemberek.DilAraclari.KokSozlugu
 
             dos.Write(kok.KisaltmaSonSeslisi);
 
-            KokOzelDurumu[] ozd = kok.OzelDurumDizisi();
+            //TODO Tankut indeksi yazlılcack
+            string[] ozd = kok.KokOzelDurumlariGetir();
             dos.Write(ozd.Length);
-            foreach (KokOzelDurumu ozelDurum in ozd) {
-                dos.Write(ozelDurum.Indeks());
+            foreach (string s in ozd) 
+            {
+                //TODO tankut indeksini yazacaz...
+                KokOzelDurumu ozelDurum = null;
+                dos.Write(ozelDurum.Indeks);
             }
             // kullanim frekansi
             dos.Write(kok.Frekans);

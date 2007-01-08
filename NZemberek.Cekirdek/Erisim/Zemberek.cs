@@ -86,6 +86,7 @@ namespace NZemberek
                     new KesinHDKiyaslayici(),
                     _dilFabrikasi.AlfabeVer(),
                     _dilFabrikasi.EkYoneticisiver(),
+                    _dilFabrikasi.KokOzelDurumYoneticiVer(),
                     _dilFabrikasi.CozumlemeYardimcisiVer());
 
             // ASCII-Turkce donusturucu icin tukce toleransli cozumleyici olusumu.
@@ -95,12 +96,14 @@ namespace NZemberek
                     new AsciiToleransliHDKiyaslayici(),
                     _dilFabrikasi.AlfabeVer(),
                     _dilFabrikasi.EkYoneticisiver(),
+                    _dilFabrikasi.KokOzelDurumYoneticiVer(),
                     _dilFabrikasi.CozumlemeYardimcisiVer());
 
             IKokBulucu toleransliBulucu = kokler.ToleransliKokBulucuGetir(1);
             ToleransliCozumleyici toleransliCozumleyici = new ToleransliCozumleyici(
                     toleransliBulucu,
                     _dilFabrikasi.EkYoneticisiver(),
+                    _dilFabrikasi.KokOzelDurumYoneticiVer(),
                     _dilFabrikasi.AlfabeVer(),
                     _dilFabrikasi.CozumlemeYardimcisiVer());
 
@@ -116,7 +119,7 @@ namespace NZemberek
             _asciiDonusturucu = new AsciiDonusturucu(_dilFabrikasi.AlfabeVer());
             _heceleyici = _dilFabrikasi.HeceleyiciVer(); // new Heceleyici(_dilFabrikasi.Alfabe(), _dilFabrikasi.heceBulucu());
 
-            _kelimeUretici = new KelimeUretici(_dilFabrikasi.AlfabeVer(), _dilFabrikasi.CozumlemeYardimcisiVer());
+            _kelimeUretici = new KelimeUretici(_dilFabrikasi.AlfabeVer(), _dilFabrikasi.CozumlemeYardimcisiVer(), _dilFabrikasi.KokOzelDurumYoneticiVer());
         }
 
         /// <summary>

@@ -33,12 +33,14 @@ namespace NZemberek.Cekirdek.Mekanizma
     public class KelimeUretici
     {
         private Alfabe alfabe;
+        private IKokOzelDurumYonetici kokOzelDurumYonetici;
         private ICozumlemeYardimcisi yardimci;
 
-        public KelimeUretici(Alfabe alfabe, ICozumlemeYardimcisi yardimci)
+        public KelimeUretici(Alfabe alfabe, ICozumlemeYardimcisi yardimci, IKokOzelDurumYonetici kokOzelDurumYonetici)
         {
             this.alfabe = alfabe;
             this.yardimci = yardimci;
+            this.kokOzelDurumYonetici = kokOzelDurumYonetici;
         }
 
         /// <summary>
@@ -63,7 +65,7 @@ namespace NZemberek.Cekirdek.Mekanizma
 
             if (ekler.Count > 1)
             {
-                HarfDizisi ozelDurumSonrasi = kok.OzelDurumUygula(alfabe, ekler[1]);
+                HarfDizisi ozelDurumSonrasi = kokOzelDurumYonetici.OzelDurumUygula(kok, ekler[1]);
                 if (ozelDurumSonrasi != null)
                     kelime.Icerik = ozelDurumSonrasi;
                 else

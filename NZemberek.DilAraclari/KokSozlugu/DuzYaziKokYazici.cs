@@ -90,16 +90,16 @@ namespace NZemberek.DilAraclari.KokSozlugu
 
         res.Append(kok.Tip.ToString());
         res.Append(" ");
-        res.Append(getOzellikString(kok.OzelDurumDizisi()));
+        res.Append(getOzellikString(kok.KokOzelDurumlariGetir()));
         return res.ToString();
     }
 
-        private String getOzellikString(KokOzelDurumu[] ozelDurumlar) 
+        private String getOzellikString(string[] ozelDurumlar) 
         {
             String oz = "";
-            foreach (KokOzelDurumu ozelDurum in ozelDurumlar) 
+            foreach (string ozelDurum in ozelDurumlar) 
             {
-                oz = oz + ozelDurum.KisaAd() + " ";
+                oz = oz + ozelDurum + " ";
             }
             return oz;
         }

@@ -56,9 +56,9 @@ namespace NZemberek.Cekirdek.Yapi
 
         /**
          * Dile ozgu kok ozel durumu bilgilerini tasiyan nesneyi dondurur.
-         * @return ozeldurumbilgisis
+         * @return ozeldurumyonetici
          */
-        IKokOzelDurumBilgisi KokOzelDurumBilgisiVer();
+        IKokOzelDurumYonetici KokOzelDurumYoneticiVer();
 
         /**
          * eger varsa dile ozgu hece bulma nesnesi.

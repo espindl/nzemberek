@@ -39,6 +39,7 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
         private IKokBulucu kokBulucu;
         private IHarfDizisiKiyaslayici harfDizisiKiyaslayici;
         private IEkYonetici ekYonetici;
+        private IKokOzelDurumYonetici kokOzelDurumYonetici;
         private Alfabe alfabe;
         private ICozumlemeYardimcisi yardimci;
 
@@ -46,11 +47,13 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
                                    IHarfDizisiKiyaslayici kiyaslayci,
                                    Alfabe alfabe,
                                    IEkYonetici ekYonetici,
+                                   IKokOzelDurumYonetici kokOzelDurumYonetici,
                                    ICozumlemeYardimcisi yardimci)
         {
             this.kokBulucu = kokBulucu;
             this.harfDizisiKiyaslayici = kiyaslayci;
             this.ekYonetici = ekYonetici;
+            this.kokOzelDurumYonetici = kokOzelDurumYonetici;
             this.alfabe = alfabe;
             this.yardimci = yardimci;
         }
@@ -223,9 +226,9 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
 
         private bool OzelDurumUygula(Kelime kelime, HarfDizisi giris, Ek ek)
         {
-            if (!kelime.Kok.YapiBozucuOzelDurumVar())
+            if (!kelime.Kok.YapiBozucuOzelDurumVar)
                 return true;
-            HarfDizisi testKokIcerigi = kelime.Kok.OzelDurumUygula(alfabe, ek);
+            HarfDizisi testKokIcerigi = kokOzelDurumYonetici.OzelDurumUygula(kelime.Kok, ek);
             if (testKokIcerigi == null) return false;
             if (logger.IsInfoEnabled) logger.Info("Ozel durum sonrasi:" + testKokIcerigi + "  ek:" + ek.Ad);
             kelime.Icerik = testKokIcerigi;

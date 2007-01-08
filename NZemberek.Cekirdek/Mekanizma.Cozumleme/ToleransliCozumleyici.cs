@@ -41,15 +41,17 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private IKokBulucu kokBulucu;
         private IEkYonetici ekYonetici;
+        private IKokOzelDurumYonetici kokOzelDurumYonetici;
         private Alfabe alfabe;
         private ICozumlemeYardimcisi yardimci;
 
-        public ToleransliCozumleyici(IKokBulucu kokBulucu, IEkYonetici yonetici, Alfabe alfabe, ICozumlemeYardimcisi yardimci)
+        public ToleransliCozumleyici(IKokBulucu kokBulucu, IEkYonetici yonetici, IKokOzelDurumYonetici kokOzelDurumYonetici, Alfabe alfabe, ICozumlemeYardimcisi yardimci)
         {
             this.kokBulucu = kokBulucu;
             this.ekYonetici = yonetici;
             this.alfabe = alfabe;
             this.yardimci = yardimci;
+            this.kokOzelDurumYonetici = kokOzelDurumYonetici;
         }
 
         public bool Denetle(String strGiris)
@@ -203,9 +205,9 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
 
         private bool OzelDurumDenetle(Kelime kelime, HarfDizisi girisDizi, Ek ek, int tolerans)
         {
-            if (!kelime.Kok.YapiBozucuOzelDurumVar())
+            if (!kelime.Kok.YapiBozucuOzelDurumVar)
                 return true;
-            HarfDizisi testKokIcerigi = kelime.Kok.OzelDurumUygula(alfabe, ek);
+            HarfDizisi testKokIcerigi = kokOzelDurumYonetici.OzelDurumUygula(kelime.Kok, ek);
             //if (log.isTraceEnabled()) log.trace("Ozel durum sonrasi:" + testKokIcerigi + "  ek:" + ek.getIsim());
             if (testKokIcerigi == null)
                 return false;

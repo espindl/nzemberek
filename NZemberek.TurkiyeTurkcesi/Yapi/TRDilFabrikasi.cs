@@ -22,7 +22,7 @@ namespace NZemberek.TrTurkcesi.Yapi
         private IDenetlemeCebi _cep;
         private ICozumlemeYardimcisi yardimci;
         private IEkYonetici ekYonetici;
-        private IKokOzelDurumBilgisi ozelDurumBilgisi;
+        private IKokOzelDurumYonetici ozelDurumYonetici;
         private IHeceleyici _heceleyici;
 
         private String bilgiDizini;
@@ -96,14 +96,14 @@ namespace NZemberek.TrTurkcesi.Yapi
                 logger.Error("Kök dosyası bulunamadı, sozluk uretilemiyor.");
                 throw new ApplicationException("Kök dosyası bulunamadı.");
             }
-            KokOzelDurumBilgisiVer();
+            KokOzelDurumYoneticiVer();
             logger.Info("Ikili okuyucu uretiliyor:");
             try
             {
-                IKokOkuyucu okuyucu = new IkiliKokOkuyucu(kokDosyaAdi, ozelDurumBilgisi);
+                IKokOkuyucu okuyucu = new IkiliKokOkuyucu(kokDosyaAdi, ozelDurumYonetici);
                 logger.Info("Sozluk ve agac uretiliyor:" + dilAdi);
                 okuyucu.Ac();
-                sozluk = new AgacSozluk(AlfabeVer(), ozelDurumBilgisi, okuyucu);
+                sozluk = new AgacSozluk(AlfabeVer(), ozelDurumYonetici, okuyucu);
             }
             catch (Exception e)
             {
@@ -113,16 +113,16 @@ namespace NZemberek.TrTurkcesi.Yapi
             return sozluk;
         }
 
-        public IKokOzelDurumBilgisi KokOzelDurumBilgisiVer()
+        public IKokOzelDurumYonetici KokOzelDurumYoneticiVer()
         {
-            if (ozelDurumBilgisi != null)
+            if (ozelDurumYonetici != null)
             {
-                return ozelDurumBilgisi;
+                return ozelDurumYonetici;
             }
             else
             {
-                ozelDurumBilgisi = new TurkceKokOzelDurumBilgisi(EkYoneticisiver(), AlfabeVer());
-                return ozelDurumBilgisi;
+                ozelDurumYonetici = new TurkceKokOzelDurumYonetici(EkYoneticisiver(), AlfabeVer());
+                return ozelDurumYonetici;
             }
         }
 

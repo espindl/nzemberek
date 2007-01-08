@@ -36,16 +36,35 @@ namespace NZemberek.Cekirdek.Yapi
 	/// </summary>
     public class KokOzelDurumu
     {
-        /**
-          * Tip  bilgisi bu ozel duruma iliskin cesitli kimlik bilgilerini tasir.
-          * onegin ozel durumun adi, indeksi, ek dizisi gibi.
-          * dile gore farkli Tip gerceklemeleri mevcttur.
-          */
-        private IKokOzelDurumTipi _tip;
+        /// <summary>
+        /// Tip  bilgisi bu ozel duruma iliskin cesitli kimlik bilgilerini tasir.
+        /// onegin ozel durumun adi, indeksi, ek dizisi gibi.
+        /// dile gore farkli Tip gerceklemeleri mevcttur.
+        /// </summary>
+//        private IKokOzelDurumTipi _tip;
 
-        /**
-         * Kok ozel durumu bir kelime uzerinde ne tur islem yapacak bu nesne ile belirlenir.
-         */
+
+
+        private int indeks;
+        private string ad;
+
+        public string Ad
+        {
+            get { return ad; }
+            set { ad = value; }
+        }
+
+        public int Indeks
+        {
+          get { return indeks; }
+          set { indeks = value; }
+        }
+
+
+
+        /// <summary>
+        /// Kok ozel durumu bir kelime uzerinde ne tur islem yapacak bu nesne ile belirlenir.
+        /// </summary>
         private IHarfDizisiIslemi _islem;
 
         /**
@@ -98,13 +117,15 @@ namespace NZemberek.Cekirdek.Yapi
             internal bool _secimlik = false;
             internal bool _ekKisitlayici = false;
             internal IHarfDizisiIslemi _islem;
-            internal IKokOzelDurumTipi _tip;
+            internal int _indeks;
+            internal string _ad;
             internal bool _herZamanOlusur = false;
 
-            public Uretici(IKokOzelDurumTipi tip, IHarfDizisiIslemi islem)
+            public Uretici(int indeks, string ad, IHarfDizisiIslemi islem)
             {
-                this._tip = tip;
-                this._islem = islem;
+                _indeks = indeks;
+                _ad = ad;
+                _islem = islem;
             }
 
             public Uretici GelebilecekEkler(HashSet<Ek> ekler)
@@ -143,12 +164,6 @@ namespace NZemberek.Cekirdek.Yapi
                 return this;
             }
 
-            public Uretici Parametre(IKokOzelDurumTipi tip)
-            {
-                this._tip = tip;
-                return this;
-            }
-
             public KokOzelDurumu Uret()
             {
                 return new KokOzelDurumu(this);
@@ -167,7 +182,8 @@ namespace NZemberek.Cekirdek.Yapi
             this._yapiBozucu = uretici._yapiBozucu;
             this._secimlik = uretici._secimlik;
             this._ekKisitlayici = uretici._ekKisitlayici;
-            this._tip = uretici._tip;
+            this.ad = uretici._ad;
+            this.indeks = uretici._indeks;
             this._islem = uretici._islem;
             this._herZamanOlusur = uretici._herZamanOlusur;
         }
@@ -198,21 +214,6 @@ namespace NZemberek.Cekirdek.Yapi
             return _ekKisitlayici;
         }
 
-        public int Indeks()
-        {
-            return _tip.Index;
-        }
-
-        public String KisaAd()
-        {
-            return _tip.KisaAd;
-        }
-
-        public IKokOzelDurumTipi Tip()
-        {
-            return _tip;
-        }
-        
         /**
          * giris ile gelen [dizi] Harf dizisine ozel durumu uygular.
          * basit ziyaretci deseni (visitor pattern).
@@ -251,7 +252,7 @@ namespace NZemberek.Cekirdek.Yapi
         if (o == null || GetType() != o.GetType()) return false;
 
         KokOzelDurumu that = (KokOzelDurumu) o;
-        if ((_tip.Index == that._tip.Index) && _tip.Ad.Equals(that._tip.Ad))
+        if ((indeks == that.Indeks) && ad.Equals(that.Ad))
             return true;
         return false;
 
@@ -264,7 +265,7 @@ namespace NZemberek.Cekirdek.Yapi
          */
         public override int GetHashCode()
         {
-            return _tip.Ad.GetHashCode() * _tip.Index;
+            return ad.GetHashCode() * indeks;
         }
     }
 }

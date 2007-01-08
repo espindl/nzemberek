@@ -35,16 +35,16 @@ namespace NZemberek.Cekirdek.KokSozlugu
     public class AgacSozluk : ISozluk
     {
         private KokAgaci agac = null;
-        private IKokOzelDurumBilgisi ozelDurumlar;
+        private IKokOzelDurumYonetici ozelDurumlar;
         private int indeks = 0;
 
-        private AgacSozluk(Alfabe alfabe, IKokOzelDurumBilgisi ozelDurumlar)
+        private AgacSozluk(Alfabe alfabe, IKokOzelDurumYonetici ozelDurumlar)
         {
             agac = new KokAgaci(new KokDugumu(0), alfabe);
             this.ozelDurumlar = ozelDurumlar;
         }
 
-        public AgacSozluk(Alfabe alfabe, IKokOzelDurumBilgisi ozelDurumlar, IKokOkuyucu okuyucu):this(alfabe, ozelDurumlar)
+        public AgacSozluk(Alfabe alfabe, IKokOzelDurumYonetici ozelDurumlar, IKokOkuyucu okuyucu):this(alfabe, ozelDurumlar)
         {
             Kok kok;
             while ((kok = okuyucu.Oku()) != null)
@@ -53,7 +53,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
             }
         }
 
-        public AgacSozluk(Alfabe alfabe, IKokOzelDurumBilgisi ozelDurumlar, List<Kok> kokler):this(alfabe, ozelDurumlar)
+        public AgacSozluk(Alfabe alfabe, IKokOzelDurumYonetici ozelDurumlar, List<Kok> kokler):this(alfabe, ozelDurumlar)
         {
             foreach (Kok kok in kokler)
             {

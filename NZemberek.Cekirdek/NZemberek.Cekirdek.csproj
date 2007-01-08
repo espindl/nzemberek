@@ -94,12 +94,11 @@
     <Compile Include="Yapi\BosHarfDizisiIslemi.cs" />
     <Compile Include="Yapi\Ciftleme.cs" />
     <Compile Include="Yapi\IHarfDizisiIslemi.cs" />
-    <Compile Include="Yapi\IKokOzelDurumBilgisi.cs" />
-    <Compile Include="Yapi\IKokOzelDurumTipi.cs" />
+    <Compile Include="Yapi\IKokOzelDurumYonetici.cs" />
     <Compile Include="Yapi\KokOzelDurumu.cs" />
     <Compile Include="Yapi\SonHarfDusmesi.cs" />
     <Compile Include="Yapi\SonSesliIncelt.cs" />
-    <Compile Include="Yapi\TemelKokOzelDurumBilgisi.cs" />
+    <Compile Include="Yapi\TemelKokOzelDurumYonetici.cs" />
     <Compile Include="Yapi\Ulama.cs" />
     <Compile Include="Yapi\YeniIcerikAta.cs" />
     <Compile Include="Yapi\Yumusama.cs" />

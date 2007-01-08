@@ -55,8 +55,7 @@
     <Compile Include="Yapi\SuOzelDurumu.cs" />
     <Compile Include="Yapi\TurkceEkAdlari.cs" />
     <Compile Include="Yapi\TurkceEkOzelDurumUretici.cs" />
-    <Compile Include="Yapi\TurkceKokOzelDurumBilgisi.cs" />
-    <Compile Include="Yapi\TurkceKokOzelDurumTipi.cs" />
+    <Compile Include="Yapi\TurkceKokOzelDurumYonetici.cs" />
     <Compile Include="Yapi\YumusamaNk.cs" />
     <Compile Include="Yapi\TRHeceleyici.cs" />
     <Compile Include="Yapi\TRDilFabrikasi.cs" />

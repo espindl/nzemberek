@@ -33,10 +33,10 @@ namespace NZemberek.Cekirdek.KokSozlugu
 {
     public class IkiliKokOkuyucu : IKokOkuyucu
     {
-        private IKokOzelDurumBilgisi ozelDurumlar;
+        private IKokOzelDurumYonetici ozelDurumlar;
 
 
-        public IkiliKokOkuyucu(String pDosyaAdi, IKokOzelDurumBilgisi ozelDurumlar) 
+        public IkiliKokOkuyucu(String pDosyaAdi, IKokOzelDurumYonetici ozelDurumlar) 
         {
             dosyaAdi = pDosyaAdi;
             this.ozelDurumlar = ozelDurumlar;
@@ -89,12 +89,17 @@ namespace NZemberek.Cekirdek.KokSozlugu
 
             // Özel durum sayısını (1 byte) ve ozel durumlari oku.
             int ozelDurumSayisi = binReader.ReadByte();
+            bool yapibozucu = false;
             for (int i = 0; i < ozelDurumSayisi; i++)
             {
                 int ozelDurum = binReader.ReadByte();
                 KokOzelDurumu oz = ozelDurumlar.OzelDurum(ozelDurum);
-                kok.OzelDurumEkle(oz);
+                kok.OzelDurumEkle(oz.Ad);
+                if (!yapibozucu  && oz.YapiBozucu())
+                    yapibozucu = true;
             }
+            kok.YapiBozucuOzelDurumVar = yapibozucu;
+
             int frekans = binReader.ReadByte() * 255 * 255 * 255 + binReader.ReadByte() * 255 * 255
                         + binReader.ReadByte() * 255 + binReader.ReadByte();
             if (frekans != 0)
