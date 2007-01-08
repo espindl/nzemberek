@@ -58,16 +58,6 @@ namespace NZemberek.TurkiyeTurkcesi.Testler
             Assert.IsTrue(MetinAraclari.inEditDistance("armutlar", "armutlr", 1));
         }
 
-        //[Test]
-        //public void isInSubstringEditDistanceMert()
-        //{
-        //    Assert.IsTrue(MetinAraclari.isInSubstringEditDistanceMert("elma", "elma", 1));
-        //    Assert.IsTrue(MetinAraclari.isInSubstringEditDistanceMert("elma", "elmalar", 1));
-        //    Assert.IsTrue(MetinAraclari.isInSubstringEditDistanceMert("elma", "ekmalar", 1));
-        //    Assert.IsTrue(MetinAraclari.isInSubstringEditDistanceMert("elma", "emaciklar", 1));
-        //    Assert.IsTrue(MetinAraclari.isInSubstringEditDistanceMert("sefil", "sfil", 1));
-        //}
-
         [Test]
         public void testIsInSubStringEditDistance()
         {

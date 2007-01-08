@@ -245,12 +245,6 @@ namespace NZemberek.Cekirdek.Yapi
         public static String OZEL_INCE_SESLI = "ozel-ince-sesli";
 
 
-        private void HarfleriIlklendir(TurkceHarf[] pHarfler)
-        {
-            turkceHarfDizisi = pHarfler;
-        }
-
-
         #region Harf ve Dönüşümleri Oluşturma Rutinleri
         /**
          * harf dosyasindan harf bilgilerini okur ve TurkceHarf, ve alfabe sinifi icin gerekli

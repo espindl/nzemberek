@@ -37,7 +37,6 @@ namespace NZemberek.Cekirdek.Mekanizma
 {
     public class HataliKodlamaTemizleyici
     {
-        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         System.Collections.Generic.IDictionary<char,IList> donusumler = new Dictionary<char,IList>();
 
         public void initialize() 

@@ -75,35 +75,6 @@ namespace NZemberek.Cekirdek.Araclar
      */
         private static byte[] bomBytes = new byte[]{(byte) 0xef, (byte) 0xbb, (byte) 0xbf};
 
-
-        /**
-         * eger encoding UTF-8 ise dosyanin icerisinde BOM bilgisinin olup olmadigina bakar.
-         * Gelen stream PushBackInputStream'a donusturulur.
-         * Eger BOM mevcut degil ise Stream icerisindeki okunan 3 karakter geri gidilir. BOM
-         * mevcut ise dogrudan olusturulan stream dondurulur.
-         */
-        private StreamReader utf8BomDenetle(StreamReader inpStr)
-        {
-            //TODO Burayı ele almak lazım
-            //if (inpStr == null)
-            //    throw new IOException("inputStream is null. throwing exception");
-            //if (encoding != null && !encoding.Equals("UTF-8"))
-            //    return inpStr;
-            //PushbackInputStream pis = new PushbackInputStream(inpStr, bomBytes.Length);
-            //byte[] okunanBom = new byte[bomBytes.Length];
-            //if (pis.read(okunanBom, 0, bomBytes.length) == -1)
-            //{
-            //    return inpStr;
-            //}
-            //if (!Arrays.equals(okunanBom, bomBytes))
-            //{
-            //    pis.unread(okunanBom);
-            //}
-            //return pis;
-            return null;
-        }
-
-
         /**
      * properties formatina benzer yapidaki dosyayi kodlamali olarak okur.
      * Normal properties dosyalari ASCII

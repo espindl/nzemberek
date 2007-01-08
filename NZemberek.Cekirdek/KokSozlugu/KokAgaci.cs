@@ -59,8 +59,6 @@ namespace NZemberek.Cekirdek.KokSozlugu
     */
     public class KokAgaci
     {
-        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
         private KokDugumu baslangicDugumu = null;
         private int nodeCount = 0;
         private Alfabe alfabe;

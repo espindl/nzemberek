@@ -82,9 +82,3 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
         }
     }
 }
-
-
-public class BasitKelimeYigini 
-{
-
-}

@@ -32,8 +32,6 @@ namespace NZemberek.Cekirdek.Yapi
 {
     public class TemelEkOzelDurumUretici : EkOzelDurumUretici  
     {
-        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);		
-
         protected Alfabe alfabe;
 
         public virtual EkOzelDurumu uret(String ad) 

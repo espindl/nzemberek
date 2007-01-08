@@ -121,7 +121,6 @@ namespace NZemberek.Cekirdek.MetinOkuma
         public static IList<YaziBirimi> analizDizisiOlustur(String target) 
         {
             string[] splits = target.Split();
-            IList kelimeList = new ArrayList();
             IList<YaziBirimi> yaziBirimleri = new System.Collections.Generic.List<YaziBirimi>();
             foreach (string s in splits)
             {
