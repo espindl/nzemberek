@@ -37,7 +37,7 @@ namespace NZemberek.Cekirdek.Yapi
 	public class HarfDizisi
 	{
 		private TurkceHarf[] dizi;
-        //TODO : Bu Boy deðerini Harf arrayinin size deðeri üzerinden saðlamak daha akýllýca.
+        //TODO : Bu Boy deðerini Harf arrayinin Boyut deðeri üzerinden saðlamak daha akýllýca.
         //Tamamlanýnca deneyip Javacýlara da önermeliyiz.
         private int boy = 0;
 		
@@ -231,7 +231,7 @@ namespace NZemberek.Cekirdek.Yapi
 		public virtual HarfDizisi Ekle(int index, HarfDizisi hdizi)
 		{
 			if (index < 0 || index > boy)
-				throw new System.IndexOutOfRangeException("indeks degeri:" + index + " fakat Harf dizi boyu:" + boy);
+				throw new System.IndexOutOfRangeException("Indeks degeri:" + index + " fakat Harf dizi boyu:" + boy);
 			
 			//dizi kapasitesini ayarla
 			int hboy = hdizi.Boy;
@@ -242,7 +242,7 @@ namespace NZemberek.Cekirdek.Yapi
 			for (int i = hboy + boy - 1; i >= hboy; i--)
 				dizi[i] = dizi[i - hboy];
 			
-			//gelen diziyi kopyala ve boyutu degistir.
+			//gelen diziyi Kopyala ve boyutu degistir.
 			Array.Copy(hdizi.dizi, 0, dizi, index, hboy);
 			boy += hdizi.Boy;
 			return this;
@@ -387,13 +387,13 @@ namespace NZemberek.Cekirdek.Yapi
 		/// <summary> 
 		/// istenen noktadaki harfi giris parametresi olan TurkceHarf ile degistirir.
 		/// </summary>
-		/// <param name="index">degistirilecek indeks. </param>
+		/// <param name="index">degistirilecek Indeks. </param>
 		/// <param name="Harf">kullanilacak Harf </param>
 		/// <throws>  ArrayIndexOutOfBoundsException </throws>
 		public void  HarfDegistir(int index, TurkceHarf harf)
 		{
 			if (index < 0 || index >= boy)
-				throw new System.IndexOutOfRangeException("indeks degeri:" + index + " fakat Harf dizi boyu:" + boy);
+				throw new System.IndexOutOfRangeException("Indeks degeri:" + index + " fakat Harf dizi boyu:" + boy);
 			dizi[index] = harf;
 		}
 		
@@ -424,7 +424,7 @@ namespace NZemberek.Cekirdek.Yapi
 		public virtual HarfDizisi HarfSil(int index)
 		{
 			if (index < 0 || index >= boy)
-				throw new System.IndexOutOfRangeException("indeks degeri:" + index + " fakat Harf dizi boyu:" + boy);
+				throw new System.IndexOutOfRangeException("Indeks degeri:" + index + " fakat Harf dizi boyu:" + boy);
 			if (index == boy - 1)
 			{
 				boy--;
@@ -446,7 +446,7 @@ namespace NZemberek.Cekirdek.Yapi
 		public virtual HarfDizisi HarfSil(int index, int harfSayisi)
 		{
 			if (index < 0 || index >= boy)
-				throw new System.IndexOutOfRangeException("indeks degeri:" + index + " fakat Harf dizi boyu:" + boy);
+				throw new System.IndexOutOfRangeException("Indeks degeri:" + index + " fakat Harf dizi boyu:" + boy);
 			if (index + harfSayisi > boy)
 				harfSayisi = boy - index;
 			for (int i = index + harfSayisi; i < boy; i++)

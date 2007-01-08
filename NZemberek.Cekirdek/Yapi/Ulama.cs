@@ -30,7 +30,7 @@ using System.Text;
 namespace NZemberek.Cekirdek.Yapi
 {
     /**
-     * Harf dizisine olusum sirasinda parametre olarak gelen kelimeyi ular..
+     * Harf dizisine olusum sirasinda Parametre olarak gelen kelimeyi ular..
      */
     public class Ulama : IHarfDizisiIslemi
     {

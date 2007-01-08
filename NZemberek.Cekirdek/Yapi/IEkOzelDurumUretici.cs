@@ -26,7 +26,7 @@ using System;
 
 namespace NZemberek.Cekirdek.Yapi
 {
-    public interface EkOzelDurumUretici
+    public interface IEkOzelDurumUretici
     {
         EkOzelDurumu Uret(String ad);
     }

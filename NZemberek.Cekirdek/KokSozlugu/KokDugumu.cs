@@ -62,8 +62,18 @@ namespace NZemberek.Cekirdek.KokSozlugu
         private char harf;
         // eþ seslileri taþýyan liste (Kok nesneleri taþýr)
         private List<Kok> esSesliler = null;
+
+        public List<Kok> EsSesliler
+        {
+            get { return esSesliler; }
+        }
         // Düðümün taþýdýðý kök
         private Kok kok = null;
+
+        public Kok Kok
+        {
+            get { return kok; }
+        }
         // Kökün deðiþmiþ halini tutan string
         private string kelime = null;
 
@@ -96,12 +106,12 @@ namespace NZemberek.Cekirdek.KokSozlugu
          * @return Eðer verilen karakteri taþýyan bir alt düðüm varsa
          * o düðümü, yoksa null.
          */
-        public KokDugumu altDugumGetir(char cin)
+        public KokDugumu AltDugumGetir(char cin)
         {
             if (altDugumler == null)
                 return null;
             else
-                return altDugumler.altDugumGetir(cin);
+                return altDugumler.AltDugumGetir(cin);
         }
 
         /**
@@ -111,42 +121,42 @@ namespace NZemberek.Cekirdek.KokSozlugu
          * @param dugum
          * @return Eklenen düðüm
          */
-        private KokDugumu addNode(KokDugumu dugum)
+        private KokDugumu DugumEkle(KokDugumu dugum)
         {
             if (altDugumler == null)
             {
                 altDugumler = new AltDugumListesi();
             }
-            altDugumler.ekle(dugum);
+            altDugumler.Ekle(dugum);
             return dugum;
         }
 
         public KokDugumu DugumEkle(char harf)
         {
             KokDugumu yeniDugum = new KokDugumu(this.Level + 1, harf);
-            return this.addNode(yeniDugum);
+            return this.DugumEkle(yeniDugum);
         }
 
         public KokDugumu DugumEkle(string icerik, Kok kok)
         {
             KokDugumu yeniDugum = new KokDugumu(this.Level + 1, icerik[this.Level], icerik, kok);
-            return this.addNode(yeniDugum);
+            return this.DugumEkle(yeniDugum);
         }
         /**
          * @return tum alt dugumler. dizi olarak.
          */
-        public KokDugumu[] altDugumDizisiGetir()
+        public KokDugumu[] AltDugumDizisiGetir()
         {
             if (altDugumler == null)
             {
                 return new KokDugumu[0];
             }
-            return altDugumler.altDugumlerDizisiGetir();
+            return altDugumler.AltDugumlerDizisiGetir();
         }
 
-        public bool altDugumVarMi()
+        public bool AltDugumVar()
         {
-            return !(altDugumler == null || altDugumler.size() == 0);
+            return !(altDugumler == null || altDugumler.Boyut() == 0);
         }
         /**
          * Eðer Düðüme baðlý bir kök zaten varsa esSesli olarak Ekle, 
@@ -154,7 +164,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
          *
          * @param kok
          */
-        public void kokEkle(Kok kok)
+        public void KokEkle(Kok kok)
         {
             if (this.kok != null)
             {
@@ -166,17 +176,6 @@ namespace NZemberek.Cekirdek.KokSozlugu
                 this.kok = kok;
             }
         }
-
-        public Kok getKok()
-        {
-            return this.kok;
-        }
-
-        public List<Kok> getEsSesliler()
-        {
-            return esSesliler;
-        }
-
 
         public string Kelime
         {
@@ -194,7 +193,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
          * @return düðüme baðlý kök ve eþ seslilerin hepsini bir listeye 
          * koyarak geri döndürür.
          */
-        public List<Kok> tumKokleriGetir()
+        public List<Kok> TumKokleriGetir()
         {
             if (kok != null)
             {
@@ -214,7 +213,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
          *
          * @param kokler
          */
-        public void tumKokleriEkle(List<Kok> kokler)
+        public void TumKokleriEkle(List<Kok> kokler)
         {
             if (kok != null && !kokler.Contains(kok))
             {
@@ -226,18 +225,18 @@ namespace NZemberek.Cekirdek.KokSozlugu
             }
         }
 
-        public void temizle()
+        public void Temizle()
         {
             this.kok = null;
             this.kelime = null;
             this.esSesliler = null;
         }
 
-        public void kopyala(KokDugumu kaynak)
+        public void Kopyala(KokDugumu kaynak)
         {
-            this.kok = kaynak.getKok();
+            this.kok = kaynak.Kok;
             this.kelime = kaynak.Kelime;
-            this.esSesliler = kaynak.getEsSesliler();
+            this.esSesliler = kaynak.EsSesliler;
         }
 
         /// <summary>
@@ -251,8 +250,8 @@ namespace NZemberek.Cekirdek.KokSozlugu
                 throw new ApplicationException("Düðüm içeriði ilerletilmeye uygun deðil.");
             }
             KokDugumu aNewNode = this.DugumEkle(this.Kelime[this.Level]);
-            aNewNode.kopyala(this);
-            this.temizle();
+            aNewNode.Kopyala(this);
+            this.Temizle();
             return aNewNode;
         }
 
@@ -282,7 +281,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
          * @param level
          * @return dugumun string halini dondurur.
          */
-        public String getStringRep(int level)
+        public String MetinBicimindeVer(int level)
         {
             char[] indentChars = new char[level * 2];
             for (int i = 0; i < indentChars.Length; i++)
@@ -308,7 +307,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
                 str += " ]";
             }
 
-            KokDugumu[] subNodes = altDugumDizisiGetir();
+            KokDugumu[] subNodes = AltDugumDizisiGetir();
             if (subNodes != null)
             {
                 str += "\n " + indent + " Alt dugumler:\n";
@@ -316,7 +315,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
                 {
                     if (subNode != null)
                     {
-                        str += subNode.getStringRep(level + 1) + "\n";
+                        str += subNode.MetinBicimindeVer(level + 1) + "\n";
                     }
                 }
             }
@@ -328,7 +327,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
             StringBuilder buf = new StringBuilder();
             buf.Append("Harf:").Append(harf);
             if (altDugumler != null)
-                buf.Append(" alt dugum sayisi:").Append(altDugumler.size());
+                buf.Append(" alt dugum sayisi:").Append(altDugumler.Boyut());
             return buf.ToString();
         }
 
@@ -356,7 +355,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
              * CEP_BUYUKLUGU degerini asmissa bir HashMap oluþturur
              * @param dugum
              */
-            public void ekle(KokDugumu dugum)
+            public void Ekle(KokDugumu dugum)
             {
                 if (index == CEP_BUYUKLUGU)
                 {
@@ -382,7 +381,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
              * @param giris
              * @return ilgili KokDugumu
              */
-            public KokDugumu altDugumGetir(char giris)
+            public KokDugumu AltDugumGetir(char giris)
             {
                 if (dugumler != null)
                 {
@@ -408,7 +407,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
              * Alt düðümleri dizi olarak döndürür.
              * @return KokDugumu[] cinsinden alt düðümler dizisi
              */
-            public KokDugumu[] altDugumlerDizisiGetir()
+            public KokDugumu[] AltDugumlerDizisiGetir()
             {
                 if (dugumler != null)
                 {
@@ -422,7 +421,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
                 }
             }
 
-            public int size()
+            public int Boyut()
             {
                 if (dugumler != null)
                 {

@@ -30,7 +30,7 @@ using log4net;
 
 namespace NZemberek.Cekirdek.Yapi
 {
-    public class TemelEkOzelDurumUretici : EkOzelDurumUretici  
+    public class TemelEkOzelDurumUretici : IEkOzelDurumUretici  
     {
         protected Alfabe alfabe;
 
@@ -55,14 +55,14 @@ namespace NZemberek.Cekirdek.Yapi
         }
 
         /**
-         * efektif olmayan bir tip denetimi.
+         * efektif olmayan bir Tip denetimi.
          *
          * @param tipler
          * @param ad
-         * @return eger kisaAd ile belirtilen tip var ise true.
+         * @return eger KisaAd ile belirtilen Tip var ise true.
          */
-        protected bool Mevcut(EkOzelDurumTipi[] tipler, String ad) {
-            foreach (EkOzelDurumTipi tip in tipler) {
+        protected bool Mevcut(IEkOzelDurumTipi[] tipler, String ad) {
+            foreach (IEkOzelDurumTipi tip in tipler) {
                 if (tip.Ad.Equals(ad))
                     return true;
             }
@@ -71,12 +71,12 @@ namespace NZemberek.Cekirdek.Yapi
 
     }
 
-    public class TemelEkOzelDurumuTipi : EkOzelDurumTipi 
+    public class TemelEkOzelDurumuTipi : IEkOzelDurumTipi 
     {
         protected string _ad = string.Empty;
         protected int _index;
 
-        #region EkOzelDurumTipi Members
+        #region IEkOzelDurumTipi Members
 
         public string  Ad
         {
@@ -102,7 +102,7 @@ namespace NZemberek.Cekirdek.Yapi
         public readonly static TemelEkOzelDurumuTipi ON_EK = new TemelEkOzelDurumuTipi(2, "ON_EK");
         public readonly static TemelEkOzelDurumuTipi ZAMAN_KI = new TemelEkOzelDurumuTipi(3, "ZAMAN_KI");
 
-        public static EkOzelDurumTipi[] AllValues = new EkOzelDurumTipi[] { SON_HARF_YUMUSAMA, OLDURGAN, ON_EK, ZAMAN_KI };
+        public static IEkOzelDurumTipi[] AllValues = new IEkOzelDurumTipi[] { SON_HARF_YUMUSAMA, OLDURGAN, ON_EK, ZAMAN_KI };
         public static int Length = 4;
 
     }

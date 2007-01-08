@@ -52,10 +52,10 @@ namespace NZemberek.Cekirdek.Yapi
         private readonly IEkUretici ekUretici;
         private readonly Alfabe alfabe;
 
-        private readonly EkOzelDurumUretici ekOzelDurumUretici;
+        private readonly IEkOzelDurumUretici ekOzelDurumUretici;
 
         public XmlEkOkuyucu(String xmlEkDosyasi, IEkUretici ekUretici,
-                            EkOzelDurumUretici ekOzelDurumUretici, Alfabe alfabe)
+                            IEkOzelDurumUretici ekOzelDurumUretici, Alfabe alfabe)
         {
             this.xmlEkDosyasi = xmlEkDosyasi;
             this.ekUretici = ekUretici;
@@ -242,7 +242,7 @@ namespace NZemberek.Cekirdek.Yapi
                 ardisilEkSet.AddAll(kumeEkleri);
             }
 
-            //varsa baska bir ekin ardisil eklerini kopyala.
+            //varsa baska bir ekin ardisil eklerini Kopyala.
             XmlAttribute attr = ardisilEklerEl.GetAttributeNode("kopya-ek");
             if (attr != null)
             {

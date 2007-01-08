@@ -86,18 +86,18 @@ namespace NZemberek.Cekirdek.Yapi
                     }
                 }
                 // ureticiye seti ata.
-                uretici.gelebilecekEkler(set);
+                uretici.GelebilecekEkler(set);
             }
             return uretici;
         }
 
         protected void Ekle(KokOzelDurumu.Uretici uretici) {
             //tum
-            KokOzelDurumu ozelDurum = uretici.uret();
-            ozelDurumlar.Add(ozelDurum.tip(), ozelDurum);
-            ozelDurumDizisi[ozelDurum.indeks()] = ozelDurum;
+            KokOzelDurumu ozelDurum = uretici.Uret();
+            ozelDurumlar.Add(ozelDurum.Tip(), ozelDurum);
+            ozelDurumDizisi[ozelDurum.Indeks()] = ozelDurum;
 
-            kisaAdOzelDurumlar.Add(ozelDurum.kisaAd(), ozelDurum);
+            kisaAdOzelDurumlar.Add(ozelDurum.KisaAd(), ozelDurum);
         }
 
         protected void BosOzelDurumEkle(IKokOzelDurumTipi[] args) 

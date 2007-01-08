@@ -39,21 +39,51 @@ namespace NZemberek
     /// </summary>
     public class ZemberekAyarlari
     {
-        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);		
+        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private bool _oneriDeasciifierKullan = true;
+
+        public bool OneriDeasciifierKullan
+        {
+            get { return _oneriDeasciifierKullan; }
+        }
         private int oneriMax = 12;
+
+        public int OneriMax
+        {
+            get { return oneriMax; }
+        }
         private bool _oneriKokFrekansKullan = true;
+
+        public bool OneriKokFrekansKullan
+        {
+            get { return _oneriKokFrekansKullan; }
+        }
         private bool _oneriBilesikKelimeKullan = true;
+
+        public bool OneriBilesikKelimeKullan
+        {
+            get { return _oneriBilesikKelimeKullan; }
+        }
         private bool _cepKullan = true;
 
+        public bool CepKullan
+        {
+            get { return _cepKullan; }
+        }
+
         private string[] dilAyarlari = new string[3];
+
+        public string[] DilAyarlari
+        {
+            get { return dilAyarlari; }
+        }
         
 
         public ZemberekAyarlari() {
             try 
             {
-                konfigurasyonOku();
+                KonfigurasyonOku();
             } 
             catch (System.IO.IOException e) 
             {
@@ -62,23 +92,23 @@ namespace NZemberek
         }
 
 
-        private void konfigurasyonOku() 
+        private void KonfigurasyonOku() 
         {
             try 
             {
-                NameValueCollection settings = GetSettings();
-                _oneriDeasciifierKullan = boolOku("oneri.deasciifierKullan");
-                _oneriKokFrekansKullan = boolOku("oneri.kokFrekansKullan");
-                _oneriBilesikKelimeKullan = boolOku("oneri.bilesikKelimeKullan");
+                NameValueCollection settings = AyarlariAl();
+                _oneriDeasciifierKullan = DogruYanlisOku("oneri.deasciifierKullan");
+                _oneriKokFrekansKullan = DogruYanlisOku("oneri.kokFrekansKullan");
+                _oneriBilesikKelimeKullan = DogruYanlisOku("oneri.bilesikKelimeKullan");
                 oneriMax = Int32.Parse(settings["oneri.max"]);
-                _cepKullan = boolOku("denetleme.cepKullan");
+                _cepKullan = DogruYanlisOku("denetleme.CepKullan");
                 dilAyarlari[0] = settings["dilAyarlari.KutuphaneAdi"];
                 dilAyarlari[1] = settings["dilAyarlari.SinifAdi"];
                 dilAyarlari[2] = settings["dilAyarlari.KaynakDizini"];
             } 
             catch (FormatException e) 
             {
-                logger.Error("property erisim hatasi!! Muhtemel tip donusum problemi.. varsayilan parametreler kullanilacak "+e.Message);
+                logger.Error("property erisim hatasi!! Muhtemel Tip donusum problemi.. varsayilan parametreler kullanilacak "+e.Message);
             } 
             catch (Exception e) 
             {
@@ -86,7 +116,7 @@ namespace NZemberek
             }
         }
 
-        private NameValueCollection GetSettings()
+        private NameValueCollection AyarlariAl()
         {
 #if mono
             NameValueCollection settings = ConfigurationSettings.AppSettings;
@@ -97,36 +127,9 @@ namespace NZemberek
             return settings;
         }
 
-        private bool boolOku(String anahtar)
+        private bool DogruYanlisOku(String anahtar)
         {
-            return bool.Parse(GetSettings()[anahtar]);
-        }
-
-
-        public bool oneriDeasciifierKullan() {
-            return _oneriDeasciifierKullan;
-        }
-
-        public bool oneriBilesikKelimeKullan() {
-            return _oneriBilesikKelimeKullan;
-        }
-
-        public int getOneriMax() {
-            return oneriMax;
-        }
-
-        public bool oneriKokFrekansKullan() {
-            return _oneriKokFrekansKullan;
-        }
-
-        public bool cepKullan() 
-        {
-            return _cepKullan;
-        }
-
-        public string[] getDilAyarlari()
-        {
-            return dilAyarlari;
+            return bool.Parse(AyarlariAl()[anahtar]);
         }
     }
 }

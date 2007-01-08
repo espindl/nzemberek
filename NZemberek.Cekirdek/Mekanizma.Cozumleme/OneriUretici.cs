@@ -40,14 +40,14 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
     /// </summary>
     public class OneriUretici
     {
-        private KelimeCozumleyici cozumleyici;
-        private KelimeCozumleyici asciiToleransliCozumleyici;
+        private IKelimeCozumleyici cozumleyici;
+        private IKelimeCozumleyici asciiToleransliCozumleyici;
         private ToleransliCozumleyici toleransliCozumleyici;
         private ICozumlemeYardimcisi yardimci;
         private ZemberekAyarlari ayarlar;
 
-        public OneriUretici(ICozumlemeYardimcisi yardimci, KelimeCozumleyici cozumleyici,
-                            KelimeCozumleyici asciiToleransliCozumleyici, ToleransliCozumleyici toleransliCozumleyici,
+        public OneriUretici(ICozumlemeYardimcisi yardimci, IKelimeCozumleyici cozumleyici,
+                            IKelimeCozumleyici asciiToleransliCozumleyici, ToleransliCozumleyici toleransliCozumleyici,
                             ZemberekAyarlari ayarlar)
         {
             this.yardimci = yardimci;
@@ -85,7 +85,7 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
         {
             foreach (String oneri in ayriYazimOnerileri)
             {
-                if (rafineListe.Count < ayarlar.getOneriMax())
+                if (rafineListe.Count < ayarlar.OneriMax)
                     rafineListe.Add(oneri);
                 else
                     break;
@@ -98,7 +98,7 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
             List<string> sonListe = new List<string>();
             foreach (String str in girisListesi)
             {
-                if (!rafineListe.ContainsKey(str) && sonListe.Count < ayarlar.getOneriMax())
+                if (!rafineListe.ContainsKey(str) && sonListe.Count < ayarlar.OneriMax)
                 {
                     rafineListe.Add(str, 0);
                     sonListe.Add(str);
@@ -126,7 +126,7 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
         private Kelime[] AsciiDonusumuOnerileriBul(String kelime)
         {
             Kelime[] asciiTurkceOneriler = new Kelime[0];
-            if (ayarlar.oneriDeasciifierKullan())
+            if (ayarlar.OneriDeasciifierKullan)
             {
                 asciiTurkceOneriler = asciiToleransliCozumleyici.Cozumle(kelime);
             }
@@ -136,7 +136,7 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
         private HashSet<String> AyriYazimOnerileriniBul(String kelime)
         {
             HashSet<String> ayriYazimOnerileri = HashSet<String>.EMPTY_SET_STRING;
-            if (ayarlar.oneriBilesikKelimeKullan())
+            if (ayarlar.OneriBilesikKelimeKullan)
             {
                 for (int i = 1; i < kelime.Length; i++)
                 {

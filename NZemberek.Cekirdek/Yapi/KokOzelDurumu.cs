@@ -37,9 +37,9 @@ namespace NZemberek.Cekirdek.Yapi
     public class KokOzelDurumu
     {
         /**
-          * tip  bilgisi bu ozel duruma iliskin cesitli kimlik bilgilerini tasir.
+          * Tip  bilgisi bu ozel duruma iliskin cesitli kimlik bilgilerini tasir.
           * onegin ozel durumun adi, indeksi, ek dizisi gibi.
-          * dile gore farkli tip gerceklemeleri mevcttur.
+          * dile gore farkli Tip gerceklemeleri mevcttur.
           */
         private IKokOzelDurumTipi _tip;
 
@@ -62,7 +62,7 @@ namespace NZemberek.Cekirdek.Yapi
         /**
          * bazi ozel durumlarin olusmasi mevburi degildir. ornegin turkiye turkceisnde
          * "icerlerde" ve "icerilerde" kelimeleri dogru kabul edilir. Eger ozel durum
-         * bu sekilde ise secimlik=true olur.
+         * bu sekilde ise Secimlik=true olur.
          */
         private bool _secimlik = false;
 
@@ -107,50 +107,49 @@ namespace NZemberek.Cekirdek.Yapi
                 this._islem = islem;
             }
 
-            public Uretici gelebilecekEkler(HashSet<Ek> ekler)
+            public Uretici GelebilecekEkler(HashSet<Ek> ekler)
             {
                 this._gelebilecekEkler = ekler;
                 return this;
             }
 
-            public Uretici sesliEkIleOlusur(bool deger)
+            public Uretici SesliEkIleOlusur(bool deger)
             {
                 this._sesliEkIleOlusur = deger;
                 return this;
             }
 
-            public Uretici yapiBozucu(bool yapiBozucu)
+            public Uretici YapiBozucu(bool yapiBozucu)
             {
                 this._yapiBozucu = yapiBozucu;
                 return this;
             }
 
-            public Uretici secimlik(bool secimlik)
+            public Uretici Secimlik(bool secimlik)
             {
                 this._secimlik = secimlik;
                 return this;
             }
 
-            public Uretici ekKisitlayici(bool ekKisitlayici)
+            public Uretici EkKisitlayici(bool ekKisitlayici)
             {
                 this._ekKisitlayici = ekKisitlayici;
                 return this;
             }
 
-            public Uretici herZamanOlusur(bool herZamanOlusur)
+            public Uretici HerZamanOlusur(bool herZamanOlusur)
             {
                 this._herZamanOlusur = herZamanOlusur;
                 return this;
             }
 
-
-            public Uretici parametre(IKokOzelDurumTipi tip)
+            public Uretici Parametre(IKokOzelDurumTipi tip)
             {
                 this._tip = tip;
                 return this;
             }
 
-            public KokOzelDurumu uret()
+            public KokOzelDurumu Uret()
             {
                 return new KokOzelDurumu(this);
             }
@@ -173,43 +172,43 @@ namespace NZemberek.Cekirdek.Yapi
             this._herZamanOlusur = uretici._herZamanOlusur;
         }
 
-        public bool yapiBozucumu()
+        public bool YapiBozucu()
         {
             return _yapiBozucu;
         }
 
-        public bool secimlikmi()
+        public bool Secimlik()
         {
             return _secimlik;
         }
 
-        public bool seslikEkleolusurmu()
+        public bool SeslikEkleolusur()
         {
             return _sesliEkIleOlusur;
         }
 
-        public HashSet<Ek> geleibilecekEkler()
+        public HashSet<Ek> GeleibilecekEkler()
         {
             return _gelebilecekEkler;
         }
 
 
-        public bool ekKisitlayiciMi()
+        public bool EkKisitlayici()
         {
             return _ekKisitlayici;
         }
 
-        public int indeks()
+        public int Indeks()
         {
             return _tip.Index;
         }
 
-        public String kisaAd()
+        public String KisaAd()
         {
             return _tip.KisaAd;
         }
 
-        public IKokOzelDurumTipi tip()
+        public IKokOzelDurumTipi Tip()
         {
             return _tip;
         }
@@ -224,7 +223,7 @@ namespace NZemberek.Cekirdek.Yapi
         {
             _islem.Uygula(dizi);
         }
-
+        
         /**
          * Ozel durum giris parametresi olan ek'in bu ozel durumun olusmasina
          * izin verip vermeyeegi belirlenir.
@@ -242,7 +241,7 @@ namespace NZemberek.Cekirdek.Yapi
         }
 
         /**
-         * esitlik kiyaslamasi sadece tip indexi ve tip adina gore yapilir.
+         * esitlik kiyaslamasi sadece Tip indexi ve Tip adina gore yapilir.
          *
          * @param o
          * @return ayni ise true.
@@ -259,7 +258,7 @@ namespace NZemberek.Cekirdek.Yapi
     }
 
         /**
-         * sadece tip adi ve indeksine gore belirlenir.
+         * sadece Tip adi ve indeksine gore belirlenir.
          *
          * @return hash code.
          */

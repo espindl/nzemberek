@@ -54,7 +54,7 @@ public class EdilgenOzelDurumu : EkOzelDurumu {
         if(son.Sesli)
           return new HarfDizisi(0);
         HarfDizisi sonuc = new HarfDizisi();
-        if (kelime.Kok.ozelDurumIceriyormu(TurkceKokOzelDurumTipi.FIIL_ARA_SESLI_DUSMESI)) {
+        if (kelime.Kok.OzelDurumIceriyormu(TurkceKokOzelDurumTipi.FIIL_ARA_SESLI_DUSMESI)) {
             //eger ara sesli dusmesi olmussa eklenecek seslinin dusen sesliye gore
             //belirlenmesi gerekir. yani, "kavurmak" koku ve "kavrulmuS" girisini dusunelim,
             //ara sesli dusmesi ozel durumu nedeniyle "u" harfi kokten duserek "kavr" haline

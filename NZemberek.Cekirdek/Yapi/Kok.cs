@@ -83,6 +83,10 @@ namespace NZemberek.Cekirdek.Yapi
 		}
 		virtual public String Asil
 		{
+            get
+            {
+                return asil_Renamed_Field;
+            }
 			set
 			{
 				this.asil_Renamed_Field = value;
@@ -129,11 +133,11 @@ namespace NZemberek.Cekirdek.Yapi
 			return ozelDurumlar;
 		}
 		
-		public virtual bool ozelDurumIceriyormu(IKokOzelDurumTipi tip)
+		public virtual bool OzelDurumIceriyormu(IKokOzelDurumTipi tip)
 		{            
             foreach (KokOzelDurumu oz in ozelDurumlar)
             {
-                if (oz.indeks() == tip.Index) // TODO Buraya oz!=null yazmazsam hata alýyordu bakalým
+                if (oz.Indeks() == tip.Index) // TODO Buraya oz!=null yazmazsam hata alýyordu bakalým
                     return true;
             }
 			return false;
@@ -156,7 +160,7 @@ namespace NZemberek.Cekirdek.Yapi
 			}
 			else
 			{
-				if (ozelDurumIceriyormu(ozelDurum.tip()))
+				if (OzelDurumIceriyormu(ozelDurum.Tip()))
 					return ;
 				KokOzelDurumu[] yeni = new KokOzelDurumu[ozelDurumlar.Length + 1];
 				for (int i = 0; i < ozelDurumlar.Length; i++)
@@ -171,17 +175,17 @@ namespace NZemberek.Cekirdek.Yapi
 		/// <summary> sadece ilk acilista kullanilan bir metod
 		/// 
 		/// </summary>
-		/// <param name="tip">
+		/// <param name="Tip">
 		/// </param>
 		public virtual void  OzelDurumCikar(IKokOzelDurumTipi tip)
 		{
-			if (!ozelDurumIceriyormu(tip))
+			if (!OzelDurumIceriyormu(tip))
 				return ;
 			KokOzelDurumu[] yeni = new KokOzelDurumu[ozelDurumlar.Length - 1];
 			int j = 0;
 			foreach(KokOzelDurumu oz in ozelDurumlar)
 			{
-				if (!oz.tip().Equals(tip))
+				if (!oz.Tip().Equals(tip))
 					yeni[j++] = oz;
 			}
 			this.ozelDurumlar = yeni;
@@ -204,7 +208,7 @@ namespace NZemberek.Cekirdek.Yapi
 			foreach(KokOzelDurumu ozelDurum in ozelDurumlar)
 			{
 				if (ozelDurum != null)
-					strOzel += (ozelDurum.kisaAd() + " ");
+					strOzel += (ozelDurum.KisaAd() + " ");
 			}
 			return _icerik + " " + _tip + " " + strOzel;
 		}
@@ -214,9 +218,9 @@ namespace NZemberek.Cekirdek.Yapi
 			HarfDizisi dizi = new HarfDizisi(this._icerik, alfabe);
 			foreach(KokOzelDurumu ozelDurum in ozelDurumlar)
 			{
-				if (ozelDurum.yapiBozucumu() && ozelDurum.Olusabilir(ek))
+				if (ozelDurum.YapiBozucu() && ozelDurum.Olusabilir(ek))
 					ozelDurum.Uygula(dizi);
-				if (!ozelDurum.Olusabilir(ek) && ozelDurum.ekKisitlayiciMi())
+				if (!ozelDurum.Olusabilir(ek) && ozelDurum.EkKisitlayici())
 					return null;
 			}
 			return dizi;
@@ -228,7 +232,7 @@ namespace NZemberek.Cekirdek.Yapi
 				return false;
 			foreach(KokOzelDurumu ozelDurum in ozelDurumlar)
 			{
-				if (ozelDurum.yapiBozucumu()) //TODO Buraya da != null eklemek zorunda kaldým mert (bakacaðým anlamadým)
+				if (ozelDurum.YapiBozucu()) //TODO Buraya da != null eklemek zorunda kaldým mert (bakacaðým anlamadým)
 					return true;
 			}
 			return false;
@@ -260,11 +264,6 @@ namespace NZemberek.Cekirdek.Yapi
             result = 29 * result + (TipVarmi() ? _tip.GetHashCode() : 0);
 			result = 29 * result + (ozelDurumlar != null?ozelDurumlar.GetHashCode():0);
 			return result;
-		}
-		
-		public virtual String asil()
-		{
-			return asil_Renamed_Field;
 		}
 
         protected bool TipVarmi()

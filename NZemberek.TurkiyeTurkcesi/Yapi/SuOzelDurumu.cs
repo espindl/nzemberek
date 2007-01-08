@@ -41,7 +41,7 @@ namespace NZemberek.TrTurkcesi.Yapi
     public class SuOzelDurumu : EkOzelDurumu {
 
     public override HarfDizisi CozumlemeIcinUret(Kelime kelime, HarfDizisi giris, IHarfDizisiKiyaslayici kiyaslayici) {
-        if(kelime.GercekEkYok() && kelime.Kok.ozelDurumIceriyormu(TurkceKokOzelDurumTipi.SU_OZEL_DURUMU))
+        if(kelime.GercekEkYok() && kelime.Kok.OzelDurumIceriyormu(TurkceKokOzelDurumTipi.SU_OZEL_DURUMU))
            return EkUretici.CozumlemeIcinEkUret(kelime.Icerik, giris, UretimBilesenleri);
         return null;
     }

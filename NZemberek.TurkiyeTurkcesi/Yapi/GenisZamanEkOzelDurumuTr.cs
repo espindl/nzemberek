@@ -49,7 +49,7 @@ public class GenisZamanEkOzelDurumuTr : EkOzelDurumu {
 
     public override HarfDizisi CozumlemeIcinUret(Kelime kelime, HarfDizisi giris, IHarfDizisiKiyaslayici kiyaslayici) {
         if (kelime.SonEk().Ad.Equals(TurkceEkAdlari.FIIL_KOK)
-             && kelime.Kok.ozelDurumIceriyormu(TurkceKokOzelDurumTipi.GENIS_ZAMAN))
+             && kelime.Kok.OzelDurumIceriyormu(TurkceKokOzelDurumTipi.GENIS_ZAMAN))
             return EkUretici.CozumlemeIcinEkUret(kelime.Icerik, giris, UretimBilesenleri);
         else
             return null;

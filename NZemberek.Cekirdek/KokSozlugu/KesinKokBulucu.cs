@@ -58,14 +58,14 @@ namespace NZemberek.Cekirdek.KokSozlugu
 
             while (girisIndex < giris.Length) 
             {
-                node = node.altDugumGetir(giris[girisIndex]);
+                node = node.AltDugumGetir(giris[girisIndex]);
                 if (node == null) break;
-                if (node.getKok() != null) 
+                if (node.Kok != null) 
                 {
                     // buradaki kodu daha basit ama biraz yavas hale getirdim.
                     if (giris.StartsWith(node.Kelime)) 
                     {
-                        node.tumKokleriEkle(adaylar);
+                        node.TumKokleriEkle(adaylar);
                     }
                 }
                 girisIndex++;

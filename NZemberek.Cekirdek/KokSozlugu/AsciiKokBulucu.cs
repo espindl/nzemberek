@@ -90,13 +90,13 @@ namespace NZemberek.Cekirdek.KokSozlugu
         {
             String tester = (olusan + dugum.Harf).Trim();
             walkCount++;
-            if (dugum.getKok() != null) 
+            if (dugum.Kok != null) 
             {
                 if (logger.IsInfoEnabled) logger.Info("Kok : " + dugum.Kelime);
                 if (AsciiTolaransliKarsilastir((String) dugum.Kelime, giris)) 
                 {
                     // Aday kok bulundu.
-                    dugum.tumKokleriEkle(adaylar);
+                    dugum.TumKokleriEkle(adaylar);
                 }
                 else 
                 {
@@ -114,7 +114,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
             int seviye = tester.Length - 1; //TODO böölemi -1 yoktu
             if(seviye == giris.Length) return;
             // Uygun tüm alt dallarda yürü
-            foreach (KokDugumu altDugum in dugum.altDugumDizisiGetir()) 
+            foreach (KokDugumu altDugum in dugum.AltDugumDizisiGetir()) 
             {
                if (altDugum != null) 
                {

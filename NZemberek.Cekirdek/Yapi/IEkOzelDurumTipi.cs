@@ -27,7 +27,7 @@ using System;
 
 namespace NZemberek.Cekirdek.Yapi
 {
-    public interface EkOzelDurumTipi
+    public interface IEkOzelDurumTipi
     {
         String Ad{get;}
         int Index{get;}

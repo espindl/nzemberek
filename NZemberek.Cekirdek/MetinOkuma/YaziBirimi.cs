@@ -43,7 +43,7 @@ namespace NZemberek.Cekirdek.MetinOkuma
         public override String ToString()
         {
             return "{" +
-                    "tip=" + tip +
+                    "Tip=" + tip +
                     ", icerik='" + icerik + "'" +
                     "}";
         }

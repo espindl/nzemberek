@@ -44,7 +44,7 @@ namespace NZemberek.Cekirdek.Yapi
         public TemelEkYonetici(Alfabe alfabe,
                                String dosya,
                                IEkUretici ekUretici,
-                               EkOzelDurumUretici ozelDurumUretici,
+                               IEkOzelDurumUretici ozelDurumUretici,
                                IDictionary<KelimeTipi, String> baslangicEkMap) {
             this.alfabe = alfabe;
             DateTime start = System.DateTime.Now;// currentTimeMillis();

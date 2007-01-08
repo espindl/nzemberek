@@ -35,9 +35,9 @@ namespace NZemberek.Cekirdek.Yapi
         KokOzelDurumu OzelDurum(IKokOzelDurumTipi tip);
 
         /// <summary>
-        /// kisaAd ile belirtilen ozel durumu dondurur.
+        /// KisaAd ile belirtilen ozel durumu dondurur.
         /// </summary>
-        /// <param name="kisaAd"></param>
+        /// <param name="KisaAd"></param>
         /// <returns>OzelDurum ya da null</returns>
         KokOzelDurumu OzelDurum(String kisaAd);
 
@@ -61,11 +61,11 @@ namespace NZemberek.Cekirdek.Yapi
         void DuzyaziOzelDurumOku(Kok kok, String okunanIcerik, String[] parcalar);
 
         /// <summary>
-        /// Ozellikle duz yazi dosyadan kok okumada kok icerigi tip ve dile gore on islemeden gecirilebilir
+        /// Ozellikle duz yazi dosyadan kok okumada kok icerigi Tip ve dile gore on islemeden gecirilebilir
         /// Ornegin turkiye turkcesinde eger kok icinde "mek" mastar eki bulunuyorsa bu silinir.
         /// </summary>
         /// <param name="kok"></param>
-        /// <param name="tip"></param>
+        /// <param name="Tip"></param>
         /// <param name="icerik"></param>
         void KokIcerigiIsle(Kok kok, KelimeTipi tip, String icerik);
     }

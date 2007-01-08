@@ -145,7 +145,7 @@ namespace NZemberek.Cekirdek.Yapi
             }
             if (ekStr.Length > 3)
                 ekStr.Remove(ekStr.Length - 3, 3);
-            return "{Icerik: " + _icerik + " Kok: " + _kok.Icerik + " tip:" + _kok.Tip + "} " +
+            return "{Icerik: " + _icerik + " Kok: " + _kok.Icerik + " Tip:" + _kok.Tip + "} " +
                     " Ekler:" + ekStr;
         }
 

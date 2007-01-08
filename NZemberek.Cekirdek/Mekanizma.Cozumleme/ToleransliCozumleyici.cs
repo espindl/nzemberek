@@ -35,7 +35,7 @@ using NZemberek.Cekirdek.Kolleksiyonlar;
 
 namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
 {
-    public class ToleransliCozumleyici : KelimeCozumleyici
+    public class ToleransliCozumleyici : IKelimeCozumleyici
     {
         public static readonly int TOLERANS = 1;
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);

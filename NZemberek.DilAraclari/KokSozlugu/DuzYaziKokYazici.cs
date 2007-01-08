@@ -76,8 +76,8 @@ namespace NZemberek.DilAraclari.KokSozlugu
 
         //icerik olarak icerigin varsa asil halini yoksa normal kok icerigini Al.
         String icerik = kok.Icerik;
-        if (kok.asil() != null)
-            icerik = kok.asil();
+        if (kok.Asil != null)
+            icerik = kok.Asil;
 
         StringBuilder res = new StringBuilder(icerik);
         res.Append(" ");
@@ -99,7 +99,7 @@ namespace NZemberek.DilAraclari.KokSozlugu
             String oz = "";
             foreach (KokOzelDurumu ozelDurum in ozelDurumlar) 
             {
-                oz = oz + ozelDurum.kisaAd() + " ";
+                oz = oz + ozelDurum.KisaAd() + " ";
             }
             return oz;
         }

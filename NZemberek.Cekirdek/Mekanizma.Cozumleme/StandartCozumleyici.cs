@@ -33,7 +33,7 @@ using NZemberek.Cekirdek.Kolleksiyonlar;
 
 namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
 {
-    public class StandartCozumleyici : KelimeCozumleyici
+    public class StandartCozumleyici : IKelimeCozumleyici
     {
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private IKokBulucu kokBulucu;

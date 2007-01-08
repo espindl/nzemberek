@@ -92,7 +92,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
             KokDugumu child = null;
             while (parent.Level < icerik.Length)
             {
-                child = parent.altDugumGetir(icerik[parent.Level]);
+                child = parent.AltDugumGetir(icerik[parent.Level]);
                 if (child != null)
                 {
                     parent = child;
@@ -124,7 +124,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
                 else
                 {
                     // bu düðüme baðlý bir kök yoksa 
-                    if (dugum.getKok() == null)
+                    if (dugum.Kok == null)
                     {
                         //bu kök için bir düðüm oluþturup ekleriz.
                         dugum.DugumEkle(icerik, kok);
@@ -138,7 +138,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
                         {
                             // eþsesliyi ekleriz. (Eþsesli eklemede sadece kök ekleniyor, içerik deðiþtirilmiyor.
                             //örnek : içerik="yüz SAYI", düðüm = ü(level:2,kök="yüz FIIL").
-                            dugum.kokEkle(kok);
+                            dugum.KokEkle(kok);
                             return;
                         }
                         // eþsesli deðil...
@@ -190,7 +190,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
         //    while (level < icerik.Boy)
         //    {
         //        oncekiDugum = node;
-        //        node = node.altDugumGetir(icerik[level]);
+        //        node = node.AltDugumGetir(icerik[level]);
         //        if (node == null) break;
         //        level++;
         //    }
@@ -216,7 +216,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
 
         //    if (oncekiDugum.Kelime.Equals(icerik))
         //    {
-        //        oncekiDugum.kokEkle(kok);
+        //        oncekiDugum.KokEkle(kok);
         //        return;
         //    }
 
@@ -259,11 +259,11 @@ namespace NZemberek.Cekirdek.KokSozlugu
         //        {
         //            //newNode.KokuDallandir();
         //            KokDugumu temp = newNode.DugumEkle(oncekiDugumIcerigi[level]);
-        //            temp.kopyala(oncekiDugum);
+        //            temp.Kopyala(oncekiDugum);
         //        }
         //        else
         //        {
-        //            newNode.kopyala(oncekiDugum);
+        //            newNode.Kopyala(oncekiDugum);
         //        }
 
         //        // Uzun olan dugumun (yeni gelen) eklenmesi, es anlamlilari kotar
@@ -297,13 +297,13 @@ namespace NZemberek.Cekirdek.KokSozlugu
         //        }
         //        else
         //        {
-        //            newNode.kokEkle(kok);
+        //            newNode.KokEkle(kok);
         //            newNode.Kelime = icerik;
         //        }
 
         //        // Uzun olan dugumun (yeni gelen) eklenmesi.
         //        newNode = newNode.DugumEkle(oncekiDugumIcerigi[level]);
-        //        newNode.kopyala(oncekiDugum);
+        //        newNode.Kopyala(oncekiDugum);
         //        // Es seslileri tasi.
         //        oncekiDugum.Temizle();
         //    }
@@ -329,11 +329,11 @@ namespace NZemberek.Cekirdek.KokSozlugu
                 {
                     break;
                 }
-                node = node.altDugumGetir(str[girisIndex++]);
+                node = node.AltDugumGetir(str[girisIndex++]);
             }
             if (node != null)
             {
-                return node.tumKokleriGetir();
+                return node.TumKokleriGetir();
             }
             return null;
         }
@@ -366,20 +366,20 @@ namespace NZemberek.Cekirdek.KokSozlugu
         /// <param name="node"></param>
         private static void SonHarfDugumuneEkle(String icerik, Kok kok, KokDugumu node)
         {
-            if (node.altDugumVarMi())
+            if (node.AltDugumVar())
             {
-                node.kokEkle(kok);
+                node.KokEkle(kok);
                 node.Kelime = icerik;
             }
             // Eþ sesli!
             else if (node.Kelime.Equals(icerik))
             {
-                node.kokEkle(kok);
+                node.KokEkle(kok);
             }
-            else if (node.getKok() != null)
+            else if (node.Kok != null)
             {
                 node.KokuDallandir();
-                node.kokEkle(kok);
+                node.KokEkle(kok);
                 node.Kelime = icerik;
             }
         }

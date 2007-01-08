@@ -47,22 +47,22 @@ namespace NZemberek.TrTurkcesi.Testler
         public void testCozumle_Kedi()
         {
             string str = "kedi";
-            Assert.IsTrue(zemberek.kelimeDenetle(str));
-            string[] sonuc = zemberek.kelimeCozumle(str);
+            Assert.IsTrue(zemberek.KelimeDenetle(str));
+            string[] sonuc = zemberek.KelimeCozumle(str);
             Assert.AreEqual(1, sonuc.Length);
-            Assert.AreEqual("{Icerik: kedi Kok: kedi tip:ISIM}  Ekler:ISIM_KOK", sonuc[0]);
+            Assert.AreEqual("{Icerik: kedi Kok: kedi Tip:ISIM}  Ekler:ISIM_KOK", sonuc[0]);
         }
 
         [Test]
         public void testCozumle_Kediciklerin()
         {
             string str = "kediciklerin";
-            Assert.IsTrue(zemberek.kelimeDenetle(str));
-            string[] sonuc = zemberek.kelimeCozumle(str);
+            Assert.IsTrue(zemberek.KelimeDenetle(str));
+            string[] sonuc = zemberek.KelimeCozumle(str);
             Assert.AreEqual(2, sonuc.Length);
-            Assert.AreEqual("{Icerik: kediciklerin Kok: kedi tip:ISIM} "+
+            Assert.AreEqual("{Icerik: kediciklerin Kok: kedi Tip:ISIM} "+
                             " Ekler:ISIM_KOK + ISIM_KUCULTME_CIK + ISIM_COGUL_LER + ISIM_TAMLAMA_IN", sonuc[0]);
-            Assert.AreEqual("{Icerik: kediciklerin Kok: kedi tip:ISIM} "+
+            Assert.AreEqual("{Icerik: kediciklerin Kok: kedi Tip:ISIM} "+
                             " Ekler:ISIM_KOK + ISIM_KUCULTME_CIK + ISIM_COGUL_LER + ISIM_SAHIPLIK_SEN_IN", sonuc[1]);
         }
 
@@ -70,10 +70,10 @@ namespace NZemberek.TrTurkcesi.Testler
         public void testCozumle_Getirttirebilirsiniz()
         {
             string str = "getirttirebilirsiniz";
-            Assert.IsTrue(zemberek.kelimeDenetle(str));
-            string[] sonuc = zemberek.kelimeCozumle(str);
+            Assert.IsTrue(zemberek.KelimeDenetle(str));
+            string[] sonuc = zemberek.KelimeCozumle(str);
             Assert.AreEqual(1, sonuc.Length);
-            Assert.AreEqual("{Icerik: getirttirebilirsiniz Kok: getir tip:FIIL} "+
+            Assert.AreEqual("{Icerik: getirttirebilirsiniz Kok: getir Tip:FIIL} "+
                             " Ekler:FIIL_KOK + FIIL_OLDURGAN_T + FIIL_ETTIRGEN_TIR +"+
                             " FIIL_YETENEK_EBIL + FIIL_GENISZAMAN_IR + FIIL_KISI_SIZ", sonuc[0]);
         }
@@ -82,12 +82,12 @@ namespace NZemberek.TrTurkcesi.Testler
         public void testCozumle_Suyuyla()
         {
             string str = "suyuyla";
-            Assert.IsTrue(zemberek.kelimeDenetle(str));
-            string[] sonuc = zemberek.kelimeCozumle(str);
+            Assert.IsTrue(zemberek.KelimeDenetle(str));
+            string[] sonuc = zemberek.KelimeCozumle(str);
             Assert.AreEqual(2, sonuc.Length);
-            Assert.AreEqual("{Icerik: suyuyla Kok: su tip:ISIM} "+
+            Assert.AreEqual("{Icerik: suyuyla Kok: su Tip:ISIM} "+
                             " Ekler:ISIM_KOK + ISIM_TAMLAMA_I + ISIM_BIRLIKTELIK_LE", sonuc[0]);
-            Assert.AreEqual("{Icerik: suyuyla Kok: su tip:ISIM} "+
+            Assert.AreEqual("{Icerik: suyuyla Kok: su Tip:ISIM} "+
                             " Ekler:ISIM_KOK + ISIM_SAHIPLIK_O_I + ISIM_BIRLIKTELIK_LE", sonuc[1]);
         }
 
@@ -95,21 +95,21 @@ namespace NZemberek.TrTurkcesi.Testler
         public void testCozumle_Sembolü()
         {
             string str = "sembolü";
-            Assert.IsTrue(zemberek.kelimeDenetle(str));
-            string[] sonuc = zemberek.kelimeCozumle(str);
+            Assert.IsTrue(zemberek.KelimeDenetle(str));
+            string[] sonuc = zemberek.KelimeCozumle(str);
             Assert.AreEqual(3, sonuc.Length);
-            Assert.AreEqual("{Icerik: sembolü Kok: sembol tip:ISIM} " +
+            Assert.AreEqual("{Icerik: sembolü Kok: sembol Tip:ISIM} " +
                             " Ekler:ISIM_KOK + ISIM_TAMLAMA_I", sonuc[0]);
-            Assert.AreEqual("{Icerik: sembolü Kok: sembol tip:ISIM} " +
+            Assert.AreEqual("{Icerik: sembolü Kok: sembol Tip:ISIM} " +
                             " Ekler:ISIM_KOK + ISIM_BELIRTME_I", sonuc[1]);
-            Assert.AreEqual("{Icerik: sembolü Kok: sembol tip:ISIM} " +
+            Assert.AreEqual("{Icerik: sembolü Kok: sembol Tip:ISIM} " +
                             " Ekler:ISIM_KOK + ISIM_SAHIPLIK_O_I", sonuc[2]);
         }
 
         [Test]
         public void testAsciiYap_Sebek()
         {
-            string actual = zemberek.asciiyeDonustur("þebek");
+            string actual = zemberek.AsciiKarakterlereDonustur("þebek");
             string expected = "sebek";
             Assert.AreEqual(expected, actual);
         }
@@ -117,7 +117,7 @@ namespace NZemberek.TrTurkcesi.Testler
         [Test]
         public void testAsciiYap_Sasirtmis()
         {
-            string actual = zemberek.asciiyeDonustur("þaþýrtmýþ");
+            string actual = zemberek.AsciiKarakterlereDonustur("þaþýrtmýþ");
             string expected = "sasirtmis";
             Assert.AreEqual(expected, actual);
         }
@@ -125,7 +125,7 @@ namespace NZemberek.TrTurkcesi.Testler
         [Test]
         public void testAsciiYap_Dugumsuzlukmus()
         {
-            string actual = zemberek.asciiyeDonustur("düðümsüzlükmüþ");
+            string actual = zemberek.AsciiKarakterlereDonustur("düðümsüzlükmüþ");
             string expected = "dugumsuzlukmus";
             Assert.AreEqual(expected, actual);
         }
@@ -133,7 +133,7 @@ namespace NZemberek.TrTurkcesi.Testler
         [Test]
         public void testAsciiCozumle_Dugumsuzlukmus()
         {
-            string[] actual = zemberek.asciidenTurkceye("dugumsuzlukmus");
+            string[] actual = zemberek.TurkceKarakterlereDonustur("dugumsuzlukmus");
             string expected = "düðümsüzlükmüþ";
             Assert.AreEqual(1, actual.Length);
             Assert.AreEqual(expected, actual[0]);
@@ -142,7 +142,7 @@ namespace NZemberek.TrTurkcesi.Testler
         [Test]
         public void testAsciiCozumle_Sasirtmis()
         {
-            string[] actual = zemberek.asciidenTurkceye("sasirtmis");
+            string[] actual = zemberek.TurkceKarakterlereDonustur("sasirtmis");
             string expected = "þaþýrtmýþ";
             Assert.AreEqual(1, actual.Length);
             Assert.AreEqual(expected, actual[0]);
@@ -151,7 +151,7 @@ namespace NZemberek.TrTurkcesi.Testler
         [Test]
         public void testAsciiCozumle_Sebek()
         {
-            string[] actual = zemberek.asciidenTurkceye("sebek");
+            string[] actual = zemberek.TurkceKarakterlereDonustur("sebek");
             string expected = "þebek";
             Assert.AreEqual(1, actual.Length);
             Assert.AreEqual(expected, actual[0]);
@@ -160,7 +160,7 @@ namespace NZemberek.TrTurkcesi.Testler
         [Test]
         public void testBelirsizAsciiCozumle_Siraci()
         {
-            string[] actual = zemberek.asciidenTurkceye("siraci");
+            string[] actual = zemberek.TurkceKarakterlereDonustur("siraci");
             string expected1 = "sýracý";
             string expected2 = "þýracý";
             Assert.AreEqual(2, actual.Length);
@@ -171,7 +171,7 @@ namespace NZemberek.TrTurkcesi.Testler
         [Test]
         public void testBelirsizAsciiCozumle_Olmus()
         {
-            string[] actual = zemberek.asciidenTurkceye("olmus");
+            string[] actual = zemberek.TurkceKarakterlereDonustur("olmus");
             string expected1 = "olmuþ";
             string expected2 = "ölmüþ";
             Assert.AreEqual(2, actual.Length);
@@ -182,7 +182,7 @@ namespace NZemberek.TrTurkcesi.Testler
         [Test]
         public void testOner_Gidiktler()
         {
-            string[] actual = zemberek.oner("gidiktler");
+            string[] actual = zemberek.Oner("gidiktler");
             string[] expected = new string[] { "gidikler", "gidikteler", "gidiktiler", "gidikeler" };
             Assert.AreEqual(expected[0], actual[0]);
             Assert.AreEqual(expected[1], actual[1]);
@@ -193,7 +193,7 @@ namespace NZemberek.TrTurkcesi.Testler
         [Test]
         public void testOner_Merhaa()
         {
-            string[] actual = zemberek.oner("merhaa");
+            string[] actual = zemberek.Oner("merhaa");
             string expected = "merhaba";
             Assert.AreEqual(1, actual.Length);
             Assert.AreEqual(expected, actual[0]);
@@ -202,7 +202,7 @@ namespace NZemberek.TrTurkcesi.Testler
         [Test]
         public void testOner_Teknolokiler()
         {
-            string[] actual = zemberek.oner("teknolokiler");
+            string[] actual = zemberek.Oner("teknolokiler");
             string expected = "teknolojiler";
             Assert.AreEqual(1, actual.Length);
             Assert.AreEqual(expected, actual[0]);
@@ -211,14 +211,14 @@ namespace NZemberek.TrTurkcesi.Testler
         [Test]
         public void testOner_OneriYok()
         {
-            string[] actual = zemberek.oner("assscd");
+            string[] actual = zemberek.Oner("assscd");
             Assert.AreEqual(0, actual.Length);
         }
 
         [Test]
         public void testOner_AyriYazim()
         {
-            string[] actual = zemberek.oner("evegittik");
+            string[] actual = zemberek.Oner("evegittik");
             string expected = "eve gittik";
             Assert.AreEqual(1, actual.Length);
             Assert.AreEqual(expected, actual[0]);
@@ -239,7 +239,7 @@ namespace NZemberek.TrTurkcesi.Testler
             string[] sonuc;
             for(int i=0;i<strs.Length;i++)
             {
-                sonuc = zemberek.hecele(strs[i]);
+                sonuc = zemberek.Hecele(strs[i]);
                 Assert.AreEqual(sonuc.Length, hecesayilari[i]);
                 for (int j = 0; j < sonuc.Length; j++)
                 {
@@ -254,7 +254,7 @@ namespace NZemberek.TrTurkcesi.Testler
             List<String> dogrular = TestYardimcisi.satirlariOku("Testler\\hepsi-dogru.txt");
             foreach (String s in dogrular)
             {
-                Assert.IsTrue(zemberek.kelimeDenetle(s),"Denetlemede hata! "+ s + " kelimesi dogru olmaliydi.");
+                Assert.IsTrue(zemberek.KelimeDenetle(s),"Denetlemede hata! "+ s + " kelimesi dogru olmaliydi.");
             }
         }
 
@@ -264,7 +264,7 @@ namespace NZemberek.TrTurkcesi.Testler
             List<String> yanlislar = TestYardimcisi.satirlariOku("Testler\\hepsi-yanlis.txt");
             foreach (String s in yanlislar)
             {
-                Assert.IsTrue(!zemberek.kelimeDenetle(s), "Denetlemede hata! " + s + " kelimesi yanlis olmaliydi.");
+                Assert.IsTrue(!zemberek.KelimeDenetle(s), "Denetlemede hata! " + s + " kelimesi yanlis olmaliydi.");
             }
         }
     }

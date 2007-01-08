@@ -83,11 +83,11 @@ namespace NZemberek.TrTurkcesi.Yapi
         internal TurkceEkOzelDurumTipi(int index, string ad) : base(index, ad)
         {}
 
-        public static new EkOzelDurumTipi[] AllValues;
+        public static new IEkOzelDurumTipi[] AllValues;
 
         static TurkceEkOzelDurumTipi()
         {
-            AllValues = new EkOzelDurumTipi[TemelEkOzelDurumuTipi.Length + 5];
+            AllValues = new IEkOzelDurumTipi[TemelEkOzelDurumuTipi.Length + 5];
             Array.Copy(TemelEkOzelDurumuTipi.AllValues,AllValues,TemelEkOzelDurumuTipi.Length);
             AllValues[TemelEkOzelDurumuTipi.Length]=BERABERLIK_IS;
             AllValues[TemelEkOzelDurumuTipi.Length+1]=EDILGEN;

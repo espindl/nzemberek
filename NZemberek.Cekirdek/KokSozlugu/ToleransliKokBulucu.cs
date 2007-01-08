@@ -96,13 +96,13 @@ namespace NZemberek.Cekirdek.KokSozlugu
             String tester = olusan;
             if (dugum.Harf != '\0')
                 tester += dugum.Harf;
-            if (dugum.getKok() != null)
+            if (dugum.Kok != null)
             {
                 distanceCalculationCount++;
                 if (MetinAraclari.ParcasiDuzeltmeMesafesiIcinde(dugum.Kelime, giris, tolerans))
                 {
                     // Aday kök bulundu
-                    adaylar.Add(dugum.getKok());
+                    adaylar.Add(dugum.Kok);
                 }
                 else
                 {
@@ -119,7 +119,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
                 }
             }
 
-            foreach (KokDugumu altDugum in dugum.altDugumDizisiGetir())
+            foreach (KokDugumu altDugum in dugum.AltDugumDizisiGetir())
             {
                 if (altDugum != null)
                 {

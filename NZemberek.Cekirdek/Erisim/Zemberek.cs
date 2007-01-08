@@ -51,9 +51,9 @@ namespace NZemberek
     {
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private KelimeCozumleyici _cozumleyici;
+        private IKelimeCozumleyici _cozumleyici;
         private KelimeUretici _kelimeUretici;
-        private KelimeCozumleyici _asciiToleransliCozumleyici;
+        private IKelimeCozumleyici _asciiToleransliCozumleyici;
         private HataliKodlamaTemizleyici _temizleyici;
         private TurkceYaziTesti _turkceTest;
         private OneriUretici _oneriUretici;
@@ -69,13 +69,13 @@ namespace NZemberek
         public Zemberek()
         {
             _ayarlar = new ZemberekAyarlari();
-            Assembly dilpaketi = Assembly.Load(_ayarlar.getDilAyarlari()[0]);
-            this._dilFabrikasi = (IDilFabrikasi)dilpaketi.CreateInstance(_ayarlar.getDilAyarlari()[1]);
-            this._dilFabrikasi.CepKullan = _ayarlar.cepKullan();
-            initialize();
+            Assembly dilpaketi = Assembly.Load(_ayarlar.DilAyarlari[0]);
+            this._dilFabrikasi = (IDilFabrikasi)dilpaketi.CreateInstance(_ayarlar.DilAyarlari[1]);
+            this._dilFabrikasi.CepKullan = _ayarlar.CepKullan;
+            Baslat();
         }
 
-        private void initialize()
+        private void Baslat()
         {
             //Sozluk hazirla.
             ISozluk kokler = _dilFabrikasi.SozlukVer();
@@ -125,7 +125,7 @@ namespace NZemberek
         /// </summary>
         /// <param name="kelimeler"></param>
         /// <returns></returns>
-        private String[] CozumStringeCevir(Kelime[] kelimeler)
+        private String[] KelimeleriMetneDonustur(Kelime[] kelimeler)
         {
             String[] retStrings = new String[kelimeler.Length];
             for(int i=0;i<kelimeler.Length;i++)
@@ -141,7 +141,7 @@ namespace NZemberek
         /// </summary>
         /// <param name="kelimeler"></param>
         /// <returns></returns>
-        private String[] IcerikStringeCevir(Kelime[] kelimeler)
+        private String[] IcerikleriMetneCevir(Kelime[] kelimeler)
         {
             ArrayList olusumlar = new ArrayList(kelimeler.Length);
             foreach (Kelime kelime in kelimeler)
@@ -159,7 +159,7 @@ namespace NZemberek
         }
 
 
-        public bool kelimeDenetle(String giris)
+        public bool KelimeDenetle(String giris)
         {
             return _cozumleyici.Denetle(giris);
         }
@@ -178,9 +178,9 @@ namespace NZemberek
          *         EkYoneticisiver() metodu kullanilir.
          * @see NZemberek.Cekirdek.Yapi.Kelime
          */
-        public String[] kelimeCozumle(String giris)
+        public String[] KelimeCozumle(String giris)
         {
-            return CozumStringeCevir(_cozumleyici.Cozumle(giris));
+            return KelimeleriMetneDonustur(_cozumleyici.Cozumle(giris));
         }
 
         /**
@@ -197,25 +197,25 @@ namespace NZemberek
          *         metodu kullanilabilir.
          * @see NZemberek.Cekirdek.Yapi.Kelime
          */
-        public String[] asciiCozumle(String giris)
+        public String[] AsciiToleransliCozumle(String giris)
         {
             Kelime[] sonuclar = _asciiToleransliCozumleyici.Cozumle(giris);
             Array.Sort(sonuclar, new KelimeKokFrekansKiyaslayici());
-            return CozumStringeCevir(sonuclar);
+            return KelimeleriMetneDonustur(sonuclar);
         }
 
         /// <summary>
         /// Brings the most probable tukish equivalents of a string that uses ascii look alikes of
         /// those characters. Returns a distinct result set.
-        /// asciiCozumle ile benzer bir yapidadir. Farki donus degerlerinin tekil olmasidir, 
+        /// AsciiToleransliCozumle ile benzer bir yapidadir. Farki donus degerlerinin tekil olmasidir, 
         /// yani yazimi ayni iki kelimeden biri döner.
         /// </summary>
         /// <param name="giris"></param>
         /// <returns>yazilan kelimenin olasi turkce karakter iceren halleri.</returns>
-        public String[] asciidenTurkceye(String giris)
+        public String[] TurkceKarakterlereDonustur(String giris)
         {
             Kelime[] kelimeler = _asciiToleransliCozumleyici.Cozumle(giris); ;
-            return IcerikStringeCevir(kelimeler);
+            return IcerikleriMetneCevir(kelimeler);
         }
 
         /**
@@ -224,7 +224,7 @@ namespace NZemberek
          * @param giris giris kelimesi
          * @return turkce karakter tasimayan String.
          */
-        public String asciiyeDonustur(String giris)
+        public String AsciiKarakterlereDonustur(String giris)
         {
             return _asciiDonusturucu.AsciiyeDonustur(giris);
         }
@@ -235,7 +235,7 @@ namespace NZemberek
          * @param giris giris kelimesi
          * @return String dizisi. Eger dizi boyu 0 ise kelime hecelenememis demektir.
          */
-        public String[] hecele(String giris)
+        public String[] Hecele(String giris)
         {
             return _heceleyici.Hecele(giris);
         }
@@ -256,7 +256,7 @@ namespace NZemberek
          * @return String sinifi cinsinden dizi. Eger dizinin boyu 0 ise kelime cozumlenemedi demektir.
          * @see NZemberek.Cekirdek.Yapi.Kelime
          */
-        public String[] oner(String giris)
+        public String[] Oner(String giris)
         {
             return _oneriUretici.Oner(giris);
         }
@@ -269,7 +269,7 @@ namespace NZemberek
          * @param giris giris kelimesi
          * @return girisin temizlenmis hali.
          */
-        public String temizle(String giris)
+        public String Temizle(String giris)
         {
             if (_temizleyici == null)
             {
@@ -300,7 +300,7 @@ namespace NZemberek
          *         2- yazi D, cok fazla yabanci ya da bozuk kelime var.
          *         3- yazi D, yabanci ve bozuk kelimeler iceriyor.
          */
-        public int dilTesti(String giris)
+        public int TurkceMi(String giris)
         {
             return _turkceTest.TurkceTest(giris);
         }
@@ -318,7 +318,7 @@ namespace NZemberek
          *         Eger kelime ayristirilamiyorsa sifir uzunluklu String dizisi tasiyan tek elemanli
          *         liste doner. .
          */
-        public IList<IList<String>> kelimeAyristir(String kelime)
+        public IList<IList<String>> OlasiAcilimlariBul(String kelime)
         {
             IList<IList<String>> sonuclar = new List<IList<String>>();
             Kelime[] cozumler = _cozumleyici.Cozumle(kelime);

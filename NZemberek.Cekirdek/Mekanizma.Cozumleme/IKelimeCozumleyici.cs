@@ -30,7 +30,7 @@ using NZemberek.Cekirdek.Yapi;
 
 namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
 {
-    public interface KelimeCozumleyici
+    public interface IKelimeCozumleyici
     {
         Kelime[] Cozumle(String strGiris);
 

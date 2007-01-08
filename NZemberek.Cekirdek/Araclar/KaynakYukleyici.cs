@@ -99,7 +99,7 @@ namespace NZemberek.Cekirdek.Araclar
         }
 
         /// <summary>
-        /// istenilen kaynaga erisimin mumkun olup olmadigina bakar. Bazi secimlik kaynaklarin erisiminde
+        /// istenilen kaynaga erisimin mumkun olup olmadigina bakar. Bazi Secimlik kaynaklarin erisiminde
         /// bu metoddan yararlanilabilir.
         /// </summary>
         /// <param name="kaynakAdi"></param>

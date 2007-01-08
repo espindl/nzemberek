@@ -35,14 +35,14 @@ namespace NZemberek.Cekirdek.Mekanizma
     public class TurkceYaziTesti
     {
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        KelimeCozumleyici cozumleyici, asciiCozumleyici;
+        IKelimeCozumleyici cozumleyici, asciiCozumleyici;
         public static int HIC = 0;
         public static int AZ = 1;
         public static int ORTA = 2;
         public static int YUKSEK = 3;
         public static int KESIN = 4;
 
-        public TurkceYaziTesti(KelimeCozumleyici cozumleyici, KelimeCozumleyici asciiCozumleyici)
+        public TurkceYaziTesti(IKelimeCozumleyici cozumleyici, IKelimeCozumleyici asciiCozumleyici)
         {
             this.cozumleyici = cozumleyici;
             this.asciiCozumleyici = asciiCozumleyici;

@@ -69,7 +69,7 @@ namespace NZemberek.DilAraclari.KokSozlugu
         string dosyaAdi = string.Empty;
 
 
-        // Eger farkli turk dillerine ait kok dosyalarinda farkli turden tip adlari 
+        // Eger farkli turk dillerine ait kok dosyalarinda farkli turden Tip adlari 
         // kullanildiysa bu isimleri KelimeITplerine esleyen bir Map olusturulup bu
         // constructor kullanilabilir. Map icin ornek diger constructor icerisinde 
         // yer almaktadir.
