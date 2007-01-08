@@ -30,7 +30,7 @@ using log4net;
 
 namespace NZemberek.Cekirdek.Yapi
 {
-    public class TemelEkYonetici : EkYonetici
+    public class TemelEkYonetici : IEkYonetici
     {
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);		
 
@@ -43,7 +43,7 @@ namespace NZemberek.Cekirdek.Yapi
 
         public TemelEkYonetici(Alfabe alfabe,
                                String dosya,
-                               EkUretici ekUretici,
+                               IEkUretici ekUretici,
                                EkOzelDurumUretici ozelDurumUretici,
                                IDictionary<KelimeTipi, String> baslangicEkMap) {
             this.alfabe = alfabe;
@@ -54,8 +54,8 @@ namespace NZemberek.Cekirdek.Yapi
                     ekUretici,
                     ozelDurumUretici,
                     alfabe);
-            okuyucu.xmlOku();
-            ekler = okuyucu.getEkler();
+            okuyucu.XmlOku();
+            ekler = okuyucu.Ekler;
             foreach (KelimeTipi tip in baslangicEkMap.Keys) {
                 Ek ek = ekler[baslangicEkMap[tip]];
                 if (ek != null)
@@ -74,7 +74,7 @@ namespace NZemberek.Cekirdek.Yapi
          * @param ekId - ek adi
          * @return istenen Ek nesnesi.
          */
-        public Ek ek(String ekId) {
+        public Ek EkVer(String ekId) {
             Ek ek = ekler[ekId];
             if (ek == null)
                 logger.Error("Ek bulunamiyor!" + ekId);
@@ -89,8 +89,8 @@ namespace NZemberek.Cekirdek.Yapi
          * @return ilk Ek, eger kok tipi baslangic ekleri <baslangicEkleri>
          *         haritasinda belirtilmemisse BOS_EK doner.
          */
-        public Ek ilkEkBelirle(Kok kok) {
-            Ek baslangicEki = baslangicEkleri[kok.tip()];
+        public Ek IlkEkBelirle(Kok kok) {
+            Ek baslangicEki = baslangicEkleri[kok.Tip];
             if (baslangicEki != null)
                 return baslangicEki;
             else

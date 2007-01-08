@@ -30,7 +30,7 @@ using NZemberek.Cekirdek.Yapi;
 
 namespace NZemberek.TrTurkcesi.Yapi
 {
-    public class YumusamaNk : HarfDizisiIslemi
+    public class YumusamaNk : IHarfDizisiIslemi
     {
         
     private HarfDizisi NK;
@@ -42,9 +42,9 @@ namespace NZemberek.TrTurkcesi.Yapi
         NK = new HarfDizisi("nk", alfabe);
     }
 
-    public void uygula(HarfDizisi dizi) {
-        if (dizi.aradanKiyasla(dizi.Length - 2, NK))
-            dizi.harfDegistir(dizi.Length - 1, alfabe.harf('g'));
+    public void Uygula(HarfDizisi dizi) {
+        if (dizi.AradanKiyasla(dizi.Boy - 2, NK))
+            dizi.HarfDegistir(dizi.Boy - 1, alfabe.Harf('g'));
     }
     }
 }

@@ -28,13 +28,12 @@ using System.Collections.Generic;
 using System.Text;
 using NZemberek.Cekirdek.Yapi;
 
-
 namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
 {
     public interface KelimeCozumleyici
     {
-        Kelime[] cozumle(String strGiris);
+        Kelime[] Cozumle(String strGiris);
 
-        bool denetle(String strGiris);
+        bool Denetle(String strGiris);
     }
 }

@@ -45,7 +45,7 @@ namespace NZemberek.DilAraclari.KokSozlugu
 
         foreach (Kok kok in kokler) {
             // Kök içerigi
-            dos.Write(kok.icerik());
+            dos.Write(kok.Icerik);
 
             // asil icerik ozel karakterler barindiran koklerde olur. yoksa bos string yaz.
             if (kok.asil() != null) {
@@ -55,11 +55,11 @@ namespace NZemberek.DilAraclari.KokSozlugu
                 dos.Write("");
 
             // Kök tipi
-            dos.Write(kok.tip().ToString());
+            dos.Write(kok.Tip.ToString());
 
             dos.Write(kok.KisaltmaSonSeslisi);
 
-            KokOzelDurumu[] ozd = kok.ozelDurumDizisi();
+            KokOzelDurumu[] ozd = kok.OzelDurumDizisi();
             dos.Write(ozd.Length);
             foreach (KokOzelDurumu ozelDurum in ozd) {
                 dos.Write(ozelDurum.indeks());

@@ -26,7 +26,6 @@
 using System;
 using System.Collections.Generic;
 
-
 namespace NZemberek.Cekirdek.Yapi
 {
     public enum KelimeTipi

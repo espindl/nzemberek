@@ -47,17 +47,17 @@ public class GenisZamanEkOzelDurumuTr : EkOzelDurumu {
     public GenisZamanEkOzelDurumuTr() {
     }
 
-    public override HarfDizisi cozumlemeIcinUret(Kelime kelime, HarfDizisi giris, HarfDizisiKiyaslayici kiyaslayici) {
-        if (kelime.sonEk().ad().Equals(TurkceEkAdlari.FIIL_KOK)
-             && kelime.kok().ozelDurumIceriyormu(TurkceKokOzelDurumTipi.GENIS_ZAMAN))
-            return ekUretici.cozumlemeIcinEkUret(kelime.icerik(), giris, uretimBilesenleri());
+    public override HarfDizisi CozumlemeIcinUret(Kelime kelime, HarfDizisi giris, IHarfDizisiKiyaslayici kiyaslayici) {
+        if (kelime.SonEk().Ad.Equals(TurkceEkAdlari.FIIL_KOK)
+             && kelime.Kok.ozelDurumIceriyormu(TurkceKokOzelDurumTipi.GENIS_ZAMAN))
+            return EkUretici.CozumlemeIcinEkUret(kelime.Icerik, giris, UretimBilesenleri);
         else
             return null;
     }
 
-    public override HarfDizisi olusumIcinUret(Kelime kelime, Ek sonrakiEk)
+    public override HarfDizisi OlusumIcinUret(Kelime kelime, Ek sonrakiEk)
     {
-        return cozumlemeIcinUret(kelime, null, null);
+        return CozumlemeIcinUret(kelime, null, null);
     }
 }
 }

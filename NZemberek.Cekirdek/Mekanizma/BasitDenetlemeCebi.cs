@@ -33,19 +33,19 @@ using NZemberek.Cekirdek.Kolleksiyonlar;
 
 namespace NZemberek.Cekirdek.Mekanizma
 {
-    public class BasitDenetlemeCebi : DenetlemeCebi
+    public class BasitDenetlemeCebi : IDenetlemeCebi
     {
         private HashSet<String> cep;
 
         public BasitDenetlemeCebi(String dosyaAdi) 
         {
-            StreamReader rd = new KaynakYukleyici("UTF-8").getReader(dosyaAdi);
+            StreamReader rd = new KaynakYukleyici("UTF-8").OkuyucuGetir(dosyaAdi);
             try
             {
                 cep = new HashSet<String>();
                 while (!rd.EndOfStream)
                 {
-                    ekle(rd.ReadLine());
+                    Ekle(rd.ReadLine());
                 }
             }
             finally
@@ -54,12 +54,12 @@ namespace NZemberek.Cekirdek.Mekanizma
             }
         }
 
-        public bool kontrol(String str) 
+        public bool Kontrol(String str) 
         {
             return cep.Contains(str);
         }
 
-        public void ekle(String s) 
+        public void Ekle(String s) 
         {
             lock (this)
             {
@@ -67,7 +67,7 @@ namespace NZemberek.Cekirdek.Mekanizma
             }
         }
         
-        public void sil(String s) 
+        public void Sil(String s) 
         {
             lock (this)
             {

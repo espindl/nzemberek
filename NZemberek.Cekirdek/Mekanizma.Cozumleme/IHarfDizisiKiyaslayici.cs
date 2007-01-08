@@ -27,12 +27,12 @@ using NZemberek.Cekirdek.Yapi;
 
 namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
 {
-    public interface HarfDizisiKiyaslayici
+    public interface IHarfDizisiKiyaslayici
     {
-         bool kiyasla(HarfDizisi h1, HarfDizisi h2);
+         bool Kiyasla(HarfDizisi h1, HarfDizisi h2);
 
-         bool bastanKiyasla(HarfDizisi h1, HarfDizisi h2);
+         bool BastanKiyasla(HarfDizisi h1, HarfDizisi h2);
 
-         bool aradanKiyasla(HarfDizisi h1, HarfDizisi h2, int baslangic);
+         bool AradanKiyasla(HarfDizisi h1, HarfDizisi h2, int baslangic);
     }
 }

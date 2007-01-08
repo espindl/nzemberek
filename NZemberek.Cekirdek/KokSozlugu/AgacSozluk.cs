@@ -35,16 +35,16 @@ namespace NZemberek.Cekirdek.KokSozlugu
     public class AgacSozluk : ISozluk
     {
         private KokAgaci agac = null;
-        private KokOzelDurumBilgisi ozelDurumlar;
+        private IKokOzelDurumBilgisi ozelDurumlar;
         private int indeks = 0;
 
-        private AgacSozluk(Alfabe alfabe, KokOzelDurumBilgisi ozelDurumlar)
+        private AgacSozluk(Alfabe alfabe, IKokOzelDurumBilgisi ozelDurumlar)
         {
             agac = new KokAgaci(new KokDugumu(0), alfabe);
             this.ozelDurumlar = ozelDurumlar;
         }
 
-        public AgacSozluk(Alfabe alfabe, KokOzelDurumBilgisi ozelDurumlar, IKokOkuyucu okuyucu):this(alfabe, ozelDurumlar)
+        public AgacSozluk(Alfabe alfabe, IKokOzelDurumBilgisi ozelDurumlar, IKokOkuyucu okuyucu):this(alfabe, ozelDurumlar)
         {
             Kok kok;
             while ((kok = okuyucu.Oku()) != null)
@@ -53,7 +53,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
             }
         }
 
-        public AgacSozluk(Alfabe alfabe, KokOzelDurumBilgisi ozelDurumlar, List<Kok> kokler):this(alfabe, ozelDurumlar)
+        public AgacSozluk(Alfabe alfabe, IKokOzelDurumBilgisi ozelDurumlar, List<Kok> kokler):this(alfabe, ozelDurumlar)
         {
             foreach (Kok kok in kokler)
             {
@@ -71,13 +71,13 @@ namespace NZemberek.Cekirdek.KokSozlugu
         private void KokEkle(Kok kok)
         {
             kok.Indeks = indeks++;
-            agac.ekle(kok.icerik(), kok);
-            String[] degismisIcerikler = ozelDurumlar.ozelDurumUygula(kok);
+            agac.Ekle(kok.Icerik, kok);
+            String[] degismisIcerikler = ozelDurumlar.OzelDurumUygula(kok);
             if (degismisIcerikler.Length > 0)
             {
                 foreach (String degismisIcerik in degismisIcerikler)
                 {
-                    agac.ekle(degismisIcerik, kok);
+                    agac.Ekle(degismisIcerik, kok);
                 }
             }
         }

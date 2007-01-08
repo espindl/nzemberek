@@ -32,7 +32,7 @@ namespace NZemberek.Cekirdek.Yapi
     /**
      * Bu islem sadece saat-ler turu ozel durumlarda kullanilir.
      */
-    public class SonSesliIncelt : HarfDizisiIslemi
+    public class SonSesliIncelt : IHarfDizisiIslemi
     {
         Alfabe _alfabe;
 
@@ -41,26 +41,23 @@ namespace NZemberek.Cekirdek.Yapi
             this._alfabe = alfabe;
         }
 
-        #region HarfDizisiIslemi Members
-
         /**
         * en son kalin sesli harfi bulup onu ince formu ile degistirir.
         * ornegin saat -> saAt haline donusur. ince a harfi icin TurkceAlfabe sinifini inceleyin
         *
         * @param dizi
         */
-        public void uygula(HarfDizisi dizi)
+        public void Uygula(HarfDizisi dizi)
         {
-            for (int i = dizi.Length - 1; i >= 0; i--)
+            for (int i = dizi.Boy - 1; i >= 0; i--)
             {
-                TurkceHarf h = dizi.harf(i);
+                TurkceHarf h = dizi.Harf(i);
                 if (h.Sesli && !h.InceSesli)
                 {
-                    dizi.harfDegistir(i, _alfabe.kalinSesliIncelt(dizi.harf(i)));
+                    dizi.HarfDegistir(i, _alfabe.KalinSesliIncelt(dizi.Harf(i)));
                 }
             }
         }
 
-        #endregion
     }
 }

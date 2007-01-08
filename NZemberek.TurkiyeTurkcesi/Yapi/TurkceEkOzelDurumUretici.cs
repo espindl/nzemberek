@@ -41,13 +41,13 @@ namespace NZemberek.TrTurkcesi.Yapi
             this.alfabe = alfabe;
         }
 
-        public override EkOzelDurumu uret(String ad) 
+        public override EkOzelDurumu Uret(String ad) 
         {
-            EkOzelDurumu oz = base.uret(ad);
+            EkOzelDurumu oz = base.Uret(ad);
             if (oz != null)
                 return oz;
 
-            if (!mevcut(TurkceEkOzelDurumTipi.AllValues, ad)) {
+            if (!Mevcut(TurkceEkOzelDurumTipi.AllValues, ad)) {
                 logger.Fatal("Ozel durum adina karsilik dusen ek ozel durum tipi bulunamadi:" + ad);
                 return null;
             }
@@ -78,7 +78,7 @@ namespace NZemberek.TrTurkcesi.Yapi
         public readonly static TemelEkOzelDurumuTipi GENIS_ZAMAN = new TurkceEkOzelDurumTipi(TemelEkOzelDurumuTipi.Length + 2, "GENIS_ZAMAN");
         public readonly static TemelEkOzelDurumuTipi SIMDIKI_ZAMAN = new TurkceEkOzelDurumTipi(TemelEkOzelDurumuTipi.Length + 3, "SIMDIKI_ZAMAN");
         public readonly static TemelEkOzelDurumuTipi SU = new TurkceEkOzelDurumTipi(TemelEkOzelDurumuTipi.Length + 4, "SU");
-//        public readonly static TemelEkOzelDurumuTipi ZAMAN_KI = new TemelEkOzelDurumuTipi(TemelEkOzelDurumuTipi.Length + 4, "ZAMAN_KI");
+//        public readonly static TemelEkOzelDurumuTipi ZAMAN_KI = new TemelEkOzelDurumuTipi(TemelEkOzelDurumuTipi.Boy + 4, "ZAMAN_KI");
 
         internal TurkceEkOzelDurumTipi(int index, string ad) : base(index, ad)
         {}
@@ -94,7 +94,7 @@ namespace NZemberek.TrTurkcesi.Yapi
             AllValues[TemelEkOzelDurumuTipi.Length+2]=GENIS_ZAMAN;
             AllValues[TemelEkOzelDurumuTipi.Length+3]=SIMDIKI_ZAMAN;
             AllValues[TemelEkOzelDurumuTipi.Length+4] = SU;
-//            AllValues[TemelEkOzelDurumuTipi.Length+4]= ZAMAN_KI;
+//            AllValues[TemelEkOzelDurumuTipi.Boy+4]= ZAMAN_KI;
         }
     }
 }

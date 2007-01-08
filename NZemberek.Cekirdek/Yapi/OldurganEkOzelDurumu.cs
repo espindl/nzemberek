@@ -36,18 +36,18 @@ namespace NZemberek.Cekirdek.Yapi
         T = new HarfDizisi("t",alfabe);
     }
 
-    public override HarfDizisi cozumlemeIcinUret(Kelime kelime, HarfDizisi giris, HarfDizisiKiyaslayici kiyaslayici) {
-        TurkceHarf son = kelime.sonHarf();
+    public override HarfDizisi CozumlemeIcinUret(Kelime kelime, HarfDizisi giris, IHarfDizisiKiyaslayici kiyaslayici) {
+        TurkceHarf son = kelime.SonHarf();
         if (son.Sesli || ((son.CharDeger=='r') || son.CharDeger==('l'))
-                && kelime.icerik().sesliSayisi() > 1) {
+                && kelime.Icerik.SesliSayisi() > 1) {
             return T;
         }
         return null;
     }
 
-        public override HarfDizisi olusumIcinUret(Kelime kelime, Ek sonrakiEk)
+        public override HarfDizisi OlusumIcinUret(Kelime kelime, Ek sonrakiEk)
         {
-        return cozumlemeIcinUret(kelime, null, null);
+        return CozumlemeIcinUret(kelime, null, null);
     }
 }
 

@@ -22,13 +22,10 @@
  *   Mert Derman
  *   Tankut Tekeli
  * ***** END LICENSE BLOCK ***** */
-
-// V 0.1
 using System;
 using System.Text;
 using System.Collections.Generic;
 using NZemberek.Cekirdek.Kolleksiyonlar;
-
 
 namespace NZemberek.Cekirdek.Yapi
 {
@@ -37,10 +34,10 @@ namespace NZemberek.Cekirdek.Yapi
 	/// String gibi genel bir tasiyici degil ara islem nesnesi olarak kullanilmasi onerilir.
 	/// String'den farkli olarak "degistirilebilir" bir yapidadir ve Thread-safe degildir.
 	/// </summary>
-	public class HarfDizisi //: IEnumerable<Char>
+	public class HarfDizisi
 	{
 		private TurkceHarf[] dizi;
-        //TODO : Bu boy deðerini harf arrayinin size deðeri üzerinden saðlamak daha akýllýca.
+        //TODO : Bu Boy deðerini Harf arrayinin size deðeri üzerinden saðlamak daha akýllýca.
         //Tamamlanýnca deneyip Javacýlara da önermeliyiz.
         private int boy = 0;
 		
@@ -50,8 +47,8 @@ namespace NZemberek.Cekirdek.Yapi
 			dizi = new TurkceHarf[7];
 		}
 		
-		/// <summary> 'kapasite' boyutlu 'TurkceHarf' dizisine sahip nesne olusturur.
-		/// 
+		/// <summary> 
+		/// 'kapasite' boyutlu 'TurkceHarf' dizisine sahip nesne olusturur.
 		/// </summary>
 		/// <param name="kapasite">baslangic olusan TurkceHarf[] boyu
 		/// </param>
@@ -62,16 +59,12 @@ namespace NZemberek.Cekirdek.Yapi
 		
 		/// <summary> 'kapasite' boyutlu 'TurkceHarf' dizisine sahip nesne olusturur. daha sonra
 		/// girisi String'i icindeki karakterleri TurkceHarf seklinde TurkceHarf dizisine aktarir.
-		/// Eger String boyu kapasiteden buyukse kapasite'yi boy'a esitler.
+		/// Eger String boyu kapasiteden buyukse kapasite'yi Boy'a esitler.
 		/// Eger String icindeki karakter Alfabe'de yar almiyorsa "TANIMSIZ_HARF" harfi olarak eklenir.
-	
 		/// </summary>
-		/// <param name="str">ornek alincak String
-		/// </param>
-		/// <param name="kapasite">baslangic olusan TurkceHarf[] boyu
-		/// </param>
-		/// <param name="alfabe">ilgili alfabe
-		/// </param>
+		/// <param name="str">ornek alincak String </param>
+		/// <param name="kapasite">baslangic olusan TurkceHarf[] boyu </param>
+		/// <param name="Alfabe">ilgili Alfabe </param>
 		public HarfDizisi(System.String str, Alfabe alfabe, int kapasite)
 		{
 			if (kapasite < str.Length)
@@ -79,32 +72,29 @@ namespace NZemberek.Cekirdek.Yapi
 			dizi = new TurkceHarf[kapasite];
 			boy = str.Length;
 			for (int i = 0; i < boy; i++)
-				dizi[i] = alfabe.harf(str[i]);
+				dizi[i] = alfabe.Harf(str[i]);
 		}
 		
 		/// <summary> 
-        /// Belirlenen alfabe ile String icerigini Harflere donusturur.
+        /// Belirlenen Alfabe ile String icerigini Harflere donusturur.
 		/// </summary>
-		/// <param name="str">ornek alincak String
-		/// </param>
-		/// <param name="alfabe">ilgili alfabe
-		/// </param>
+		/// <param name="str">ornek alincak String </param>
+		/// <param name="Alfabe">ilgili Alfabe </param>
 		public HarfDizisi(System.String str, Alfabe alfabe)
 		{
 			boy = str.Length;
 			dizi = new TurkceHarf[boy];
 			for (int i = 0; i < boy; i++)
-				dizi[i] = alfabe.harf(str[i]);
+				dizi[i] = alfabe.Harf(str[i]);
 		}
 		
 		/// <summary> 
-        /// Copy-Constructor. gelen harf dizisi ile ayni icerige sahip olacak sekilde TurkceHarf dizisi olusturur.
+        /// Copy-Constructor. gelen Harf dizisi ile ayni icerige sahip olacak sekilde TurkceHarf dizisi olusturur.
 		/// </summary>
-		/// <param name="hdizi">ornek alinacak HarfDizisi
-		/// </param>
+		/// <param name="hdizi">ornek alinacak HarfDizisi </param>
 		public HarfDizisi(HarfDizisi hdizi)
 		{
-			boy = hdizi.Length;
+			boy = hdizi.Boy;
 			dizi = new TurkceHarf[boy];
 			Array.Copy(hdizi.dizi, 0, dizi, 0, boy);
 		}
@@ -112,8 +102,7 @@ namespace NZemberek.Cekirdek.Yapi
 		/// <summary> 
 		/// gelen TurkceHarf dizisini icerige kopyalar.
 		/// </summary>
-        /// <param name="aDizi">kopyalancak TurkceHarf dizisi.
-		/// </param>
+        /// <param name="aDizi">kopyalancak TurkceHarf dizisi. </param>
         private HarfDizisi(TurkceHarf[] aDizi)
 		{
             boy = aDizi.Length;
@@ -122,9 +111,9 @@ namespace NZemberek.Cekirdek.Yapi
 		}
 		
 		/// <summary> 
-        /// bu metod harf referansi dizisini serbest birakmaz, sadece boyu sifira indirir.
+        /// bu metod Harf referansi dizisini serbest birakmaz, sadece boyu sifira indirir.
 		/// </summary>
-		public virtual void  sil()
+		public virtual void  Sil()
 		{
 			boy = 0;
 		}
@@ -132,9 +121,9 @@ namespace NZemberek.Cekirdek.Yapi
 		/// <summary> 
 		/// Dizinin son harfini dondurur.
 		/// </summary>
-		/// <returns> varsa son harf, Yoksa TANIMSIZ_HARF.
+		/// <returns> varsa son Harf, Yoksa TANIMSIZ_HARF.
 		/// </returns>
-		public TurkceHarf sonHarf()
+		public TurkceHarf SonHarf()
 		{
 			if (boy > 0)
 				return dizi[boy - 1];
@@ -143,11 +132,11 @@ namespace NZemberek.Cekirdek.Yapi
 		}
 		
 		/// <summary> 
-		/// dizideki son sesliyi dondurur. eger dizi boyu 0 ise ya da sesli harf yoksa TANIMSIZ_HARF doner.
+		/// dizideki son sesliyi dondurur. eger dizi boyu 0 ise ya da sesli Harf yoksa TANIMSIZ_HARF doner.
 		/// </summary>
 		/// <returns> varsa son sesli yoksa TANIMSIZ_HARF
 		/// </returns>
-		public TurkceHarf sonSesli()
+		public TurkceHarf SonSesli()
 		{
 			for (int i = boy - 1; i >= 0; i--)
 			{
@@ -158,12 +147,12 @@ namespace NZemberek.Cekirdek.Yapi
 		}
 		
 		/// <summary> 
-        /// ic metod. harf dizisinin boyutu yetersiz geldiginde "ek" miktarinda daha
+        /// ic metod. Harf dizisinin boyutu yetersiz geldiginde "ek" miktarinda daha
 		/// fazla yere sahip yeni dizi olusturulup icerik yeni diziye kopyalanir.
 		/// </summary>
 		/// <param name="ek">eklenecek HarfDizisi miktari.
 		/// </param>
-		private void  kapasiteAyarla(int ek)
+		private void  KapasiteAyarla(int ek)
 		{
 			TurkceHarf[] yeniDizi = new TurkceHarf[dizi.Length + ek];
 			Array.Copy(dizi, 0, yeniDizi, 0, dizi.Length);
@@ -171,7 +160,7 @@ namespace NZemberek.Cekirdek.Yapi
 		}
 		
 		/// <summary> otomatik kapasite ayarlama. dizi boyu iki katina cikarilir.</summary>
-		private void  kapasiteAyarla()
+		private void  KapasiteAyarla()
 		{
 			TurkceHarf[] yeniDizi = new TurkceHarf[dizi.Length * 2];
 			Array.Copy(dizi, 0, yeniDizi, 0, dizi.Length);
@@ -179,16 +168,14 @@ namespace NZemberek.Cekirdek.Yapi
 		}
 		
 		/// <summary> 
-		/// kelimenin sonuna harf ekler.
+        /// kelimenin sonuna Harf ekler.
 		/// </summary>
-		/// <param name="harf">eklenecek harf
-		/// </param>
-		/// <returns> this
-		/// </returns>
-		public virtual HarfDizisi ekle(TurkceHarf harf)
+		/// <param name="Harf">eklenecek Harf </param>
+		/// <returns> this </returns>
+		public virtual HarfDizisi Ekle(TurkceHarf harf)
 		{
 			if (boy == dizi.Length)
-				kapasiteAyarla(3);
+				KapasiteAyarla(3);
 			dizi[boy++] = harf;
 			return this;
 		}
@@ -197,18 +184,16 @@ namespace NZemberek.Cekirdek.Yapi
         /// girilen pozisyona herf ekler, bu noktadan sonraki harfler otelenir.
 		/// "armut" icin (2, a) "aramut" uretir.
 		/// </summary>
-		/// <param name="index">eklenecek pozisyon
-		/// </param>
-		/// <param name="harf">eklenecek harf.
-		/// </param>
+		/// <param name="index">eklenecek pozisyon </param>
+		/// <param name="Harf">eklenecek Harf. </param>
 		/// <throws>  ArrayIndexOutOfBoundsException </throws>
-		public virtual void  ekle(int index, TurkceHarf harf)
+		public virtual void  Ekle(int index, TurkceHarf harf)
 		{
 			if (index < 0 || index > boy)
-				throw new System.IndexOutOfRangeException("index degeri:" + index + " fakat harf dizi boyu:" + boy);
+				throw new System.IndexOutOfRangeException("index degeri:" + index + " fakat Harf dizi boyu:" + boy);
 			
 			if (boy == dizi.Length)
-				kapasiteAyarla();
+				KapasiteAyarla();
 			
 			for (int i = boy - 1; i >= index; i--)
 				dizi[i + 1] = dizi[i];
@@ -217,43 +202,41 @@ namespace NZemberek.Cekirdek.Yapi
 		}
 		
 		/// <summary> 
-		/// Diziye baska bir harf dizisinin icerigini ular.
+		/// Diziye baska bir Harf dizisinin icerigini ular.
 		/// </summary>
-		/// <param name="hdizi">ulanacak harf dizisi.
-		/// </param>
+		/// <param name="hdizi">ulanacak Harf dizisi. </param>
 		/// <returns> this.
-		/// </returns>
-		public virtual HarfDizisi ekle(HarfDizisi hdizi)
+		public virtual HarfDizisi Ekle(HarfDizisi hdizi)
 		{
-			int hboy = hdizi.Length;
+			int hboy = hdizi.Boy;
 			if (boy + hboy > dizi.Length)
-				kapasiteAyarla(hboy);
+				KapasiteAyarla(hboy);
 			
 			Array.Copy(hdizi.dizi, 0, dizi, boy, hboy);
-			boy += hdizi.Length;
+			boy += hdizi.Boy;
 			return this;
 		}
 		
 		/// <summary> 
-        /// Diziye baska bir harf dizisinin icerigini index ile belirtilen harften itibaren ekler.
+        /// Diziye baska bir Harf dizisinin icerigini index ile belirtilen harften itibaren ekler.
 		/// "armut" icin (2, hede) "arhedemut" uretir.
 		/// </summary>
 		/// <param name="index">eklencek pozisyon
 		/// </param>
-		/// <param name="hdizi">eklenecek harf dizisi
+		/// <param name="hdizi">eklenecek Harf dizisi
 		/// </param>
 		/// <returns> this.
 		/// </returns>
 		/// <throws>  ArrayIndexOutOfBoundsException </throws>
-		public virtual HarfDizisi ekle(int index, HarfDizisi hdizi)
+		public virtual HarfDizisi Ekle(int index, HarfDizisi hdizi)
 		{
 			if (index < 0 || index > boy)
-				throw new System.IndexOutOfRangeException("indeks degeri:" + index + " fakat harf dizi boyu:" + boy);
+				throw new System.IndexOutOfRangeException("indeks degeri:" + index + " fakat Harf dizi boyu:" + boy);
 			
 			//dizi kapasitesini ayarla
-			int hboy = hdizi.Length;
+			int hboy = hdizi.Boy;
 			if (boy + hboy > dizi.Length)
-				kapasiteAyarla(hboy);
+				KapasiteAyarla(hboy);
 			
 			//sondan baslayarak this.dizinin index'ten sonraki kismini dizinin sonuna tasi
 			for (int i = hboy + boy - 1; i >= hboy; i--)
@@ -261,19 +244,19 @@ namespace NZemberek.Cekirdek.Yapi
 			
 			//gelen diziyi kopyala ve boyutu degistir.
 			Array.Copy(hdizi.dizi, 0, dizi, index, hboy);
-			boy += hdizi.Length;
+			boy += hdizi.Boy;
 			return this;
 		}
 		
 		
 		/// <summary> 
-        /// verilen pozisyondaki harfi dondurur. icerigi "kedi" olan HarfDizisi icin harf(1) e dondurur.
+        /// verilen pozisyondaki harfi dondurur. icerigi "kedi" olan HarfDizisi icin Harf(1) e dondurur.
 		/// </summary>
-		/// <param name="i">istenilen pozisyondaki harf.
+		/// <param name="i">istenilen pozisyondaki Harf.
 		/// </param>
-		/// <returns> girilen pozisyondaki harf, yoksa TANIMSIZ_HARF
+		/// <returns> girilen pozisyondaki Harf, yoksa TANIMSIZ_HARF
 		/// </returns>
-		public TurkceHarf harf(int i)
+		public TurkceHarf Harf(int i)
 		{
 			if (i < 0)
 				return Alfabe.TANIMSIZ_HARF;
@@ -289,7 +272,7 @@ namespace NZemberek.Cekirdek.Yapi
 		/// </param>
 		/// <returns> varsa ilk sesli, yoksa TANIMSIZ_HARF
 		/// </returns>
-		public virtual TurkceHarf ilkSesli(int basla)
+		public virtual TurkceHarf IlkSesli(int basla)
 		{
 			for (int i = basla; i < boy; i++)
 			{
@@ -332,14 +315,12 @@ namespace NZemberek.Cekirdek.Yapi
 			return ToString().GetHashCode();
 		}
 		
-		/// <summary> ascii benzer harf toleransli esitlik kiyaslamasi.
-		/// 
+		/// <summary> 
+		/// ascii benzer Harf toleransli esitlik kiyaslamasi.
 		/// </summary>
-		/// <param name="harfDizisi">kiyaslanacak harfDizisi
-		/// </param>
-		/// <returns> true eger esitse.
-		/// </returns>
-		public bool asciiToleransliKiyasla(HarfDizisi harfDizisi)
+		/// <param name="harfDizisi">kiyaslanacak harfDizisi </param>
+		/// <returns> true eger esitse. </returns>
+		public bool AsciiToleransliKiyasla(HarfDizisi harfDizisi)
 		{
 			if (harfDizisi == null)
 				return false;
@@ -349,77 +330,75 @@ namespace NZemberek.Cekirdek.Yapi
 				return false;
 			for (int i = 0; i < boy; i++)
 			{
-				if (!dizi[i].asciiToleransliKiyasla(harfDizisi.dizi[i]))
+				if (!dizi[i].AsciiToleransliKiyasla(harfDizisi.dizi[i]))
 					return false;
 			}
 			return true;
 		}
 		
-		public bool asciiToleransliAradanKiyasla(int baslangic, HarfDizisi kelime)
+		public bool AsciiToleransliAradanKiyasla(int baslangic, HarfDizisi kelime)
 		{
 			if (kelime == null)
 				return false;
-			if (boy < baslangic + kelime.Length)
+			if (boy < baslangic + kelime.Boy)
 				return false;
-			for (int i = 0; i < kelime.Length; i++)
-				if (!dizi[baslangic + i].asciiToleransliKiyasla(kelime.harf(i)))
+			for (int i = 0; i < kelime.Boy; i++)
+				if (!dizi[baslangic + i].AsciiToleransliKiyasla(kelime.Harf(i)))
 					return false;
 			return true;
 		}
 		
-		public bool asciiToleransliBastanKiyasla(HarfDizisi giris)
+		public bool AsciiToleransliBastanKiyasla(HarfDizisi giris)
 		{
 			if (giris == null)
 				return false;
-			if (giris.Length > this.boy)
+			if (giris.Boy > this.boy)
 				return false;
-			for (int i = 0; i < giris.Length; i++)
-				if (!dizi[i].asciiToleransliKiyasla(giris.harf(i)))
+			for (int i = 0; i < giris.Boy; i++)
+				if (!dizi[i].AsciiToleransliKiyasla(giris.Harf(i)))
 					return false;
 			return true;
 		}
 		
-		public bool aradanKiyasla(int baslangic, HarfDizisi kelime)
+		public bool AradanKiyasla(int baslangic, HarfDizisi kelime)
 		{
 			if (kelime == null)
 				return false;
-			if (boy < baslangic + kelime.Length)
+			if (boy < baslangic + kelime.Boy)
 				return false;
-			for (int i = 0; i < kelime.Length; i++)
-				if (dizi[baslangic + i].CharDeger != kelime.harf(i).CharDeger)
+			for (int i = 0; i < kelime.Boy; i++)
+				if (dizi[baslangic + i].CharDeger != kelime.Harf(i).CharDeger)
 					return false;
 			return true;
 		}
 		
-		public bool bastanKiyasla(HarfDizisi giris)
+		public bool BastanKiyasla(HarfDizisi giris)
 		{
 			if (giris == null)
 				return false;
-			if (giris.Length > this.boy)
+			if (giris.Boy > this.boy)
 				return false;
-			for (int i = 0; i < giris.Length; i++)
-				if (dizi[i].CharDeger != giris.harf(i).CharDeger)
+			for (int i = 0; i < giris.Boy; i++)
+				if (dizi[i].CharDeger != giris.Harf(i).CharDeger)
 					return false;
 			return true;
 		}
 		
-		/// <summary> istenen noktadaki harfi giris parametresi olan TurkceHarf ile degistirir.
-		/// 
+		/// <summary> 
+		/// istenen noktadaki harfi giris parametresi olan TurkceHarf ile degistirir.
 		/// </summary>
-		/// <param name="index">degistirilecek indeks.
-		/// </param>
-		/// <param name="harf">kullanilacak harf
-		/// </param>
+		/// <param name="index">degistirilecek indeks. </param>
+		/// <param name="Harf">kullanilacak Harf </param>
 		/// <throws>  ArrayIndexOutOfBoundsException </throws>
-		public void  harfDegistir(int index, TurkceHarf harf)
+		public void  HarfDegistir(int index, TurkceHarf harf)
 		{
 			if (index < 0 || index >= boy)
-				throw new System.IndexOutOfRangeException("indeks degeri:" + index + " fakat harf dizi boyu:" + boy);
+				throw new System.IndexOutOfRangeException("indeks degeri:" + index + " fakat Harf dizi boyu:" + boy);
 			dizi[index] = harf;
 		}
 		
-		/// <summary> son harfi yumusatir. Eger harfin yumusamis formu yoksa harf degismez.</summary>
-		public virtual void  sonHarfYumusat()
+		/// <summary> son harfi yumusatir. Eger harfin yumusamis formu yoksa Harf degismez.</summary>
+		public virtual void SonHarfYumusat()
 		{
 			if (boy == 0)
 				return ;
@@ -428,8 +407,8 @@ namespace NZemberek.Cekirdek.Yapi
 				dizi[boy - 1] = dizi[boy - 1].Yumusama;
 		}
 		
-		/// <summary> son harfi siler. eger harf yoksa hicbir etki yapmaz.</summary>
-		public virtual void  sonHarfSil()
+		/// <summary> son harfi siler. eger Harf yoksa hicbir etki yapmaz.</summary>
+		public virtual void  SonHarfSil()
 		{
 			if (boy > 0)
 				boy--;
@@ -437,19 +416,15 @@ namespace NZemberek.Cekirdek.Yapi
 		
 		/// <summary> verilen pozisyondaki harfi siler. kelimenin kalan kismi otelenir.
 		/// eger verilen pozisyon yanlis ise  ArrayIndexOutOfBoundsException firlatir.
-		/// 
 		/// "kedi" icin (2) "kei" olusturur.
-		/// 
 		/// </summary>
-		/// <param name="index">silinecek harf pozisyonu
-		/// </param>
-		/// <returns> dizinin kendisi.
-		/// </returns>
+		/// <param name="index">silinecek Harf pozisyonu </param>
+		/// <returns> dizinin kendisi. </returns>
 		/// <throws>  ArrayIndexOutOfBoundsException </throws>
-		public virtual HarfDizisi harfSil(int index)
+		public virtual HarfDizisi HarfSil(int index)
 		{
 			if (index < 0 || index >= boy)
-				throw new System.IndexOutOfRangeException("indeks degeri:" + index + " fakat harf dizi boyu:" + boy);
+				throw new System.IndexOutOfRangeException("indeks degeri:" + index + " fakat Harf dizi boyu:" + boy);
 			if (index == boy - 1)
 			{
 				boy--;
@@ -465,16 +440,13 @@ namespace NZemberek.Cekirdek.Yapi
 		/// <summary> verilen pozisyondan belli miktar harfi siler.
 		/// "kediler" icin (2,2) "keler" olusturur.
 		/// </summary>
-		/// <param name="index">silinmeye baslanacak pozisyon
-		/// </param>
-		/// <param name="harfSayisi">silinecek harf miktari
-		/// </param>
-		/// <returns> dizinin kendisi
-		/// </returns>
-		public virtual HarfDizisi harfSil(int index, int harfSayisi)
+		/// <param name="index">silinmeye baslanacak pozisyon</param>
+		/// <param name="harfSayisi">silinecek Harf miktari</param>
+		/// <returns> dizinin kendisi</returns>
+		public virtual HarfDizisi HarfSil(int index, int harfSayisi)
 		{
 			if (index < 0 || index >= boy)
-				throw new System.IndexOutOfRangeException("indeks degeri:" + index + " fakat harf dizi boyu:" + boy);
+				throw new System.IndexOutOfRangeException("indeks degeri:" + index + " fakat Harf dizi boyu:" + boy);
 			if (index + harfSayisi > boy)
 				harfSayisi = boy - index;
 			for (int i = index + harfSayisi; i < boy; i++)
@@ -483,7 +455,7 @@ namespace NZemberek.Cekirdek.Yapi
 			return this;
 		}
 
-        public HarfDizisi subSequence(int start, int end)
+        public HarfDizisi SubSequence(int start, int end)
         {
             if (end < start)
                 return null;
@@ -492,12 +464,11 @@ namespace NZemberek.Cekirdek.Yapi
             return new HarfDizisi(yeniHarfler);
         }
 
-		/// <summary> ilk harfi dondurur. eger harf yoksa TANIMSIZ_HARF doner.
-		/// 
+		/// <summary> 
+		/// ilk harfi dondurur. eger Harf yoksa TANIMSIZ_HARF doner.
 		/// </summary>
-		/// <returns> ilk TurkceHarf.
-		/// </returns>
-		public TurkceHarf ilkHarf()
+		/// <returns> ilk TurkceHarf</returns>
+		public TurkceHarf IlkHarf()
 		{
 			if (boy == 0)
 				return Alfabe.TANIMSIZ_HARF;
@@ -505,12 +476,12 @@ namespace NZemberek.Cekirdek.Yapi
 				return dizi[0];
 		}
 		
-		/// <summary> "index" numarali harften itibaren siler.
+		/// <summary> 
+        /// "index" numarali harften itibaren siler.
 		/// "kedi" icin (1) "k" olusturur.
 		/// </summary>
-		/// <param name="index">kirpilmaya baslanacak pozisyon
-		/// </param>
-		public void  kirp(int index)
+		/// <param name="index">kirpilmaya baslanacak pozisyon</param>
+		public void  Kirp(int index)
 		{
 			if (index <= boy && index >= 0)
 				boy = index;
@@ -521,7 +492,7 @@ namespace NZemberek.Cekirdek.Yapi
 		/// </param>
 		/// <returns> olusan String.
 		/// </returns>
-		public virtual System.String ToString(int index)
+		public virtual String ToString(int index)
 		{
 			if (index < 0 || index >= boy)
 				return "";
@@ -531,7 +502,7 @@ namespace NZemberek.Cekirdek.Yapi
 			return s.ToString();
 		}
 
-        public override System.String ToString()
+        public override String ToString()
         {
             StringBuilder str = new StringBuilder();
             for(int i=0;i < this.boy;i++)
@@ -540,20 +511,15 @@ namespace NZemberek.Cekirdek.Yapi
             }
             return str.ToString(); ;
         }
-        //TODO: StringBuilder javada olan Charsequence alýyor icine ama biz charsequence'i kendimiz yazdik
-        //public override System.String ToString()
-        //{
-        //    return new StringBuilder(this).ToString();
-        //}
 		
 		/* ------------------------- ozel metodlar ------------------------------- */
 		
 		/// <summary> Genellikle kelimedeki hece sayisini bulmak icin kullanilir.
 		/// 
 		/// </summary>
-		/// <returns> inte, sesli harf sayisi.
+		/// <returns> inte, sesli Harf sayisi.
 		/// </returns>
-		public virtual int sesliSayisi()
+		public virtual int SesliSayisi()
 		{
 			int sonuc = 0;
 			for (int i = 0; i < boy; i++)
@@ -564,7 +530,7 @@ namespace NZemberek.Cekirdek.Yapi
 			return sonuc;
 		}
 		
-        public int Length
+        public int Boy
         {
             get { return boy; }
         }

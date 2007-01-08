@@ -64,9 +64,9 @@ namespace NZemberek.Cekirdek.KokSozlugu
         private int tolerans = 0;
         private int distanceCalculationCount = 0;
 
-        public int getDistanceCalculationCount()
+        public int DistanceCalculationCount
         {
-            return distanceCalculationCount;
+            get { return distanceCalculationCount; }
         }
 
         public ToleransliKokBulucu(KokAgaci agac, int tolerans)
@@ -77,21 +77,21 @@ namespace NZemberek.Cekirdek.KokSozlugu
 
         public List<Kok> AdayKokleriGetir(String giris)
         {
-            return benzerKokleriBul(giris);
+            return BenzerKokleriBul(giris);
         }
 
         private String giris = null;
         private List<Kok> adaylar = null;
 
-        private List<Kok> benzerKokleriBul(String giris)
+        private List<Kok> BenzerKokleriBul(String giris)
         {
             this.giris = giris;
             adaylar = new List<Kok>();
-            yuru(agac.getKokDugumu(), "");
+            Yuru(agac.BaslangicDugumu(), "");
             return adaylar;
         }
 
-        private void yuru(KokDugumu dugum, String olusan)
+        private void Yuru(KokDugumu dugum, String olusan)
         {
             String tester = olusan;
             if (dugum.Harf != '\0')
@@ -99,7 +99,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
             if (dugum.getKok() != null)
             {
                 distanceCalculationCount++;
-                if (MetinAraclari.isInSubstringEditDistance(dugum.Kelime, giris, tolerans))
+                if (MetinAraclari.ParcasiDuzeltmeMesafesiIcinde(dugum.Kelime, giris, tolerans))
                 {
                     // Aday kök bulundu
                     adaylar.Add(dugum.getKok());
@@ -112,7 +112,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
             }
             else
             {
-                if (!MetinAraclari.isInSubstringEditDistance(tester.Trim(), giris, tolerans))
+                if (!MetinAraclari.ParcasiDuzeltmeMesafesiIcinde(tester.Trim(), giris, tolerans))
                 {
                     // Ara stringde mesafe sınırı aşıldı
                     return;
@@ -123,7 +123,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
             {
                 if (altDugum != null)
                 {
-                    this.yuru(altDugum, tester);
+                    this.Yuru(altDugum, tester);
                 }
             }
         }

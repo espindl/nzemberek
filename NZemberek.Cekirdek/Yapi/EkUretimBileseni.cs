@@ -28,53 +28,55 @@ using NZemberek.Cekirdek.Yapi;
 
 namespace NZemberek.Cekirdek.Yapi
 {
-	
 	/// <summary> uretim bilesen sinifi, uretim kural kelimesindeki bilesenleri temsil eder.
 	/// degistirilemez, thread safe.
 	/// </summary>
-	public class EkUretimBileseni
-	{
-    private readonly UretimKurali _kural=UretimKurali.YOK;
-    private readonly TurkceHarf _harf;
+    public class EkUretimBileseni
+    {
+        private readonly UretimKurali _kural = UretimKurali.YOK;
 
-    public EkUretimBileseni(UretimKurali kural, TurkceHarf harf) {
-        this._kural = kural;
-        this._harf = harf;
-    }
+        public UretimKurali Kural
+        {
+            get { return _kural; }
+        }
 
-    public UretimKurali kural() {
-        return _kural;
-    }
+        private readonly TurkceHarf _harf;
 
-    public TurkceHarf harf() {
-        return _harf;
-    }
+        public TurkceHarf Harf
+        {
+            get { return _harf; }
+        } 
+
+        public EkUretimBileseni(UretimKurali kural, TurkceHarf harf)
+        {
+            this._kural = kural;
+            this._harf = harf;
+        }
 
         public override String ToString()
         {
-        return "kural=" + _kural + ", harf=" + (_harf == null ? "" : "" + _harf.CharDeger);
-    }
+            return "kural=" + _kural + ", Harf=" + (_harf == null ? "" : "" + _harf.CharDeger);
+        }
 
         public override bool Equals(Object o)
         {
-        if (this == o) return true;
-        if (o == null || GetType() != o.GetType()) return false;
+            if (this == o) return true;
+            if (o == null || GetType() != o.GetType()) return false;
 
-        EkUretimBileseni that = (EkUretimBileseni) o;
+            EkUretimBileseni that = (EkUretimBileseni)o;
 
-        if (_harf != null ? !_harf.Equals(that._harf) : that._harf != null) return false;
-        if (_kural != that._kural) return false;
+            if (_harf != null ? !_harf.Equals(that._harf) : that._harf != null) return false;
+            if (_kural != that._kural) return false;
 
-        return true;
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            int result;
+            result = (_kural != UretimKurali.YOK ? _kural.GetHashCode() : 0);
+            result = 29 * result + (_harf != null ? _harf.GetHashCode() : 0);
+            return result;
+        }
     }
-
-    public override int GetHashCode() {
-        int result;
-        result = (_kural != UretimKurali.YOK ? _kural.GetHashCode() : 0);
-        result = 29 * result + (_harf != null ? _harf.GetHashCode() : 0);
-        return result;
-    }
-    
-    }
-
 }

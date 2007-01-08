@@ -32,46 +32,46 @@ using NZemberek.Cekirdek.KokSozlugu;
 
 namespace NZemberek.Cekirdek.Yapi
 {
-    //TODO : tAŞINACAK VE dokümantasyon YAPILACAK.
+    //TODO : TAŞINACAK VE dokümantasyon YAPILACAK.
     public interface IDilFabrikasi
     {
         /**
- * Dile ozel alfabe nesnesini dondurur.
- * @return alfabe.
- */
-        Alfabe alfabe();
+         * Dile ozel ek nesnesini dondurur.
+         * @return ek.
+         */
+        Alfabe AlfabeVer();
 
         /**
          * Dile ozgu ek oynetici nesnesini dondurur.
          * @return ekyonetici
          */
-        EkYonetici ekler();
+        IEkYonetici EkYoneticisiver();
 
         /**
          * Kok bilgilerine ve kok secicilere erisimi saglayan
          * dile ozel Sozluk nesnesini dondurur.
          * @return sozluk
          */
-        ISozluk kokler();
+        ISozluk SozlukVer();
 
         /**
          * Dile ozgu kok ozel durumu bilgilerini tasiyan nesneyi dondurur.
-         * @return ozeldurumbilgisi
+         * @return ozeldurumbilgisis
          */
-        KokOzelDurumBilgisi kokOzelDurumlari();
+        IKokOzelDurumBilgisi KokOzelDurumBilgisiVer();
 
         /**
          * eger varsa dile ozgu hece bulma nesnesi.
          * @return hecebulma nesnesi
          */
-        IHeceleyici heceleyici();
+        IHeceleyici HeceleyiciVer();
 
         /**
          * dile ozgu cozumleme yardimcisi nesnesi. bu nesne cozumleme sirasinda kullanilan
          * cesitli on ve art isleme, cep mekanizmalarini tasir.
          * @return cozumleme yardimcisi
          */
-        CozumlemeYardimcisi cozumlemeYardimcisi();
+        ICozumlemeYardimcisi CozumlemeYardimcisiVer();
 
         bool CepKullan { set;}
     }

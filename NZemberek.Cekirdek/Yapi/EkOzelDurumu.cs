@@ -26,66 +26,54 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
 using NZemberek.Cekirdek.Mekanizma.Cozumleme;
 using NZemberek.Cekirdek.Kolleksiyonlar;
 
-
 namespace NZemberek.Cekirdek.Yapi
 {
-	
-	/// <summary> Ek ozel durumu ek'e benzer bir yapiya sahiptir. Farkli olarak bazi ozel durumlarda yer alan
+	/// <summary> 
+    /// Ek ozel durumu ek'e benzer bir yapiya sahiptir. Farkli olarak bazi ozel durumlarda yer alan
 	/// onek listesi de bu sinifin bir parametresidir.
-	/// User: ahmet
-	/// Date: Aug 24, 2005
 	/// </summary>
     public abstract class EkOzelDurumu
     {
-        protected String _ad;
-        protected HashSet<Ek> onEkler = Ek.EMPTY_SET;
-        protected EkUretici ekUretici;
-        protected List<EkUretimBileseni> _uretimBilesenleri;
+        private String _ad;
 
-        public abstract HarfDizisi cozumlemeIcinUret(Kelime kelime, HarfDizisi giris, HarfDizisiKiyaslayici kiyaslayici);
-
-        public virtual HarfDizisi olusumIcinUret(Kelime kelime, Ek sonrakiEk)
+        public String Ad
         {
-            return ekUretici.olusumIcinEkUret(kelime.icerik(), sonrakiEk, _uretimBilesenleri);
+            get { return _ad; }
+            set { _ad = value; }
         }
 
-        public String ad()
+        private HashSet<Ek> onEkler = Ek.EMPTY_SET;
+
+        public HashSet<Ek> OnEkler
         {
-            return _ad;
+            get { return onEkler; }
+            set { onEkler = value; }
+        }
+        
+        private IEkUretici ekUretici;
+
+        public IEkUretici EkUretici
+        {
+            get { return ekUretici; }
+            set { ekUretici = value; }
         }
 
-        public void setAd(String ad)
+        private List<EkUretimBileseni> uretimBilesenleri;
+
+        public List<EkUretimBileseni> UretimBilesenleri
         {
-            this._ad = ad;
+            get { return uretimBilesenleri; }
+            set { uretimBilesenleri = value; }
         }
 
-        public HashSet<Ek> getOnEkler()
-        {
-            return onEkler;
-        }
+        public abstract HarfDizisi CozumlemeIcinUret(Kelime kelime, HarfDizisi giris, IHarfDizisiKiyaslayici kiyaslayici);
 
-        public void setOnEkler(HashSet<Ek> onEkler)
+        public virtual HarfDizisi OlusumIcinUret(Kelime kelime, Ek sonrakiEk)
         {
-            this.onEkler = onEkler;
-        }
-
-        public void setEkKuralCozumleyici(EkUretici ekUretici)
-        {
-            this.ekUretici = ekUretici;
-        }
-
-        public void setUretimBilesenleri(List<EkUretimBileseni> uretimBilesenleri)
-        {
-            this._uretimBilesenleri = uretimBilesenleri;
-        }
-
-        public List<EkUretimBileseni> uretimBilesenleri()
-        {
-            return _uretimBilesenleri;
+            return ekUretici.OlusumIcinEkUret(kelime.Icerik, sonrakiEk, uretimBilesenleri);
         }
     }
 }

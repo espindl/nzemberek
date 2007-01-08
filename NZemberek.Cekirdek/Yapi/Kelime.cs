@@ -30,29 +30,57 @@ using NZemberek.Cekirdek.Yapi;
 
 namespace NZemberek.Cekirdek.Yapi
 {
-
-    public class Kelime : System.ICloneable
+    public class Kelime : ICloneable
     {
         public static readonly List<Kelime> EMPTY_LIST_KELIME = new List<Kelime>();
         public static readonly Kelime[] BOS_KELIME_DIZISI = new Kelime[] { };
 
-
         private static HarfDizisi BOS_ICERIK = new HarfDizisi(0);
         private HarfDizisi _icerik = BOS_ICERIK;
-        private Kok _kok;
-        private List<Ek> _ekler = new List<Ek>(3);
-        private KelimeTipi _tip;
 
-        public Kelime()
+        public HarfDizisi Icerik
         {
+            get { return _icerik; }
+            set { _icerik = value; }
+        }
+        private Kok _kok;
+
+        public Kok Kok
+        {
+            get { return _kok; }
+            set { _kok = value; }
+        }
+        private List<Ek> _ekler = new List<Ek>(3);
+
+        public List<Ek> Ekler
+        {
+            get { return _ekler; }
         }
 
-        public Ek[] ekDizisi()
+        private KelimeTipi _tip;
+
+        public Kelime(){}
+
+        public Kelime(Kok kok, Alfabe alfabe)
+        {
+            this._kok = kok;
+            _icerik = new HarfDizisi(kok.Icerik, alfabe);
+            _tip = kok.Tip;
+        }
+
+        public Kelime(Kok kok, HarfDizisi dizi)
+        {
+            this._kok = kok;
+            this._icerik = dizi;
+            _tip = kok.Tip;
+        }
+
+        public Ek[] EkDizisi()
         {
             return (Ek[])_ekler.ToArray();
         }
 
-        public System.Object Clone()
+        public Object Clone()
         {
             Kelime kopya = new Kelime();
             //kok'u kopyalamaya gerek yok. referans esitlemesi yeter
@@ -63,101 +91,67 @@ namespace NZemberek.Cekirdek.Yapi
             return kopya;
         }
 
-        public List<Ek> ekler()
-        {
-            return _ekler;
-        }
-
         /**
          * Gosterim amacli bir metod. ek zincirinin anlasilir sekilde yazilmasini saglar.
          *
          * @return ek zinciri dizisi yazimi.
          */
-        public String ekZinciriStr()
+        public String MetinBicimindeEkZinciri()
         {
             StringBuilder buf = new StringBuilder();
             foreach (Ek ek in _ekler)
             {
-                buf.Append(ek.ad()).Append(", ");
+                buf.Append(ek.Ad).Append(", ");
             }
             if (buf.Length > 2)
                 buf.Remove(buf.Length - 2,2);
             return buf.ToString();
         }
 
-        public Kelime(Kok kok, Alfabe alfabe)
-        {
-            this._kok = kok;
-            _icerik = new HarfDizisi(kok.icerik(), alfabe);
-            _tip = kok.tip();
-        }
-
-        public Kelime(Kok kok, HarfDizisi dizi)
-        {
-            this._kok = kok;
-            this._icerik = dizi;
-            _tip = kok.tip();
-        }
-
-        public void setIcerik(HarfDizisi icerik)
-        {
-            this._icerik = icerik;
-        }
-
-        public int ekSayisi()
+        public int EkSayisi()
         {
             return _ekler.Count;
         }
 
-        public TurkceHarf sonHarf()
+        public TurkceHarf SonHarf()
         {
-            return _icerik.sonHarf();
+            return _icerik.SonHarf();
         }
 
-        public HarfDizisi icerik()
+        public int Boy()
         {
-            return _icerik;
+            return _icerik.Boy;
         }
 
-        public int boy()
-        {
-            return _icerik.Length;
-        }
-
-        public Ek sonEk()
+        public Ek SonEk()
         {
             return _ekler[_ekler.Count - 1];
         }
 
-        public String icerikStr()
+        public String IcerikMetni()
         {
             return _icerik.ToString();
         }
 
-        public void ekEkle(Ek ek)
+        public void EkEkle(Ek ek)
         {
             _ekler.Add(ek);
-        }
-
-        public Kok kok()
-        {
-            return _kok;
         }
 
         public override String ToString() {
             StringBuilder ekStr = new StringBuilder();
             foreach (Ek ek in _ekler) {
-                ekStr.Append(ek.ad()).Append(" + ");
+                ekStr.Append(ek.Ad).Append(" + ");
             }
             if (ekStr.Length > 3)
                 ekStr.Remove(ekStr.Length - 3, 3);
-            return "{Icerik: " + _icerik + " Kok: " + _kok.icerik() + " tip:" + _kok.tip() + "} " +
+            return "{Icerik: " + _icerik + " Kok: " + _kok.Icerik + " tip:" + _kok.Tip + "} " +
                     " Ekler:" + ekStr;
         }
 
-        public void icerikEkle(HarfDizisi eklenecek)
+        public void IcerikEkle(HarfDizisi eklenecek)
         {
-            _icerik.ekle(eklenecek);
+            _icerik.Ekle(eklenecek);
         }
 
         /**
@@ -165,7 +159,7 @@ namespace NZemberek.Cekirdek.Yapi
          * true dondurur. Eger baska bir ek eklenmis ise true doner.
          * @return
          */
-        public bool gercekEkYok()
+        public bool GercekEkYok()
         {
             return _ekler.Count < 2;
         }

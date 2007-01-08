@@ -46,10 +46,10 @@ namespace NZemberek.DilAraclari.KokSozlugu
  * <pre>
  * ...
  * KokOkuyucu okuyucu = new DuzYaziKokOkuyucu();
- * okuyucu.initialize("kaynaklar/kb/duzyazi-kokler.txt");
+ * okuyucu.Baslat("kaynaklar/kb/duzyazi-kokler.txt");
  * Kok kok = null;
  * while((kok = sozlukOkuyucu.oku())!= null){
- *      ekle(kok); // Elde edilen kök nesnesi ile ne gerekiyorsa yap.
+ *      Ekle(kok); // Elde edilen kök nesnesi ile ne gerekiyorsa yap.
  * }
  * ...
  * </pre>
@@ -60,7 +60,7 @@ namespace NZemberek.DilAraclari.KokSozlugu
     {
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);		
         private Alfabe alfabe;
-        private KokOzelDurumBilgisi ozelDurumlar;
+        private IKokOzelDurumBilgisi ozelDurumlar;
         protected StreamReader reader;
         //private static Pattern AYIRICI_PATTERN = Pattern.compile("[ ]+");
         private char[] AYIRICI_PATTERN = new char[] { ' ' };
@@ -73,7 +73,7 @@ namespace NZemberek.DilAraclari.KokSozlugu
         // kullanildiysa bu isimleri KelimeITplerine esleyen bir Map olusturulup bu
         // constructor kullanilabilir. Map icin ornek diger constructor icerisinde 
         // yer almaktadir.
-        public DuzYaziKokOkuyucu(String pDosyaAdi, KokOzelDurumBilgisi ozelDurumlar, Alfabe alfabe, IDictionary<String, KelimeTipi> kokTipAdlari)
+        public DuzYaziKokOkuyucu(String pDosyaAdi, IKokOzelDurumBilgisi ozelDurumlar, Alfabe alfabe, IDictionary<String, KelimeTipi> kokTipAdlari)
         {
             dosyaAdi = pDosyaAdi;
             this.ozelDurumlar = ozelDurumlar;
@@ -110,25 +110,25 @@ namespace NZemberek.DilAraclari.KokSozlugu
                 String icerik = tokens[0];
                 Kok kok = new Kok(icerik);
 
-                // ayikla() ile kok icerigi kucuk harfe donusturuluyor ve '- vs 
+                // Ayikla() ile kok icerigi kucuk harfe donusturuluyor ve '- vs 
                 // isaretler siliniyor.
-                kok.Icerik = alfabe.ayikla(kok.icerik());
+                kok.Icerik = alfabe.Ayikla(kok.Icerik);
 
                 // kelime tipini belirle. ilk parca mutlaka kok tipini belirler
                 if (_kokTipAdlari.ContainsKey(tokens[1])) {
                     KelimeTipi tip = (KelimeTipi) _kokTipAdlari[tokens[1]];
                     kok.Tip = tip;
-                    ozelDurumlar.kokIcerikIsle(kok, tip, icerik);
+                    ozelDurumlar.KokIcerigiIsle(kok, tip, icerik);
 
                 } else
                     logger.Warn("Kok tipi bulunamadi!" + line);
 
-                // kok ozelliklerini ekle.
-                ozelDurumlar.duzyaziOzelDurumOku(kok, icerik, tokens);
+                // kok ozelliklerini Ekle.
+                ozelDurumlar.DuzyaziOzelDurumOku(kok, icerik, tokens);
 
                 // bazi ozel durumlar ana dosyada yer almaz, algoritma ile uretilir.
-                // bu ozel durumlari koke ekle.
-                ozelDurumlar.ozelDurumBelirle(kok);
+                // bu ozel durumlari koke Ekle.
+                ozelDurumlar.OzelDurumBelirle(kok);
 
                 return kok;
             }
@@ -154,7 +154,7 @@ namespace NZemberek.DilAraclari.KokSozlugu
             {
                 throw new ApplicationException("Kök dosyası yok! : " + dosyaAdi);
             }
-            reader = new KaynakYukleyici("UTF-8").getReader(dosyaAdi);
+            reader = new KaynakYukleyici("UTF-8").OkuyucuGetir(dosyaAdi);
             //Dosya boşsa hata 
             if (reader.EndOfStream)
             {

@@ -34,9 +34,9 @@ namespace NZemberek.Cekirdek.Yapi
     {
         protected Alfabe alfabe;
 
-        public virtual EkOzelDurumu uret(String ad) 
+        public virtual EkOzelDurumu Uret(String ad) 
         {
-            if (!mevcut(TemelEkOzelDurumuTipi.AllValues,ad))
+            if (!Mevcut(TemelEkOzelDurumuTipi.AllValues,ad))
                 return null;
             else
                 switch (ad) 
@@ -61,7 +61,7 @@ namespace NZemberek.Cekirdek.Yapi
          * @param ad
          * @return eger kisaAd ile belirtilen tip var ise true.
          */
-        protected bool mevcut(EkOzelDurumTipi[] tipler, String ad) {
+        protected bool Mevcut(EkOzelDurumTipi[] tipler, String ad) {
             foreach (EkOzelDurumTipi tip in tipler) {
                 if (tip.Ad.Equals(ad))
                     return true;

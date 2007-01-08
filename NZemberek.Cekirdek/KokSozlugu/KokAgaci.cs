@@ -61,7 +61,19 @@ namespace NZemberek.Cekirdek.KokSozlugu
     {
         private KokDugumu baslangicDugumu = null;
         private int nodeCount = 0;
+
+        public int NodeCount
+        {
+            get { return nodeCount; }
+            set { nodeCount = value; }
+        }
         private Alfabe alfabe;
+
+        public Alfabe Alfabe
+        {
+            get { return alfabe; }
+            set { alfabe = value; }
+        }
 
         public KokAgaci(KokDugumu baslangicDugumu, Alfabe alfabe)
         {
@@ -69,21 +81,10 @@ namespace NZemberek.Cekirdek.KokSozlugu
             this.alfabe = alfabe;
         }
 
-        public KokDugumu getKokDugumu()
+        public KokDugumu BaslangicDugumu()
         {
             return baslangicDugumu;
         }
-
-        public Alfabe getAlfabe()
-        {
-            return alfabe;
-        }
-
-        public int getNodeCount()
-        {
-            return nodeCount;
-        }
-
 
         private KokDugumu IcerikDugumuBul(string icerik)
         {
@@ -105,9 +106,9 @@ namespace NZemberek.Cekirdek.KokSozlugu
         }
 
 
-        public void ekle(string icerik, Kok kok)
+        public void Ekle(string icerik, Kok kok)
         {
-            // Ýçerik için mevcut aðaçta inilebilecek en derin düðümü bul.
+            // Ýçerik için Mevcut aðaçta inilebilecek en derin düðümü Bul.
             KokDugumu dugum = this.IcerikDugumuBul(icerik);
             while (true)
             {
@@ -180,13 +181,13 @@ namespace NZemberek.Cekirdek.KokSozlugu
         /// </summary>
         /// <param name="icerik"></param>
         /// <param name="kok"></param>
-        //public void ekle(String icerik, Kok kok)
+        //public void Ekle(String icerik, Kok kok)
         //{
         //    KokDugumu node = baslangicDugumu;
         //    KokDugumu oncekiDugum = null;
         //    int level = 0;
         //    // null alt düðüm bulana dek veya kelimenin sonuna dek alt düðümlerde ilerle
-        //    while (level < icerik.Length)
+        //    while (level < icerik.Boy)
         //    {
         //        oncekiDugum = node;
         //        node = node.altDugumGetir(icerik[level]);
@@ -197,7 +198,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
         //     * Aðaç üzerinde ilerlerken kelimemizin sonuna kadar gitmiþiz.
         //     * kelimemizi bu düðüme ekleriz.
         //     */
-        //    if (level == icerik.Length)
+        //    if (level == icerik.Boy)
         //    {
         //        SonHarfDugumuneEkle(icerik, kok, node);
         //        return;
@@ -207,7 +208,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
         //    /**
         //     * Kaldýðýmýz düðüme baðlý bir kök yoksa bu kök için bir düðüm oluþturup ekleriz.
         //     */
-        //    if (oncekiDugum.getKok() == null && level < icerik.Length)
+        //    if (oncekiDugum.getKok() == null && level < icerik.Boy)
         //    {
         //        oncekiDugum.DugumEkle(icerik, kok);
         //        return;
@@ -239,22 +240,22 @@ namespace NZemberek.Cekirdek.KokSozlugu
         //    string oncekiDugumIcerigi = oncekiDugum.Kelime;
         //    KokDugumu newNode = oncekiDugum;
 
-        //    if (level == oncekiDugumIcerigi.Length)
+        //    if (level == oncekiDugumIcerigi.Boy)
         //    {
         //        newNode.DugumEkle(icerik, kok);
         //        return;
         //    }
 
-        //    if (oncekiDugumIcerigi.Length <= icerik.Length)
+        //    if (oncekiDugumIcerigi.Boy <= icerik.Boy)
         //    {
-        //        while (level < oncekiDugumIcerigi.Length && oncekiDugumIcerigi[level] == icerik[level])
+        //        while (level < oncekiDugumIcerigi.Boy && oncekiDugumIcerigi[level] == icerik[level])
         //        {
         //            newNode = newNode.DugumEkle(oncekiDugumIcerigi[level]);
         //            level++;
         //        }
 
         //        // Kisa dugumun eklenmesi.
-        //        if (level < oncekiDugumIcerigi.Length)
+        //        if (level < oncekiDugumIcerigi.Boy)
         //        {
         //            //newNode.KokuDallandir();
         //            KokDugumu temp = newNode.DugumEkle(oncekiDugumIcerigi[level]);
@@ -267,14 +268,14 @@ namespace NZemberek.Cekirdek.KokSozlugu
 
         //        // Uzun olan dugumun (yeni gelen) eklenmesi, es anlamlilari kotar
         //        newNode.DugumEkle(icerik, kok);
-        //        oncekiDugum.temizle();
+        //        oncekiDugum.Temizle();
         //    }
 
         //    /**
         //     *
         //     * Eðer köke önce "istimlak" ve sonra "istifa" gelirse
         //     * i-s-t-i-m-l-->istimlak
-        //     * daha sonra gene son ortak harf olan "i" ye "f" karakterli düðümü
+        //     * daha sonra gene son ortak Harf olan "i" ye "f" karakterli düðümü
         //     * oluþturup istifayý baðlar
         //     * istimlak ta "m" düðümüne baðlý kalýr.
         //     * i-s-t-i-m-->istimlak
@@ -284,13 +285,13 @@ namespace NZemberek.Cekirdek.KokSozlugu
 
         //    else
         //    {
-        //        while (level < icerik.Length && icerik[level] == oncekiDugumIcerigi[level])
+        //        while (level < icerik.Boy && icerik[level] == oncekiDugumIcerigi[level])
         //        {
         //            newNode = newNode.DugumEkle(icerik[level]);
         //            level++;
         //        }
         //        // Kisa dugumun eklenmesi.
-        //        if (level < icerik.Length)
+        //        if (level < icerik.Boy)
         //        {
         //            newNode.DugumEkle(icerik, kok);
         //        }
@@ -304,7 +305,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
         //        newNode = newNode.DugumEkle(oncekiDugumIcerigi[level]);
         //        newNode.kopyala(oncekiDugum);
         //        // Es seslileri tasi.
-        //        oncekiDugum.temizle();
+        //        oncekiDugum.Temizle();
         //    }
         //}
 
@@ -317,7 +318,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
          */
 
 
-        public List<Kok> bul(String str)
+        public List<Kok> Bul(String str)
         {
             int girisIndex = 0;
             // Basit bir tree traverse algoritmasý ile kelime bulunur.

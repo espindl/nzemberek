@@ -27,12 +27,11 @@ using System;
 
 namespace NZemberek.Cekirdek.Yapi
 {
-	public interface KokOzelDurumTipi
+	public interface IKokOzelDurumTipi
 	{
         string KisaAd { get;}
         string Ad { get;}
         string[] EkAdlari { get;}
-
         int Index { get;}
 	}
 }

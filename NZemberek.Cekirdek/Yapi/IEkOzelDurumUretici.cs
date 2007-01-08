@@ -22,14 +22,12 @@
  *   Mert Derman
  *   Tankut Tekeli
  * ***** END LICENSE BLOCK ***** */
-
 using System;
-
 
 namespace NZemberek.Cekirdek.Yapi
 {
     public interface EkOzelDurumUretici
     {
-        EkOzelDurumu uret(String ad);
+        EkOzelDurumu Uret(String ad);
     }
 }

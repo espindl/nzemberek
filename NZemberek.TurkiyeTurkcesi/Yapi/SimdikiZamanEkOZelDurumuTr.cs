@@ -49,23 +49,23 @@ public class SimdikiZamanEkOzelDurumuTr : EkOzelDurumu {
         sesliUretci = new TurkceSesliUretici(alfabe);
     }
 
-    public override  HarfDizisi cozumlemeIcinUret(Kelime kelime, HarfDizisi giris, HarfDizisiKiyaslayici kiyaslayici) {
+    public override  HarfDizisi CozumlemeIcinUret(Kelime kelime, HarfDizisi giris, IHarfDizisiKiyaslayici kiyaslayici) {
         if (kiyaslayici == null) return null;
         // eki olustur.
-        HarfDizisi ek = ekUretici.cozumlemeIcinEkUret(kelime.icerik(), giris, uretimBilesenleri());
-        TurkceHarf ekHarfi = sesliUretci.sesliBelirleIU(kelime.icerik());
+        HarfDizisi ek = EkUretici.CozumlemeIcinEkUret(kelime.Icerik, giris, UretimBilesenleri);
+        TurkceHarf ekHarfi = sesliUretci.sesliBelirleIU(kelime.Icerik);
         HarfDizisi olusum = new HarfDizisi("yor", alfabe);
-        olusum.ekle(0, ekHarfi);
-        int harfPozisyonu = kelime.boy() + ek.Length;
-        if (kiyaslayici.aradanKiyasla(giris, olusum, harfPozisyonu))
+        olusum.Ekle(0, ekHarfi);
+        int harfPozisyonu = kelime.Boy() + ek.Boy;
+        if (kiyaslayici.AradanKiyasla(giris, olusum, harfPozisyonu))
             return ek;
         return null;
     }
 
-    public override HarfDizisi olusumIcinUret(Kelime kelime, Ek sonrakiEk)
+    public override HarfDizisi OlusumIcinUret(Kelime kelime, Ek sonrakiEk)
     {
-        if(sonrakiEk.ad().Equals(TurkceEkAdlari.FIIL_SIMDIKIZAMAN_IYOR))
-          return ekUretici.olusumIcinEkUret(kelime.icerik(),sonrakiEk, uretimBilesenleri());
+        if(sonrakiEk.Ad.Equals(TurkceEkAdlari.FIIL_SIMDIKIZAMAN_IYOR))
+          return EkUretici.OlusumIcinEkUret(kelime.Icerik,sonrakiEk, UretimBilesenleri);
         return null;
     }
 

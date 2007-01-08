@@ -31,13 +31,12 @@ using NZemberek.Cekirdek.Kolleksiyonlar;
 
 namespace NZemberek.Cekirdek.Yapi
 {
-
     /// <summary> ek uretim kuralinin islenmesinde kullanilan sinif icin ortak arayuz.
     /// Her lehce kendi uretim sinifini kullanir.
     /// User: ahmet
     /// Date: Aug 22, 2005
     /// </summary>
-    public interface EkUretici
+    public interface IEkUretici
     {
         /**
          * Kelime Cozumleme islemi icin ek uretimi.
@@ -46,9 +45,7 @@ namespace NZemberek.Cekirdek.Yapi
          * @param bilesenler
          * @return uretilen ek, HarfDizisi cinsinden.
          */
-        HarfDizisi cozumlemeIcinEkUret(HarfDizisi ulanacak,
-                                       HarfDizisi giris,
-                                       List<EkUretimBileseni> bilesenler);
+        HarfDizisi CozumlemeIcinEkUret(HarfDizisi ulanacak, HarfDizisi giris, List<EkUretimBileseni> bilesenler);
 
         /**
          * Kelime uretimi icin ek uretimi.
@@ -57,9 +54,7 @@ namespace NZemberek.Cekirdek.Yapi
          * @param bilesenler
          * @return uretilen ek, HarfDizisi cinsinden.
          */
-        HarfDizisi olusumIcinEkUret(HarfDizisi ulanacak,
-                                    Ek sonrakiEk,
-                                    List<EkUretimBileseni> bilesenler);
+        HarfDizisi OlusumIcinEkUret(HarfDizisi ulanacak, Ek sonrakiEk, List<EkUretimBileseni> bilesenler);
 
         /**
          * Ek bilesenlerini kullarak bir ekin hangi harflerle baslayacagini kestirip sonuclari
@@ -67,14 +62,14 @@ namespace NZemberek.Cekirdek.Yapi
          * @param bilesenler
          * @return olasi baslangic harfleri bir Set icerisinde.
          */
-        HashSet<TurkceHarf> olasiBaslangicHarfleri(List<EkUretimBileseni> bilesenler);
+        HashSet<TurkceHarf> OlasiBaslangicHarfleri(List<EkUretimBileseni> bilesenler);
     }
 
 
     /**
- * Turk dilleri icin cesitli uretim kurallarini belirler. Bazi kurallar sadece belli dillerde
- * kullanilir.
- */
+     * Turk dilleri icin cesitli uretim kurallarini belirler. Bazi kurallar sadece belli dillerde
+     * kullanilir.
+     */
     public enum EkUretimKurali
     {
         SESLI_AE,

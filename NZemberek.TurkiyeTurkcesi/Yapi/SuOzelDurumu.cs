@@ -34,21 +34,21 @@ using NZemberek.TrTurkcesi.Yapi;
 namespace NZemberek.TrTurkcesi.Yapi
 {
 
-/**
- * 'su' kokune kaynastirma iceren cesitli ekler eklendiginde normal kaynastirma harfi yerine
- * 'y' harfi kullanilir.
- */
-public class SuOzelDurumu : EkOzelDurumu {
+    /**
+     * 'su' kokune kaynastirma iceren cesitli ekler eklendiginde normal kaynastirma harfi yerine
+     * 'y' harfi kullanilir.
+     */
+    public class SuOzelDurumu : EkOzelDurumu {
 
-    public override HarfDizisi cozumlemeIcinUret(Kelime kelime, HarfDizisi giris, HarfDizisiKiyaslayici kiyaslayici) {
-        if(kelime.gercekEkYok() && kelime.kok().ozelDurumIceriyormu(TurkceKokOzelDurumTipi.SU_OZEL_DURUMU))
-           return ekUretici.cozumlemeIcinEkUret(kelime.icerik(), giris, uretimBilesenleri());
+    public override HarfDizisi CozumlemeIcinUret(Kelime kelime, HarfDizisi giris, IHarfDizisiKiyaslayici kiyaslayici) {
+        if(kelime.GercekEkYok() && kelime.Kok.ozelDurumIceriyormu(TurkceKokOzelDurumTipi.SU_OZEL_DURUMU))
+           return EkUretici.CozumlemeIcinEkUret(kelime.Icerik, giris, UretimBilesenleri);
         return null;
     }
 
-    public override HarfDizisi olusumIcinUret(Kelime kelime, Ek sonrakiEk)
+    public override HarfDizisi OlusumIcinUret(Kelime kelime, Ek sonrakiEk)
     {
-        return cozumlemeIcinUret(kelime, null, null);
+        return CozumlemeIcinUret(kelime, null, null);
     }
 }
 

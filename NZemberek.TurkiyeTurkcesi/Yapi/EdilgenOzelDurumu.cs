@@ -49,33 +49,33 @@ public class EdilgenOzelDurumu : EkOzelDurumu {
         this.sesliUretici = new TurkceSesliUretici(alfabe);
     }
 
-    public override HarfDizisi cozumlemeIcinUret(Kelime kelime, HarfDizisi giris, HarfDizisiKiyaslayici kiyaslayici) {
-        TurkceHarf son = kelime.sonHarf();
+    public override HarfDizisi CozumlemeIcinUret(Kelime kelime, HarfDizisi giris, IHarfDizisiKiyaslayici kiyaslayici) {
+        TurkceHarf son = kelime.SonHarf();
         if(son.Sesli)
           return new HarfDizisi(0);
         HarfDizisi sonuc = new HarfDizisi();
-        if (kelime.kok().ozelDurumIceriyormu(TurkceKokOzelDurumTipi.FIIL_ARA_SESLI_DUSMESI)) {
+        if (kelime.Kok.ozelDurumIceriyormu(TurkceKokOzelDurumTipi.FIIL_ARA_SESLI_DUSMESI)) {
             //eger ara sesli dusmesi olmussa eklenecek seslinin dusen sesliye gore
             //belirlenmesi gerekir. yani, "kavurmak" koku ve "kavrulmuS" girisini dusunelim,
             //ara sesli dusmesi ozel durumu nedeniyle "u" harfi kokten duserek "kavr" haline
             //gelir. Ancak koke bu haliyle edilgenlik ekini eklemeye kalkarsak "kavrIlmIS"
             //seklinde yanlis bir kelime ortaya cikardi. Bu nedenle burada dusen eke gore hangi
             // harfin eklenecegi belirleniyor.
-            HarfDizisi kok = new HarfDizisi(kelime.kok().icerik(), alfabe);
-            TurkceHarf kokAsilSesli = kok.sonSesli();
-            sonuc.ekle(sesliUretici.sesliBelirleIU(kokAsilSesli));
+            HarfDizisi kok = new HarfDizisi(kelime.Kok.Icerik, alfabe);
+            TurkceHarf kokAsilSesli = kok.SonSesli();
+            sonuc.Ekle(sesliUretici.sesliBelirleIU(kokAsilSesli));
         } else
-            sonuc.ekle(sesliUretici.sesliBelirleIU(kelime.icerik()));
-        if (son.Equals(alfabe.harf('l')))
-            sonuc.ekle(alfabe.harf('n'));
+            sonuc.Ekle(sesliUretici.sesliBelirleIU(kelime.Icerik));
+        if (son.Equals(alfabe.Harf('l')))
+            sonuc.Ekle(alfabe.Harf('n'));
         else
-            sonuc.ekle(alfabe.harf('l'));
+            sonuc.Ekle(alfabe.Harf('l'));
         return sonuc;
     }
 
-    public override HarfDizisi olusumIcinUret(Kelime kelime, Ek sonrakiEk)
+    public override HarfDizisi OlusumIcinUret(Kelime kelime, Ek sonrakiEk)
     {
-       return cozumlemeIcinUret(kelime, null, null);
+       return CozumlemeIcinUret(kelime, null, null);
     }
 }
 }

@@ -29,17 +29,15 @@ using System.Text;
 
 namespace NZemberek.Cekirdek.Yapi
 {
-    /**
-     * Basitce harf dizisinin sondan bir onceki harfini siler.
-     * User: ahmet
-     * Date: Aug 28, 2005
-     */
-    public class AraSesliDusmesi : HarfDizisiIslemi 
+    /// <summary>
+    /// Basitce Harf dizisinin sondan bir onceki harfini siler
+    /// </summary>
+    public class AraSesliDusmesi : IHarfDizisiIslemi 
     {
-        public void uygula(HarfDizisi dizi) 
+        public void Uygula(HarfDizisi dizi) 
         {
-            if (dizi.Length >= 2)
-                dizi.harfSil(dizi.Length - 2);
+            if (dizi.Boy >= 2)
+                dizi.HarfSil(dizi.Boy - 2);
         }
     }
 }

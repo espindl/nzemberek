@@ -74,23 +74,23 @@ namespace NZemberek.DilAraclari.KokSozlugu
         private String getDuzMetinSozlukForm(Kok kok)
         {
 
-        //icerik olarak icerigin varsa asil halini yoksa normal kok icerigini al.
-        String icerik = kok.icerik();
+        //icerik olarak icerigin varsa asil halini yoksa normal kok icerigini Al.
+        String icerik = kok.Icerik;
         if (kok.asil() != null)
             icerik = kok.asil();
 
         StringBuilder res = new StringBuilder(icerik);
         res.Append(" ");
         // Tipi ekleyelim.
-        if (kok.tip() == KelimeTipi.YOK) 
+        if (kok.Tip == KelimeTipi.YOK) 
         {
             logger.Warn("tipsiz kok:" + kok);
             return res.ToString();
         }
 
-        res.Append(kok.tip().ToString());
+        res.Append(kok.Tip.ToString());
         res.Append(" ");
-        res.Append(getOzellikString(kok.ozelDurumDizisi()));
+        res.Append(getOzellikString(kok.OzelDurumDizisi()));
         return res.ToString();
     }
 

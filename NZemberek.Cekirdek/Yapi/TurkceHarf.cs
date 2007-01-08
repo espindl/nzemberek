@@ -44,14 +44,14 @@ namespace NZemberek.Cekirdek.Yapi
         private bool duzSesli = false;
         private bool yuvarlakSesli = false;
 
-        // harf bir sekilde yumusuyorsa hangi harfe donusuyor?
+        // Harf bir sekilde yumusuyorsa hangi harfe donusuyor?
         private TurkceHarf _yumusama = null;
-        // eger bu harf bir sekilde sertlesiyorsa hangi harf?
+        // eger bu Harf bir sekilde sertlesiyorsa hangi Harf?
         private TurkceHarf _sertDonusum = null;
-        // Harf ASCII kumesinde yer aliyorsa ve turkce'ye ozel bir karaktere benzesiyorsa, benzesen harf.
+        // Harf ASCII kumesinde yer aliyorsa ve turkce'ye ozel bir karaktere benzesiyorsa, benzesen Harf.
         // ornegin s icin sh, i -> noktasiz i
         private TurkceHarf _turkceDonusum = null;
-        // eger harf ASCII icinde yer almiyorsa ve benzesen bir ASCII karsiligi varsa bu harf.
+        // eger Harf ASCII icinde yer almiyorsa ve benzesen bir ASCII karsiligi varsa bu Harf.
         private TurkceHarf _asciiDonusum = null;
 
         public TurkceHarf(char charValue, int sira)
@@ -74,13 +74,12 @@ namespace NZemberek.Cekirdek.Yapi
 
         public override String ToString()
         {
-            return "harf:" + _charDeger;
+            return "Harf:" + _charDeger;
         }
 
-        public bool asciiToleransliKiyasla(TurkceHarf ha)
+        public bool AsciiToleransliKiyasla(TurkceHarf ha)
         {
-
-            //eger harf icerikleri ayni degilse turkce-ascii donusumleri kiyaslanir.
+            //eger Harf icerikleri ayni degilse turkce-ascii donusumleri kiyaslanir.
             if (_charDeger != ha.CharDeger)
             {
                 if (_asciiDonusum != null && _asciiDonusum.CharDeger == ha.CharDeger)

@@ -29,18 +29,18 @@ using System.Text;
 
 namespace NZemberek.Cekirdek.Yapi
 {
-    /**
-     * kelimeye sesli harf eklendiginde son sessizin tekrarlanmasina neden olur.
-     * hak-> hakka, red->reddi gibi.
-     */
-    public class Ciftleme : HarfDizisiIslemi
+    /// <summary>
+    /// kelimeye sesli Harf eklendiginde son sessizin tekrarlanmasina neden olur. 
+    /// hak-> hakka, red->reddi gibi.
+    /// </summary>
+    public class Ciftleme : IHarfDizisiIslemi
     {
-        #region HarfDizisiIslemi Members
+        #region IHarfDizisiIslemi Members
 
-        public void uygula(HarfDizisi dizi)
+        public void Uygula(HarfDizisi dizi)
         {
-            if (dizi.Length > 0)
-                dizi.ekle(dizi.harf(dizi.Length - 1));
+            if (dizi.Boy > 0)
+                dizi.Ekle(dizi.Harf(dizi.Boy - 1));
         }
 
         #endregion

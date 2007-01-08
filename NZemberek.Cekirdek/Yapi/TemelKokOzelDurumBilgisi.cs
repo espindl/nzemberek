@@ -43,42 +43,42 @@ namespace NZemberek.Cekirdek.Yapi
 
         protected static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        protected EkYonetici ekYonetici;
+        protected IEkYonetici ekYonetici;
         protected Alfabe alfabe;
-        protected IDictionary<KokOzelDurumTipi, KokOzelDurumu> ozelDurumlar = new Dictionary<KokOzelDurumTipi, KokOzelDurumu>();
+        protected IDictionary<IKokOzelDurumTipi, KokOzelDurumu> ozelDurumlar = new Dictionary<IKokOzelDurumTipi, KokOzelDurumu>();
         protected IDictionary<String, KokOzelDurumu> kisaAdOzelDurumlar = new Dictionary<String, KokOzelDurumu>();
 
         public static readonly int MAX_OZEL_DURUM_SAYISI = 30;
         protected KokOzelDurumu[] ozelDurumDizisi = new KokOzelDurumu[MAX_OZEL_DURUM_SAYISI];
 
-        public TemelKokOzelDurumBilgisi(EkYonetici ekYonetici, Alfabe alfabe) {
+        public TemelKokOzelDurumBilgisi(IEkYonetici ekYonetici, Alfabe alfabe) {
             this.ekYonetici = ekYonetici;
             this.alfabe = alfabe;
         }
 
-        public KokOzelDurumu ozelDurum(int indeks) {
+        public KokOzelDurumu OzelDurum(int indeks) {
             if (indeks < 0 || indeks >= ozelDurumDizisi.Length)
-                throw new IndexOutOfRangeException("istenilen indeksli ozel durum mevcut degil:" + indeks);
+                throw new IndexOutOfRangeException("istenilen indeksli ozel durum Mevcut degil:" + indeks);
             return ozelDurumDizisi[indeks];
         }
 
-        public KokOzelDurumu kisaAdIleOzelDurum(String ozelDurumKisaAdi) {
+        public KokOzelDurumu KisaAdlaOzelDurum(String ozelDurumKisaAdi) {
             return kisaAdOzelDurumlar[ozelDurumKisaAdi];
         }
 
 
-        protected KokOzelDurumu.Uretici uretici(KokOzelDurumTipi tip, HarfDizisiIslemi islem) 
+        protected KokOzelDurumu.Uretici Uretici(IKokOzelDurumTipi tip, IHarfDizisiIslemi islem) 
         {
 
-            // bir adet kok ozel durumu uretici olustur.
+            // bir adet kok ozel durumu Uretici olustur.
             KokOzelDurumu.Uretici uretici = new KokOzelDurumu.Uretici(tip, islem);
 
-            // eger varsa kok adlarini kullanarak iliskili ekleri bul ve bir Set'e ata.
+            // eger varsa kok adlarini kullanarak iliskili ekleri Bul ve bir Set'e ata.
             String[] ekAdlari = tip.EkAdlari;
             if (ekAdlari.Length > 0) {
                 HashSet<Ek> set = new HashSet<Ek>();
                 foreach (String s in ekAdlari) {
-                    Ek ek = ekYonetici.ek(s);
+                    Ek ek = ekYonetici.EkVer(s);
                     if (ek != null) {
                         set.Add(ek);
                     } else {
@@ -91,7 +91,7 @@ namespace NZemberek.Cekirdek.Yapi
             return uretici;
         }
 
-        protected void ekle(KokOzelDurumu.Uretici uretici) {
+        protected void Ekle(KokOzelDurumu.Uretici uretici) {
             //tum
             KokOzelDurumu ozelDurum = uretici.uret();
             ozelDurumlar.Add(ozelDurum.tip(), ozelDurum);
@@ -100,19 +100,19 @@ namespace NZemberek.Cekirdek.Yapi
             kisaAdOzelDurumlar.Add(ozelDurum.kisaAd(), ozelDurum);
         }
 
-        protected void bosOzelDurumEkle(KokOzelDurumTipi[] args) 
+        protected void BosOzelDurumEkle(IKokOzelDurumTipi[] args) 
         {
-            foreach (KokOzelDurumTipi tip in args) 
+            foreach (IKokOzelDurumTipi tip in args) 
             {
-                ekle(uretici(tip,new BosHarfDizisiIslemi()));
+                Ekle(Uretici(tip,new BosHarfDizisiIslemi()));
             }
         }
 
-        public KokOzelDurumu ozelDurum(String kisaAd) {
+        public KokOzelDurumu OzelDurum(String kisaAd) {
             return kisaAdOzelDurumlar[kisaAd];
         }
 
-        public KokOzelDurumu ozelDurum(KokOzelDurumTipi tip) {
+        public KokOzelDurumu OzelDurum(IKokOzelDurumTipi tip) {
             return ozelDurumlar[tip];
         }
     }

@@ -33,13 +33,12 @@ using System.Configuration;
 using log4net;
 
 namespace NZemberek.Cekirdek.Araclar
-
 {
     public class KaynakYukleyici
     {
-        /**
-     * Default constructor. okuma sirasinda sistemde varsayilan kodlama kullanilir.
-     */
+        /// <summary>
+        /// Default constructor. Okuma sirasinda sistemde varsayilan kodlama kullanilir.
+        /// </summary>
         public KaynakYukleyici()
         {
             this.encoding = Encoding.Default;
@@ -52,11 +51,6 @@ namespace NZemberek.Cekirdek.Araclar
             logger.Info("Kaynak yukleyici olusturuluyor. varsayilan karakter seti:" + encoding);
         }
 
-        /**
-         * kaynak erisim islemleri verilen encoding ile gerceklestirilir.
-         *
-         * @param encoding
-         */
         public KaynakYukleyici(Encoding encoding)
         {
             this.encoding = encoding;
@@ -66,23 +60,15 @@ namespace NZemberek.Cekirdek.Araclar
         private Encoding encoding;
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);		
 
-        /**
-     * UTF metinlerin en basinda BOM adi verilen bir isaret bilgisi yer alabiliyor (UTF-8'de yer
-     * almasi gerekmiyor aslinda). Bu bilgi Java tarafindan UTF-8 icin goz ardi edilmiyor.
-     * Windows altinda olusturulan duz metinlerde bu bilgi koyuldugu icin Java'da okumada probleme yol acabiliyor.
-     * Bu nedenleutf-8 icin BOM bilgisinin yer alip almadiginin denetlenmesi gerekiyor. asagidaki byte dizisi
-     * UTF-8 icerisinde yer alan BOM bilgisini ifade ediyor.
-     */
-        private static byte[] bomBytes = new byte[]{(byte) 0xef, (byte) 0xbb, (byte) 0xbf};
-
-        /**
-     * properties formatina benzer yapidaki dosyayi kodlamali olarak okur.
-     * Normal properties dosyalari ASCII
-     * okundugundan turkce karakterlere uygun degil. Dosya icindeki satirlarin
-     * anahtar=deger seklindeki satirlardan olusmasi gerekir. dosya icindeki yorumlar
-     * # yorum seklinde ifade edilir.
-     */
-        public IDictionary<String, String> kodlamaliOzellikDosyasiOku(String dosyaAdi)
+        /// <summary>
+        /// properties formatina benzer yapidaki dosyayi kodlamali olarak okur. Normal properties dosyalari ASCII
+        /// okundugundan turkce karakterlere uygun degil. Dosya icindeki satirlarin
+        /// anahtar=deger seklindeki satirlardan olusmasi gerekir. dosya icindeki yorumlar
+        /// # yorum seklinde ifade edilir.
+        /// </summary>
+        /// <param name="dosyaAdi"></param>
+        /// <returns></returns>
+        public IDictionary<String, String> KodlamaliOzellikDosyasiOku(String dosyaAdi)
         {
             StreamReader reader  = null;
             IDictionary<String, String> ozellikler;
@@ -112,67 +98,40 @@ namespace NZemberek.Cekirdek.Araclar
             }
         }
 
-        /**
-         * istenilen kaynaga erisimin mumkun olup olmadigina bakar. Bazi secimlik kaynaklarin erisiminde
-         * bu metoddan yararlanilabilir.
-         *
-         * @param kaynakAdi
-         * @return true-> kaynak erisiminde hata olusmadi false-> kaynak erisiminde hata olustu ya da kaynak=null
-         */
-        public static bool kaynakMevcutmu(String kaynakAdi)
+        /// <summary>
+        /// istenilen kaynaga erisimin mumkun olup olmadigina bakar. Bazi secimlik kaynaklarin erisiminde
+        /// bu metoddan yararlanilabilir.
+        /// </summary>
+        /// <param name="kaynakAdi"></param>
+        /// <returns>true-> kaynak erisiminde hata olusmadi false-> kaynak erisiminde hata olustu ya da kaynak=null</returns>
+        public static bool KaynakMevcut(String kaynakAdi)
         {
-            //Tankut : Dosyayı startup pathde değil de assemblynin yanında aramalıyız.
-/*          string dosyaAdresi = string.Format(@"{0}\{1}",System.Windows.Forms.Application.StartupPath,kaynakAdi);
-            if (File.Exists(dosyaAdresi) )//|| this.GetType().getResource("/" + kaynakAdi) != null)
-                return true;
-            else
-            return false;
- */
             return File.Exists(Environment.CurrentDirectory + System.IO.Path.DirectorySeparatorChar + kaynakAdi);
         }
 
-        /**
-         * Girilen kaynaga once class path disindan erismeye calisir. Eger dosya bulunamazsa
-         * bu defa ayni dosyaya classpath icerisinden erismeye calisir
-         * (ozellikle jar icinden okumada kullanilir.).
-         *
-         * @param kaynakAdi
-         * @return kaynak risimi icin Buffered reader.
-         */
-        public StreamReader getReader(String kaynakAdi)
+        /// <summary>
+        /// Girilen kaynaga once class path disindan erismeye calisir. Eger dosya bulunamazsa
+        /// bu defa ayni dosyaya classpath icerisinden erismeye calisir.
+        /// </summary>
+        /// <param name="kaynakAdi"></param>
+        /// <returns>kaynak erisimi icin Buffered reader</returns>
+        public StreamReader OkuyucuGetir(String kaynakAdi)
         {
-            StreamReader sr = new StreamReader(getStream(kaynakAdi));
+            StreamReader sr = new StreamReader(AkimGetir(kaynakAdi));
             if (sr == null)
-                throw new IOException(kaynakAdi + " erisimi saglanamadi, Elde edilen Stream degeri null!");
-            return sr; //TODO encoding vardı burda
+                throw new IOException(kaynakAdi + " erisimi saglanamadi. Elde edilen Stream degeri null!");
+            return sr;
         }
 
-        /**
-         * belirtilen kaynagi Stream olarak once classpath kokunden (jar ise jar icinden) yuklemeye calisir.
-         * Eger kaynak bulunamazsa dosya sisteminden yuklemeye calisir (calisilan dizine goreceli olarak.)
-         * Onceligi classpath erisimine vermek mantikli cunku dagitimda kaynak erisimi buyuk ihtimalle
-         * classpath icerisinden gerceklestirilir.
-         */
-        public Stream getStream(String kaynakAdi)
+        /// <summary>
+        /// Kaynak adi ile stream doner
+        /// </summary>
+        /// <param name="kaynakAdi"></param>
+        /// <returns></returns>
+        public Stream AkimGetir(String kaynakAdi)
         {
             FileStream stream = new FileStream(kaynakAdi, FileMode.Open);
             return stream;
-            //StreamReader stream = null;
-            //try
-            //{
-            //    // classpath icinden yuklemeye calis.
-            //    stream = utf8BomDenetle(this.getClass().getResourceAsStream("/" + kaynakAdi));
-            //    log.info("classpath kaynak erisimi saglandi:" + kaynakAdi + " kodlama:" + encoding);
-            //}
-            //catch (IOException e)
-            //{
-            //    // proje ici kaynak erisimi yapmaya calis.
-            //    stream = utf8BomDenetle(new FileInputStream(kaynakAdi));
-            //    if (stream == null)
-            //        throw new IOException("Kaynak erisim hatasi: " + kaynakAdi);
-            //    log.info("Proje ici kaynak erisimi saglandi:" + kaynakAdi + " kodlama:" + encoding);
-            //}
-            //return stream;
         }
     }
 }

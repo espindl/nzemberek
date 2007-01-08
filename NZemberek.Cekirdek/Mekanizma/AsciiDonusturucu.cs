@@ -40,12 +40,12 @@ namespace NZemberek.Cekirdek.Mekanizma
             this.alfabe = alfabe;
         }
 
-        public String toAscii(String giris)
+        public String AsciiyeDonustur(String giris)
         {
             char[] chars = giris.ToCharArray();
             for (int i = 0; i < chars.Length; i++)
             {
-                TurkceHarf harf = alfabe.harf(chars[i]);
+                TurkceHarf harf = alfabe.Harf(chars[i]);
                 if (harf != null && harf != Alfabe.TANIMSIZ_HARF)
                     if (harf.AsciiDonusum != null)
                         chars[i] = harf.AsciiDonusum.CharDeger;

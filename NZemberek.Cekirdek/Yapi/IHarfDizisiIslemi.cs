@@ -28,15 +28,15 @@ using NZemberek.Cekirdek.Yapi;
 
 namespace NZemberek.Cekirdek.Yapi
 {
-	/// <summary> Bir harf dizisi uzerinde yapilabilecek islemi ifade eder. Bu arayuz genellikle
+	/// <summary> Bir Harf dizisi uzerinde yapilabilecek islemi ifade eder. Bu arayuz genellikle
 	/// kok yapisi uzerinde degisiklige nedenn olan ozel durumlarin tanimlanmasinda kullanilir.
 	/// </summary>
-	public interface HarfDizisiIslemi
+	public interface IHarfDizisiIslemi
 	{
 		
 		/// <summary> dizi uzerinde degisiklik yapacak metod.</summary>
 		/// <param name="dizi">
 		/// </param>
-		void  uygula(HarfDizisi dizi);
+		void  Uygula(HarfDizisi dizi);
 	}
 }

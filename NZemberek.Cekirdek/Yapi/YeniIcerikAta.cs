@@ -37,7 +37,7 @@ namespace NZemberek.Cekirdek.Yapi
      * ornegin
      * demek->diyen icin de->ye donusumu, ben->bana icin ben->ban donusumu.
      */
-    public class YeniIcerikAta : HarfDizisiIslemi
+    public class YeniIcerikAta : IHarfDizisiIslemi
     {
         private IDictionary<String, String> kokDonusum;
         private Alfabe alfabe;
@@ -48,15 +48,15 @@ namespace NZemberek.Cekirdek.Yapi
             this.alfabe = alfabe;
         }
 
-        #region HarfDizisiIslemi Members
+        #region IHarfDizisiIslemi Members
 
-        public void uygula(HarfDizisi dizi)
+        public void Uygula(HarfDizisi dizi)
         {
             String kelime = kokDonusum[dizi.ToString()];
             if (kelime != null)
             {
-                dizi.sil();
-                dizi.ekle(new HarfDizisi(kelime, alfabe));
+                dizi.Sil();
+                dizi.Ekle(new HarfDizisi(kelime, alfabe));
             }
         }
 

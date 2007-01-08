@@ -47,7 +47,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
             this.agac = agac;
         }
 
-        public int getYurumeSayisi() 
+        public int YurumeSayisi() 
         {
             return walkCount;
         }
@@ -55,9 +55,9 @@ namespace NZemberek.Cekirdek.KokSozlugu
         public List<Kok> AdayKokleriGetir(String giris)
         {
             this.giris = giris;
-            asciiGiris = agac.getAlfabe().asciifyString(giris);
+            asciiGiris = agac.Alfabe.AsciiyeDonustur(giris);
             adaylar = new List<Kok>(4);
-            yuru(agac.getKokDugumu(), "");
+            Yuru(agac.BaslangicDugumu(), "");
             return adaylar;;
         }
 
@@ -69,13 +69,13 @@ namespace NZemberek.Cekirdek.KokSozlugu
          * @return aday ve giris degerlerinin ascii karsiliklari aynıysa true, 
          * 	       değilse false. Ã–rneğin:
          * <pre>
-         * asciiTolaransliKarsilastir("siraci", "şıracı") --> true 
+         * AsciiTolaransliKarsilastir("siraci", "şıracı") --> true 
          * </pre>
          */
-        public bool asciiTolaransliKarsilastir(String aday, String giris)
+        public bool AsciiTolaransliKarsilastir(String aday, String giris)
         {
             if (aday.Length > giris.Length) return false;
-            String clean = agac.getAlfabe().asciifyString(aday);
+            String clean = agac.Alfabe.AsciiyeDonustur(aday);
             return asciiGiris.StartsWith(clean);
         }
 
@@ -86,14 +86,14 @@ namespace NZemberek.Cekirdek.KokSozlugu
          * @param dugum  : başlangıç düğümü
          * @param olusan : Yürüme sırasında oluşan kelime (düğümlerin karakter değerlerinden)
          */
-        public void yuru(KokDugumu dugum, String olusan) 
+        public void Yuru(KokDugumu dugum, String olusan) 
         {
             String tester = (olusan + dugum.Harf).Trim();
             walkCount++;
             if (dugum.getKok() != null) 
             {
                 if (logger.IsInfoEnabled) logger.Info("Kok : " + dugum.Kelime);
-                if (asciiTolaransliKarsilastir((String) dugum.Kelime, giris)) 
+                if (AsciiTolaransliKarsilastir((String) dugum.Kelime, giris)) 
                 {
                     // Aday kok bulundu.
                     dugum.tumKokleriEkle(adaylar);
@@ -105,7 +105,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
             }
             else 
             {
-                if (asciiTolaransliKarsilastir(tester, giris)) 
+                if (AsciiTolaransliKarsilastir(tester, giris)) 
                 {//TODO böölemi ! idi
                     return;
                 }
@@ -118,8 +118,8 @@ namespace NZemberek.Cekirdek.KokSozlugu
             {
                if (altDugum != null) 
                {
-                   if (agac.getAlfabe().asciiToleransliKiyasla(altDugum.Harf, giris[seviye]))
-                       this.yuru(altDugum, tester);
+                   if (agac.Alfabe.AsciiToleransliKiyasla(altDugum.Harf, giris[seviye]))
+                       this.Yuru(altDugum, tester);
                }
             }
         }

@@ -30,17 +30,17 @@ namespace NZemberek.Cekirdek.Yapi
 {
     public class OnEkOzelDurumu : EkOzelDurumu
     {
-        public override HarfDizisi cozumlemeIcinUret(Kelime kelime, HarfDizisi giris, HarfDizisiKiyaslayici kiyaslayici)
+        public override HarfDizisi CozumlemeIcinUret(Kelime kelime, HarfDizisi giris, IHarfDizisiKiyaslayici kiyaslayici)
         {
-            if (this.onEkler.Contains(kelime.sonEk()))
-                return ekUretici.cozumlemeIcinEkUret(kelime.icerik(), giris, _uretimBilesenleri);
+            if (this.OnEkler.Contains(kelime.SonEk()))
+                return EkUretici.CozumlemeIcinEkUret(kelime.Icerik, giris, UretimBilesenleri);
             else
                 return null;
         }
 
-        public override HarfDizisi olusumIcinUret(Kelime kelime, Ek sonrakiEk)
+        public override HarfDizisi OlusumIcinUret(Kelime kelime, Ek sonrakiEk)
         {
-            return cozumlemeIcinUret(kelime, null, null);
+            return CozumlemeIcinUret(kelime, null, null);
         }
     }
 }

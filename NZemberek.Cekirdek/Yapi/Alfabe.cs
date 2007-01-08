@@ -28,19 +28,14 @@ using System.Text;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using log4net;
-
-
 using System.Xml.Serialization;
 using System.IO;
-
 using NZemberek.Cekirdek.Araclar;
-
 
 namespace NZemberek.Cekirdek.Yapi
 {
     public class Alfabe
     {
-
         // Turkce ozel
         public static char CHAR_CC = '\u00c7'; // Kuyruklu buyuk c (ch)
         public static char CHAR_cc = '\u00e7'; // Kuyruklu kucuk c (ch)
@@ -77,7 +72,6 @@ namespace NZemberek.Cekirdek.Yapi
         public static char CHAR_SAPKALI_U = '\u00db'; // sapkali buyuk U
         public static char CHAR_SAPKALI_u = '\u00fb'; // sapkali kucuk u
 
-
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public static TurkceHarf TANIMSIZ_HARF = new TurkceHarf('#', 0);
@@ -98,17 +92,16 @@ namespace NZemberek.Cekirdek.Yapi
 
         private IDictionary<TurkceHarf, TurkceHarf> ozelInceSesliler = new Dictionary<TurkceHarf, TurkceHarf>();
 
-
         public Alfabe(String dosyaAdi, String localeStr)
         {
             IDictionary<String, String> harfOzellikleri;
-            harfOzellikleri = new KaynakYukleyici().kodlamaliOzellikDosyasiOku(dosyaAdi);
+            harfOzellikleri = new KaynakYukleyici().KodlamaliOzellikDosyasiOku(dosyaAdi);
             this.locale = new System.Globalization.CultureInfo(localeStr);
-            diziInit();
-            harfBilgisiOlustur(harfOzellikleri);
+            DiziBaslat();
+            HarfBilgisiOlustur(harfOzellikleri);
         }
 
-        private void diziInit()
+        private void DiziBaslat()
         {
 
             for (int i = 0; i < TURKISH_CHAR_MAP_SIZE; i++)
@@ -119,27 +112,25 @@ namespace NZemberek.Cekirdek.Yapi
             }
         }
 
-        /**
-         * char olarak girilen harfin TurkceHarf karsiligini dondurur.
-         * Bu sekilde harfin Turkce'ye has ozelliklerine erisilebilir. sesli, sert vs.
-         *
-         * @param harf
-         * @return char harfin turkeceHarf karsiligi. Eger yoksa TANIMSIZ_HARF doner.
-         */
-        public TurkceHarf harf(char harf)
+        /// <summary>
+        /// char olarak girilen harfin TurkceHarf karsiligini dondurur.
+        /// Bu sekilde harfin Turkce'ye has ozelliklerine erisilebilir. sesli, sert vs.
+        /// </summary>
+        /// <param name="Harf"></param>
+        /// <returns>char harfin turkeceHarf karsiligi. Eger yoksa TANIMSIZ_HARF doner</returns>
+        public TurkceHarf Harf(char harf)
         {
             if (harf > TURKISH_CHAR_MAP_SIZE) return TANIMSIZ_HARF;
             return turkceHarfDizisi[harf];
         }
 
-        /**
-         * girilen stringi kucuk harfe donusturup icindeki uyumsuz karakterleri siler
-         * "Wah'met-@" -> "ahmet"
-         *
-         * @param giris
-         * @return girisin ayiklanmis hali (String)
-         */
-        public String ayikla(String giris)
+        /// <summary>
+        /// girilen stringi kucuk harfe donusturup icindeki uyumsuz karakterleri siler
+        /// "Wah'met-@" -> "ahmet"
+        /// </summary>
+        /// <param name="Harf"></param>
+        /// <returns>girisin ayiklanmis hali</returns>
+        public String Ayikla(String giris)
         {
             StringBuilder buf = new StringBuilder(giris.Length);
             for (int i = 0; i < giris.Length; i++)
@@ -153,7 +144,7 @@ namespace NZemberek.Cekirdek.Yapi
             return buf.ToString();
         }
 
-        public bool cozumlemeyeUygunMu(String giris)
+        public bool CozumlemeyeUygunMu(String giris)
         {
             for (int i = 0; i < giris.Length; i++)
             {
@@ -163,7 +154,7 @@ namespace NZemberek.Cekirdek.Yapi
             return true;
         }
 
-        public String asciifyString(String inp)
+        public String AsciiyeDonustur(String inp)
         {
             char[] buffer = inp.ToCharArray();
             for (int i = 0; i < buffer.Length; i++)
@@ -173,64 +164,51 @@ namespace NZemberek.Cekirdek.Yapi
             return new String(buffer);
         }
 
-        public TurkceHarf buyukHarf(TurkceHarf harf)
+        public TurkceHarf BuyukHarf(TurkceHarf harf)
         {
             TurkceHarf buyuk = buyukHarflerDizi[harf.AlfabetikSira - 1];
             if (buyuk != null) return buyuk;
             return TANIMSIZ_HARF;
         }
 
-        public TurkceHarf buyukHarf(char c)
+        public TurkceHarf BuyukHarf(char c)
         {
-            TurkceHarf buyuk = buyukHarflerDizi[harf(c).AlfabetikSira - 1];
+            TurkceHarf buyuk = buyukHarflerDizi[Harf(c).AlfabetikSira - 1];
             if (buyuk != null) return buyuk;
             return TANIMSIZ_HARF;
         }
-/*
-        public virtual TurkceHarf kucukHarf(TurkceHarf harf)
-        {
-            TurkceHarf kucuk = kucukHarflerDizi[harf.AlfabetikSira - 1];
-            if (kucuk != null)
-                return kucuk;
-            return TANIMSIZ_HARF;
-        }
-*/
-        public bool asciiToleransliKiyasla(char harf1, char harf2)
+
+        public bool AsciiToleransliKiyasla(char harf1, char harf2)
         {
             if (harf1 > TURKISH_CHAR_MAP_SIZE || harf2 > TURKISH_CHAR_MAP_SIZE) return false;
             return (asciifierDizisi[harf1] == asciifierDizisi[harf2]);
         }
 
-        public char[] asciiDisiHarfler()
+        public char[] AsciiDisiHarfler()
         {
             return asciiDisi;
         }
 
-        /**
-         * istenilen kalin seslinin inceltilmis kopya halini dondurur. sadece ters sesli
-         * ozel durumu isleminde kullanilmaslidir.
-         *
-         * @param kalinSesli
-         * @return eger varsa karsilik dusen kalin sesli. yoksa seslinin kendisi.
-         */
-        public TurkceHarf kalinSesliIncelt(TurkceHarf kalinSesli)
+        /// <summary>
+        /// istenilen kalin seslinin inceltilmis kopya halini dondurur. sadece ters sesli
+        /// ozel durumu isleminde kullanilmaslidir.
+        /// </summary>
+        /// <param name="kalinSesli"></param>
+        /// <returns>eger varsa karsilik dusen kalin sesli. yoksa seslinin kendisi</returns>
+        public TurkceHarf KalinSesliIncelt(TurkceHarf kalinSesli)
         {
             if (ozelInceSesliler.ContainsKey(kalinSesli))
                 return ozelInceSesliler[kalinSesli];
             else return kalinSesli;
         }
 
-        /**
-         * bu degerler alfabe bilgisinin dosyadan okunmasi sirasinda kullanilir.
-         */
+        //bu degerler Alfabe bilgisinin dosyadan okunmasi sirasinda kullanilir
         protected internal System.Globalization.CultureInfo locale;
         private Regex virgulReg = new Regex("[,]");
         private Regex tireReg = new Regex("[-]");
 
-
         public static String HARFLER = "harfler";
         public static String SESLI = "sesli";
-
         public static String INCE_SESLI = "ince-sesli";
         public static String DUZ_SESLI = "duz-sesli";
         public static String YUVARLAK_SESLI = "yuvarlak-sesli";
@@ -244,13 +222,12 @@ namespace NZemberek.Cekirdek.Yapi
         public static String AYIKLAMA_DONUSUM = "ayiklama-donusum";
         public static String OZEL_INCE_SESLI = "ozel-ince-sesli";
 
-
         #region Harf ve Dönüşümleri Oluşturma Rutinleri
         /**
-         * harf dosyasindan harf bilgilerini okur ve TurkceHarf, ve alfabe sinifi icin gerekli
-         * gerekli harf iliskili veri yapilarinin olusturur.
+         * Harf dosyasindan Harf bilgilerini okur ve TurkceHarf, ve Alfabe sinifi icin gerekli
+         * gerekli Harf iliskili veri yapilarinin olusturur.
          */
-        private void harfBilgisiOlustur(IDictionary<String, String> bilgi)
+        private void HarfBilgisiOlustur(IDictionary<String, String> bilgi)
         {
             HarfDizileriOlustur(bilgi);
 
@@ -266,94 +243,94 @@ namespace NZemberek.Cekirdek.Yapi
         private void OzelInceSeslileriOlustur(IDictionary<String, String> bilgi)
         {
             // bazi turkcelerde yabanci dillerden gelen bazi kokler normal kalin-kalin sesli
-            // uretimini bozar. Eger harf ozelliklerinde belirtilmisse burada ince ozelligine sahip kalin
+            // uretimini bozar. Eger Harf ozelliklerinde belirtilmisse burada ince ozelligine sahip kalin
             // sesli kopyalari uretilir. bu harfler normal sesli listesnde yer almaz. kiyaslama sirasinda
             // kalin hali ile ayni kabul edilir.
             if (bilgi.ContainsKey(OZEL_INCE_SESLI))
             {
-                foreach (char c in harfAyristir(ozellik(bilgi, OZEL_INCE_SESLI)))
+                foreach (char c in HarfAyristir(Ozellik(bilgi, OZEL_INCE_SESLI)))
                 {
-                    TurkceHarf inceltilmisKalinSesli = (TurkceHarf)harf(c).Clone();
+                    TurkceHarf inceltilmisKalinSesli = (TurkceHarf)Harf(c).Clone();
                     inceltilmisKalinSesli.InceSesli = true;
-                    ozelInceSesliler.Add(harf(c), inceltilmisKalinSesli);
+                    ozelInceSesliler.Add(Harf(c), inceltilmisKalinSesli);
                 }
             }
         }
 
         private void AsciiTurkceDonusumleriTanimla(IDictionary<String, String> bilgi)
         {
-            List<HarfCifti> asciiDonusum = harfCiftiAyristir(ozellik(bilgi, TURKCE_ASCII));
+            List<HarfCifti> asciiDonusum = HarfCiftiAyristir(Ozellik(bilgi, TURKCE_ASCII));
             foreach (HarfCifti cift in asciiDonusum)
             {
                 asciifierDizisi[cift.h1] = cift.h2;
                 harfler[cift.h1].AsciiDonusum = harfler[cift.h2];
             }
 
-            // eger ascii-turkce donusum ikilileri harf dosyasinda belirtilimisse okunur.
+            // eger ascii-turkce donusum ikilileri Harf dosyasinda belirtilimisse okunur.
             // yoksa turkce-ascii ikililerinin tersi kullanilarak harflerin turkceDonusum ozellikleri belirlenir.
             if (bilgi.ContainsKey(ASCII_TURKCE))
             {
-                foreach (HarfCifti cift in harfCiftiAyristir(ozellik(bilgi, ASCII_TURKCE)))
+                foreach (HarfCifti cift in HarfCiftiAyristir(Ozellik(bilgi, ASCII_TURKCE)))
                     harfler[cift.h1].TurkceDonusum = harfler[cift.h2];
             }
             else
             {
                 foreach (HarfCifti cift in asciiDonusum)
-                    harf(cift.h2).TurkceDonusum = harf(cift.h1);
+                    Harf(cift.h2).TurkceDonusum = Harf(cift.h1);
             }
         }
 
         private void SertYumusakDonusumleriTanimla(IDictionary<String, String> bilgi)
         {
-            List<HarfCifti> yumusamaDonusum = harfCiftiAyristir(ozellik(bilgi, YUMUSAMA_DONUSUM));
+            List<HarfCifti> yumusamaDonusum = HarfCiftiAyristir(Ozellik(bilgi, YUMUSAMA_DONUSUM));
             foreach (HarfCifti cift in yumusamaDonusum)
             {
-                harf(cift.h1).Yumusama = harf(cift.h2);
-                buyukHarf(cift.h1).Yumusama = buyukHarf(cift.h2);
+                Harf(cift.h1).Yumusama = Harf(cift.h2);
+                BuyukHarf(cift.h1).Yumusama = BuyukHarf(cift.h2);
             }
 
-            // eger sert donusum bilgisi harf ozelliklerinde yar almazsa
+            // eger sert donusum bilgisi Harf ozelliklerinde yar almazsa
             // yumusama donusumun tersi olarak uygulanir.
             if (bilgi.ContainsKey(SERT_DONUSUM))
             {
-                foreach (HarfCifti cift in harfCiftiAyristir(ozellik(bilgi, SERT_DONUSUM)))
+                foreach (HarfCifti cift in HarfCiftiAyristir(Ozellik(bilgi, SERT_DONUSUM)))
                 {
-                    harf(cift.h1).SertDonusum = harf(cift.h2);
-                    buyukHarf(cift.h1).SertDonusum = buyukHarf(cift.h2);
+                    Harf(cift.h1).SertDonusum = Harf(cift.h2);
+                    BuyukHarf(cift.h1).SertDonusum = BuyukHarf(cift.h2);
                 }
             }
             else
             {
                 foreach (HarfCifti cift in yumusamaDonusum)
                 {
-                    harf(cift.h2).SertDonusum = harf(cift.h1);
-                    buyukHarf(cift.h2).SertDonusum = buyukHarf(cift.h1);
+                    Harf(cift.h2).SertDonusum = Harf(cift.h1);
+                    BuyukHarf(cift.h2).SertDonusum = BuyukHarf(cift.h1);
                 }
             }
         }
 
         private void TemizlemeDizisiOlustur(IDictionary<String, String> bilgi)
         {
-            foreach (char c in harfAyristir(ozellik(bilgi, AYIKLAMA)))
+            foreach (char c in HarfAyristir(Ozellik(bilgi, AYIKLAMA)))
             {
                 temizlemeDizisi[c] = ALFABE_DISI_KARAKTER;
-                temizlemeDizisi[buyukHarf(c).CharDeger] = ALFABE_DISI_KARAKTER;
+                temizlemeDizisi[BuyukHarf(c).CharDeger] = ALFABE_DISI_KARAKTER;
             }
 
-            foreach (HarfCifti cift in harfCiftiAyristir(ozellik(bilgi, AYIKLAMA_DONUSUM)))
+            foreach (HarfCifti cift in HarfCiftiAyristir(Ozellik(bilgi, AYIKLAMA_DONUSUM)))
             {
                 temizlemeDizisi[cift.h1] = cift.h2;
-                temizlemeDizisi[buyukHarf(cift.h1).CharDeger] = buyukHarf(cift.h2).CharDeger;
+                temizlemeDizisi[BuyukHarf(cift.h1).CharDeger] = BuyukHarf(cift.h2).CharDeger;
             }
         }
 
         private void HarfDizileriOlustur(IDictionary<String, String> bilgi)
         {
 
-            String tumKucukler = ozellik(bilgi, HARFLER);
+            String tumKucukler = Ozellik(bilgi, HARFLER);
             String tumBuyukler = tumKucukler.ToUpper(locale);
-            char[] kucukler = harfAyristir(tumKucukler);
-            char[] buyukler = harfAyristir(tumBuyukler);
+            char[] kucukler = HarfAyristir(tumKucukler);
+            char[] buyukler = HarfAyristir(tumBuyukler);
 
             //TurkceHarfleri olustur.
             for (int i = 0; i < kucukler.Length; i++)
@@ -384,53 +361,52 @@ namespace NZemberek.Cekirdek.Yapi
                 turkceHarfDizisi[c] = harf;
             }
 
-            foreach (char c in harfAyristir(ozellik(bilgi, SESLI)))
+            foreach (char c in HarfAyristir(Ozellik(bilgi, SESLI)))
             {
-                harf(c).Sesli = true;
-                buyukHarf(harfler[c]).Sesli = true;
+                Harf(c).Sesli = true;
+                BuyukHarf(harfler[c]).Sesli = true;
             }
 
-            foreach (char c in harfAyristir(ozellik(bilgi, INCE_SESLI)))
+            foreach (char c in HarfAyristir(Ozellik(bilgi, INCE_SESLI)))
             {
-                harf(c).InceSesli = true;
-                buyukHarf(c).InceSesli = true;
+                Harf(c).InceSesli = true;
+                BuyukHarf(c).InceSesli = true;
             }
 
-            foreach (char c in harfAyristir(ozellik(bilgi, DUZ_SESLI)))
+            foreach (char c in HarfAyristir(Ozellik(bilgi, DUZ_SESLI)))
             {
-                harf(c).DuzSesli = true;
-                buyukHarf(c).DuzSesli = true;
+                Harf(c).DuzSesli = true;
+                BuyukHarf(c).DuzSesli = true;
             }
 
-            foreach (char c in harfAyristir(ozellik(bilgi, YUVARLAK_SESLI)))
+            foreach (char c in HarfAyristir(Ozellik(bilgi, YUVARLAK_SESLI)))
             {
-                harf(c).YuvarlakSesli = true;
-                buyukHarf(c).YuvarlakSesli = true;
+                Harf(c).YuvarlakSesli = true;
+                BuyukHarf(c).YuvarlakSesli = true;
             }
 
-            foreach (char c in harfAyristir(ozellik(bilgi, SERT)))
+            foreach (char c in HarfAyristir(Ozellik(bilgi, SERT)))
             {
-                harf(c).Sert = true;
-                buyukHarf(c).Sert = true;
+                Harf(c).Sert = true;
+                BuyukHarf(c).Sert = true;
             }
 
-            asciiDisi = harfAyristir(ozellik(bilgi, ASCII_DISI));
+            asciiDisi = HarfAyristir(Ozellik(bilgi, ASCII_DISI));
             foreach (char c in asciiDisi)
             {
-                harf(c).AsciiDisi = true;
+                Harf(c).AsciiDisi = true;
             }
         }
 
         #endregion
 
-
-        protected String ozellik(IDictionary<String, String> harfOzellikleri, String anahtar)
+        protected String Ozellik(IDictionary<String, String> harfOzellikleri, String anahtar)
         {
             if (harfOzellikleri.ContainsKey(anahtar))
                 return harfOzellikleri[anahtar];
             else
             {
-                logger.Warn("harf ozelligi bulunamiyor: " + anahtar);
+                logger.Warn("Harf ozelligi bulunamiyor: " + anahtar);
                 return "";
             }
         }
@@ -441,7 +417,7 @@ namespace NZemberek.Cekirdek.Yapi
          * @param tum
          * @return virgul ile ayrilmis karater dizisi.
          */
-        protected char[] harfAyristir(String tum)
+        protected char[] HarfAyristir(String tum)
         {
             tum = tum.Replace("[ \t]", "");
             String[] charStrDizi = virgulReg.Split(tum);
@@ -449,7 +425,7 @@ namespace NZemberek.Cekirdek.Yapi
             for (int i = 0; i < charStrDizi.Length; i++)
             {
                 if (charStrDizi[i].Length != 1)
-                    logger.Warn(tum + "ayristirilirken tek harf bekleniyordu. " + charStrDizi + " uygun degil");
+                    logger.Warn(tum + "ayristirilirken tek Harf bekleniyordu. " + charStrDizi + " uygun degil");
                 cDizi[i] = charStrDizi[i].ToCharArray()[0];
             }
             return cDizi;
@@ -460,7 +436,7 @@ namespace NZemberek.Cekirdek.Yapi
          *
          * @return TurkceHarf cifti tasiyan HarfCifti listesi
          */
-        protected List<HarfCifti> harfCiftiAyristir(String tum)
+        protected List<HarfCifti> HarfCiftiAyristir(String tum)
         {
             tum = tum.Replace("[ \t]", "");
             String[] charStrDizi = virgulReg.Split(tum);
@@ -469,9 +445,9 @@ namespace NZemberek.Cekirdek.Yapi
             {
                 String[] cift = tireReg.Split(s);
                 if (cift.Length != 2)
-                    logger.Warn(tum + "ayristirilirken harf cifti  bekleniyordu. " + s + " uygun degil.");
+                    logger.Warn(tum + "ayristirilirken Harf cifti  bekleniyordu. " + s + " uygun degil.");
                 if (cift[0].Length != 1 || cift[1].Length != 1)
-                    logger.Warn(tum + "ayristirilirken tek harf bekleniyordu. " + charStrDizi + " uygun degil");
+                    logger.Warn(tum + "ayristirilirken tek Harf bekleniyordu. " + charStrDizi + " uygun degil");
                 char h1 = cift[0][0];
                 char h2 = cift[1][0];
                 ciftler.Add(new HarfCifti(h1, h2));
@@ -491,7 +467,6 @@ namespace NZemberek.Cekirdek.Yapi
                 this.h2 = h2;
             }
         }
-
 /*
         private void serialize()
         {

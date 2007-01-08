@@ -109,7 +109,6 @@
     <Compile Include="Yapi\Kelime.cs" />
     <Compile Include="Yapi\KelimeTipi.cs" />
     <Compile Include="Yapi\Kok.cs" />
-    <Compile Include="Yapi\ISesliUretici.cs" />
     <Compile Include="Yapi\TurkceHarf.cs" />
     <Compile Include="YaziElemanlari\HarfTanimi.cs" />
     <Compile Include="YaziElemanlari\Sesli.cs" />

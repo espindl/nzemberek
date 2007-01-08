@@ -39,67 +39,67 @@ namespace NZemberek.TrTurkcesi.Mekanizma
  * User: ahmet
  * Date: Sep 11, 2005
  */
-public class TurkceCozumlemeYardimcisi : CozumlemeYardimcisi {
+public class TurkceCozumlemeYardimcisi : ICozumlemeYardimcisi {
 
     private Alfabe alfabe;
-  //  private EkYonetici ekYonetici;
-    private DenetlemeCebi cep;
+  //  private IEkYonetici ekYonetici;
+    private IDenetlemeCebi cep;
 
 
     public TurkceCozumlemeYardimcisi(Alfabe alfabe,
-                                     DenetlemeCebi cep) {
+                                     IDenetlemeCebi cep) {
         this.alfabe = alfabe;
         this.cep = cep;
     }
 
-    public void kelimeBicimlendir(Kelime kelime) {
-        Kok kok = kelime.kok();
-        HarfDizisi olusan = kelime.icerik();
-        if (kok.tip().Equals(KelimeTipi.KISALTMA)) {
-            //cozumleme sirasinda eklenmis harf varsa onlari sil.
-            int silinecek = kok.icerik().Length;
+    public void KelimeBicimlendir(Kelime kelime) {
+        Kok kok = kelime.Kok;
+        HarfDizisi olusan = kelime.Icerik;
+        if (kok.Tip.Equals(KelimeTipi.KISALTMA)) {
+            //cozumleme sirasinda eklenmis Harf varsa onlari Sil.
+            int silinecek = kok.Icerik.Length;
             if (kok.ozelDurumIceriyormu(TurkceKokOzelDurumTipi.KISALTMA_SON_SESSIZ))
                 silinecek += 2;
             if (kok.ozelDurumIceriyormu(TurkceKokOzelDurumTipi.KISALTMA_SON_SESLI))
                 silinecek++;
-            //kelimenin olusan kismindan kokun icereigini sil.
-            olusan.harfSil(0, silinecek);
-            //simdi kokun orjinal halini ekle.
-            olusan.ekle(0, new HarfDizisi(kok.asil(), alfabe));
+            //kelimenin olusan kismindan kokun icereigini Sil.
+            olusan.HarfSil(0, silinecek);
+            //simdi kokun orjinal halini Ekle.
+            olusan.Ekle(0, new HarfDizisi(kok.asil(), alfabe));
 
-            if (olusan.Length == kok.asil().Length)
+            if (olusan.Boy == kok.asil().Length)
                 return;
-            //eger gerekiyorsa kesme isareti koy.
-            if (!olusan.harf(kok.asil().Length - 1).Equals(alfabe.harf('.')))
-                olusan.ekle(kok.asil().Length, alfabe.harf('\''));
+            //eger gerekiyorsa kesme isareti Koy.
+            if (!olusan.Harf(kok.asil().Length - 1).Equals(alfabe.Harf('.')))
+                olusan.Ekle(kok.asil().Length, alfabe.Harf('\''));
 
-        } else if (kok.tip() == KelimeTipi.OZEL) {
-            olusan.harfDegistir(0, alfabe.buyukHarf(olusan.ilkHarf()));
+        } else if (kok.Tip == KelimeTipi.OZEL) {
+            olusan.HarfDegistir(0, alfabe.BuyukHarf(olusan.IlkHarf()));
             if (kok.ozelDurumIceriyormu(TurkceKokOzelDurumTipi.KESMESIZ))
                 return;
-            List<Ek> ekler = kelime.ekler();
+            List<Ek> ekler = kelime.Ekler;
             if (ekler.Count > 1) {
                 Ek ek = (Ek) ekler[1];
-                if (ek.iyelikEkiMi() ||ek.halEkiMi()) {
-                    int kesmePozisyonu = kok.icerik().Length;
-                    olusan.ekle(kesmePozisyonu,alfabe.harf('\''));
+                if (ek.IyelikEki ||ek.HalEki) {
+                    int kesmePozisyonu = kok.Icerik.Length;
+                    olusan.Ekle(kesmePozisyonu,alfabe.Harf('\''));
                 }
             }
         }
         // ozel ic karakter iceren kokler icin bicimleme
 /*        if (kok.ozelDurumlar().contains(TurkceKokOzelDurumlari.OZEL_IC_KARAKTER)) {
-            //olusan ksimdan koku sil
+            //olusan ksimdan koku Sil
             int silinecek = kok.icerik().length();
-            olusan.harfSil(0, silinecek);
-            //simdi kokun orjinal halini ekle.
-            olusan.ekle(0, new HarfDizisi(kok.asil()));
+            olusan.HarfSil(0, silinecek);
+            //simdi kokun orjinal halini Ekle.
+            olusan.Ekle(0, new HarfDizisi(kok.asil()));
         }*/
     }
 
-    public bool kelimeBicimiDenetle(Kelime kelime, String giris) {
+    public bool KelimeBicimiDenetle(Kelime kelime, String giris) {
         if (giris.Length == 0) return false;
-        Kok kok = kelime.kok();
-        if (kok.tip().Equals(KelimeTipi.KISALTMA)) {
+        Kok kok = kelime.Kok;
+        if (kok.Tip.Equals(KelimeTipi.KISALTMA)) {
             // eger giriskokun orjinal hali ile baslamiyorsa hatali demektir.
             String _asil = kok.asil();
             if (!giris.StartsWith(_asil))
@@ -113,23 +113,23 @@ public class TurkceCozumlemeYardimcisi : CozumlemeYardimcisi {
                 return kalan[0] != '\'';
             }
             return kalan[0] == '\'';
-        } else if (kelime.kok().tip() == KelimeTipi.OZEL) {
+        } else if (kelime.Kok.Tip == KelimeTipi.OZEL) {
             if (Char.IsLower(giris[0]))
                 return false;
-            if (kelime.kok().ozelDurumIceriyormu(TurkceKokOzelDurumTipi.KESMESIZ))
+            if (kelime.Kok.ozelDurumIceriyormu(TurkceKokOzelDurumTipi.KESMESIZ))
                 return true;
-            List<Ek> ekler = kelime.ekler();
+            List<Ek> ekler = kelime.Ekler;
             if (ekler.Count > 1) {
                 Ek ek = (Ek) ekler[1];
-                if (ek.iyelikEkiMi() || ek.halEkiMi()) {
-                    int kesmePozisyonu = kelime.kok().icerik().Length;
+                if (ek.IyelikEki || ek.HalEki) {
+                    int kesmePozisyonu = kelime.Kok.Icerik.Length;
                     return kesmePozisyonu <= giris.Length && giris[kesmePozisyonu] == '\'';
                 }
             }
         }
         // ozel ic karakter iceren kokler icin bicimleme
 /*        if (kok.ozelDurumlar().contains(TurkceKokOzelDurumlari.OZEL_IC_KARAKTER)) {&
-            //olusan ksimdan koku sil
+            //olusan ksimdan koku Sil
             String _asil = kok.asil();
             if (!giris.startsWith(_asil))
               return false;
@@ -137,36 +137,36 @@ public class TurkceCozumlemeYardimcisi : CozumlemeYardimcisi {
         return true;
     }
 
-    public bool kokGirisDegismiVarsaUygula(Kok kok, HarfDizisi kokDizi, HarfDizisi girisDizi) {
+    public bool KokGirisDegismiVarsaUygula(Kok kok, HarfDizisi kokDizi, HarfDizisi girisDizi) {
         //turkce'de sadece kisaltmalarda bu metoda ihtiyacimiz var.
         char c = kok.KisaltmaSonSeslisi;
-        if (girisDizi.Length == 0) return false;
-        if (kok.tip().Equals(KelimeTipi.KISALTMA) && c != 0) {
-            TurkceHarf h = alfabe.harf(c);
+        if (girisDizi.Boy == 0) return false;
+        if (kok.Tip.Equals(KelimeTipi.KISALTMA) && c != 0) {
+            TurkceHarf h = alfabe.Harf(c);
             //toleransli cozumleyicide kok giristen daha uzun olabiliyor.
             // o nedenle asagidaki kontrolun yapilmasi gerekiyor.
-            int kokBoyu = kok.icerik().Length;
-            if (kokBoyu <= girisDizi.Length)
-                girisDizi.ekle(kokBoyu, h);
+            int kokBoyu = kok.Icerik.Length;
+            if (kokBoyu <= girisDizi.Boy)
+                girisDizi.Ekle(kokBoyu, h);
             else
-                girisDizi.ekle(h);
-            kokDizi.ekle(h);
+                girisDizi.Ekle(h);
+            kokDizi.Ekle(h);
             if (kok.ozelDurumIceriyormu(TurkceKokOzelDurumTipi.KISALTMA_SON_SESSIZ)) {
                 //gene toleransli cozumleyicinin hata vermemesi icin asagidaki kontrole ihtiyacimiz var
-                if (kokBoyu < girisDizi.Length)
-                    girisDizi.ekle(kokBoyu + 1, alfabe.harf('b'));
+                if (kokBoyu < girisDizi.Boy)
+                    girisDizi.Ekle(kokBoyu + 1, alfabe.Harf('b'));
                 else
-                    girisDizi.ekle( alfabe.harf('b'));
-                kokDizi.ekle( alfabe.harf('b'));
+                    girisDizi.Ekle( alfabe.Harf('b'));
+                kokDizi.Ekle( alfabe.Harf('b'));
             }
             return true;
         }
         return false;
     }
 
-    public bool cepteAra(String str) {
+    public bool CepteAra(String str) {
         return false;
-       // return cep != null && cep.kontrol(str);
+       // return cep != null && cep.Kontrol(str);
     }
 }
 

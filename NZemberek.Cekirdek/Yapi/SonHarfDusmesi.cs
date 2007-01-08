@@ -30,18 +30,14 @@ using System.Text;
 namespace NZemberek.Cekirdek.Yapi
 {
     /**
-     * Basitce harf dizisinin son harfini siler.
+     * Basitce Harf dizisinin son harfini siler.
      */
-    public class SonHarfDusmesi : HarfDizisiIslemi
+    public class SonHarfDusmesi : IHarfDizisiIslemi
     {
-        #region HarfDizisiIslemi Members
-
-        public void uygula(HarfDizisi dizi)
+        public void Uygula(HarfDizisi dizi)
         {
-            if (dizi.Length > 0)
-                dizi.harfSil(dizi.Length - 1);
+            if (dizi.Boy > 0)
+                dizi.HarfSil(dizi.Boy - 1);
         }
-
-        #endregion
     }
 }

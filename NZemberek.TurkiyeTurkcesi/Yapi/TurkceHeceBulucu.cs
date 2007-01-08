@@ -35,51 +35,51 @@
 //{
 //    public class TurkceHeceBulucu : IHeceleyici
 //    {
-//        private Alfabe alfabe;
+//        private Alfabe Alfabe;
 //        public TurkceHeceBulucu(Alfabe alf)
 //        {
-//            alfabe = alf;
+//            Alfabe = alf;
 //        }
 //        /**
-//         * Giren harf dizisinin sonunda mantikli olarak yer alan hecenin harf
+//         * Giren Harf dizisinin sonunda mantikli olarak yer alan hecenin Harf
 //         * sayisini dondurur.
-//         * Sistem, -trak ve benzeri harf dizilimine sahip kelimeleri hecelemiyor.
+//         * Sistem, -trak ve benzeri Harf dizilimine sahip kelimeleri hecelemiyor.
 //         *
-//         * @param kelime: turkce harf dizisi.
+//         * @param kelime: turkce Harf dizisi.
 //         * @return int, 1,2,3 ya da 4 donerse giris dizisinin dizinin sondan o
 //         *         kadarharfi heceyi temsil eder -1 donerse hecenin bulunamadigi
-//         *         anlamina gelir. sistem yabanci harf ya da isaretlerin oldugu ya
+//         *         anlamina gelir. sistem yabanci Harf ya da isaretlerin oldugu ya
 //         *         da kural disi kelimeleri heceleyemez. (ornegin, three, what vs.)
-//         *         TODO: sistem su anda basta bulunan iki harf sessiz oldugu
+//         *         TODO: sistem su anda basta bulunan iki Harf sessiz oldugu
 //         *         durumlari kabul etmekte ama buna kisitlama getirilmesi iyi olur.
 //         *         sadece "tr", "st", "kr" gibi girislere izin verilmeli
 //         */
 //        private int sonHeceHarfSayisi(HarfDizisi kelime)
 //        {
 
-//            int boy = kelime.Length;
-//            TurkceHarf harf = kelime.harf(boy - 1);
-//            TurkceHarf oncekiHarf = kelime.harf(boy - 2);
+//            int Boy = kelime.Boy;
+//            TurkceHarf Harf = kelime.Harf(Boy - 1);
+//            TurkceHarf oncekiHarf = kelime.Harf(Boy - 2);
 
-//            if (boy == 0)
+//            if (Boy == 0)
 //                return -1;
 
-//            if (harf.Sesli)
+//            if (Harf.Sesli)
 //            {
 //                //kelime sadece sesli.
-//                if (boy == 1)
+//                if (Boy == 1)
 //                    return 1;
-//                //onceki harf sesli kelime="saa" ise son ek "a"
+//                //onceki Harf sesli kelime="saa" ise son ek "a"
 //                if (oncekiHarf.Sesli)
 //                    return 1;
-//                //onceki harf sessiz ise ve kelime sadece 2 harf ise hece tum kelime. "ya"
-//                if (boy == 2)
+//                //onceki Harf sessiz ise ve kelime sadece 2 Harf ise hece tum kelime. "ya"
+//                if (Boy == 2)
 //                    return 2;
 
-//                TurkceHarf ikiOncekiHarf = kelime.harf(boy - 3);
+//                TurkceHarf ikiOncekiHarf = kelime.Harf(Boy - 3);
 
 //                // steteskp > ste
-//                if (!ikiOncekiHarf.Sesli && boy == 3)
+//                if (!ikiOncekiHarf.Sesli && Boy == 3)
 //                {
 //                    return 3;
 //                }
@@ -89,28 +89,28 @@
 //            {
 
 //                // tek sessiz ile hece olmaz.
-//                if (boy == 1)
+//                if (Boy == 1)
 //                    return -1;
 
-//                TurkceHarf ikiOncekiHarf = kelime.harf(boy - 3);
+//                TurkceHarf ikiOncekiHarf = kelime.Harf(Boy - 3);
 //                if (oncekiHarf.Sesli)
 //                {
 
-//                    //kelime iki harfli (el, al) ya da iki onceki harf sesli (saat)
-//                    if (boy == 2 || ikiOncekiHarf.Sesli)
+//                    //kelime iki harfli (el, Al) ya da iki onceki Harf sesli (saat)
+//                    if (Boy == 2 || ikiOncekiHarf.Sesli)
 //                        return 2;
 
-//                    TurkceHarf ucOncekiHarf = kelime.harf(boy - 4);
-//                    // kelime uc harfli (kal, sel) ya da uc onceki harf sesli (kanat),
-//                    if (boy == 3 || ucOncekiHarf.Sesli)
+//                    TurkceHarf ucOncekiHarf = kelime.Harf(Boy - 4);
+//                    // kelime uc harfli (kal, sel) ya da uc onceki Harf sesli (kanat),
+//                    if (Boy == 3 || ucOncekiHarf.Sesli)
 //                        return 3;
 
 //                    //kelime dort harfli ise yukaridaki kurallari gecmesi nedeniyle hecelenemez sayiyoruz.
 //                    // ornegin tren strateji krank angstrom kelimelerii hecelenemez sayiyoruz.
-//                    if (boy == 4)
+//                    if (Boy == 4)
 //                        return -1;
 
-//                    TurkceHarf dortOncekiHarf = kelime.harf(boy - 5);
+//                    TurkceHarf dortOncekiHarf = kelime.Harf(Boy - 5);
 //                    if (!dortOncekiHarf.Sesli)
 //                        return 3;
 //                    return 3;
@@ -119,10 +119,10 @@
 //                {
 
 
-//                        if (boy == 2 || !ikiOncekiHarf.Sesli)
+//                        if (Boy == 2 || !ikiOncekiHarf.Sesli)
 //                            return -1;
-//                        TurkceHarf ucOncekiHarf = kelime.harf(boy - 4);
-//                        if (boy > 3 && !ucOncekiHarf.Sesli)
+//                        TurkceHarf ucOncekiHarf = kelime.Harf(Boy - 4);
+//                        if (Boy > 3 && !ucOncekiHarf.Sesli)
 //                            return 4;
 //                        return 3;
 
@@ -140,12 +140,12 @@
 //     * @param giris
 //     * @return sonHeceHarfSayisi String dizisi
 //     */
-//        public String[] hecele(String giris)
+//        public String[] Hecele(String giris)
 //        {
-//            giris = alfabe.ayikla(giris);
-//            HarfDizisi kelime = new HarfDizisi(giris, alfabe);
+//            giris = Alfabe.Ayikla(giris);
+//            HarfDizisi kelime = new HarfDizisi(giris, Alfabe);
 //            ArrayList list = new ArrayList(); //reverse kullanmak icin generics kullanmadim...
-//            while (kelime.Length > 0)
+//            while (kelime.Boy > 0)
 //            {
 //                int index = this.sonHeceHarfSayisi(kelime);
 //                if (index < 0)
@@ -153,9 +153,9 @@
 //                    list.Clear();
 //                    return new String[0];
 //                }
-//                int basla = kelime.Length - index;
+//                int basla = kelime.Boy - index;
 //                list.Add(kelime.ToString(basla));
-//                kelime.kirp(basla);
+//                kelime.Kirp(basla);
 //            }
 //            list.Reverse();
 //            String[] retArr = new String[list.Count];
@@ -169,16 +169,16 @@
 //         * @param giris
 //         * @return hecelenebilirse true, aksi halde false.
 //         */
-//        public bool hecelenebilirmi(String giris)
+//        public bool Hecelenebilir(String giris)
 //        {
-//            HarfDizisi kelime = new HarfDizisi(giris, alfabe);
-//            while (kelime.Length > 0)
+//            HarfDizisi kelime = new HarfDizisi(giris, Alfabe);
+//            while (kelime.Boy > 0)
 //            {
 //                int index = this.sonHeceHarfSayisi(kelime);
 //                if (index < 0)
 //                    return false;
-//                int basla = kelime.Length - index;
-//                kelime.kirp(basla);
+//                int basla = kelime.Boy - index;
+//                kelime.Kirp(basla);
 //            }
 //            return true;
 //        }
@@ -191,23 +191,23 @@
 //         *         Ã–rnek: "merhaba" kelimesi için 0,3,5
 //         *         "türklerin" kelimesi için 0,4,6
 //         */
-//        public int[] heceIndeksleriniBul(String giris)
+//        public int[] HeceIndeksleriniBul(String giris)
 //        {
-//            giris = alfabe.ayikla(giris);
-//            HarfDizisi kelime = new HarfDizisi(giris, alfabe);
+//            giris = Alfabe.Ayikla(giris);
+//            HarfDizisi kelime = new HarfDizisi(giris, Alfabe);
 //            int[] tmpHeceIndeksleri = new int[50];
 //            int heceIndeks = 0;
-//            while (kelime.Length > 0)
+//            while (kelime.Boy > 0)
 //            {
 //                int index = this.sonHeceHarfSayisi(kelime);
 //                if (index < 0)
 //                {
 //                    return null;
 //                }
-//                int basla = kelime.Length - index;
+//                int basla = kelime.Boy - index;
 //                tmpHeceIndeksleri[heceIndeks++] = basla;
 //                if (heceIndeks > 50) return null;
-//                kelime.kirp(basla);
+//                kelime.Kirp(basla);
 //            }
 //            int[] heceIndeksleri = new int[heceIndeks];
 //            for (int i = 0; i < heceIndeks; i++)

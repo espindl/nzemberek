@@ -28,55 +28,55 @@ using System.Collections.Generic;
 using System.Text;
 using NZemberek.Cekirdek.Yapi;
 
-
-
 namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
 {
     public class BasitKelimeYigini
     {
         private LinkedList<YiginKelime> yigin = new LinkedList<YiginKelime>();
 
-        public YiginKelime al() 
+        public YiginKelime Al() 
         {
             YiginKelime ret = yigin.First.Value;
             yigin.RemoveFirst();
             return ret;
         }
 
-        public bool bosMu() {
+        public bool Bos() {
             return (yigin.Count==0);
         }
 
-        public void temizle() {
+        public void Temizle() {
             yigin.Clear();
         }
 
-        public void koy(Kelime kelime, int ardisilEkSirasi) {
+        public void Koy(Kelime kelime, int ardisilEkSirasi) {
             yigin.AddFirst(new YiginKelime(kelime, ardisilEkSirasi));
         }
 
+
         public sealed class YiginKelime 
         {
-
             private readonly Kelime kelime;
             private readonly int ekSirasi;
-
+            
             public YiginKelime(Kelime kel, int index) {
                 this.kelime = kel;
                 this.ekSirasi = index;
             }
 
-            public Kelime getKelime() {
-                return kelime;
+            public Kelime Kelime
+            {
+                get { return kelime; }
             }
 
-            public int getEkSirasi() {
-                return ekSirasi;
-            }
+            public int EkSirasi
+            {
+                get { return ekSirasi; }
+            } 
 
             public override String ToString() {
-                return " olusan: " + kelime.icerikStr()
-                        + " sonEk: " + kelime.sonEk().ToString()
+                return " olusan: " + kelime.IcerikMetni()
+                        + " SonEk: " + kelime.SonEk().ToString()
                         + " ekSira: " + ekSirasi;
             }
         }

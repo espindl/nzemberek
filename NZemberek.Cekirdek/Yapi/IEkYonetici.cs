@@ -29,19 +29,22 @@ using NZemberek.Cekirdek.Yapi;
 
 namespace NZemberek.Cekirdek.Yapi
 {
-    public interface EkYonetici
+    public interface IEkYonetici
     {
-        /**
-     * istenilen isimli ek'i dondurur
-     */
-        Ek ek(String ad);
+        /// <summary>
+        /// istenilen isimli Ek'i dondurur
+        /// </summary>
+        /// <param name="ad"></param>
+        /// <returns>ek</returns>
+        Ek EkVer(String ad);
 
-        /**
-         * Kok nesnesinin tipine gore gelebilecek ilk ek'i dondurur.
-         * Baslangic ekleri bilgisi dil tarafindan belirlenir.
-         * @return ilk Ek, eger kok tipi baslangic ekleri <baslangicEkleri>
-         *         haritasinda belirtilmemisse BOS_EK doner.
-         */
-        Ek ilkEkBelirle(Kok kok);
+        /// <summary>
+        /// Kok nesnesinin tipine gore gelebilecek ilk ek'i dondurur.
+        /// Baslangic ekleri bilgisi dil tarafindan belirlenir.
+        /// </summary>
+        /// <param name="kok"></param>
+        /// <returns>ilk Ek, eger kok tipi baslangic ekleri baslangicEkleri
+        /// haritasinda belirtilmemisse BOS_EK doner.</returns>
+        Ek IlkEkBelirle(Kok kok);
     }
 }

@@ -19,10 +19,10 @@ namespace NZemberek.TrTurkcesi.Yapi
 
         private Alfabe _alfabe;
         private ISozluk sozluk;
-        private DenetlemeCebi _cep;
-        private CozumlemeYardimcisi yardimci;
-        private EkYonetici ekYonetici;
-        private KokOzelDurumBilgisi ozelDurumBilgisi;
+        private IDenetlemeCebi _cep;
+        private ICozumlemeYardimcisi yardimci;
+        private IEkYonetici ekYonetici;
+        private IKokOzelDurumBilgisi ozelDurumBilgisi;
         private IHeceleyici _heceleyici;
 
         private String bilgiDizini;
@@ -58,7 +58,7 @@ namespace NZemberek.TrTurkcesi.Yapi
 
         }
         
-        public Alfabe alfabe()
+        public Alfabe AlfabeVer()
         {
             if (_alfabe != null) 
             {
@@ -71,7 +71,7 @@ namespace NZemberek.TrTurkcesi.Yapi
             }
         }
 
-        public EkYonetici ekler()
+        public IEkYonetici EkYoneticisiver()
         {
             if (ekYonetici != null) 
             {
@@ -79,31 +79,31 @@ namespace NZemberek.TrTurkcesi.Yapi
             } 
             else
             {
-                ekYonetici = new TemelEkYonetici(alfabe(), ekDosyaAdi, new EkUreticiTr(alfabe()), new TurkceEkOzelDurumUretici(alfabe()), baslangiEkAdlari());
+                ekYonetici = new TemelEkYonetici(AlfabeVer(), ekDosyaAdi, new EkUreticiTr(AlfabeVer()), new TurkceEkOzelDurumUretici(AlfabeVer()), baslangiEkAdlari());
                 return ekYonetici;
             } 
         }
 
-        public ISozluk kokler()
+        public ISozluk SozlukVer()
         {
             if (sozluk != null)
             {
                 return sozluk;
             }
 
-            if (!KaynakYukleyici.kaynakMevcutmu(kokDosyaAdi))
+            if (!KaynakYukleyici.KaynakMevcut(kokDosyaAdi))
             {
                 logger.Error("Kök dosyası bulunamadı, sozluk uretilemiyor.");
                 throw new ApplicationException("Kök dosyası bulunamadı.");
             }
-            kokOzelDurumlari();
+            KokOzelDurumBilgisiVer();
             logger.Info("Ikili okuyucu uretiliyor:");
             try
             {
                 IKokOkuyucu okuyucu = new IkiliKokOkuyucu(kokDosyaAdi, ozelDurumBilgisi);
                 logger.Info("Sozluk ve agac uretiliyor:" + dilAdi);
                 okuyucu.Ac();
-                sozluk = new AgacSozluk(alfabe(), ozelDurumBilgisi, okuyucu);
+                sozluk = new AgacSozluk(AlfabeVer(), ozelDurumBilgisi, okuyucu);
             }
             catch (Exception e)
             {
@@ -113,7 +113,7 @@ namespace NZemberek.TrTurkcesi.Yapi
             return sozluk;
         }
 
-        public KokOzelDurumBilgisi kokOzelDurumlari()
+        public IKokOzelDurumBilgisi KokOzelDurumBilgisiVer()
         {
             if (ozelDurumBilgisi != null)
             {
@@ -121,12 +121,12 @@ namespace NZemberek.TrTurkcesi.Yapi
             }
             else
             {
-                ozelDurumBilgisi = new TurkceKokOzelDurumBilgisi(ekler(),alfabe());
+                ozelDurumBilgisi = new TurkceKokOzelDurumBilgisi(EkYoneticisiver(), AlfabeVer());
                 return ozelDurumBilgisi;
             }
         }
 
-        public IHeceleyici heceleyici()
+        public IHeceleyici HeceleyiciVer()
         {
             if (_heceleyici != null)
             {
@@ -134,13 +134,13 @@ namespace NZemberek.TrTurkcesi.Yapi
             }
             else
             {
-                //_heceleyici = new TurkceHeceBulucu(_alfabe);
-                _heceleyici = new TRHeceleyici(_alfabe);
+                //_heceleyici = new TurkceHeceBulucu(Alfabe());
+                _heceleyici = new TRHeceleyici(AlfabeVer());
                 return _heceleyici;
             }
         }
 
-        public CozumlemeYardimcisi cozumlemeYardimcisi()
+        public ICozumlemeYardimcisi CozumlemeYardimcisiVer()
         {
             if (yardimci != null)
             {
@@ -148,14 +148,14 @@ namespace NZemberek.TrTurkcesi.Yapi
             }
             else
             {
-                yardimci = new TurkceCozumlemeYardimcisi(alfabe(), _cep);
+                yardimci = new TurkceCozumlemeYardimcisi(AlfabeVer(), _cep);
                 return yardimci;
             }
         }
 
         #endregion
 
-        public DenetlemeCebi cep()
+        public IDenetlemeCebi cep()
         {
             if (!cepKullan)
             {

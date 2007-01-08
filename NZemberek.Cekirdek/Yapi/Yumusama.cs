@@ -29,16 +29,16 @@ using System.Text;
 
 namespace NZemberek.Cekirdek.Yapi
 {
-    /**
-     * son harfi yumusatir. normal sert harf yumusama kurali gecerlidir.
-     */
-    public class Yumusama : HarfDizisiIslemi
+    /// <summary>
+    /// son harfi yumusatir. normal sert Harf yumusama kurali gecerlidir
+    /// </summary>
+    public class Yumusama : IHarfDizisiIslemi
     {
-        #region HarfDizisiIslemi Members
+        #region IHarfDizisiIslemi Members
 
-        public void uygula(HarfDizisi dizi)
+        public void Uygula(HarfDizisi dizi)
         {
-            dizi.sonHarfYumusat();
+            dizi.SonHarfYumusat();
         }
 
         #endregion

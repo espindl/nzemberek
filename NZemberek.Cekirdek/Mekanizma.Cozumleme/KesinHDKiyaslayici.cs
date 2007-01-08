@@ -28,26 +28,25 @@ using System.Collections.Generic;
 using System.Text;
 using NZemberek.Cekirdek.Yapi;
 
-
 namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
 {
-    public class KesinHDKiyaslayici : HarfDizisiKiyaslayici
+    public class KesinHDKiyaslayici : IHarfDizisiKiyaslayici
     {
-        #region HarfDizisiKiyaslayici Members
+        #region IHarfDizisiKiyaslayici Members
 
-        public bool  kiyasla(HarfDizisi h1, HarfDizisi h2)
+        public bool  Kiyasla(HarfDizisi h1, HarfDizisi h2)
         {
             return h1.Equals(h2);
         }
 
-        public bool  bastanKiyasla(HarfDizisi h1, HarfDizisi h2)
+        public bool  BastanKiyasla(HarfDizisi h1, HarfDizisi h2)
         {
-            return h1.bastanKiyasla(h2);
+            return h1.BastanKiyasla(h2);
         }
 
-        public bool  aradanKiyasla(HarfDizisi h1, HarfDizisi h2, int baslangic)
+        public bool  AradanKiyasla(HarfDizisi h1, HarfDizisi h2, int baslangic)
         {
-            return h1.aradanKiyasla(baslangic, h2);
+            return h1.AradanKiyasla(baslangic, h2);
         }
 
         #endregion

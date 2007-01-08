@@ -41,12 +41,12 @@ namespace NZemberek.Cekirdek.Yapi
           * onegin ozel durumun adi, indeksi, ek dizisi gibi.
           * dile gore farkli tip gerceklemeleri mevcttur.
           */
-        private KokOzelDurumTipi _tip;
+        private IKokOzelDurumTipi _tip;
 
         /**
          * Kok ozel durumu bir kelime uzerinde ne tur islem yapacak bu nesne ile belirlenir.
          */
-        private HarfDizisiIslemi _islem;
+        private IHarfDizisiIslemi _islem;
 
         /**
          * bazi ozel durumlar sadece bazi eklerin koke eklenmesi ile olusur. Bu listede
@@ -97,11 +97,11 @@ namespace NZemberek.Cekirdek.Yapi
             internal bool _yapiBozucu = false;
             internal bool _secimlik = false;
             internal bool _ekKisitlayici = false;
-            internal HarfDizisiIslemi _islem;
-            internal KokOzelDurumTipi _tip;
+            internal IHarfDizisiIslemi _islem;
+            internal IKokOzelDurumTipi _tip;
             internal bool _herZamanOlusur = false;
 
-            public Uretici(KokOzelDurumTipi tip, HarfDizisiIslemi islem)
+            public Uretici(IKokOzelDurumTipi tip, IHarfDizisiIslemi islem)
             {
                 this._tip = tip;
                 this._islem = islem;
@@ -144,7 +144,7 @@ namespace NZemberek.Cekirdek.Yapi
             }
 
 
-            public Uretici parametre(KokOzelDurumTipi tip)
+            public Uretici parametre(IKokOzelDurumTipi tip)
             {
                 this._tip = tip;
                 return this;
@@ -157,9 +157,9 @@ namespace NZemberek.Cekirdek.Yapi
         }
 
         /**
-         * KokOzelDurumu uretici nesnesi uzerinden uretilir. dogrudan erisim yoktur.
+         * KokOzelDurumu Uretici nesnesi uzerinden uretilir. dogrudan erisim yoktur.
          *
-         * @param uretici
+         * @param Uretici
          */
         private KokOzelDurumu(Uretici uretici)
         {
@@ -209,20 +209,20 @@ namespace NZemberek.Cekirdek.Yapi
             return _tip.KisaAd;
         }
 
-        public KokOzelDurumTipi tip()
+        public IKokOzelDurumTipi tip()
         {
             return _tip;
         }
         
         /**
-         * giris ile gelen [dizi] harf dizisine ozel durumu uygular.
+         * giris ile gelen [dizi] Harf dizisine ozel durumu uygular.
          * basit ziyaretci deseni (visitor pattern).
          *
          * @param dizi
          */
-        public void uygula(HarfDizisi dizi)
+        public void Uygula(HarfDizisi dizi)
         {
-            _islem.uygula(dizi);
+            _islem.Uygula(dizi);
         }
 
         /**
@@ -232,11 +232,11 @@ namespace NZemberek.Cekirdek.Yapi
          * @param ek
          * @return gelen ek ile bu ozel durum olusabilirse true
          */
-        public bool olusabilirMi(Ek ek)
+        public bool Olusabilir(Ek ek)
         {
             if (_herZamanOlusur)
                 return true;
-            if (_sesliEkIleOlusur && ek.sesliIleBaslayabilirMi())
+            if (_sesliEkIleOlusur && ek.SesliIleBaslayabilir)
                 return true;
             return _gelebilecekEkler.Contains(ek);
         }

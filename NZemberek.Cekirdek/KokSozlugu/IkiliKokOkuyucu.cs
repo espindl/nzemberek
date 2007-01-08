@@ -33,10 +33,10 @@ namespace NZemberek.Cekirdek.KokSozlugu
 {
     public class IkiliKokOkuyucu : IKokOkuyucu
     {
-        private KokOzelDurumBilgisi ozelDurumlar;
+        private IKokOzelDurumBilgisi ozelDurumlar;
 
 
-        public IkiliKokOkuyucu(String pDosyaAdi, KokOzelDurumBilgisi ozelDurumlar) 
+        public IkiliKokOkuyucu(String pDosyaAdi, IKokOzelDurumBilgisi ozelDurumlar) 
         {
             dosyaAdi = pDosyaAdi;
             this.ozelDurumlar = ozelDurumlar;
@@ -92,8 +92,8 @@ namespace NZemberek.Cekirdek.KokSozlugu
             for (int i = 0; i < ozelDurumSayisi; i++)
             {
                 int ozelDurum = binReader.ReadByte();
-                KokOzelDurumu oz = ozelDurumlar.ozelDurum(ozelDurum);
-                kok.ozelDurumEkle(oz);
+                KokOzelDurumu oz = ozelDurumlar.OzelDurum(ozelDurum);
+                kok.OzelDurumEkle(oz);
             }
             int frekans = binReader.ReadByte() * 255 * 255 * 255 + binReader.ReadByte() * 255 * 255
                         + binReader.ReadByte() * 255 + binReader.ReadByte();

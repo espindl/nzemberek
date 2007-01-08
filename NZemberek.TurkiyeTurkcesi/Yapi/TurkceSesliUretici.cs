@@ -31,50 +31,56 @@ using NZemberek.Cekirdek.Yapi;
 
 namespace NZemberek.TrTurkcesi.Yapi
 {
-public class TurkceSesliUretici : SesliUretici {
+    public class TurkceSesliUretici
+    {
 
-    public TurkceHarf HARF_a;
-    public TurkceHarf HARF_e;
-    public TurkceHarf HARF_i;
-    public TurkceHarf HARF_ii;
-    public TurkceHarf HARF_u;
-    public TurkceHarf HARF_uu;
+        public TurkceHarf HARF_a;
+        public TurkceHarf HARF_e;
+        public TurkceHarf HARF_i;
+        public TurkceHarf HARF_ii;
+        public TurkceHarf HARF_u;
+        public TurkceHarf HARF_uu;
 
-    public TurkceSesliUretici(Alfabe alfabe) {
-        HARF_a = alfabe.harf('a');
-        HARF_e = alfabe.harf('e');
-        HARF_i = alfabe.harf('i');
-        HARF_ii = alfabe.harf(Alfabe.CHAR_ii);
-        HARF_u = alfabe.harf('u');
-        HARF_uu = alfabe.harf(Alfabe.CHAR_uu);
+        public TurkceSesliUretici(Alfabe alfabe)
+        {
+            HARF_a = alfabe.Harf('a');
+            HARF_e = alfabe.Harf('e');
+            HARF_i = alfabe.Harf('i');
+            HARF_ii = alfabe.Harf(Alfabe.CHAR_ii);
+            HARF_u = alfabe.Harf('u');
+            HARF_uu = alfabe.Harf(Alfabe.CHAR_uu);
+        }
+
+        public TurkceHarf sesliBelirleIU(HarfDizisi dizi)
+        {
+            TurkceHarf sonSesli = dizi.SonSesli();
+            return sesliBelirleIU(sonSesli);
+        }
+
+        public TurkceHarf sesliBelirleIU(TurkceHarf sonSesli)
+        {
+            if (sonSesli.InceSesli && sonSesli.DuzSesli)
+                return HARF_i;
+            if (!sonSesli.InceSesli && sonSesli.DuzSesli)
+                return HARF_ii;
+            if (!sonSesli.InceSesli && sonSesli.YuvarlakSesli)
+                return HARF_u;
+            if (sonSesli.InceSesli && sonSesli.YuvarlakSesli)
+                return HARF_uu;
+            return Alfabe.TANIMSIZ_HARF;
+        }
+
+        public TurkceHarf sesliBelirleAE(HarfDizisi dizi)
+        {
+            return sesliBelirleAE(dizi.SonSesli());
+        }
+
+        public TurkceHarf sesliBelirleAE(TurkceHarf sonSesli)
+        {
+            if (sonSesli.InceSesli)
+                return HARF_e;
+            else
+                return HARF_a;
+        }
     }
-
-    public TurkceHarf sesliBelirleIU(HarfDizisi dizi) {
-        TurkceHarf sonSesli = dizi.sonSesli();
-        return sesliBelirleIU(sonSesli);
-    }
-
-    public TurkceHarf sesliBelirleIU(TurkceHarf sonSesli) {
-        if (sonSesli.InceSesli && sonSesli.DuzSesli)
-            return HARF_i;
-        if (!sonSesli.InceSesli && sonSesli.DuzSesli)
-            return HARF_ii;
-        if (!sonSesli.InceSesli && sonSesli.YuvarlakSesli)
-            return HARF_u;
-        if (sonSesli.InceSesli && sonSesli.YuvarlakSesli)
-            return HARF_uu;
-        return Alfabe.TANIMSIZ_HARF;
-    }
-
-    public TurkceHarf sesliBelirleAE(HarfDizisi dizi) {
-        return sesliBelirleAE(dizi.sonSesli());
-    }
-
-    public  TurkceHarf sesliBelirleAE(TurkceHarf sonSesli) {
-        if (sonSesli.InceSesli)
-            return HARF_e;
-        else
-            return HARF_a;
-    }    
-}
 }

@@ -32,7 +32,7 @@ using NZemberek.TrTurkcesi.Yapi;
 
 namespace NZemberek.TrTurkcesi.Yapi
 {
-    public class TurkceKokOzelDurumTipi : KokOzelDurumTipi
+    public class TurkceKokOzelDurumTipi : IKokOzelDurumTipi
     {
         private string _kisaAd;
         private string _ad = string.Empty;
@@ -138,13 +138,13 @@ namespace NZemberek.TrTurkcesi.Yapi
                                                 TurkceEkAdlari.ISIM_TARAFINDAN_CE,
                                                 TurkceEkAdlari.ISIM_DURUM_LIK,
                                                 TurkceEkAdlari.ISIM_KUCULTME_CEGIZ});
-        
+
         /*
          * bazi kokler aslinda saf kok degil, icinde isim tamlamasi iceriyor
          * mesela, zeytinyagi, acemborusu gibi. bu koklere bazi ekler eklendiginde kok bozuluyor
          * mesela: acemborusu -> acemborulari seklinde. bu kokler sistemde ozel sekilde saklaniyor.
          * acemborusu -> acemboru IS_TAM seklinde tanimlanmistir. ayni sekilde zeytinyag IS_TAM gibi
-         */    
+         */
         public readonly static TurkceKokOzelDurumTipi ISIM_TAMLAMASI = new TurkceKokOzelDurumTipi(12,"IS_TAM",new string[]{
                                                 TurkceEkAdlari.ISIM_SAHIPLIK_BEN_IM,
                                                 TurkceEkAdlari.ISIM_SAHIPLIK_SEN_IN,

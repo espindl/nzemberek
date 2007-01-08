@@ -9,13 +9,13 @@ namespace NZemberek.Cekirdek.YaziElemanlari
         public bool Sert;
 
         /// <summary>
-        /// Sert bir harf için benzeri yumuşak harfi temsil eden karakter.
+        /// Sert bir Harf için benzeri yumuşak harfi temsil eden karakter.
         /// Harf sert değilse Alfabedeki tanımsız karaktere eşittir.
         /// </summary>
         public char YumusakBenzeri;
 
         /// <summary>
-        /// Yumuşak bir harf için benzeri sert harfi temsil eden karakter.
+        /// Yumuşak bir Harf için benzeri sert harfi temsil eden karakter.
         /// Harf yumuşak değilse Alfabedeki tanımsız karaktere eşittir.
         /// </summary>
         public char SertBenzeri;

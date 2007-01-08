@@ -29,16 +29,14 @@ using System.Text;
 
 namespace NZemberek.Cekirdek.Yapi
 {
-    /**
-     * Bos kok ozel durumlari icin yapilacak islemi temsil eder, kelime uzerinde hic bir degisiklik yapmaz.
-     */
-    public class BosHarfDizisiIslemi : HarfDizisiIslemi    
+    /// <summary>
+    /// Bos kok ozel durumlari icin yapilacak islemi temsil eder, kelime uzerinde hic bir degisiklik yapmaz
+    /// </summary>
+    public class BosHarfDizisiIslemi : IHarfDizisiIslemi    
     {
-        #region HarfDizisiIslemi Members
+        #region IHarfDizisiIslemi Members
 
-        public void uygula(HarfDizisi dizi)
-        {
-        }
+        public void Uygula(HarfDizisi dizi){ }
 
         #endregion
     }

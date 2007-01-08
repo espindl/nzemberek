@@ -22,27 +22,19 @@
  *   Mert Derman
  *   Tankut Tekeli
  * ***** END LICENSE BLOCK ***** */
-
-// V 0.1
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
-
 using log4net;
-
 using NZemberek.Cekirdek.Kolleksiyonlar;
-
-
 
 namespace NZemberek.Cekirdek.Yapi
 {
-    /**
-     * xml ek dosyasindan ek bilgilerini okur ve ekleri olusturur.
-     * User: ahmet
-     * Date: Aug 15, 2005
-     */
+    /// <summary>
+    /// xml ek dosyasindan ek bilgilerini okur ve ekleri olusturur
+    /// </summary>
     public class XmlEkOkuyucu
     {
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -50,16 +42,20 @@ namespace NZemberek.Cekirdek.Yapi
         private IDictionary<String, HashSet<Ek>> ekKumeleri = new Dictionary<String, HashSet<Ek>>();
         private IDictionary<String, Ek> ekler = new Dictionary<String, Ek>();
 
+        public IDictionary<String, Ek> Ekler
+        {
+            get { return ekler; }
+            set { ekler = value; }
+        }
+
         private readonly String xmlEkDosyasi;
-        private readonly EkUretici ekUretici;
+        private readonly IEkUretici ekUretici;
         private readonly Alfabe alfabe;
 
         private readonly EkOzelDurumUretici ekOzelDurumUretici;
 
-        public XmlEkOkuyucu(String xmlEkDosyasi,
-                            EkUretici ekUretici,
-                            EkOzelDurumUretici ekOzelDurumUretici,
-                            Alfabe alfabe)
+        public XmlEkOkuyucu(String xmlEkDosyasi, IEkUretici ekUretici,
+                            EkOzelDurumUretici ekOzelDurumUretici, Alfabe alfabe)
         {
             this.xmlEkDosyasi = xmlEkDosyasi;
             this.ekUretici = ekUretici;
@@ -67,12 +63,7 @@ namespace NZemberek.Cekirdek.Yapi
             this.alfabe = alfabe;
         }
 
-        public IDictionary<String, Ek> getEkler()
-        {
-            return ekler;
-        }
-
-        public void xmlOku()
+        public void XmlOku()
         {
             XmlDocument document = new XmlDocument();
             document.Load(xmlEkDosyasi);
@@ -80,36 +71,33 @@ namespace NZemberek.Cekirdek.Yapi
             // kok elemente ulas.
             XmlElement kokElement = document.DocumentElement;
 
-            ilkEkleriOlustur((XmlElement)kokElement.SelectNodes("ekler")[0]);
-            ekKumeleriniOlustur((XmlElement)kokElement.SelectNodes("ek-kumeleri")[0]);
-            ekleriOlustur((XmlElement)kokElement.SelectNodes("ekler")[0]);
+            IlkEkleriOlustur((XmlElement)kokElement.SelectNodes("ekler")[0]);
+            EkKumeleriniOlustur((XmlElement)kokElement.SelectNodes("ek-kumeleri")[0]);
+            EkleriOlustur((XmlElement)kokElement.SelectNodes("ekler")[0]);
         }
 
-        /**
-         * xml dosyadan sadece eklerin adlarini okuyup Ek nesnelerin ilk hallerinin
-         * olusturulmasini saglar.
-         *
-         * @param eklerElement
-         */
-        private void ilkEkleriOlustur(XmlElement eklerElement)
+        /// <summary>
+        /// xml dosyadan sadece eklerin adlarini okuyup Ek nesnelerin ilk hallerinin olusturulmasini saglar.
+        /// </summary>
+        /// <param name="eklerElement"></param>
+        private void IlkEkleriOlustur(XmlElement eklerElement)
         {
             XmlNodeList tumEkler = eklerElement.SelectNodes("ek");// XmlYardimcisi.elemanlar(eklerElement, "ek");
-            // tum ekleri bos haliyle uret.
+            // tum ekleri bos haliyle Uret.
             foreach (XmlElement ekElement in tumEkler)
             {
                 String ekadi = ekElement.GetAttribute("ad");
                 if (ekler.ContainsKey(ekadi))
-                    exit("Ek tekrari! " + ekadi);
+                    Exit("Ek tekrari! " + ekadi);
                 ekler.Add(ekadi, new Ek(ekadi));
             }
         }
 
-        /**
-         * xml dosyadan ek kumelerini ayiklar. sonuclar ekKumeleri Map'ina atilir.
-         *
-         * @param ekKumeleriElement
-         */
-        private void ekKumeleriniOlustur(XmlElement ekKumeleriElement)
+        /// <summary>
+        /// xml dosyadan ek kumelerini ayiklar. sonuclar ekKumeleri Map'ina atilir.
+        /// </summary>
+        /// <param name="ekKumeleriElement"></param>
+        private void EkKumeleriniOlustur(XmlElement ekKumeleriElement)
         {
             XmlNodeList xmlKumeler = ekKumeleriElement.SelectNodes("ek-kumesi");
             foreach (XmlElement ekKumeEl in xmlKumeler)
@@ -121,83 +109,83 @@ namespace NZemberek.Cekirdek.Yapi
                 {
                     String ekAdi = ekEl.InnerText;//???:GetTextContext
                     Ek ek = this.ekler[ekAdi];
-                    if (ek == null) exit("kume eki bulunamiyor!" + ekAdi);
+                    if (ek == null) Exit("kume eki bulunamiyor!" + ekAdi);
                     kumeEkleri.Add(ek);
                 }
                 ekKumeleri.Add(kumeAdi, kumeEkleri);
             }
         }
 
-        /**
-         * asil ek nesnelerinin olusturulma islemi burada olur.
-         * @param eklerElement
-         */
-        private void ekleriOlustur(XmlElement eklerElement)
+        /// <summary>
+        /// asil ek nesnelerinin olusturulma islemi burada olur.
+        /// </summary>
+        /// <param name="eklerElement"></param>
+        private void EkleriOlustur(XmlElement eklerElement)
         {
             XmlNodeList tumEkler = eklerElement.SelectNodes("ek");
             foreach (XmlElement ekElement in tumEkler)
             {
                 String ekAdi = ekElement.GetAttribute("ad");
                 Ek ek = this.ekler[ekAdi];
-                // uretim kuralini oku ve ekleri uret.
+                // uretim kuralini oku ve ekleri Uret.
                 XmlAttribute uretimKurali = ekElement.GetAttributeNode("uretim");
                 if (uretimKurali == null)
-                    exit("ek uretim kural kelimesi yok!" + ekAdi);
+                    Exit("ek uretim kural kelimesi yok!" + ekAdi);
 
-                ek.setArdisilEkler(ardisilEkleriOlustur(ek, ekElement));
-                ek.setEkKuralCozumleyici(ekUretici);
-                List<EkUretimBileseni> bilesenler = ekUretimKelimesiCozumle(uretimKurali.Value);
-                ek.setUretimBilesenleri(bilesenler);
-                List<EkOzelDurumu> ozelDurumlar = ozelDurumlariOku(ekElement);
-                ek.setOzelDurumlar(ozelDurumlar);
+                ek.ArdisilEkler = ArdisilEkleriOlustur(ek, ekElement);
+                ek.EkUretici = ekUretici;
+                List<EkUretimBileseni> bilesenler = EkUretimKelimesiCozumle(uretimKurali.Value);
+                ek.UretimBilesenleri = bilesenler;
+                List<EkOzelDurumu> ozelDurumlar = OzelDurumlariOku(ekElement);
+                ek.OzelDurumlar = ozelDurumlar;
 
-                ekOzellikleriBelirle(ek, ekElement);
-                xmlDisiEkOzellikleriBelirle(ek, bilesenler);
-                ek.baslangicHarfleriEkle(ekUretici.olasiBaslangicHarfleri(bilesenler));
+                EkOzellikleriBelirle(ek, ekElement);
+                XmlDisiEkOzellikleriBelirle(ek, bilesenler);
+                ek.BaslangicHarfleriEkle(ekUretici.OlasiBaslangicHarfleri(bilesenler));
                 foreach (EkOzelDurumu oz in ozelDurumlar)
                 {
-                    ek.baslangicHarfleriEkle(ekUretici.olasiBaslangicHarfleri(oz.uretimBilesenleri()));
+                    ek.BaslangicHarfleriEkle(ekUretici.OlasiBaslangicHarfleri(oz.UretimBilesenleri));
                 }
             }
             logger.Debug("ek olusumu sonlandi.");
         }
 
-        /**
-         * HAL ve IYELIK eki ozellikleri burada belirlenir. ek iceriisne farkli ozellikler
-         * eklenecekse burasi ona gore degistirilmeli.
-         * @param ek
-         * @param ekElement
-         */
-        private void ekOzellikleriBelirle(Ek ek, XmlElement ekElement)
+        /// <summary>
+        /// HAL ve IYELIK eki ozellikleri burada belirlenir. ek iceriisne farkli ozellikler
+        /// eklenecekse burasi ona gore degistirilmeli.
+        /// </summary>
+        /// <param name="ek"></param>
+        /// <param name="ekElement"></param>
+        private void EkOzellikleriBelirle(Ek ek, XmlElement ekElement)
         {
-            XmlNodeList ozellikler = ekElement.SelectNodes("ozellik");
+            XmlNodeList ozellikler = ekElement.SelectNodes("Ozellik");
             foreach (XmlElement element in ozellikler)
             {
                 String ozellik = element.InnerText.Trim();
                 if (ozellik.Equals("HAL"))
-                    ek.setHalEki(true);
+                    ek.HalEki =true;
                 else if (ozellik.Equals("IYELIK"))
-                    ek.setIyelikEki(true);
+                    ek.IyelikEki=true;
             }
         }
 
-        private List<EkOzelDurumu> ozelDurumlariOku(XmlElement ekElement)
+        private List<EkOzelDurumu> OzelDurumlariOku(XmlElement ekElement)
         {
             List<EkOzelDurumu> ozelDurumlar = new List<EkOzelDurumu>();
-            //xml ozel durumlarini al.
+            //xml ozel durumlarini Al.
             XmlNodeList ozelDurumlarXml = ekElement.SelectNodes("ozel-durum");
             if (ozelDurumlarXml == null) return new List<EkOzelDurumu>();//??? : return Collections.EmptyList
 
             foreach (XmlElement element in ozelDurumlarXml)
             {
                 String ozelDurumAdi = element.GetAttribute("ad");
-                EkOzelDurumu oz = ekOzelDurumUretici.uret(ozelDurumAdi);
+                EkOzelDurumu oz = ekOzelDurumUretici.Uret(ozelDurumAdi);
                 XmlAttribute uretimKurali = element.GetAttributeNode("uretim");
 
                 if (uretimKurali != null)
                 {
-                    oz.setEkKuralCozumleyici(ekUretici);
-                    oz.setUretimBilesenleri(ekUretimKelimesiCozumle(uretimKurali.Value));
+                    oz.EkUretici = ekUretici;
+                    oz.UretimBilesenleri = EkUretimKelimesiCozumle(uretimKurali.Value);
                 }
 
                 XmlNodeList oneklerElements = element.SelectNodes("on-ek");
@@ -209,51 +197,48 @@ namespace NZemberek.Cekirdek.Yapi
                         String onekAdi = onekEl.InnerText;
                         onekler.Add(ekler[onekAdi]);
                     }
-                    oz.setOnEkler(onekler);
+                    oz.OnEkler = onekler;
                 }
                 ozelDurumlar.Add(oz);
             }
             return ozelDurumlar;
         }
 
-        /**
-         * Bir eke iliskin ardisil ekler belirlenir. ardisil ekler
-         * a) ek kumelerinden
-         * b) normal tek olarak
-         * c) dogrudan baska bir ekin ardisil eklerinden kopyalanarak
-         * elde edilir.
-         * Ayrica eger oncelikli ekler belirtilmis ise bu ekler ardisil ek listeisnin en basina koyulur.
-         *
-         * @param ekElement :  ek xml bileseni..
-         * @return Ek referans Listesi.
-         * @param anaEk ardisil ekler eklenecek asil ek
-         */
-        private List<Ek> ardisilEkleriOlustur(Ek anaEk, XmlElement ekElement)
+        /// <summary>
+        /// Bir eke iliskin ardisil ekler belirlenir. ardisil EkYoneticisiver
+        /// a) ek kumelerinden
+        /// b) normal tek olarakc) dogrudan baska bir ekin ardisil eklerinden kopyalanarakelde edilir.
+        /// Ayrica eger oncelikli ekler belirtilmis ise bu EkYoneticisiver ardisil ek listeisnin en basina koyulur.
+        /// </summary>
+        /// <param name="anaEk">rdisil ekler eklenecek asil ek</param>
+        /// <param name="ekElement">ek xml bileseni</param>
+        /// <returns>Ek referans Listesi</returns>
+        private List<Ek> ArdisilEkleriOlustur(Ek anaEk, XmlElement ekElement)
         {
 
             HashSet<Ek> ardisilEkSet = new HashSet<Ek>();
             XmlElement ardisilEklerEl = (XmlElement)ekElement.SelectNodes("ardisil-ekler")[0];
             if (ardisilEklerEl == null) return new List<Ek>();
 
-            // tek ekleri ekle.
+            // tek ekleri Ekle.
             XmlNodeList tekArdisilEkler = ardisilEklerEl.SelectNodes("aek");
             foreach (XmlElement element in tekArdisilEkler)
             {
                 String ekAdi = element.InnerText;
                 Ek ek = this.ekler[ekAdi];
                 if (ek == null)
-                    exit(anaEk.ad() + " icin ardisil ek bulunamiyor! " + ekAdi);
+                    Exit(anaEk.Ad + " icin ardisil ek bulunamiyor! " + ekAdi);
                 ardisilEkSet.Add(ek);
             }
 
-            // kume eklerini ekle.
+            // kume eklerini Ekle.
             XmlNodeList kumeEkler = ardisilEklerEl.SelectNodes("kume");
             foreach (XmlElement element in kumeEkler)
             {
                 String kumeAdi = element.InnerText;
                 HashSet<Ek> kumeEkleri = ekKumeleri[kumeAdi];
                 if (kumeEkleri == null)
-                    exit("kume bulunamiyor..." + kumeAdi);
+                    Exit("kume bulunamiyor..." + kumeAdi);
                 ardisilEkSet.AddAll(kumeEkleri);
             }
 
@@ -264,13 +249,13 @@ namespace NZemberek.Cekirdek.Yapi
                 String kopyaEkadi = attr.Value;
                 Ek ek = this.ekler[kopyaEkadi];
                 if (ek == null)
-                    exit(anaEk.ad() + " icin kopyalanacak ek bulunamiyor! " + kopyaEkadi);
-                ardisilEkSet.AddAll(ek.ardisilEkler());
+                    Exit(anaEk.Ad + " icin kopyalanacak ek bulunamiyor! " + kopyaEkadi);
+                ardisilEkSet.AddAll(ek.ArdisilEkler);
             }
 
             List<Ek> ardisilEkler = new List<Ek>(ardisilEkSet.Count);
 
-            //varsa oncelikli ekleri oku ve ardisil ekler listesinin ilk basina koy.
+            //varsa oncelikli ekleri oku ve ardisil ekler listesinin ilk basina Koy.
             // bu tamamen performans ile iliskili bir islemdir.
             XmlElement oncelikliEklerEl = (XmlElement)ekElement.SelectNodes("oncelikli-ekler")[0];
             if (oncelikliEklerEl != null)
@@ -280,13 +265,13 @@ namespace NZemberek.Cekirdek.Yapi
                 {
                     String ekAdi = element.InnerText;
                     Ek ek = this.ekler[ekAdi];
-                    if (ek == null) exit(anaEk.ad() + " icin oncelikli ek bulunamiyor! " + ekAdi);
+                    if (ek == null) Exit(anaEk.Ad + " icin oncelikli ek bulunamiyor! " + ekAdi);
                     if (ardisilEkSet.Contains(ek))
                     {
                         ardisilEkler.Add(ek);
                         ardisilEkSet.Remove(ek);
                     }
-                    else logger.Warn(anaEk.ad() + "icin oncelikli ek:" + ekAdi + " bu ekin ardisil eki degil!");
+                    else logger.Warn(anaEk.Ad + "icin oncelikli ek:" + ekAdi + " bu ekin ardisil eki degil!");
                 }
             }
 
@@ -294,41 +279,39 @@ namespace NZemberek.Cekirdek.Yapi
             return ardisilEkler;
         }
 
-        /**
-         * ciddi hata durumunda sistmein mesaj vererek yazilimdan cikmasi saglanir.
-         *
-         * @param mesaj
-         */
-        private void exit(String mesaj)
+        /// <summary>
+        /// ciddi hata durumunda sistmein mesaj vererek yazilimdan cikmasi saglanir.
+        /// </summary>
+        /// <param name="mesaj"></param>
+        private void Exit(String mesaj)
         {
             logger.Fatal("Ek dosyasi okuma sorunu:" + mesaj);
             Environment.Exit(1);
         }
 
 
-        /**
-         * bazi ek ozellikleri konfigurasyon dosyasinda yer almaz, ekler okunduktan sonra
-         * bilesenlere gore otomatik olarak belirlenir.
-         *
-         * @param ek
-         * @param bilesenler
-         */
-        public void xmlDisiEkOzellikleriBelirle(Ek ek, List<EkUretimBileseni> bilesenler)
+        /// <summary>
+        /// bazi ek ozellikleri konfigurasyon dosyasinda yer almaz, ekler okunduktan sonra
+        /// bilesenlere gore otomatik olarak belirlenir.
+        /// </summary>
+        /// <param name="ek"></param>
+        /// <param name="bilesenler"></param>
+        public void XmlDisiEkOzellikleriBelirle(Ek ek, List<EkUretimBileseni> bilesenler)
         {
             for (int i = 0; i < bilesenler.Count; i++)
             {
                 EkUretimBileseni uretimBileseni = bilesenler[i];
-                TurkceHarf harf = uretimBileseni.harf();
-                if (i == 0 || (i == 1 && bilesenler[0].kural() == UretimKurali.KAYNASTIR))
+                TurkceHarf harf = uretimBileseni.Harf;
+                if (i == 0 || (i == 1 && bilesenler[0].Kural == UretimKurali.KAYNASTIR))
                 {
                     if (harf.Sesli)
-                        ek.setSesliIleBaslayabilir(true);
-                    switch (uretimBileseni.kural())
+                        ek.SesliIleBaslayabilir = true;
+                    switch (uretimBileseni.Kural)
                     {
                         case UretimKurali.SESLI_AA :
                         case UretimKurali.SESLI_AE :
                         case UretimKurali.SESLI_IU :
-                            ek.setSesliIleBaslayabilir(true);
+                            ek.SesliIleBaslayabilir = true;
                             break;
                     }
                 }
@@ -356,7 +339,7 @@ namespace NZemberek.Cekirdek.Yapi
         private readonly HashSet<Char> harfKurallari = new HashSet<Char>(new Char[] { '+', '>' });
 
 
-        private List<EkUretimBileseni> ekUretimKelimesiCozumle(String uretimKelimesi)
+        private List<EkUretimBileseni> EkUretimKelimesiCozumle(String uretimKelimesi)
         {
             if (uretimKelimesi == null || uretimKelimesi.Length == 0)
                 return new List<EkUretimBileseni>();
@@ -382,7 +365,6 @@ namespace NZemberek.Cekirdek.Yapi
                 _okuyucu = okuyucu;
                 this.uretimKelimesi = uretimKelimesi.Trim().Replace("[ ]", "");
             }
-
 
             #region IEnumerable<EkUretimBileseni> Members
 
@@ -453,24 +435,24 @@ namespace NZemberek.Cekirdek.Yapi
                     else
                     {
                         char p = _enumerable.uretimKelimesi[pointer];
-                        //ardisil harf ile iliskili kuralmi
+                        //ardisil Harf ile iliskili kuralmi
                         if (_enumerable._okuyucu.harfKurallari.Contains(p))
                         {
                             pointer++;
                             if (pointer == _enumerable.uretimKelimesi.Length)
-                                throw new ArgumentException(p + " kuralindan sonra normal harf bekleniyordu!");
+                                throw new ArgumentException(p + " kuralindan sonra normal Harf bekleniyordu!");
                             char h = _enumerable.uretimKelimesi[pointer];
                             if (_enumerable._okuyucu.sesliKurallari.Contains(h))
                                 throw new ArgumentException(p + " kuralindan sonra sesli uretim kurali gelemez:" + h);
-                            current = new EkUretimBileseni(kuralTablosu[p], _enumerable._okuyucu.alfabe.harf(h));
+                            current = new EkUretimBileseni(kuralTablosu[p], _enumerable._okuyucu.alfabe.Harf(h));
                         }
                         else if (_enumerable._okuyucu.sesliKurallari.Contains(p))
                         {
                             current = new EkUretimBileseni(kuralTablosu[p], Alfabe.TANIMSIZ_HARF);
                         }
-                        else if (_enumerable._okuyucu.alfabe.harf(p) != null && Char.IsLower(p))
+                        else if (_enumerable._okuyucu.alfabe.Harf(p) != null && Char.IsLower(p))
                         {
-                            current = new EkUretimBileseni(UretimKurali.HARF, _enumerable._okuyucu.alfabe.harf(p));
+                            current = new EkUretimBileseni(UretimKurali.HARF, _enumerable._okuyucu.alfabe.Harf(p));
                         }
                         else
                         {

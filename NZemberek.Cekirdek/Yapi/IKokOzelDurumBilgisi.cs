@@ -28,52 +28,45 @@ using System.Collections.Generic;
 using System.Text;
 using NZemberek.Cekirdek.Yapi;
 
-
 namespace NZemberek.Cekirdek.Yapi
 {
-    /**
-     * User: ahmet
-     * Date: Aug 28, 2006
-     */
-    public interface KokOzelDurumBilgisi
+    public interface IKokOzelDurumBilgisi
     {
+        KokOzelDurumu OzelDurum(IKokOzelDurumTipi tip);
 
-        KokOzelDurumu ozelDurum(KokOzelDurumTipi tip);
+        /// <summary>
+        /// kisaAd ile belirtilen ozel durumu dondurur.
+        /// </summary>
+        /// <param name="kisaAd"></param>
+        /// <returns>OzelDurum ya da null</returns>
+        KokOzelDurumu OzelDurum(String kisaAd);
 
-        /**
-         * kisaAd ile belirtilen ozel durumu dondurur.
-         * @param kisaAd
-         * @return ozelDurum ya da null.
-         */
-        KokOzelDurumu ozelDurum(String kisaAd);
+        KokOzelDurumu OzelDurum(int indeks);
 
-        KokOzelDurumu ozelDurum(int indeks);
+        String[] OzelDurumUygula(Kok kok);
 
-        String[] ozelDurumUygula(Kok kok);
+        /// <summary>
+        /// Bazi ozel durumlar dogrudan kaynak kok dosyasinda yer almaz. bu ozel durumlari bu metod
+        /// tespit eder ve koke ekler.
+        /// </summary>
+        /// <param name="kok"></param>
+        void OzelDurumBelirle(Kok kok);
 
-        /**
-         * Bazi ozel durumlar dogrudan kaynak kok dosyasinda yer almaz. bu ozel durumlari bu metod
-         * tespit eder ve koke ekler.
-         *
-         * @param kok
-         */
-        void ozelDurumBelirle(Kok kok);
+        /// <summary>
+        /// Duz yazi kok listesinden okunan dile ozel ozel durumlarin kok'e atanmasi islemi burada yapilir.
+        /// </summary>
+        /// <param name="kok"></param>
+        /// <param name="okunanIcerik"></param>
+        /// <param name="parcalar"></param>
+        void DuzyaziOzelDurumOku(Kok kok, String okunanIcerik, String[] parcalar);
 
-        /**
-         * Duz yazi kok listesinden okunan dile ozel ozel durumlarin kok'e atanmasi islemi burada yapilir.
-         *
-         * @param kok
-         * @param okunanIcerik
-         * @param parcalar
-         */
-        void duzyaziOzelDurumOku(Kok kok, String okunanIcerik, String[] parcalar);
-
-        /**
-         * Ozellikle duz yazi dosyadan kok okumada kok icerigi tip ve dile gore on islemeden gecirilebilir
-         * Ornegin turkiye turkcesinde eger kok icinde "mek" mastar eki bulunuyorsa bu silinir.
-         * @param tip
-         * @param icerik
-         */
-        void kokIcerikIsle(Kok kok, KelimeTipi tip, String icerik);
+        /// <summary>
+        /// Ozellikle duz yazi dosyadan kok okumada kok icerigi tip ve dile gore on islemeden gecirilebilir
+        /// Ornegin turkiye turkcesinde eger kok icinde "mek" mastar eki bulunuyorsa bu silinir.
+        /// </summary>
+        /// <param name="kok"></param>
+        /// <param name="tip"></param>
+        /// <param name="icerik"></param>
+        void KokIcerigiIsle(Kok kok, KelimeTipi tip, String icerik);
     }
 }

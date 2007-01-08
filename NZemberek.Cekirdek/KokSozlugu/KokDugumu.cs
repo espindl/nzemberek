@@ -80,7 +80,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
         public KokDugumu(int pLevel, char harf, string icerik, Kok kok):this(pLevel,harf)
         {
             this.kok = kok;
-            if (!icerik.Equals(kok.icerik())) this.kelime = icerik;
+            if (!icerik.Equals(kok.Icerik)) this.kelime = icerik;
         }
 
         public int Level
@@ -149,7 +149,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
             return !(altDugumler == null || altDugumler.size() == 0);
         }
         /**
-         * Eðer Düðüme baðlý bir kök zaten varsa esSesli olarak ekle, 
+         * Eðer Düðüme baðlý bir kök zaten varsa esSesli olarak Ekle, 
          * yoksa sadece kok'e yaz.
          *
          * @param kok
@@ -183,7 +183,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
             get
             {
                 if (kelime != null) return kelime;
-                if (kok != null) return kok.icerik();
+                if (kok != null) return kok.Icerik;
                 return null;
             }
             set { kelime = value; }
@@ -259,7 +259,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
         public char Harf
         {
             get { return harf; }
-//            set { harf = value; }
+//            set { Harf = value; }
         }
 
         /// <summary>
@@ -326,7 +326,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
         public override String ToString()
         {
             StringBuilder buf = new StringBuilder();
-            buf.Append("harf:").Append(harf);
+            buf.Append("Harf:").Append(harf);
             if (altDugumler != null)
                 buf.Append(" alt dugum sayisi:").Append(altDugumler.size());
             return buf.ToString();

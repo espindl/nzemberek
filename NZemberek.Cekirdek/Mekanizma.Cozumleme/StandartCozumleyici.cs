@@ -31,187 +31,205 @@ using NZemberek.Cekirdek.Yapi;
 using NZemberek.Cekirdek.KokSozlugu;
 using NZemberek.Cekirdek.Kolleksiyonlar;
 
-
 namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
 {
-/**
- * User: ahmet
- * Date: Jan 9, 2005
- */
-public class StandartCozumleyici : KelimeCozumleyici {
+    public class StandartCozumleyici : KelimeCozumleyici
+    {
+        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private IKokBulucu kokBulucu;
+        private IHarfDizisiKiyaslayici harfDizisiKiyaslayici;
+        private IEkYonetici ekYonetici;
+        private Alfabe alfabe;
+        private ICozumlemeYardimcisi yardimci;
 
-    private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);		
-    private IKokBulucu kokBulucu;
-    private HarfDizisiKiyaslayici harfDizisiKiyaslayici;
-    private EkYonetici ekYonetici;
-    private Alfabe alfabe;
-    private CozumlemeYardimcisi yardimci;
-
-    public StandartCozumleyici(IKokBulucu kokBulucu,
-                               HarfDizisiKiyaslayici kiyaslayci,
-                               Alfabe alfabe,
-                               EkYonetici ekYonetici,
-                               CozumlemeYardimcisi yardimci) {
-        this.kokBulucu = kokBulucu;
-        this.harfDizisiKiyaslayici = kiyaslayci;
-        this.ekYonetici = ekYonetici;
-        this.alfabe = alfabe;
-        this.yardimci = yardimci;
-    }
+        public StandartCozumleyici(IKokBulucu kokBulucu,
+                                   IHarfDizisiKiyaslayici kiyaslayci,
+                                   Alfabe alfabe,
+                                   IEkYonetici ekYonetici,
+                                   ICozumlemeYardimcisi yardimci)
+        {
+            this.kokBulucu = kokBulucu;
+            this.harfDizisiKiyaslayici = kiyaslayci;
+            this.ekYonetici = ekYonetici;
+            this.alfabe = alfabe;
+            this.yardimci = yardimci;
+        }
 
 
-    public bool denetle(String strGiris) {
-        return yardimci.cepteAra(strGiris) || (cozumle(strGiris, false).Length == 1);
-    }
+        public bool Denetle(String strGiris)
+        {
+            return yardimci.CepteAra(strGiris) || (Cozumle(strGiris, false).Length == 1);
+        }
 
-    public Kelime[] cozumle(String strGiris) {
-        return cozumle(strGiris, true);
-    }
+        public Kelime[] Cozumle(String strGiris)
+        {
+            return Cozumle(strGiris, true);
+        }
 
-    /**
-     * eger hepsiniCozumle=true ise dogru olabilecek tum kok ve ek kombinasyonlarini
-     * dondurur.
-     * Eger flag false ise ilk dogru cozumu tek elemanli dizi seklinde
-     * dondurur.bu yontem hiz gerektiren denetleme islemi icin kullanilir.
-     *
-     * @param strGiris
-     * @param hepsiniCozumle
-     * @return tek ya da coklu kelime dizisi.
-     */
-    public Kelime[] cozumle(String strGiris, bool hepsiniCozumle) {
+        /// <summary>
+        /// eger hepsiniCozumle=true ise dogru olabilecek tum kok ve ek kombinasyonlarinidondurur.
+        /// Eger flag false ise ilk dogru cozumu tek elemanli dizi seklinde
+        /// dondurur.bu yontem hiz gerektiren denetleme islemi icin kullanilir.
+        /// </summary>
+        /// <param name="strGiris"></param>
+        /// <param name="hepsiniCozumle"></param>
+        /// <returns>tek ya da coklu kelime dizisi</returns>
+        public Kelime[] Cozumle(String strGiris, bool hepsiniCozumle)
+        {
+            //on islemler
+            String strIslenmis = alfabe.Ayikla(strGiris);
+            if (!alfabe.CozumlemeyeUygunMu(strIslenmis) || strIslenmis.Length == 0)
+                return Kelime.BOS_KELIME_DIZISI;
 
-        //on islemler
-        String strIslenmis = alfabe.ayikla(strGiris);
-        if (!alfabe.cozumlemeyeUygunMu(strIslenmis) || strIslenmis.Length == 0)
-            return Kelime.BOS_KELIME_DIZISI;
+            //kok adaylarinin bulunmasi.
+            List<Kok> kokler = kokBulucu.AdayKokleriGetir(strIslenmis);
 
-        //kok adaylarinin bulunmasi.
-        List<Kok> kokler = kokBulucu.AdayKokleriGetir(strIslenmis);
+            if (logger.IsInfoEnabled) logger.Info("Giris: " + strGiris + ", Adaylar: " + kokler);
+            HarfDizisi girisDizi = new HarfDizisi(strIslenmis, alfabe);
+            bool icerikDegisti = false;
 
-        if (logger.IsInfoEnabled) logger.Info("Giris: " + strGiris + ", Adaylar: " + kokler);
-        HarfDizisi girisDizi = new HarfDizisi(strIslenmis, alfabe);
-        bool icerikDegisti = false;
-
-        //cozumlerin bulunmasi
-        List<Kelime> cozumler = new List<Kelime>(2);
-        for (int i = kokler.Count - 1; i >= 0; i--) {
-            if (icerikDegisti) {
-                girisDizi = new HarfDizisi(strIslenmis, alfabe);
-                icerikDegisti = false;
-            }
-            Kok kok = kokler[i];
-            if (logger.IsInfoEnabled) logger.Info("Aday:" + kok.icerik());
-            HarfDizisi kokDizi = new HarfDizisi(kok.icerik(), alfabe);
-
-            //eger giris koke dogrudan esitse cozmeden kelimeyi olustur.
-            if (harfDizisiKiyaslayici.kiyasla(kokDizi, girisDizi)) {
-                Kelime kelime = kelimeUret(kok, kokDizi);
-                if (yardimci.kelimeBicimiDenetle(kelime, strGiris)) {
-                    if (!hepsiniCozumle) {
-                        return new Kelime[] {kelime};
-                    } else
-                        cozumler.Add(kelime);
+            //cozumlerin bulunmasi
+            List<Kelime> cozumler = new List<Kelime>(2);
+            for (int i = kokler.Count - 1; i >= 0; i--)
+            {
+                if (icerikDegisti)
+                {
+                    girisDizi = new HarfDizisi(strIslenmis, alfabe);
+                    icerikDegisti = false;
                 }
-            } else {
-                icerikDegisti = yardimci.kokGirisDegismiVarsaUygula(kok, kokDizi, girisDizi);
-                List<Kelime> sonuclar = coz(kok, kokDizi, girisDizi, hepsiniCozumle);
-                foreach (Kelime sonuc in sonuclar) {
-                    if (yardimci.kelimeBicimiDenetle(sonuc, strGiris)) {
-                        if (!hepsiniCozumle) {
-                            return new Kelime[] {sonuc};
+                Kok kok = kokler[i];
+                if (logger.IsInfoEnabled) logger.Info("Aday:" + kok.Icerik);
+                HarfDizisi kokDizi = new HarfDizisi(kok.Icerik, alfabe);
+
+                //eger giris koke dogrudan esitse cozmeden kelimeyi olustur.
+                if (harfDizisiKiyaslayici.Kiyasla(kokDizi, girisDizi))
+                {
+                    Kelime kelime = KelimeUret(kok, kokDizi);
+                    if (yardimci.KelimeBicimiDenetle(kelime, strGiris))
+                    {
+                        if (!hepsiniCozumle)
+                        {
+                            return new Kelime[] { kelime };
                         }
-                        cozumler.Add(sonuc);
+                        else
+                            cozumler.Add(kelime);
+                    }
+                }
+                else
+                {
+                    icerikDegisti = yardimci.KokGirisDegismiVarsaUygula(kok, kokDizi, girisDizi);
+                    List<Kelime> sonuclar = Coz(kok, kokDizi, girisDizi, hepsiniCozumle);
+                    foreach (Kelime sonuc in sonuclar)
+                    {
+                        if (yardimci.KelimeBicimiDenetle(sonuc, strGiris))
+                        {
+                            if (!hepsiniCozumle)
+                            {
+                                return new Kelime[] { sonuc };
+                            }
+                            cozumler.Add(sonuc);
+                        }
                     }
                 }
             }
+            return cozumler.ToArray();
         }
-        return cozumler.ToArray();
-    }
 
-    private Kelime kelimeUret(Kok kok, HarfDizisi dizi) {
-        Kelime kelime = new Kelime(kok, dizi);
-        kelime.ekEkle(ekYonetici.ilkEkBelirle(kelime.kok()));
-        return kelime;
-    }
+        private Kelime KelimeUret(Kok kok, HarfDizisi dizi)
+        {
+            Kelime kelime = new Kelime(kok, dizi);
+            kelime.EkEkle(ekYonetici.IlkEkBelirle(kelime.Kok));
+            return kelime;
+        }
 
-    private List<Kelime> coz(Kok kok, HarfDizisi kokDizi, HarfDizisi giris, bool tumunuCozumle) {
-
-        Kelime kelime = kelimeUret(kok, kokDizi);
-        BasitKelimeYigini kelimeYigini = new BasitKelimeYigini();
-        Ek bulunanEk = kelime.sonEk();
-        int ardisilEkSirasi = 0;
-        List<Kelime> uygunSonuclar = Kelime.EMPTY_LIST_KELIME;
-        TurkceHarf ilkEkHarfi= giris.harf(kelime.boy());
-        while (true) {
-            //bulunan son ekten sonra gelebilecek eklerden siradakini al.
-            Ek incelenenEk = bulunanEk.getArdisilEk(ardisilEkSirasi++);
-            //siradaki ek yoksa incelenen ek yanlis demektir.
-            // yigindan kelimenin onceki durumunu cek.
-            if (incelenenEk == null) {
-                //yigin bos ise basarisizlik.
-                if (kelimeYigini.bosMu())
-                    return uygunSonuclar;
-
-                //kelimeyi ve bulunan eki onceki formuna donustur.
-                BasitKelimeYigini.YiginKelime yiginKelime = kelimeYigini.al();
-                kelime = yiginKelime.getKelime();
-                bulunanEk = kelime.sonEk();
-                ardisilEkSirasi = yiginKelime.getEkSirasi();
-                ilkEkHarfi= giris.harf(kelime.boy());
-                continue;
-            }
-
-            if (kelime.gercekEkYok() && kelime.kok().ozelDurumVarmi()) {
-                if (!ozelDurumUygula(kelime, giris, incelenenEk)) {
-                    continue;
-                } else
-                   ilkEkHarfi = giris.harf(kelime.boy());
-            }
-
-            if(!incelenenEk.ilkHarfDenetle(ilkEkHarfi))
-               continue;
-            
-            HarfDizisi olusanEkIcerigi = incelenenEk.cozumlemeIcinUret(kelime, giris, harfDizisiKiyaslayici);
-            if (olusanEkIcerigi == null || olusanEkIcerigi.Length == 0) {
-                continue;
-            }
-
-            if (harfDizisiKiyaslayici.aradanKiyasla(giris,
-                    olusanEkIcerigi,
-                    kelime.boy())) {
-                // ek dongusu testi
-                //if (kelime.ekDongusuVarmi(incelenenEk)) continue;
-                kelimeYigini.koy((Kelime)kelime.Clone(), ardisilEkSirasi);
-                ardisilEkSirasi = 0;
-                kelime.ekEkle(incelenenEk);
-                kelime.icerikEkle(olusanEkIcerigi);
-                ilkEkHarfi = giris.harf(kelime.boy());
-                if (logger.IsInfoEnabled) logger.Info("ekleme sonrasi olusan kelime: " + kelime.icerik());
-
-                bulunanEk = incelenenEk;
-
-                if (harfDizisiKiyaslayici.kiyasla(kelime.icerik(), giris) && !incelenenEk.sonEkOlamazMi()) {
-                    if (!tumunuCozumle) {
-                        uygunSonuclar = new List<Kelime>(1);
-                        uygunSonuclar.Add(kelime);
+        private List<Kelime> Coz(Kok kok, HarfDizisi kokDizi, HarfDizisi giris, bool tumunuCozumle)
+        {
+            Kelime kelime = KelimeUret(kok, kokDizi);
+            BasitKelimeYigini kelimeYigini = new BasitKelimeYigini();
+            Ek bulunanEk = kelime.SonEk();
+            int ardisilEkSirasi = 0;
+            List<Kelime> uygunSonuclar = Kelime.EMPTY_LIST_KELIME;
+            TurkceHarf ilkEkHarfi = giris.Harf(kelime.Boy());
+            while (true)
+            {
+                //bulunan son ekten sonra gelebilecek eklerden siradakini Al.
+                Ek incelenenEk = bulunanEk.ArdisilEkGetir(ardisilEkSirasi++);
+                //siradaki ek yoksa incelenen ek yanlis demektir.
+                // yigindan kelimenin onceki durumunu cek.
+                if (incelenenEk == null)
+                {
+                    //yigin bos ise basarisizlik.
+                    if (kelimeYigini.Bos())
                         return uygunSonuclar;
+
+                    //kelimeyi ve bulunan eki onceki formuna donustur.
+                    BasitKelimeYigini.YiginKelime yiginKelime = kelimeYigini.Al();
+                    kelime = yiginKelime.Kelime;
+                    bulunanEk = kelime.SonEk();
+                    ardisilEkSirasi = yiginKelime.EkSirasi;
+                    ilkEkHarfi = giris.Harf(kelime.Boy());
+                    continue;
+                }
+
+                if (kelime.GercekEkYok() && kelime.Kok.OzelDurumVarmi())
+                {
+                    if (!OzelDurumUygula(kelime, giris, incelenenEk))
+                    {
+                        continue;
                     }
-                    if (uygunSonuclar.Count==0)
-                        uygunSonuclar = new List<Kelime>(2);
-                    uygunSonuclar.Add((Kelime)kelime.Clone());
+                    else
+                        ilkEkHarfi = giris.Harf(kelime.Boy());
+                }
+
+                if (!incelenenEk.IlkHarfDenetle(ilkEkHarfi))
+                    continue;
+
+                HarfDizisi olusanEkIcerigi = incelenenEk.CozumlemeIcinUret(kelime, giris, harfDizisiKiyaslayici);
+                if (olusanEkIcerigi == null || olusanEkIcerigi.Boy == 0)
+                {
+                    continue;
+                }
+
+                if (harfDizisiKiyaslayici.AradanKiyasla(giris,
+                        olusanEkIcerigi,
+                        kelime.Boy()))
+                {
+                    // ek dongusu testi
+                    //if (kelime.ekDongusuVarmi(incelenenEk)) continue;
+                    kelimeYigini.Koy((Kelime)kelime.Clone(), ardisilEkSirasi);
+                    ardisilEkSirasi = 0;
+                    kelime.EkEkle(incelenenEk);
+                    kelime.IcerikEkle(olusanEkIcerigi);
+                    ilkEkHarfi = giris.Harf(kelime.Boy());
+                    if (logger.IsInfoEnabled) logger.Info("ekleme sonrasi olusan kelime: " + kelime.Icerik);
+
+                    bulunanEk = incelenenEk;
+
+                    if (harfDizisiKiyaslayici.Kiyasla(kelime.Icerik, giris) && !incelenenEk.SonEkOlamaz)
+                    {
+                        if (!tumunuCozumle)
+                        {
+                            uygunSonuclar = new List<Kelime>(1);
+                            uygunSonuclar.Add(kelime);
+                            return uygunSonuclar;
+                        }
+                        if (uygunSonuclar.Count == 0)
+                            uygunSonuclar = new List<Kelime>(2);
+                        uygunSonuclar.Add((Kelime)kelime.Clone());
+                    }
                 }
             }
         }
-    }
 
-    private bool ozelDurumUygula(Kelime kelime, HarfDizisi giris, Ek ek) {
-        if (!kelime.kok().yapiBozucuOzelDurumVarmi())
-            return true;
-        HarfDizisi testKokIcerigi = kelime.kok().ozelDurumUygula(alfabe, ek);
-        if (testKokIcerigi == null) return false;
-        if (logger.IsInfoEnabled) logger.Info("Ozel durum sonrasi:" + testKokIcerigi + "  ek:" + ek.ad());
-        kelime.setIcerik(testKokIcerigi);
-        return harfDizisiKiyaslayici.bastanKiyasla(giris, testKokIcerigi);
+        private bool OzelDurumUygula(Kelime kelime, HarfDizisi giris, Ek ek)
+        {
+            if (!kelime.Kok.YapiBozucuOzelDurumVar())
+                return true;
+            HarfDizisi testKokIcerigi = kelime.Kok.OzelDurumUygula(alfabe, ek);
+            if (testKokIcerigi == null) return false;
+            if (logger.IsInfoEnabled) logger.Info("Ozel durum sonrasi:" + testKokIcerigi + "  ek:" + ek.Ad);
+            kelime.Icerik = testKokIcerigi;
+            return harfDizisiKiyaslayici.BastanKiyasla(giris, testKokIcerigi);
+        }
     }
-}
 }

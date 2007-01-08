@@ -54,7 +54,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
         {
             List<Kok> adaylar = new List<Kok>(3);
             int girisIndex = 0;
-            KokDugumu node = agac.getKokDugumu();
+            KokDugumu node = agac.BaslangicDugumu();
 
             while (girisIndex < giris.Length) 
             {

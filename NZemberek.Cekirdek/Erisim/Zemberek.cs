@@ -78,34 +78,34 @@ namespace NZemberek
         private void initialize()
         {
             //Sozluk hazirla.
-            ISozluk kokler = _dilFabrikasi.kokler();
+            ISozluk kokler = _dilFabrikasi.SozlukVer();
             //Normal denetleyici-cozumleyici olusumu
             IKokBulucu kokBulucu = kokler.KesinKokBulucuGetir();
             _cozumleyici = new StandartCozumleyici(
                     kokBulucu,
                     new KesinHDKiyaslayici(),
-                    _dilFabrikasi.alfabe(),
-                    _dilFabrikasi.ekler(),
-                    _dilFabrikasi.cozumlemeYardimcisi());
+                    _dilFabrikasi.AlfabeVer(),
+                    _dilFabrikasi.EkYoneticisiver(),
+                    _dilFabrikasi.CozumlemeYardimcisiVer());
 
             // ASCII-Turkce donusturucu icin tukce toleransli cozumleyici olusumu.
             IKokBulucu turkceToleransliKokBulucu = kokler.AsciiKokBulucuGetir();
             _asciiToleransliCozumleyici = new StandartCozumleyici(
                     turkceToleransliKokBulucu,
                     new AsciiToleransliHDKiyaslayici(),
-                    _dilFabrikasi.alfabe(),
-                    _dilFabrikasi.ekler(),
-                    _dilFabrikasi.cozumlemeYardimcisi());
+                    _dilFabrikasi.AlfabeVer(),
+                    _dilFabrikasi.EkYoneticisiver(),
+                    _dilFabrikasi.CozumlemeYardimcisiVer());
 
             IKokBulucu toleransliBulucu = kokler.ToleransliKokBulucuGetir(1);
             ToleransliCozumleyici toleransliCozumleyici = new ToleransliCozumleyici(
                     toleransliBulucu,
-                    _dilFabrikasi.ekler(),
-                    _dilFabrikasi.alfabe(),
-                    _dilFabrikasi.cozumlemeYardimcisi());
+                    _dilFabrikasi.EkYoneticisiver(),
+                    _dilFabrikasi.AlfabeVer(),
+                    _dilFabrikasi.CozumlemeYardimcisiVer());
 
             _oneriUretici = new OneriUretici(
-                    _dilFabrikasi.cozumlemeYardimcisi(),
+                    _dilFabrikasi.CozumlemeYardimcisiVer(),
                     _cozumleyici,
                     _asciiToleransliCozumleyici,
                     toleransliCozumleyici,
@@ -113,10 +113,10 @@ namespace NZemberek
 
             _turkceTest = new TurkceYaziTesti(_cozumleyici, _asciiToleransliCozumleyici);
 
-            _asciiDonusturucu = new AsciiDonusturucu(_dilFabrikasi.alfabe());
-            _heceleyici = _dilFabrikasi.heceleyici(); // new Heceleyici(_dilFabrikasi.alfabe(), _dilFabrikasi.heceBulucu());
+            _asciiDonusturucu = new AsciiDonusturucu(_dilFabrikasi.AlfabeVer());
+            _heceleyici = _dilFabrikasi.HeceleyiciVer(); // new Heceleyici(_dilFabrikasi.Alfabe(), _dilFabrikasi.heceBulucu());
 
-            _kelimeUretici = new KelimeUretici(_dilFabrikasi.alfabe(), _dilFabrikasi.cozumlemeYardimcisi());
+            _kelimeUretici = new KelimeUretici(_dilFabrikasi.AlfabeVer(), _dilFabrikasi.CozumlemeYardimcisiVer());
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace NZemberek
             ArrayList olusumlar = new ArrayList(kelimeler.Length);
             foreach (Kelime kelime in kelimeler)
             {
-                String olusum = kelime.icerikStr();
+                String olusum = kelime.IcerikMetni();
                 if (!olusumlar.Contains(olusum))
                 {
                     olusumlar.Add(olusum);
@@ -161,45 +161,45 @@ namespace NZemberek
 
         public bool kelimeDenetle(String giris)
         {
-            return _cozumleyici.denetle(giris);
+            return _cozumleyici.Denetle(giris);
         }
 
         /**
          * performs morphological parsing of the word. Returns the possible solutions as an Kelime array.
-         * Kelime object contains the root and a suffix list. kok() method can be used for accessing the
-         * root. ekler() can be used for accessing the Ek object List.
+         * Kelime object contains the root and a suffix list. Kok method can be used for accessing the
+         * root. EkYoneticisiver() can be used for accessing the Ek object List.
          *
          *
-         * giris kelimesinin olasi tum (kok+ekler) cozumlemelerini dondurur.
+         * giris kelimesinin olasi tum (kok+EkYoneticisiver) cozumlemelerini dondurur.
          *
          * @param giris giris kelimesi
          * @return Kelime sinifi cinsinden dizi. Eger dizinin boyu 0 ise kelime cozumlenemedi demektir.
-         *         Kelime kokune erisim icin kok(), eklere erisim icin Ek cinsinden nesne listesi donduren
-         *         ekler() metodu kullanilir.
+         *         Kelime kokune erisim icin Kok, eklere erisim icin Ek cinsinden nesne listesi donduren
+         *         EkYoneticisiver() metodu kullanilir.
          * @see NZemberek.Cekirdek.Yapi.Kelime
          */
         public String[] kelimeCozumle(String giris)
         {
-            return CozumStringeCevir(_cozumleyici.cozumle(giris));
+            return CozumStringeCevir(_cozumleyici.Cozumle(giris));
         }
 
         /**
          * giris kelimesinin ascii karakter toleransli olarak cozumleyip
-         * Kelime cinsinden(kok+ekler) cozumlemelerini dondurur.
+         * Kelime cinsinden(kok+EkYoneticisiver) cozumlemelerini dondurur.
          * Birden cok cozumun oldugu durumda simdilik donen adaylarin
          * hangisinin gercekten yazidaki kelime olup olmadigi belirlenmiyor. ancak donen sonuclar
          * basitce kok kullanim frekansina gore dizilir. Yani ilk kelime buyuk ihtimalle kastedilen kelimedir.
          *
          * @param giris giris kelimesi
          * @return Kelime sinifi cinsinden dizi. Eger dizinin boyu 0 ise kelime cozumlenemedi demektir.
-         *         Kelime kokune erisim icin kok(), eklere erisim icin Ek cinsinden nesne listesi donduren
-         *         ekler() metodu kullanilir.  Kelimenin String cinsinden ifadesi icin icerik().ToString()
+         *         Kelime kokune erisim icin Kok, eklere erisim icin Ek cinsinden nesne listesi donduren
+         *         EkYoneticisiver() metodu kullanilir.  Kelimenin String cinsinden ifadesi icin icerik().ToString()
          *         metodu kullanilabilir.
          * @see NZemberek.Cekirdek.Yapi.Kelime
          */
         public String[] asciiCozumle(String giris)
         {
-            Kelime[] sonuclar = _asciiToleransliCozumleyici.cozumle(giris);
+            Kelime[] sonuclar = _asciiToleransliCozumleyici.Cozumle(giris);
             Array.Sort(sonuclar, new KelimeKokFrekansKiyaslayici());
             return CozumStringeCevir(sonuclar);
         }
@@ -214,7 +214,7 @@ namespace NZemberek
         /// <returns>yazilan kelimenin olasi turkce karakter iceren halleri.</returns>
         public String[] asciidenTurkceye(String giris)
         {
-            Kelime[] kelimeler = _asciiToleransliCozumleyici.cozumle(giris); ;
+            Kelime[] kelimeler = _asciiToleransliCozumleyici.Cozumle(giris); ;
             return IcerikStringeCevir(kelimeler);
         }
 
@@ -226,7 +226,7 @@ namespace NZemberek
          */
         public String asciiyeDonustur(String giris)
         {
-            return _asciiDonusturucu.toAscii(giris);
+            return _asciiDonusturucu.AsciiyeDonustur(giris);
         }
 
         /**
@@ -237,16 +237,16 @@ namespace NZemberek
          */
         public String[] hecele(String giris)
         {
-            return _heceleyici.hecele(giris);
+            return _heceleyici.Hecele(giris);
         }
 
         /**
          * giris kelimesine yakin Stringleri dondurur. Yani eger kelime bozuk ise bu kelimeye
          * benzeyen dogru kelime olasiliklarini dondurur. simdilik
-         * - 1 harf eksikligi
-         * - 1 harf fazlaligi
-         * - 1 yanlis harf kullanimi
-         * - yanyana yeri yanlis harf kullanimi.
+         * - 1 Harf eksikligi
+         * - 1 Harf fazlaligi
+         * - 1 yanlis Harf kullanimi
+         * - yanyana yeri yanlis Harf kullanimi.
          * hatalarini giderecek sekilde cozumleri donduruyor. Bu metod dogru kelimeler icin de
          * isler, yani giris "kedi" ise donus listesinde kedi ve kedi'ye benzesen kelimeler de doner.
          * Ornegin "kedim", "yedi" .. gibi.
@@ -258,7 +258,7 @@ namespace NZemberek
          */
         public String[] oner(String giris)
         {
-            return _oneriUretici.oner(giris);
+            return _oneriUretici.Oner(giris);
         }
 
         /**
@@ -276,7 +276,7 @@ namespace NZemberek
                 _temizleyici = new HataliKodlamaTemizleyici();
                 try
                 {
-                    _temizleyici.initialize();
+                    _temizleyici.Baslat();
                 }
                 catch (System.IO.IOException e)
                 {
@@ -284,7 +284,7 @@ namespace NZemberek
                 }
             }
             if (_temizleyici == null) return null;
-            return _temizleyici.temizle(giris);
+            return _temizleyici.Temizle(giris);
         }
 
         /**
@@ -302,13 +302,13 @@ namespace NZemberek
          */
         public int dilTesti(String giris)
         {
-            return _turkceTest.turkceTest(giris);
+            return _turkceTest.TurkceTest(giris);
         }
 
         /**
          * Istenilen kelimenin olasi String acilimlarini bulur.
          * Ornegin, "alayim" icin
-         * "al-a-yim" ve "ala-yim" cozumleri String dizileri seklinde uretilir.
+         * "Al-a-yim" ve "ala-yim" cozumleri String dizileri seklinde uretilir.
          * sonucta olusan diziler bir Listeye eklenir.
          *
          * @param kelime giris kelimesi
@@ -321,10 +321,10 @@ namespace NZemberek
         public IList<IList<String>> kelimeAyristir(String kelime)
         {
             IList<IList<String>> sonuclar = new List<IList<String>>();
-            Kelime[] cozumler = _cozumleyici.cozumle(kelime);
+            Kelime[] cozumler = _cozumleyici.Cozumle(kelime);
             foreach (Kelime kel in cozumler)
             {
-                sonuclar.Add(_kelimeUretici.ayristir(kel));
+                sonuclar.Add(_kelimeUretici.Ayristir(kel));
             }
             return sonuclar;
         }

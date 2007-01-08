@@ -32,7 +32,7 @@ namespace NZemberek.Cekirdek.Yapi
     /**
      * Harf dizisine olusum sirasinda parametre olarak gelen kelimeyi ular..
      */
-    public class Ulama : HarfDizisiIslemi
+    public class Ulama : IHarfDizisiIslemi
     {
         private readonly HarfDizisi ulanacak;
 
@@ -41,11 +41,11 @@ namespace NZemberek.Cekirdek.Yapi
             this.ulanacak = ulanacak;
         }
         
-        #region HarfDizisiIslemi Members
+        #region IHarfDizisiIslemi Members
 
-        public void uygula(HarfDizisi dizi)
+        public void Uygula(HarfDizisi dizi)
         {
-            dizi.ekle(ulanacak);
+            dizi.Ekle(ulanacak);
         }
 
         #endregion

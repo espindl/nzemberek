@@ -30,44 +30,45 @@ using NZemberek.Cekirdek.Yapi;
 
 namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
 {
-    public interface CozumlemeYardimcisi
+    public interface ICozumlemeYardimcisi
     {
-        /**
- * kelimenin icindeki olusumu kok'un orjinal haline gore ve gerekli noktalama isaretlerine gore
- * bicimlendirir. Ornegin Turkiye turkcesinde "ankaraya" -> "Ankara'ya" ve "bbceye"->"BBC'ye" seklinde.
- * Bu metod ozellikle oneri mekanizmasinda kullaniliyor.
- * @param kelime : cozumleme sonrasi olusan kelime.
- */
-        void kelimeBicimlendir(Kelime kelime);
+        /// <summary>
+        /// kelimenin icindeki olusumu kok'un orjinal haline gore ve gerekli noktalama isaretlerine gore
+        /// bicimlendirir. Ornegin Turkiye turkcesinde "ankaraya" -> "Ankara'ya" ve "bbceye"->"BBC'ye" seklinde.
+        /// Bu metod ozellikle oneri mekanizmasinda kullaniliyor.
+        /// </summary>
+        /// <param name="kelime">cozumleme sonrasi olusan kelime</param>
+        void KelimeBicimlendir(Kelime kelime);
 
-        /**
-         * eger kok ozel karaterler iceriyorsa bunun giris ile olan uygunlugunu denetler.
-         * @param kelime
-         * @param giris
-         * @return eger kok orjinal icereigi ve kurallari girise uygunsa true.
-         */
-        bool kelimeBicimiDenetle(Kelime kelime, String giris);
+        /// <summary>
+        /// eger kok ozel karaterler iceriyorsa bunun giris ile olan uygunlugunu denetler.
+        /// </summary>
+        /// <param name="kelime"></param>
+        /// <param name="giris"></param>
+        /// <returns>eger kok orjinal icereigi ve kurallari girise uygunsa true</returns>
+        bool KelimeBicimiDenetle(Kelime kelime, String giris);
 
-        /**
-         * Asagidaki aciklamalar Turkiye Turkcesi icindir.
-         * Kisaltmalarin cozumlenmesi sirasinda karsilasilan bir sorun bazi durumlarda
-         * kokun hic sesli icermemesi, ya da kisaltmanin okunusunun son sessizin okunusuna bagli olmasidir.
-         * Bu durumda eklenecek ekin belirlenmesi son harfin
-         * okunusu ile belirlenir. Bu durumun cozumleme islemine uygulanabilmesi icin
-         * hem giris hem de kok dizisinde degisiklik yapilamsi gerekebiliyor. Bu metod sesli icermeyen
-         * kok ve girise gecici sesli eklenmesi ya da baska gerekli bir ozel durum varsa uygulanmasini
-         * saglar.
-         * @param kokDizi
-         * @param girisDizi
-         */
-        bool kokGirisDegismiVarsaUygula(Kok kok, HarfDizisi kokDizi, HarfDizisi girisDizi);
+        /// <summary>
+        /// Asagidaki aciklamalar Turkiye Turkcesi icindir.
+        /// Kisaltmalarin cozumlenmesi sirasinda karsilasilan bir sorun bazi durumlarda
+        /// kokun hic sesli icermemesi, ya da kisaltmanin okunusunun son sessizin okunusuna bagli olmasidir.
+        /// Bu durumda eklenecek ekin belirlenmesi son harfin okunusu ile belirlenir. Bu durumun cozumleme islemine 
+        /// uygulanabilmesi icin hem giris hem de kok dizisinde degisiklik yapilamsi gerekebiliyor. 
+        /// Bu metod sesli icermeyen kok ve girise gecici sesli eklenmesi ya da baska gerekli bir ozel durum 
+        /// varsa uygulanmasinisaglar.
+        /// </summary>
+        /// <param name="kok"></param>
+        /// <param name="kokDizi"></param>
+        /// <param name="girisDizi"></param>
+        /// <returns></returns>
+        bool KokGirisDegismiVarsaUygula(Kok kok, HarfDizisi kokDizi, HarfDizisi girisDizi);
 
-        /**
-         * Eger dil icin denetleme cebi olusturulmussa cepte arama islemi yapilir.
-         * @param str
-         * @return true eger String cepte yer aliyorsa.
-         */
-        bool cepteAra(String str);
+        /// <summary>
+        /// Eger dil icin denetleme cebi olusturulmussa cepte arama islemi yapilir.
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns>true eger String cepte yer aliyorsa</returns>
+        bool CepteAra(String str);
 
 
     }

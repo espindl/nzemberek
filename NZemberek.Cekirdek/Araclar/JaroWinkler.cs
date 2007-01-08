@@ -91,21 +91,21 @@ namespace NZemberek.Cekirdek.Araclar
          * @param target
          * @return Stringlerin benzerlik oraný. stringler ayný ise 1
          */
-        public double benzerlikOrani(String source, String target)
+        public double BenzerlikOrani(String source, String target)
         {
-            double dist = jaroBenzerlikOrani(source, target);
+            double dist = JaroBenzerlikOrani(source, target);
             if (dist < 0 || dist > 1)
                 throw new ArgumentOutOfRangeException("innerDistance should produce scores between 0 and 1");
-            int prefLength = commonPrefixLength(4, source, target);
+            int prefLength = OrtakBaslangicUzunlugu(4, source, target);
             dist = dist + prefLength * 0.1 * (1 - dist);
             return dist;
         }
 
-        private double jaroBenzerlikOrani(String source, String target)
+        private double JaroBenzerlikOrani(String source, String target)
         {
-            int halflen = halfLengthOfShorter(source, target);
-            String common1 = commonChars(source, target, halflen);
-            String common2 = commonChars(target, source, halflen);
+            int halflen = KisaOlaninYariUzunlugu(source, target);
+            String common1 = OrtakKarakterler(source, target, halflen);
+            String common2 = OrtakKarakterler(target, source, halflen);
             if (common1.Length != common2.Length) return 0;
             if (common1.Length == 0 || common2.Length == 0) return 0;
 
@@ -117,12 +117,12 @@ namespace NZemberek.Cekirdek.Araclar
             return dist;
         }
 
-        private int halfLengthOfShorter(String source, String target)
+        private int KisaOlaninYariUzunlugu(String source, String target)
         {
             return (source.Length > target.Length) ? target.Length / 2 + 1 : source.Length / 2 + 1;
         }
 
-        private String commonChars(String s, String t, int halflen)
+        private String OrtakKarakterler(String s, String t, int halflen)
         {
             StringBuilder common = new StringBuilder();
             StringBuilder copy = new StringBuilder(t);
@@ -155,14 +155,14 @@ namespace NZemberek.Cekirdek.Araclar
             return retVal;
         }
 
-        private static int commonPrefixLength(int maxLength, String common1, String common2)
+        private static int OrtakBaslangicUzunlugu(int maxLength, String common1, String common2)
         {
             int n = Math.Min(maxLength, Math.Min(common1.Length, common2.Length));
             for (int i = 0; i < n; i++)
             {
                 if (common1[i] != common2[i]) return i;
             }
-            return n; // first n characters are the same
+            return n; // ilk n karakter ayni
         }
 
     }

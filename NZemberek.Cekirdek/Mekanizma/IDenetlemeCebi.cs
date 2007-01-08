@@ -29,12 +29,12 @@ using System.Text;
 
 namespace NZemberek.Cekirdek.Mekanizma
 {
-    public interface DenetlemeCebi
+    public interface IDenetlemeCebi
     {
-        bool kontrol(String str);
+        bool Kontrol(String str);
 
-        void ekle(String s);
+        void Ekle(String s);
 
-        void sil(String s);
+        void Sil(String s);
     }
 }

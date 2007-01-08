@@ -22,9 +22,6 @@
  *   Mert Derman
  *   Tankut Tekeli
  * ***** END LICENSE BLOCK ***** */
-
-//V 0.1
-
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -35,47 +32,40 @@ namespace NZemberek.Cekirdek.Mekanizma
 {
     public class KelimeUretici
     {
-
         private Alfabe alfabe;
-        private CozumlemeYardimcisi yardimci;
+        private ICozumlemeYardimcisi yardimci;
 
-        public KelimeUretici(Alfabe alfabe, CozumlemeYardimcisi yardimci)
+        public KelimeUretici(Alfabe alfabe, ICozumlemeYardimcisi yardimci)
         {
             this.alfabe = alfabe;
             this.yardimci = yardimci;
         }
 
-
-        /**
-         * Kok ve Ek listesi tasiyan bir kelimeyi String listesi seklinde parcalara ayirir.
-         * Kelime {kok={kitap, ISIM} ekler = {ISIM_SAHIPLIK_BEN, ISIM_YONELME_E}} icin
-         * {kitap,Im,a} dizisi doner.
-         *
-         * @param kelime : kelime
-         * @return kok ve ek icerikleri (String[]) cinsinden dizi. Eger ek listesi bos ise ya da
-         *         sadece yalin ek var ise sadece kok icerigi doner. Kokun ozel durum ile bozulmus hali degil
-         *         orjinal icerigini iceren dizi doner.
-         *         TODO:
-         *         simdilik ozle adlarda bas harf kucuk olarak donuyor. Ayrica ozel yazimli koklerin orjinali
-         *         degil ayiklanmis hali doner.
-         */
-        public IList<String> ayristir(Kelime kelime)
+        /// <summary>
+        /// Kok ve Ek listesi tasiyan bir kelimeyi String listesi seklinde parcalara ayirir.
+        /// Kelime {kok={kitap, ISIM} ekler = {ISIM_SAHIPLIK_BEN, ISIM_YONELME_E}} icin {kitap,Im,a} dizisi doner.
+        /// </summary>
+        /// <param name="kelime"></param>
+        /// <returns>kok ve ek icerikleri (String[]) cinsinden dizi. Eger ek listesi bos ise ya da
+        /// sadece yalin ek var ise sadece kok icerigi doner. Kokun ozel durum ile bozulmus hali degilorjinal icerigini iceren dizi doner.
+        /// TODO: simdilik ozel adlarda bas Harf kucuk olarak donuyor. Ayrica ozel yazimli koklerin orjinali
+        /// degil ayiklanmis hali doner.</returns>
+        public IList<String> Ayristir(Kelime kelime)
         {
-            UretimNesnesi ure = uretimNesnesiUret(kelime.kok(), kelime.ekler());
+            UretimNesnesi ure = UretimNesnesiUret(kelime.Kok, kelime.Ekler);
             return ure.olusumlar;
         }
 
-
-        private UretimNesnesi uretimNesnesiUret(Kok kok, IList<Ek> ekler)
+        private UretimNesnesi UretimNesnesiUret(Kok kok, IList<Ek> ekler)
         {
-            UretimNesnesi ure = new UretimNesnesi(kok.icerik());
+            UretimNesnesi ure = new UretimNesnesi(kok.Icerik);
             Kelime kelime = new Kelime(kok, alfabe);
 
             if (ekler.Count > 1)
             {
-                HarfDizisi ozelDurumSonrasi = kok.ozelDurumUygula(alfabe, ekler[1]);
+                HarfDizisi ozelDurumSonrasi = kok.OzelDurumUygula(alfabe, ekler[1]);
                 if (ozelDurumSonrasi != null)
-                    kelime.setIcerik(ozelDurumSonrasi);
+                    kelime.Icerik = ozelDurumSonrasi;
                 else
                     return ure;
             }
@@ -86,52 +76,48 @@ namespace NZemberek.Cekirdek.Mekanizma
 
             for (int i = 0; i < ekler.Count; i++)
             {
-
                 Ek ek = ekler[i];
 
                 // eger incelenen ek onceki ekten sonra gelemezse cik.
                 if (i > 0)
                 {
                     Ek oncekiEk = ekler[i - 1];
-                    if (!oncekiEk.ardindanGelebilirMi(ek))
+                    if (!oncekiEk.ArdindanGelebilir(ek))
                     {
                         return ure;
                     }
                 }
 
-
-
                 //olusum icin kural belirle ve eki olustur.
                 HarfDizisi ekOlusumu;
                 if (i < ekler.Count - 1)
-                    ekOlusumu = new HarfDizisi(ek.olusumIcinUret(kelime, ekler[i + 1]));
+                    ekOlusumu = new HarfDizisi(ek.OlusumIcinUret(kelime, ekler[i + 1]));
                 else
-                    ekOlusumu = new HarfDizisi(ek.olusumIcinUret(kelime, TemelEkYonetici.BOS_EK));
+                    ekOlusumu = new HarfDizisi(ek.OlusumIcinUret(kelime, TemelEkYonetici.BOS_EK));
 
                 //TODO: asagidaki bolum dil ozel. muhtemelen olusumIcinURet metodu duzletilirse gerek kalmaz.
-                // ek son harf yumusatmayi kendimiz hallediyoruz (eger yalin ek ise bu islemi pas geciyoruz.)
+                // ek son Harf yumusatmayi kendimiz hallediyoruz (eger yalin ek ise bu islemi pas geciyoruz.)
                 if (i > 1)
                 {
-                    if (kelime.sonHarf().Sert && ekOlusumu.ilkHarf().Sesli)
-                        kelime.icerik().sonHarfYumusat();
+                    if (kelime.SonHarf().Sert && ekOlusumu.IlkHarf().Sesli)
+                        kelime.Icerik.SonHarfYumusat();
                 }
 
-                //eki kelimeye ve ek olusumlarina ekle.
-                kelime.icerikEkle(ekOlusumu);
-                if (ekOlusumu.Length > 0)
+                //eki kelimeye ve ek olusumlarina Ekle.
+                kelime.IcerikEkle(ekOlusumu);
+                if (ekOlusumu.Boy > 0)
                     ure.olusumlar.Add(ekOlusumu.ToString());
-                kelime.ekler().Add(ek);
+                kelime.Ekler.Add(ek);
             }
 
-            //son duzeltmeleri uygula.
-            yardimci.kelimeBicimlendir(kelime);
-            ure.olusum = kelime.icerikStr();
+            //son duzeltmeleri Uygula.
+            yardimci.KelimeBicimlendir(kelime);
+            ure.olusum = kelime.IcerikMetni();
             return ure;
         }
 
         internal class UretimNesnesi
         {
-
             internal String olusum = "";
             internal IList<String> olusumlar = new List<String>(4);
 

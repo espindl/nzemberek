@@ -34,10 +34,10 @@ namespace NZemberek.TrTurkcesi.Mekanizma
     public class SoruEkiIsleyici
     {
 
-        EkYonetici ekYonetici;
+        IEkYonetici ekYonetici;
 
 
-        public SoruEkiIsleyici(EkYonetici yonetici)
+        public SoruEkiIsleyici(IEkYonetici yonetici)
         {
             this.ekYonetici = yonetici;
         }
@@ -60,18 +60,18 @@ namespace NZemberek.TrTurkcesi.Mekanizma
             {
                 Kelime kelime = cumleKelimeleri[i];
                 // ilk kelime degilse ve kelime aslinda soru eki ise..
-                if (i > 0 && kelime.kok().tip().Equals(KelimeTipi.SORU))
+                if (i > 0 && kelime.Kok.Tip.Equals(KelimeTipi.SORU))
                 {
-                    // onceki kelimeyi al ve sonuna soru eki ekle.
-                    // daha sonra soru "kokunden" sonra gelen tum ekleri de ekle.
+                    // onceki kelimeyi Al ve sonuna soru eki Ekle.
+                    // daha sonra soru "kokunden" sonra gelen tum ekleri de Ekle.
                     Kelime oncekiKelime = cumleKelimeleri[i - 1];
-                    oncekiKelime.ekler().Add(ekYonetici.ek(TurkceEkAdlari.FIIL_SORU_MI));
-                    if (kelime.ekler().Count > 1)
+                    oncekiKelime.Ekler.Add(ekYonetici.EkVer(TurkceEkAdlari.FIIL_SORU_MI));
+                    if (kelime.Ekler.Count > 1)
                     {   
-                        List<Ek> tempList = kelime.ekler();
+                        List<Ek> tempList = kelime.Ekler;
                         tempList.RemoveAt(0);
-                        oncekiKelime.ekler().AddRange(tempList);
-                        //oncekiKelime.ekler().addAll(kelime.ekler().subList(1, kelime.ekler().Count));
+                        oncekiKelime.Ekler.AddRange(tempList);
+                        //oncekiKelime.ekler().addAll(kelime.EkYoneticisiver().subList(1, kelime.EkYoneticisiver().Count));
                     }
                 }
                 else

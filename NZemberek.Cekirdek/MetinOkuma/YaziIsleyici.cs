@@ -38,10 +38,10 @@ import java.util.Locale;
 
 namespace NZemberek.Cekirdek.MetinOkuma
 {
-    /**
-     * Metinler uzerinde ayristirma islemlerini kolaylastirmak icin yazilmis bir sinif. 
-     * Static methodlari kullanarak metin icerisindeki kelimelere, cumlelere ulasim sagliyor.
-     */
+    /// <summary>
+    /// Metinler uzerinde ayristirma islemlerini kolaylastirmak icin yazilmis bir sinif. 
+    /// Static methodlari kullanarak metin icerisindeki kelimelere, cumlelere ulasim sagliyor.
+    /// </summary>
     public class YaziIsleyici
     {
         //TODO : BreakIterator yerine string.Split kullanýyoruz, hiç yoktan iyidir ama iyileþtirme gerekir.
@@ -50,13 +50,12 @@ namespace NZemberek.Cekirdek.MetinOkuma
         private static readonly char[] kelimeAyrac = new char[] { ' ', '.', ',', '?', '!' };
         private static readonly char[] cumleAyrac = new char[] { '.', '?', '!' };
 
-        /**
-         * Verilen metni {@link java.text.BreakIterator} kullanarak kelimelerine ayirir. Noktalama isaretleri filtrelenir
-         *
-         * @param target
-         * @return metin kelimeleri liste icerisinde String olarak dondurulur.
-         */
-        public static IList kelimeAyikla(String target) 
+        /// <summary>
+        /// Verilen metni {@link java.text.BreakIterator} kullanarak kelimelerine ayirir. Noktalama isaretleri filtrelenir
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public static IList KelimeAyikla(String target)
         {
             string[] splits = target.Split();
             IList kelimeList = new ArrayList();
@@ -70,26 +69,24 @@ namespace NZemberek.Cekirdek.MetinOkuma
             return kelimeList;
         }
 
-        /**
-         * @param target
-         * @return
-         */
-        /*TODO: Please review if this method needs to be here
-        */
-
-        public static IList analizIcinKelimeAyikla(String target) {
-            IList cumleler = cumleAyikla(target);
+        // TODO: Please review if this method needs to be here
+        public static IList AnalizIcinKelimeAyikla(String target)
+        {
+            IList cumleler = CumleAyikla(target);
             IList tumKelimeler = new ArrayList();
-            for (int i = 0; i < cumleler.Count; i++) {
-                String cumle = (String) cumleler[i];
-                IList kelimeler = kelimeAyikla(cumle);
+            for (int i = 0; i < cumleler.Count; i++)
+            {
+                String cumle = (String)cumleler[i];
+                IList kelimeler = KelimeAyikla(cumle);
                 for (int j = 0; j < kelimeler.Count; j++)
                 {
-                    String kelime = (String) kelimeler[j];
-                    if (Char.IsLower(kelime[0])) {
+                    String kelime = (String)kelimeler[j];
+                    if (Char.IsLower(kelime[0]))
+                    {
                         char[] chrs = kelime.ToCharArray();
                         bool nokta = false;
-                        for (int k = 0; k < chrs.Length; k++) {
+                        for (int k = 0; k < chrs.Length; k++)
+                        {
                             if (chrs[k] == '.' || chrs[k] == '-')
                                 nokta = true;
                         }
@@ -101,7 +98,7 @@ namespace NZemberek.Cekirdek.MetinOkuma
             return tumKelimeler;
         }
 
-        public static IList cumleAyikla(String target) 
+        public static IList CumleAyikla(String target)
         {
             string[] splits = target.Split();
             IList cumleList = new ArrayList();
@@ -112,13 +109,12 @@ namespace NZemberek.Cekirdek.MetinOkuma
             return cumleList;
         }
 
-        /**
-         * Verilen metnin icinde gecen kelimeler {@link YaziBirimi} listesi  halinde dondururlur.
-         *
-         * @param target
-         * @return
-         */
-        public static IList<YaziBirimi> analizDizisiOlustur(String target) 
+        /// <summary>
+        /// Verilen metnin icinde gecen kelimeler {@link YaziBirimi} listesi  halinde dondururlur.
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public static IList<YaziBirimi> AnalizDizisiOlustur(String target)
         {
             string[] splits = target.Split();
             IList<YaziBirimi> yaziBirimleri = new System.Collections.Generic.List<YaziBirimi>();
@@ -134,20 +130,21 @@ namespace NZemberek.Cekirdek.MetinOkuma
             return yaziBirimleri;
         }
 
-        public static String yaziOkuyucu(String fileName) 
+        public static String YaziOkuyucu(String fileName)
         {
             StringBuilder sb = new StringBuilder();
             Stream fis = new FileStream(fileName, FileMode.Open);
             StreamReader bis = new StreamReader(fis, Encoding.GetEncoding("ISO-8859-9"));
             String s;
-            while ((s = bis.ReadLine()) != null) {
+            while ((s = bis.ReadLine()) != null)
+            {
                 sb.Append(s);
                 sb.Append("\n");
             }
             bis.Close();
             return sb.ToString();
         }
-        }
+    }
 }
 
 

@@ -16,12 +16,12 @@ namespace NZemberek.TrTurkcesi.Yapi
 
         #region IHeceleyici Members
 
-        public int[] heceIndeksleriniBul(string giris)
+        public int[] HeceIndeksleriniBul(string giris)
         {
             throw new Exception("The method or operation is not implemented.");
         }
         
-        public bool hecelenebilirmi(string giris)
+        public bool Hecelenebilir(string giris)
         {
             throw new Exception("The method or operation is not implemented.");
         }
@@ -34,33 +34,33 @@ namespace NZemberek.TrTurkcesi.Yapi
         /// </summary>
         /// <param name="giris"></param>
         /// <returns></returns>
-        public string[] hecele(string giris)
+        public string[] Hecele(string giris)
         {
             HarfDizisi kelime = new HarfDizisi(giris, _alfabe);
             ArrayList heceler = new ArrayList();
             List<int> heceyapicilar = heceYapiciIndeksleriniBul(kelime);
 
-            int sonNokta = kelime.Length;
-            for (int i = kelime.Length - 1; i > -1; i--)
+            int sonNokta = kelime.Boy;
+            for (int i = kelime.Boy - 1; i > -1; i--)
             {
                 if (heceyapicilar.Contains(i))
                 {
                     heceyapicilar.Remove(i);
-                    if (heceyapicilar.Count == 0 && kelime.subSequence(0, kelime.Length - (kelime.Length - i)).sesliSayisi() == 0)
+                    if (heceyapicilar.Count == 0 && kelime.SubSequence(0, kelime.Boy - (kelime.Boy - i)).SesliSayisi() == 0)
                     {
-                        heceler.Add(kelime.subSequence(0, kelime.Length - (kelime.Length - sonNokta)).ToString());
+                        heceler.Add(kelime.SubSequence(0, kelime.Boy - (kelime.Boy - sonNokta)).ToString());
                         sonNokta = 0;
                     }
                     else
                     {
-                        heceler.Add(kelime.subSequence(i, kelime.Length - (kelime.Length - sonNokta)).ToString());
+                        heceler.Add(kelime.SubSequence(i, kelime.Boy - (kelime.Boy - sonNokta)).ToString());
                         sonNokta = i;
                     }
                 }
             }
             if (sonNokta != 0)
             {
-                heceler.Add(kelime.subSequence(0, kelime.Length -  (kelime.Length-sonNokta)).ToString());
+                heceler.Add(kelime.SubSequence(0, kelime.Boy -  (kelime.Boy-sonNokta)).ToString());
             }
             heceler.Reverse();
             return (string[])heceler.ToArray(typeof(string));
@@ -71,9 +71,9 @@ namespace NZemberek.TrTurkcesi.Yapi
         private static List<int> heceYapiciIndeksleriniBul(HarfDizisi kelime)
         {
             List<int> heceyapicilar = new List<int>();
-            for (int i = 0; i < kelime.Length - 1; i++)
+            for (int i = 0; i < kelime.Boy - 1; i++)
             {
-                if ((!kelime.harf(i).Sesli && kelime.harf(i + 1).Sesli) || (kelime.harf(i).Sesli && i > 0 && kelime.harf(i - 1).Sesli))
+                if ((!kelime.Harf(i).Sesli && kelime.Harf(i + 1).Sesli) || (kelime.Harf(i).Sesli && i > 0 && kelime.Harf(i - 1).Sesli))
                 {
                     heceyapicilar.Add(i);
                 }

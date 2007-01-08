@@ -33,6 +33,10 @@ namespace NZemberek.Cekirdek.Yapi
 	{
 		virtual public KelimeTipi Tip
 		{
+            get
+            {
+                return _tip;
+            }
 			set
 			{
 				this._tip = value;
@@ -41,6 +45,10 @@ namespace NZemberek.Cekirdek.Yapi
 		}
 		virtual public System.String Icerik
 		{
+            get
+            {
+                return _icerik;
+            }
 			set
 			{
 				this._icerik = value;
@@ -73,7 +81,7 @@ namespace NZemberek.Cekirdek.Yapi
 			}
 			
 		}
-		virtual public System.String Asil
+		virtual public String Asil
 		{
 			set
 			{
@@ -98,9 +106,9 @@ namespace NZemberek.Cekirdek.Yapi
 		private static readonly KokOzelDurumu[] BOS_OZEL_DURUM_DIZISI = new KokOzelDurumu[0];
 		
 		private int indeks;
-		// Eger bir kok icinde alfabe disi karakter barindiriyorsa (nokta, tire gibi) orjinal hali bu
+		// Eger bir kok icinde Alfabe disi karakter barindiriyorsa (nokta, tire gibi) orjinal hali bu
 		// String icinde yer alir. Aksi halde null.
-		private System.String asil_Renamed_Field;
+		private String asil_Renamed_Field;
 		// bazi kisaltmalara ek eklenebilmesi icin kisaltmanin asil halinin son seslisine ihtiyac duyulur.
 		private char kisaltmaSonSeslisi=char.MinValue;
 		// Kok'un ozel karakterlerden tmeizlenmis hali. Genel olarak kok icerigi olarak bu String kullanilir.
@@ -111,17 +119,17 @@ namespace NZemberek.Cekirdek.Yapi
 		
 		private int frekans;
 		
-		public virtual bool ozelDurumVarmi()
+		public virtual bool OzelDurumVarmi()
 		{
 			return ozelDurumlar.Length > 0;
 		}
 		
-		public virtual KokOzelDurumu[] ozelDurumDizisi()
+		public virtual KokOzelDurumu[] OzelDurumDizisi()
 		{
 			return ozelDurumlar;
 		}
 		
-		public virtual bool ozelDurumIceriyormu(KokOzelDurumTipi tip)
+		public virtual bool ozelDurumIceriyormu(IKokOzelDurumTipi tip)
 		{            
             foreach (KokOzelDurumu oz in ozelDurumlar)
             {
@@ -130,16 +138,16 @@ namespace NZemberek.Cekirdek.Yapi
             }
 			return false;
 		}
-		
-		/// <summary> koke ozel durum ekler. burada dizi kullaniminda kaynak konusunda cimrilik ettigimizden
+
+        /// <summary> koke ozel durum ekler. burada dizi kullaniminda kaynak konusunda cimrilik ettigimizden
 		/// her yeni ozel durum icin dizi boyutunu bir buyuttuk. ayrica tekrar olmamasini da sagliyoruz.
 		/// Normalde bu islem Set icin cok daha kolay bir yapida olabilirdi set.add() ancak Set'in kaynak tuketimi
 		/// diziden daha fazla.
 		/// 
 		/// </summary>
-		/// <param name="ozelDurum">
+		/// <param name="OzelDurum">
 		/// </param>
-		public virtual void  ozelDurumEkle(KokOzelDurumu ozelDurum)
+		public virtual void  OzelDurumEkle(KokOzelDurumu ozelDurum)
 		{
 			if (ozelDurumlar.Length == 0)
 			{
@@ -165,7 +173,7 @@ namespace NZemberek.Cekirdek.Yapi
 		/// </summary>
 		/// <param name="tip">
 		/// </param>
-		public virtual void  ozelDurumCikar(KokOzelDurumTipi tip)
+		public virtual void  OzelDurumCikar(IKokOzelDurumTipi tip)
 		{
 			if (!ozelDurumIceriyormu(tip))
 				return ;
@@ -190,7 +198,7 @@ namespace NZemberek.Cekirdek.Yapi
 			this._tip = tip;
 		}
 		
-		public override System.String ToString()
+		public override String ToString()
 		{
 			System.String strOzel = "";
 			foreach(KokOzelDurumu ozelDurum in ozelDurumlar)
@@ -201,20 +209,20 @@ namespace NZemberek.Cekirdek.Yapi
 			return _icerik + " " + _tip + " " + strOzel;
 		}
 		
-		public virtual HarfDizisi ozelDurumUygula(Alfabe alfabe, Ek ek)
+		public virtual HarfDizisi OzelDurumUygula(Alfabe alfabe, Ek ek)
 		{
 			HarfDizisi dizi = new HarfDizisi(this._icerik, alfabe);
 			foreach(KokOzelDurumu ozelDurum in ozelDurumlar)
 			{
-				if (ozelDurum.yapiBozucumu() && ozelDurum.olusabilirMi(ek))
-					ozelDurum.uygula(dizi);
-				if (!ozelDurum.olusabilirMi(ek) && ozelDurum.ekKisitlayiciMi())
+				if (ozelDurum.yapiBozucumu() && ozelDurum.Olusabilir(ek))
+					ozelDurum.Uygula(dizi);
+				if (!ozelDurum.Olusabilir(ek) && ozelDurum.ekKisitlayiciMi())
 					return null;
 			}
 			return dizi;
 		}
 		
-		public virtual bool yapiBozucuOzelDurumVarmi()
+		public virtual bool YapiBozucuOzelDurumVar()
 		{
 			if (ozelDurumlar.Length == 0)
 				return false;
@@ -226,17 +234,7 @@ namespace NZemberek.Cekirdek.Yapi
 			return false;
 		}
 		
-		public KelimeTipi tip()
-		{
-			return _tip;
-		}
-		
-		public System.String icerik()
-		{
-			return _icerik;
-		}
-		
-		public  override bool Equals(System.Object o)
+		public override bool Equals(System.Object o)
 		{
 			if (this == o)
 				return true;
@@ -264,7 +262,7 @@ namespace NZemberek.Cekirdek.Yapi
 			return result;
 		}
 		
-		public virtual System.String asil()
+		public virtual String asil()
 		{
 			return asil_Renamed_Field;
 		}

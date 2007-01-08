@@ -39,16 +39,16 @@ namespace NZemberek.TrTurkcesi.Yapi
  */
 public class BeraberlikIsOzelDurumu : EkOzelDurumu {
 
-    public override HarfDizisi cozumlemeIcinUret(Kelime kelime, HarfDizisi giris, HarfDizisiKiyaslayici kiyaslayici) {
-        if(kelime.icerik().sesliSayisi()<2)
-          return ekUretici.cozumlemeIcinEkUret(kelime.icerik(), giris, uretimBilesenleri());
+    public override HarfDizisi CozumlemeIcinUret(Kelime kelime, HarfDizisi giris, IHarfDizisiKiyaslayici kiyaslayici) {
+        if(kelime.Icerik.SesliSayisi()<2)
+          return EkUretici.CozumlemeIcinEkUret(kelime.Icerik, giris, UretimBilesenleri);
         else
           return null;
     }
 
-    public override HarfDizisi olusumIcinUret(Kelime kelime, Ek sonrakiEk)
+    public override HarfDizisi OlusumIcinUret(Kelime kelime, Ek sonrakiEk)
     {
-        return cozumlemeIcinUret(kelime, null, null);
+        return CozumlemeIcinUret(kelime, null, null);
     }
 }
 }
