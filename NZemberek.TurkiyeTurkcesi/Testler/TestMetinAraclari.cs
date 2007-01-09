@@ -67,14 +67,5 @@ namespace NZemberek.TurkiyeTurkcesi.Testler
             Assert.IsTrue(MetinAraclari.ParcasiDuzeltmeMesafesiIcinde("elma", "emaciklar", 1));
             Assert.IsTrue(MetinAraclari.ParcasiDuzeltmeMesafesiIcinde("sefil", "sfil", 1));
         }
-
-        [Test]
-        public void testJaroWinklerBenzerlik()
-        {
-            Assert.IsTrue(MetinAraclari.SozcukBenzerlikOrani("elma", "elm") > 0.9d);
-            Assert.IsTrue(MetinAraclari.SozcukBenzerlikOrani("elma", "elam") > 0.9d);
-            Assert.IsTrue(MetinAraclari.SozcukBenzerlikOrani("elma", "elfa") > 0.85d);
-            Assert.IsTrue(MetinAraclari.SozcukBenzerlikOrani("elma", "elmar") > 0.9d);
-        }
     }
 }

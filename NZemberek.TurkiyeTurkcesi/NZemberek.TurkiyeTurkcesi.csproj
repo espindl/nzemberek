@@ -45,6 +45,7 @@
     <Compile Include="Mekanizma\TurkceCozumlemeYardimcisi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Testler\KapaliKutuTesti.cs" />
+    <Compile Include="Testler\TestBenzerlik.cs" />
     <Compile Include="Testler\TestMetinAraclari.cs" />
     <Compile Include="Testler\TestYardimcisi.cs" />
     <Compile Include="Yapi\BeraberlikIsOzelDurumu.cs" />

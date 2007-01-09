@@ -38,6 +38,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Benzerlik\BenzerlikAraci.cs" />
+    <Compile Include="Benzerlik\IBenzerlikSinayici.cs" />
+    <Compile Include="Benzerlik\JaroWinklerBenzerlikSinayici.cs" />
+    <Compile Include="Benzerlik\LevenstheinBenzerlikSinayici.cs" />
     <Compile Include="Kolleksiyonlar\HashSet.cs" />
     <Compile Include="MetinOkuma\YaziBirimi.cs" />
     <Compile Include="MetinOkuma\YaziBirimiTipi.cs" />

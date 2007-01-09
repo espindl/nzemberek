@@ -27,7 +27,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using NZemberek.Cekirdek.Yapi;
-using NZemberek.Cekirdek.Araclar;
+using NZemberek.Cekirdek.Benzerlik;
 
 namespace NZemberek.Cekirdek.KokSozlugu
 {
@@ -99,7 +99,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
             if (dugum.Kok != null)
             {
                 distanceCalculationCount++;
-                if (MetinAraclari.ParcasiDuzeltmeMesafesiIcinde(dugum.Kelime, giris, tolerans))
+                if (BenzerlikAraci.ParcasiDuzeltmeMesafesiIcinde(dugum.Kelime, giris, tolerans))
                 {
                     // Aday kök bulundu
                     adaylar.Add(dugum.Kok);
@@ -112,7 +112,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
             }
             else
             {
-                if (!MetinAraclari.ParcasiDuzeltmeMesafesiIcinde(tester.Trim(), giris, tolerans))
+                if (!BenzerlikAraci.ParcasiDuzeltmeMesafesiIcinde(tester.Trim(), giris, tolerans))
                 {
                     // Ara stringde mesafe sınırı aşıldı
                     return;

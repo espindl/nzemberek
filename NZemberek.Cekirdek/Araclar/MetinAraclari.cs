@@ -57,28 +57,6 @@ namespace NZemberek.Cekirdek.Araclar
         }
 
         /// <summary>
-        /// s1 ile s2'nin benzerlik oranini hesaplar.
-        /// </summary>
-        /// <param name="s1"></param>
-        /// <param name="s2"></param>
-        /// <returns>0-1.0 arasi bir deger. Buyuk rakamlar kelimelerin daha benzer oldugunu gosterir</returns>
-        public static double SozcukBenzerlikOrani(String s1, String s2)
-        {
-            return jaroWinkler.BenzerlikOrani(s1, s2);
-        }
-
-        /// <summary>
-        /// s1 ile s2'nin enazBenzerlik degeri kadar ya da daha benzer olup olmadigini test eder.
-        /// </summary>
-        /// <param name="s1"></param>
-        /// <param name="s2"></param>
-        /// <returns>eger benzerlik orani enazBenzerlik'na es ya da buyukse true</returns>
-        public static bool SozcuklerBenzer(String s1, String s2, double enazBenzerlik)
-        {
-            return (jaroWinkler.BenzerlikOrani(s1, s2) >= enazBenzerlik);
-        }
-
-        /// <summary>
         /// Verilen s1 stringinin verilen distance duzeltme mesafesi cercevesinde 
         /// s2 stringinin alt stringi olup olmadigini dondurur. Ornegin:
         ///   isInSubStringLevenshteinDistance("elma","ekmalar",1) -> true
@@ -111,6 +89,28 @@ namespace NZemberek.Cekirdek.Araclar
                 if (DuzeltmeMesafesiIcinde(s1, s2, distance)) return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// s1 ile s2'nin benzerlik oranini hesaplar.
+        /// </summary>
+        /// <param name="s1"></param>
+        /// <param name="s2"></param>
+        /// <returns>0-1.0 arasi bir deger. Buyuk rakamlar kelimelerin daha benzer oldugunu gosterir</returns>
+        public static double SozcukBenzerlikOrani(String s1, String s2)
+        {
+            return jaroWinkler.BenzerlikOrani(s1, s2);
+        }
+
+        /// <summary>
+        /// s1 ile s2'nin enazBenzerlik degeri kadar ya da daha benzer olup olmadigini test eder.
+        /// </summary>
+        /// <param name="s1"></param>
+        /// <param name="s2"></param>
+        /// <returns>eger benzerlik orani enazBenzerlik'na es ya da buyukse true</returns>
+        public static bool SozcuklerBenzer(String s1, String s2, double enazBenzerlik)
+        {
+            return (jaroWinkler.BenzerlikOrani(s1, s2) >= enazBenzerlik);
         }
 
         /// <summary>

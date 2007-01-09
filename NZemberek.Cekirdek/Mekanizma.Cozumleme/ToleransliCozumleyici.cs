@@ -30,7 +30,7 @@ using System.Text;
 using log4net;
 using NZemberek.Cekirdek.KokSozlugu;
 using NZemberek.Cekirdek.Yapi;
-using NZemberek.Cekirdek.Araclar;
+using NZemberek.Cekirdek.Benzerlik;
 using NZemberek.Cekirdek.Kolleksiyonlar;
 
 namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
@@ -83,7 +83,7 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
 
                 icerikDegisti = yardimci.KokGirisDegismiVarsaUygula(kok, kokDizi, girisDizi);
                 if (logger.IsInfoEnabled) logger.Info("Aday:" + kok.Icerik + " tolerans:" + kokHatasi);
-                if (MetinAraclari.DuzeltmeMesafesiIcinde(kok.Icerik, strIslenmis, TOLERANS))
+                if (BenzerlikAraci.DuzeltmeMesafesiIcinde(kok.Icerik, strIslenmis, TOLERANS))
                     cozumler.Add(new Kelime(kok, alfabe));
                 IList<Kelime> sonuclar;
                 if (TOLERANS > kokHatasi)
@@ -169,8 +169,8 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
                 String olusumStr = olusum.ToString();
                 if (logger.IsInfoEnabled) logger.Info("olusum:" + olusum);
 
-                if (MetinAraclari.ParcasiDuzeltmeMesafesiIcinde(olusumStr, girisDizi.ToString(), tolerans) ||
-                        MetinAraclari.DuzeltmeMesafesiIcinde(olusumStr, girisDizi.ToString(), tolerans))
+                if (BenzerlikAraci.ParcasiDuzeltmeMesafesiIcinde(olusumStr, girisDizi.ToString(), tolerans) ||
+                        BenzerlikAraci.DuzeltmeMesafesiIcinde(olusumStr, girisDizi.ToString(), tolerans))
                 {
                     kelimeYigini.Koy((Kelime)kelime.Clone(), ardisilEkSirasi);
                     ardisilEkSirasi = 0;
@@ -189,7 +189,7 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
 
                     bulunanEk = incelenenEk;
 
-                    if (MetinAraclari.DuzeltmeMesafesiIcinde(olusumStr, girisDizi.ToString(), tolerans))
+                    if (BenzerlikAraci.DuzeltmeMesafesiIcinde(olusumStr, girisDizi.ToString(), tolerans))
                     {
                         uygunSonuclar.Add((Kelime)kelime.Clone());
                         if (logger.IsInfoEnabled) logger.Info("uygun kelime:" + kelime.Icerik);
@@ -211,7 +211,7 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
             //if (log.isTraceEnabled()) log.trace("Ozel durum sonrasi:" + testKokIcerigi + "  ek:" + ek.getIsim());
             if (testKokIcerigi == null)
                 return false;
-            if (MetinAraclari.ParcasiDuzeltmeMesafesiIcinde(testKokIcerigi.ToString(), girisDizi.ToString(), tolerans))
+            if (BenzerlikAraci.ParcasiDuzeltmeMesafesiIcinde(testKokIcerigi.ToString(), girisDizi.ToString(), tolerans))
             {
                 kelime.Icerik = new HarfDizisi(testKokIcerigi);
                 //if (log.isTraceEnabled()) log.trace("basari, kelime:" + kelime.icerik());
