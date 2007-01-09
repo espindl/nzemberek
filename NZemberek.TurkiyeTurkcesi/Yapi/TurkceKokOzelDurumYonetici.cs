@@ -91,15 +91,24 @@ namespace NZemberek.TrTurkcesi.Yapi
                     SesliEkIleOlusur(true).
                     YapiBozucu(true));
 
-            Ekle(Uretici(ind++,TurkceKokOzelDurumYonetici.FIIL_ARA_SESLI_DUSMESI, new AraSesliDusmesi()).YapiBozucu(true));
+            Ekle(Uretici(ind++, TurkceKokOzelDurumYonetici.FIIL_ARA_SESLI_DUSMESI, 
+                                            new string[] { 
+                                                TurkceEkAdlari.FIIL_EDILGEN_IL } , 
+                                            new AraSesliDusmesi()).YapiBozucu(true));
 
-            Ekle(Uretici(ind++,TurkceKokOzelDurumYonetici.KUCULTME, new SonHarfDusmesi()).YapiBozucu(true));
+            Ekle(Uretici(ind++,TurkceKokOzelDurumYonetici.KUCULTME,
+                                            new string[]{
+                                                TurkceEkAdlari.ISIM_KUCULTME_CIK},
+                                            new SonHarfDusmesi()).YapiBozucu(true));
 
             IDictionary<String, String> benSenDonusum = new Dictionary<String,String>();
 
             benSenDonusum.Add("ben", "ban");
             benSenDonusum.Add("sen", "san");
-            Ekle(Uretici(ind++,TurkceKokOzelDurumYonetici.TEKIL_KISI_BOZULMASI, new YeniIcerikAta(alfabe, benSenDonusum)).YapiBozucu(true));
+            Ekle(Uretici(ind++,TurkceKokOzelDurumYonetici.TEKIL_KISI_BOZULMASI,
+                                            new string[]{
+                                                TurkceEkAdlari.ISIM_YONELME_E},
+                                            new YeniIcerikAta(alfabe, benSenDonusum)).YapiBozucu(true));
 
             IDictionary<String, String> deYeDonusum = new Dictionary<String,String>();
             deYeDonusum.Add("de", "di");
@@ -128,7 +137,10 @@ namespace NZemberek.TrTurkcesi.Yapi
                     YapiBozucu(true).
                     HerZamanOlusur(true));
 
-            Ekle(Uretici(ind++,TurkceKokOzelDurumYonetici.SIMDIKI_ZAMAN, new SonHarfDusmesi()).YapiBozucu(true));
+            Ekle(Uretici(ind++,TurkceKokOzelDurumYonetici.SIMDIKI_ZAMAN,
+                                            new string[]{
+                                                TurkceEkAdlari.FIIL_SIMDIKIZAMAN_IYOR},
+                                            new SonHarfDusmesi()).YapiBozucu(true));
 
             Ekle(Uretici(ind++,TurkceKokOzelDurumYonetici.ISIM_SON_SESLI_DUSMESI, 
                                             new string[]{
@@ -152,6 +164,13 @@ namespace NZemberek.TrTurkcesi.Yapi
                                                 TurkceEkAdlari.ISIM_KUCULTME_CEGIZ}, 
                                             new Ulama(n)).YapiBozucu(true));
 
+
+            /*
+            * bazi kokler aslinda saf kok degil, icinde isim tamlamasi iceriyor
+            * mesela, zeytinyagi, acemborusu gibi. bu koklere bazi ekler eklendiginde kok bozuluyor
+            * mesela: acemborusu -> acemborulari seklinde. bu kokler sistemde ozel sekilde saklaniyor.
+            * acemborusu -> acemboru IS_TAM seklinde tanimlanmistir. ayni sekilde zeytinyag IS_TAM gibi
+            */    
             Ekle(Uretici(ind++,TurkceKokOzelDurumYonetici.ISIM_TAMLAMASI,
                                             new string[]{
                                                 TurkceEkAdlari.ISIM_SAHIPLIK_BEN_IM,

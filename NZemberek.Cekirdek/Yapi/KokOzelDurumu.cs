@@ -203,7 +203,7 @@ namespace NZemberek.Cekirdek.Yapi
             return _sesliEkIleOlusur;
         }
 
-        public HashSet<Ek> GeleibilecekEkler()
+        public HashSet<Ek> GelebilecekEkleriVer()
         {
             return _gelebilecekEkler;
         }
