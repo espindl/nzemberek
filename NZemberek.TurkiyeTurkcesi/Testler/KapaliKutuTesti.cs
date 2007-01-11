@@ -252,20 +252,30 @@ namespace NZemberek.TrTurkcesi.Testler
         public void testDenetle_HepsiDogru()
         {
             List<String> dogrular = TestYardimcisi.satirlariOku("Testler\\hepsi-dogru.txt");
+            string result = string.Empty;
             foreach (String s in dogrular)
             {
-                Assert.IsTrue(zemberek.KelimeDenetle(s),"Denetlemede hata! "+ s + " kelimesi dogru olmaliydi.");
+                if (zemberek.KelimeDenetle(s) == false)
+                {
+                    result += s + ", ";
+                }
             }
+            Assert.AreEqual(string.Empty,result,"Denetleme baþarýsýz. Yanlýþ negatif kelimeler : \n"+result);
         }
 
         [Test]
         public void testDenetle_HepsiYanlis()
         {
             List<String> yanlislar = TestYardimcisi.satirlariOku("Testler\\hepsi-yanlis.txt");
+            string result = string.Empty;
             foreach (String s in yanlislar)
             {
-                Assert.IsTrue(!zemberek.KelimeDenetle(s), "Denetlemede hata! " + s + " kelimesi yanlis olmaliydi.");
+                if (zemberek.KelimeDenetle(s) == true)
+                {
+                    result += s + ", ";
+                }
             }
+            Assert.AreEqual(string.Empty, result, "Denetleme hatali. Yanlýþ pozitif kelimeler : \n" + result);
         }
     }
 }
