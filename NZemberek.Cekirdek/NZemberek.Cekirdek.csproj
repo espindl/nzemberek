@@ -46,8 +46,6 @@
     <Compile Include="MetinOkuma\YaziBirimi.cs" />
     <Compile Include="MetinOkuma\YaziBirimiTipi.cs" />
     <Compile Include="MetinOkuma\YaziIsleyici.cs" />
-    <Compile Include="Araclar\JaroWinkler.cs" />
-    <Compile Include="Araclar\MetinAraclari.cs" />
     <Compile Include="KokSozlugu\IkiliKokOkuyucu.cs" />
     <Compile Include="KokSozlugu\IKokOkuyucu.cs" />
     <Compile Include="KokSozlugu\AgacSozluk.cs" />

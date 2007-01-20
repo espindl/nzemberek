@@ -36,7 +36,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
     {
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);		
 
-        KokAgaci agac = null;
+        private KokAgaci agac = null;
         private int walkCount = 0;
         private String giris;
         private String asciiGiris;
@@ -47,7 +47,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
             this.agac = agac;
         }
 
-        public int YurumeSayisi() 
+        private int YurumeSayisi() 
         {
             return walkCount;
         }
@@ -57,7 +57,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
             this.giris = giris;
             asciiGiris = agac.Alfabe.AsciiyeDonustur(giris);
             adaylar = new List<Kok>(4);
-            Yuru(agac.BaslangicDugumu(), "");
+            Yuru(agac.BaslangicDugumu, "");
             return adaylar;;
         }
 
@@ -72,7 +72,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
          * AsciiTolaransliKarsilastir("siraci", "şıracı") --> true 
          * </pre>
          */
-        public bool AsciiTolaransliKarsilastir(String aday, String giris)
+        private bool AsciiTolaransliKarsilastir(String aday, String giris)
         {
             if (aday.Length > giris.Length) return false;
             String clean = agac.Alfabe.AsciiyeDonustur(aday);
@@ -86,7 +86,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
          * @param dugum  : başlangıç düğümü
          * @param olusan : Yürüme sırasında oluşan kelime (düğümlerin karakter değerlerinden)
          */
-        public void Yuru(KokDugumu dugum, String olusan) 
+        private void Yuru(KokDugumu dugum, String olusan) 
         {
             String tester = (olusan + dugum.Harf).Trim();
             walkCount++;

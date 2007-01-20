@@ -87,7 +87,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
         {
             this.giris = giris;
             adaylar = new List<Kok>();
-            Yuru(agac.BaslangicDugumu(), "");
+            Yuru(agac.BaslangicDugumu, "");
             return adaylar;
         }
 

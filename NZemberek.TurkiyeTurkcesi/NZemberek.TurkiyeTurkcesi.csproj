@@ -47,7 +47,6 @@
     <Compile Include="Testler\KapaliKutuTesti.cs" />
     <Compile Include="Testler\TestKokOzelDurumlari.cs" />
     <Compile Include="Testler\TestBenzerlik.cs" />
-    <Compile Include="Testler\TestMetinAraclari.cs" />
     <Compile Include="Testler\TestYardimcisi.cs" />
     <Compile Include="Yapi\BeraberlikIsOzelDurumu.cs" />
     <Compile Include="Yapi\EdilgenOzelDurumu.cs" />

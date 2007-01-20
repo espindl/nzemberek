@@ -39,17 +39,9 @@ namespace NZemberek.Cekirdek.Araclar
         /// <summary>
         /// Default constructor. Okuma sirasinda sistemde varsayilan kodlama kullanilir.
         /// </summary>
-        public KaynakYukleyici()
-        {
-            this.encoding = Encoding.Default;
-            logger.Info("Kaynak yukleyici olusturuluyor. varsayilan karakter seti:" + encoding);
-        }
+        public KaynakYukleyici():this(Encoding.Default) {}
 
-        public KaynakYukleyici(string enc)
-        {
-            this.encoding = Encoding.GetEncoding(enc);
-            logger.Info("Kaynak yukleyici olusturuluyor. varsayilan karakter seti:" + encoding);
-        }
+        public KaynakYukleyici(string enc):this(Encoding.GetEncoding(enc)){}
 
         public KaynakYukleyici(Encoding encoding)
         {
@@ -117,21 +109,11 @@ namespace NZemberek.Cekirdek.Araclar
         /// <returns>kaynak erisimi icin Buffered reader</returns>
         public StreamReader OkuyucuGetir(String kaynakAdi)
         {
-            StreamReader sr = new StreamReader(AkimGetir(kaynakAdi));
+            FileStream stream = new FileStream(kaynakAdi, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
             if (sr == null)
                 throw new IOException(kaynakAdi + " erisimi saglanamadi. Elde edilen Stream degeri null!");
             return sr;
-        }
-
-        /// <summary>
-        /// Kaynak adi ile stream doner
-        /// </summary>
-        /// <param name="kaynakAdi"></param>
-        /// <returns></returns>
-        public Stream AkimGetir(String kaynakAdi)
-        {
-            FileStream stream = new FileStream(kaynakAdi, FileMode.Open);
-            return stream;
         }
     }
 }

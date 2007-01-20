@@ -55,63 +55,81 @@ namespace NZemberek.Cekirdek.KokSozlugu
     public class KokDugumu
     {
         //Düðümün aðaçtaki seviyesi
-        private int level;
+        private byte level;
 
         private AltDugumListesi altDugumler = null;
         // Her düðüm bir harfle ifade edilir.
         private char harf;
         // eþ seslileri taþýyan liste (Kok nesneleri taþýr)
         private List<Kok> esSesliler = null;
+        // Kökün deðiþmiþ halini tutan string
+        private string kelime = null;
+        // Düðümün taþýdýðý kök
+        private Kok kok = null;
+
 
         public List<Kok> EsSesliler
         {
             get { return esSesliler; }
         }
-        // Düðümün taþýdýðý kök
-        private Kok kok = null;
 
         public Kok Kok
         {
             get { return kok; }
         }
-        // Kökün deðiþmiþ halini tutan string
-        private string kelime = null;
 
-        public KokDugumu(int pLevel)
-        {
-            level = pLevel;
-        }
-
-        public KokDugumu(int pLevel, char harf):this(pLevel)
-        {
-            this.harf = harf;
-        }
-
-        public KokDugumu(int pLevel, char harf, string icerik, Kok kok):this(pLevel,harf)
-        {
-            this.kok = kok;
-            if (!icerik.Equals(kok.Icerik)) this.kelime = icerik;
-        }
-
-        public int Level
+        public byte Level
         {
             get { return level; }
             set { level = value; }
         }
 
-        /**
-         * Verilen karakteri taþýyan alt düðümü getirir.
-         *
-         * @param in
-         * @return Eðer verilen karakteri taþýyan bir alt düðüm varsa
-         * o düðümü, yoksa null.
-         */
-        public KokDugumu AltDugumGetir(char cin)
+        public string Kelime
         {
-            if (altDugumler == null)
+            get
+            {
+                if (kelime != null) return kelime;
+                if (kok != null) return kok.Icerik;
                 return null;
-            else
-                return altDugumler.AltDugumGetir(cin);
+            }
+            set { kelime = value; }
+        }
+
+        public char Harf
+        {
+            get { return harf; }
+            //            set { Harf = value; }
+        }
+
+        /// <summary>
+        /// Eðer düðüm seviyesinden uzun bir köke iþaret ediyor ise true döner.
+        /// Eðer tam kendi içeriðine iþaret ediyorsa veya herhangi bir köke iþaret etmiyorsa false döner.
+        /// Bu özellik aðacýn oluþturulmasý sýrasýnda düðümün iþaret ettiði kökün alt düðümlere ilerletilmesi gerektiðinde kullanýlýr.
+        /// </summary>
+        public bool KisayolDugumu
+        {
+            get
+            {
+                return (this.Kelime != null && level < this.Kelime.Length);
+            }
+        }
+        
+        
+        public KokDugumu(byte pLevel)
+        {
+            level = pLevel;
+        }
+
+        public KokDugumu(byte pLevel, char harf):this(pLevel)
+        {
+            this.harf = harf;
+        }
+
+        public KokDugumu(byte pLevel, char harf, string icerik, Kok kok)
+            : this(pLevel, harf)
+        {
+            this.kok = kok;
+            if (!icerik.Equals(kok.Icerik)) this.kelime = icerik;
         }
 
         /**
@@ -131,20 +149,66 @@ namespace NZemberek.Cekirdek.KokSozlugu
             return dugum;
         }
 
-        public KokDugumu DugumEkle(char harf)
+        private KokDugumu DugumEkle(char harf)
         {
-            KokDugumu yeniDugum = new KokDugumu(this.Level + 1, harf);
+            KokDugumu yeniDugum = new KokDugumu((byte)(this.Level + 1), harf);
             return this.DugumEkle(yeniDugum);
+        }
+
+        /**
+         * @return düðüme baðlý kök ve eþ seslilerin hepsini bir listeye 
+         * koyarak geri döndürür.
+         */
+        private List<Kok> TumKokleriGetir()
+        {
+            if (kok != null)
+            {
+                List<Kok> kokler = new List<Kok>();
+                kokler.Add(kok);
+                if (esSesliler != null)
+                {
+                    kokler.AddRange(esSesliler);
+                }
+                return kokler;
+            }
+            return null;
+        }
+
+        private void Temizle()
+        {
+            this.kok = null;
+            this.kelime = null;
+            this.esSesliler = null;
+        }
+
+        private void Kopyala(KokDugumu kaynak)
+        {
+            this.kok = kaynak.Kok;
+            this.kelime = kaynak.Kelime;
+            this.esSesliler = kaynak.EsSesliler;
+        }
+
+        /**
+         * Verilen karakteri taþýyan alt düðümü getirir.
+         *
+         * @param in
+         * @return Eðer verilen karakteri taþýyan bir alt düðüm varsa
+         * o düðümü, yoksa null.
+         */
+        public KokDugumu AltDugumGetir(char cin)
+        {
+            if (altDugumler == null)
+                return null;
+            else
+                return altDugumler.AltDugumGetir(cin);
         }
 
         public KokDugumu DugumEkle(string icerik, Kok kok)
         {
-            KokDugumu yeniDugum = new KokDugumu(this.Level + 1, icerik[this.Level], icerik, kok);
+            KokDugumu yeniDugum = new KokDugumu((byte)(this.Level + 1), icerik[this.Level], icerik, kok);
             return this.DugumEkle(yeniDugum);
         }
-        /**
-         * @return tum alt dugumler. dizi olarak.
-         */
+
         public KokDugumu[] AltDugumDizisiGetir()
         {
             if (altDugumler == null)
@@ -177,37 +241,6 @@ namespace NZemberek.Cekirdek.KokSozlugu
             }
         }
 
-        public string Kelime
-        {
-            get
-            {
-                if (kelime != null) return kelime;
-                if (kok != null) return kok.Icerik;
-                return null;
-            }
-            set { kelime = value; }
-        }
-
-
-        /**
-         * @return düðüme baðlý kök ve eþ seslilerin hepsini bir listeye 
-         * koyarak geri döndürür.
-         */
-        public List<Kok> TumKokleriGetir()
-        {
-            if (kok != null)
-            {
-                List<Kok> kokler = new List<Kok>();
-                kokler.Add(kok);
-                if (esSesliler != null)
-                {
-                    kokler.AddRange(esSesliler);
-                }
-                return kokler;
-            }
-            return null;
-        }
-
         /**
          * Verilen collectiona düðüme baðlý tüm kökleri ekler. 
          *
@@ -225,20 +258,6 @@ namespace NZemberek.Cekirdek.KokSozlugu
             }
         }
 
-        public void Temizle()
-        {
-            this.kok = null;
-            this.kelime = null;
-            this.esSesliler = null;
-        }
-
-        public void Kopyala(KokDugumu kaynak)
-        {
-            this.kok = kaynak.Kok;
-            this.kelime = kaynak.Kelime;
-            this.esSesliler = kaynak.EsSesliler;
-        }
-
         /// <summary>
         /// Düðüme baðlý kelimeyi bir seviye ileri düðüm oluþturarak ona aktarýr.
         /// </summary>
@@ -253,73 +272,6 @@ namespace NZemberek.Cekirdek.KokSozlugu
             aNewNode.Kopyala(this);
             this.Temizle();
             return aNewNode;
-        }
-
-        public char Harf
-        {
-            get { return harf; }
-//            set { Harf = value; }
-        }
-
-        /// <summary>
-        /// Eðer düðüm seviyesinden uzun bir köke iþaret ediyor ise true döner.
-        /// Eðer tam kendi içeriðine iþaret ediyorsa veya herhangi bir köke iþaret etmiyorsa false döner.
-        /// Bu özellik aðacýn oluþturulmasý sýrasýnda düðümün iþaret ettiði kökün alt düðümlere ilerletilmesi gerektiðinde kullanýlýr.
-        /// </summary>
-        public bool KisayolDugumu
-        {
-            get
-            {
-                return (this.Kelime != null && level < this.Kelime.Length);
-            }
-        }
-
-        /**
-         * Düðümün ve alt düðümlerinin aðaç yapýsý þeklinde string gösterimini döndürür.
-         * sadece debug amaçlýdýr.
-         *
-         * @param level
-         * @return dugumun string halini dondurur.
-         */
-        public String MetinBicimindeVer(int level)
-        {
-            char[] indentChars = new char[level * 2];
-            for (int i = 0; i < indentChars.Length; i++)
-                indentChars[i] = ' ';
-            String indent = new String(indentChars);
-            String str = indent + " Harf: " + harf;
-            if (kelime != null)
-            {
-                str += " [Kelime: " + kelime + "] ";
-            }
-            if (kok != null)
-            {
-                str += " [Kok: " + kok + "] ";
-            }
-
-            if (esSesliler != null)
-            {
-                str += " [Es sesli: ";
-                foreach (Kok anEsSesliler in esSesliler)
-                {
-                    str += (anEsSesliler) + " ";
-                }
-                str += " ]";
-            }
-
-            KokDugumu[] subNodes = AltDugumDizisiGetir();
-            if (subNodes != null)
-            {
-                str += "\n " + indent + " Alt dugumler:\n";
-                foreach (KokDugumu subNode in subNodes)
-                {
-                    if (subNode != null)
-                    {
-                        str += subNode.MetinBicimindeVer(level + 1) + "\n";
-                    }
-                }
-            }
-            return str;
         }
 
         public override String ToString()
