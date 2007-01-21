@@ -11,8 +11,6 @@ namespace NZemberek.Cekirdek.Kolleksiyonlar
     public class HashSet<Type> : IEnumerable<Type>, ICollection
     {
         public static readonly HashSet<Type> EMPTY_SET = new HashSet<Type>();
-        public static readonly HashSet<String> EMPTY_SET_STRING = new HashSet<String>();
-        public static readonly List<object> EMPTY_LIST = new List<object>();
 
         
         private Hashtable table;

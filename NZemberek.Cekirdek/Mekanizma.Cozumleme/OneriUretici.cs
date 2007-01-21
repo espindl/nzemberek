@@ -135,7 +135,7 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
 
         private HashSet<String> AyriYazimOnerileriniBul(String kelime)
         {
-            HashSet<String> ayriYazimOnerileri = HashSet<String>.EMPTY_SET_STRING;
+            HashSet<String> ayriYazimOnerileri = HashSet<String>.EMPTY_SET;
             if (ayarlar.OneriBilesikKelimeKullan)
             {
                 for (int i = 1; i < kelime.Length; i++)
