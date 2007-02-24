@@ -93,21 +93,29 @@ namespace NZemberek.TrTurkcesi.Yapi
 
             if (!KaynakYukleyici.KaynakMevcut(kokDosyaAdi))
             {
+#if log
                 logger.Error("Kök dosyası bulunamadı, sozluk uretilemiyor.");
+#endif
                 throw new ApplicationException("Kök dosyası bulunamadı.");
             }
             KokOzelDurumYoneticiVer();
+#if log
             logger.Info("Ikili okuyucu uretiliyor:");
+#endif
             try
             {
                 IKokOkuyucu okuyucu = new IkiliKokOkuyucu(kokDosyaAdi, ozelDurumYonetici);
+#if log
                 logger.Info("Sozluk ve agac uretiliyor:" + dilAdi);
+#endif
                 okuyucu.Ac();
                 sozluk = new AgacSozluk(AlfabeVer(), ozelDurumYonetici, okuyucu);
             }
             catch (Exception e)
             {
+#if log
                 logger.Error("sozluk uretilemiyor. Hata : " + e.Message);
+#endif
                 throw new ApplicationException("sozluk uretilemiyor. Hata : " + e.Message);
             }
             return sozluk;
@@ -159,7 +167,9 @@ namespace NZemberek.TrTurkcesi.Yapi
         {
             if (!cepKullan)
             {
+#if log
                 logger.Info("cep kullanilmayacak.");
+#endif
                 return null;
             }
 
@@ -175,7 +185,9 @@ namespace NZemberek.TrTurkcesi.Yapi
                 }
                 catch (System.IO.IOException e)
                 {
+#if log
                     logger.Warn("cep dosyasina (" + cepDosyaAdi + ") erisilemiyor. sistem cep kullanmayacak. Hata : " + e.Message);
+#endif
                     _cep = null;
                 }
             }

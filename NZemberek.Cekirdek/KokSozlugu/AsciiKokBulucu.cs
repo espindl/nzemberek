@@ -92,7 +92,9 @@ namespace NZemberek.Cekirdek.KokSozlugu
             walkCount++;
             if (dugum.Kok != null) 
             {
+#if log
                 if (logger.IsInfoEnabled) logger.Info("Kok : " + dugum.Kelime);
+#endif
                 if (AsciiTolaransliKarsilastir((String) dugum.Kelime, giris)) 
                 {
                     // Aday kok bulundu.

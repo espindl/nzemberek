@@ -46,7 +46,9 @@ namespace NZemberek.Cekirdek.Araclar
         public KaynakYukleyici(Encoding encoding)
         {
             this.encoding = encoding;
+#if log
             logger.Info("Kaynak yukleyici olusturuluyor. varsayilan karakter seti:" + encoding);
+#endif
         }
 
         private Encoding encoding;

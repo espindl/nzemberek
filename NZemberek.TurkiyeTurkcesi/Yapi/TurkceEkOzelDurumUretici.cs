@@ -47,8 +47,11 @@ namespace NZemberek.TrTurkcesi.Yapi
             if (oz != null)
                 return oz;
 
-            if (!Mevcut(TurkceEkOzelDurumTipi.AllValues, ad)) {
+            if (!Mevcut(TurkceEkOzelDurumTipi.AllValues, ad)) 
+            {
+#if log
                 logger.Fatal("Ozel durum adina karsilik dusen ek ozel durum tipi bulunamadi:" + ad);
+#endif
                 return null;
             }
 

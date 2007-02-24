@@ -61,7 +61,9 @@ namespace NZemberek.DilAraclari.MetinOkuma
             }
             catch (FileNotFoundException e)
             {
+#if log
                 logger.Error("Dosya bulunamadý. Aranan dosya:" + fileName +  e.StackTrace);
+#endif
             }
         }
 
@@ -96,7 +98,9 @@ namespace NZemberek.DilAraclari.MetinOkuma
                 }
                 catch (Exception e)
                 {
+#if log
                     logger.Error("Streamreader olusturulurken hata olustu." + e.StackTrace);
+#endif
                 }
             }
         }
@@ -156,7 +160,9 @@ namespace NZemberek.DilAraclari.MetinOkuma
             }
             catch (IOException e)
             {
+#if log
                 logger.Error("Kelimeler okunurken hata olustu. " + e.StackTrace);
+#endif
             }
             return null;
         }

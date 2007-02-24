@@ -87,7 +87,9 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
             //kok adaylarinin bulunmasi.
             List<Kok> kokler = kokBulucu.AdayKokleriGetir(strIslenmis);
 
+#if log
             if (logger.IsInfoEnabled) logger.Info("Giris: " + strGiris + ", Adaylar: " + kokler);
+#endif
             HarfDizisi girisDizi = new HarfDizisi(strIslenmis, alfabe);
             bool icerikDegisti = false;
 
@@ -101,7 +103,9 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
                     icerikDegisti = false;
                 }
                 Kok kok = kokler[i];
+#if log
                 if (logger.IsInfoEnabled) logger.Info("Aday:" + kok.Icerik);
+#endif
                 HarfDizisi kokDizi = new HarfDizisi(kok.Icerik, alfabe);
 
                 //eger giris koke dogrudan esitse cozmeden kelimeyi olustur.
@@ -204,8 +208,9 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
                     kelime.EkEkle(incelenenEk);
                     kelime.IcerikEkle(olusanEkIcerigi);
                     ilkEkHarfi = giris.Harf(kelime.Boy());
+#if log
                     if (logger.IsInfoEnabled) logger.Info("ekleme sonrasi olusan kelime: " + kelime.Icerik);
-
+#endif
                     bulunanEk = incelenenEk;
 
                     if (harfDizisiKiyaslayici.Kiyasla(kelime.Icerik, giris) && !incelenenEk.SonEkOlamaz)
@@ -230,7 +235,9 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
                 return true;
             HarfDizisi testKokIcerigi = kokOzelDurumYonetici.OzelDurumUygula(kelime.Kok, ek);
             if (testKokIcerigi == null) return false;
+#if log
             if (logger.IsInfoEnabled) logger.Info("Ozel durum sonrasi:" + testKokIcerigi + "  ek:" + ek.Ad);
+#endif
             kelime.Icerik = testKokIcerigi;
             return harfDizisiKiyaslayici.BastanKiyasla(giris, testKokIcerigi);
         }

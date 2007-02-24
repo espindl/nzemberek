@@ -63,12 +63,16 @@ namespace NZemberek.DilAraclari.Araclar
         {
             if (users.Count > MAX_TIMETRACKER_USERS)
             {
+#if log
                 logger.Error("Max Saat izleyici sayýsý aþýldý. (" + MAX_TIMETRACKER_USERS + ")");
+#endif
                 return;
             }
             if (users[name] != null)
             {
+#if log
                 logger.Error(name + " isminde bir zaman izleyici zaten var.");
+#endif
                 return;
             }
             TimerElement timer = new TimerElement(name);

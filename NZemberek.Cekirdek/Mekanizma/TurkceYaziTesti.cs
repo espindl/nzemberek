@@ -71,8 +71,10 @@ namespace NZemberek.Cekirdek.Mekanizma
             if (cozulemeyenler == 0)
                 return 1.0d;
             double sonuc = 1.0d - (double)cozulemeyenler / (double)(toplam + cozulemeyenler);
+#if log
             if (logger.IsInfoEnabled) logger.Info("cozulenler:" + cozulenler + "  ascii Cozulenler:" + asciiCozulenler
                         + "cozulemeyenler:" + cozulemeyenler + "  oran:" + sonuc);
+#endif
             return sonuc;
         }
 

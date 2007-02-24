@@ -47,8 +47,9 @@ namespace NZemberek.Cekirdek.Yapi
                                IEkOzelDurumUretici ozelDurumUretici,
                                IDictionary<KelimeTipi, String> baslangicEkMap) {
             this.alfabe = alfabe;
+#if log
             DateTime start = System.DateTime.Now;// currentTimeMillis();
-
+#endif
             XmlEkOkuyucu okuyucu = new XmlEkOkuyucu(
                     dosya,
                     ekUretici,
@@ -60,12 +61,16 @@ namespace NZemberek.Cekirdek.Yapi
                 Ek ek = ekler[baslangicEkMap[tip]];
                 if (ek != null)
                     baslangicEkleri.Add(tip, ek);
+#if log
                 else
                     logger.Warn(tip + " tipi icin baslangic eki " + baslangicEkMap[tip] + " bulunamiyor!");
+#endif
             }
+#if log
             DateTime end = System.DateTime.Now;
             TimeSpan ts = end.Subtract(start);
             logger.Info("ek okuma ve olusum suresii: " + ts.Milliseconds + "ms.");
+#endif
         }
 
         /**
@@ -76,8 +81,10 @@ namespace NZemberek.Cekirdek.Yapi
          */
         public Ek EkVer(String ekId) {
             Ek ek = ekler[ekId];
+#if log
             if (ek == null)
                 logger.Error("Ek bulunamiyor!" + ekId);
+#endif
             return ekler[ekId];
         }
 

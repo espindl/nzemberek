@@ -147,7 +147,9 @@ namespace NZemberek.Cekirdek.Yapi
                     ek.BaslangicHarfleriEkle(ekUretici.OlasiBaslangicHarfleri(oz.UretimBilesenleri));
                 }
             }
+#if log
             logger.Debug("ek olusumu sonlandi.");
+#endif
         }
 
         /// <summary>
@@ -271,7 +273,9 @@ namespace NZemberek.Cekirdek.Yapi
                         ardisilEkler.Add(ek);
                         ardisilEkSet.Remove(ek);
                     }
+#if log
                     else logger.Warn(anaEk.Ad + "icin oncelikli ek:" + ekAdi + " bu ekin ardisil eki degil!");
+#endif
                 }
             }
 
@@ -285,7 +289,9 @@ namespace NZemberek.Cekirdek.Yapi
         /// <param name="mesaj"></param>
         private void Exit(String mesaj)
         {
+#if log
             logger.Fatal("Ek dosyasi okuma sorunu:" + mesaj);
+#endif
             Environment.Exit(1);
         }
 

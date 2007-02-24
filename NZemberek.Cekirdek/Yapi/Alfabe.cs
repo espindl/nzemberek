@@ -406,7 +406,9 @@ namespace NZemberek.Cekirdek.Yapi
                 return harfOzellikleri[anahtar];
             else
             {
+#if log
                 logger.Warn("Harf ozelligi bulunamiyor: " + anahtar);
+#endif
                 return "";
             }
         }
@@ -424,8 +426,10 @@ namespace NZemberek.Cekirdek.Yapi
             char[] cDizi = new char[charStrDizi.Length];
             for (int i = 0; i < charStrDizi.Length; i++)
             {
+#if log
                 if (charStrDizi[i].Length != 1)
                     logger.Warn(tum + "ayristirilirken tek Harf bekleniyordu. " + charStrDizi + " uygun degil");
+#endif
                 cDizi[i] = charStrDizi[i].ToCharArray()[0];
             }
             return cDizi;
@@ -444,10 +448,12 @@ namespace NZemberek.Cekirdek.Yapi
             foreach (String s in charStrDizi)
             {
                 String[] cift = tireReg.Split(s);
+#if log
                 if (cift.Length != 2)
                     logger.Warn(tum + "ayristirilirken Harf cifti  bekleniyordu. " + s + " uygun degil.");
                 if (cift[0].Length != 1 || cift[1].Length != 1)
                     logger.Warn(tum + "ayristirilirken tek Harf bekleniyordu. " + charStrDizi + " uygun degil");
+#endif
                 char h1 = cift[0][0];
                 char h2 = cift[1][0];
                 ciftler.Add(new HarfCifti(h1, h2));

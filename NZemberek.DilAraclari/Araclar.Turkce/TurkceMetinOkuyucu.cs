@@ -50,8 +50,10 @@ namespace NZemberek.DilAraclari.MetinOkuma
                 if (str == null) break;
                 list.Add(str);
             }
+#if log
             if (logger.IsInfoEnabled)
                 logger.Info(" Metin kelime sayisi : " + list.Count);
+#endif
             kelimeler = new String[list.Count];
             for (int i = 0; i < list.Count; i++)
             {
@@ -71,8 +73,10 @@ namespace NZemberek.DilAraclari.MetinOkuma
                 if (str == null) break;
                 list.Add(str);
             }
+#if log
             if (logger.IsInfoEnabled)
                 logger.Info(" Metin kelime sayisi : " + list.Count);
+#endif
             kelimeler = new String[list.Count];
             for (int i = 0; i < list.Count; i++)
             {

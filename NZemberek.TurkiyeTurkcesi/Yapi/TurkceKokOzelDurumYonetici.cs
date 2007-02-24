@@ -242,7 +242,9 @@ namespace NZemberek.TrTurkcesi.Yapi
             if (_ozelDurum == null) {
                 //Console.Write("kok = " + kok);
                 //Environment.Exit(-1);
+#if log
                 logger.Warn("null ozle durum!. Kok:" + kok);
+#endif
                 return new String[0];
             }
             if (!_ozelDurum.Equals(OzelDurum(TurkceKokOzelDurumYonetici.KUCULTME)))
@@ -306,8 +308,10 @@ namespace NZemberek.TrTurkcesi.Yapi
                     {
                         String parca = _ozelDurum.Substring(loc + 1);
                         char sonSesli = parca[0];
+#if log
                         if (!alfabe.Harf(sonSesli).Sesli)
                             logger.Warn("Hatali kisaltma harfi.. Sesli bekleniyordu." + _ozelDurum);
+#endif
                         kok.KisaltmaSonSeslisi = sonSesli;
                         if (parca.Length > 1)
                         {
@@ -334,10 +338,12 @@ namespace NZemberek.TrTurkcesi.Yapi
                 {
                     kok.OzelDurumEkle(oz.Ad);
                 }
+#if log
                 else
                 {
                     logger.Warn("Hatali kok bileseni" + kok.Icerik + " Token: " + _ozelDurum);
                 }
+#endif
             }
 
             //kisaltmalari ve ozel karakter iceren kokleri asil icerik olarak ata.

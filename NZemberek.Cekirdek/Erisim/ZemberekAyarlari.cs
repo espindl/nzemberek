@@ -87,7 +87,9 @@ namespace NZemberek
             } 
             catch (System.IO.IOException e) 
             {
+#if log
                 logger.Warn("Konfigurasyon kayıtlarına erisilemiyor! varsayilan degerler kullanilacak. Hata : "+e.Message);
+#endif
             }
         }
 
@@ -108,11 +110,15 @@ namespace NZemberek
             } 
             catch (FormatException e) 
             {
+#if log
                 logger.Error("property erisim hatasi!! Muhtemel Tip donusum problemi.. varsayilan parametreler kullanilacak "+e.Message);
+#endif
             } 
             catch (Exception e) 
             {
+#if log
                 logger.Error("property erisim hatasi!! propety yer almiyor, ya da adi yanlis yazilmis olabilir. varsayilan konfigurasyon kullanilacak."+e.Message);
+#endif
             }
         }
 

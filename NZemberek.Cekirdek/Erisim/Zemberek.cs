@@ -283,7 +283,9 @@ namespace NZemberek
                 }
                 catch (System.IO.IOException e)
                 {
+#if log
                     logger.Error(e.Message);
+#endif
                 }
             }
             if (_temizleyici == null) return null;

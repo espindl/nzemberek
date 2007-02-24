@@ -84,7 +84,9 @@ namespace NZemberek.DilAraclari.KokSozlugu
         // Tipi ekleyelim.
         if (kok.Tip == KelimeTipi.YOK) 
         {
+#if log
             logger.Warn("tipsiz kok:" + kok);
+#endif
             return res.ToString();
         }
 

@@ -82,9 +82,13 @@ namespace NZemberek.Cekirdek.Yapi
                     Ek ek = ekYonetici.EkVer(s);
                     if (ek != null) {
                         set.Add(ek);
-                    } else {
+                    }
+#if log
+                    else 
+                    {
                         logger.Warn(s + " eki bulunamadigindan kok ozel durumuna eklenemedi!");
                     }
+#endif
                 }
                 // ureticiye seti ata.
                 uretici.GelebilecekEkler(set);

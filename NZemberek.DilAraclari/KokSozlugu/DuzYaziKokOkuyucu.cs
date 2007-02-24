@@ -103,8 +103,11 @@ namespace NZemberek.DilAraclari.KokSozlugu
                     continue;
 
                 String[] tokens = line.Split(AYIRICI_PATTERN);
-                if (tokens == null || tokens.Length < 2) {
+                if (tokens == null || tokens.Length < 2) 
+                {
+#if log
                     logger.Warn("Eksik bilgi!" + line);
+#endif
                     continue;
                 }
                 String icerik = tokens[0];
@@ -115,14 +118,19 @@ namespace NZemberek.DilAraclari.KokSozlugu
                 kok.Icerik = alfabe.Ayikla(kok.Icerik);
 
                 // kelime tipini belirle. ilk parca mutlaka kok tipini belirler
-                if (_kokTipAdlari.ContainsKey(tokens[1])) {
-                    KelimeTipi tip = (KelimeTipi) _kokTipAdlari[tokens[1]];
+                if (_kokTipAdlari.ContainsKey(tokens[1]))
+                {
+                    KelimeTipi tip = (KelimeTipi)_kokTipAdlari[tokens[1]];
                     kok.Tip = tip;
                     ozelDurumlar.KokIcerigiIsle(kok, tip, icerik);
 
-                } else
+                }
+#if log
+                else
+                {
                     logger.Warn("Kok tipi bulunamadi!" + line);
-
+                }
+#endif
                 // kok ozelliklerini Ekle.
                 ozelDurumlar.DuzyaziOzelDurumOku(kok, icerik, tokens);
 

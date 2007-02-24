@@ -66,7 +66,9 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
                 return Kelime.BOS_KELIME_DIZISI;
             List<Kok> kokler = kokBulucu.AdayKokleriGetir(strIslenmis);
             List<Kelime> cozumler = new List<Kelime>();
+#if log
             if (logger.IsInfoEnabled) logger.Info("Giris: " + strIslenmis + ", Adaylar: " + kokler);
+#endif
 
             HarfDizisi girisDizi = new HarfDizisi(strIslenmis, alfabe);
             bool icerikDegisti = false;
@@ -82,7 +84,9 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
                 int kokHatasi = 0;
 
                 icerikDegisti = yardimci.KokGirisDegismiVarsaUygula(kok, kokDizi, girisDizi);
+#if log
                 if (logger.IsInfoEnabled) logger.Info("Aday:" + kok.Icerik + " tolerans:" + kokHatasi);
+#endif                
                 if (BenzerlikAraci.DuzeltmeMesafesiIcinde(kok.Icerik, strIslenmis, TOLERANS))
                     cozumler.Add(new Kelime(kok, alfabe));
                 IList<Kelime> sonuclar;
@@ -142,7 +146,9 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
                 {
                     if (!OzelDurumDenetle(kelime, girisDizi, incelenenEk, tolerans))
                     {
+#if log
                         if (logger.IsInfoEnabled) logger.Info("Ozel durum yanlis, ek:" + incelenenEk);
+#endif
                         continue;
                     }
                 }
@@ -158,17 +164,18 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
                     //log.info("bos ek.. " + incelenenEk);
                     continue;
                 }
-
+#if log
                 if (logger.IsInfoEnabled) logger.Info("Kok ve Olusan Ek:" + kelime.Icerik + " " + olusanEk);
-
+#endif
                 //Toleransli kiyaslama islemi burada yapiliyor. once gecici bir sekilde olusan kelimeye
                 // olusan ek ekleniyor, ve giris ile toleransli kiyaslama yapiliyor. Eger kiyaslama
                 // sonunda esik tolerans degeri asilmazsa dogru kabul edilip devam ediliyor.
                 HarfDizisi olusum = new HarfDizisi(kelime.Icerik);
                 olusum.Ekle(olusanEk);
                 String olusumStr = olusum.ToString();
+#if log
                 if (logger.IsInfoEnabled) logger.Info("olusum:" + olusum);
-
+#endif
                 if (BenzerlikAraci.ParcasiDuzeltmeMesafesiIcinde(olusumStr, girisDizi.ToString(), tolerans) ||
                         BenzerlikAraci.DuzeltmeMesafesiIcinde(olusumStr, girisDizi.ToString(), tolerans))
                 {
@@ -185,14 +192,17 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
                     kelime.IcerikEkle(olusanEk);
                     kelime.EkEkle(incelenenEk);
                     olusumStr = kelime.IcerikMetni();
+#if log
                     if (logger.IsInfoEnabled) logger.Info("ekleme sonrasi olusan kelime: " + kelime.Icerik);
-
+#endif
                     bulunanEk = incelenenEk;
 
                     if (BenzerlikAraci.DuzeltmeMesafesiIcinde(olusumStr, girisDizi.ToString(), tolerans))
                     {
                         uygunSonuclar.Add((Kelime)kelime.Clone());
+#if log
                         if (logger.IsInfoEnabled) logger.Info("uygun kelime:" + kelime.Icerik);
+#endif
                     }
                     /*
                      * TurkceHarf ekIlkHarf = giris.Harf(kelime.Boy());
