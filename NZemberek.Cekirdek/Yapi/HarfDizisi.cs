@@ -247,8 +247,18 @@ namespace NZemberek.Cekirdek.Yapi
 			boy += hdizi.Boy;
 			return this;
 		}
-		
-		
+
+        public HarfDizisi AraDizi(int bas, int son)
+        {
+            if (son < bas)
+            {
+                return null;
+            }
+            TurkceHarf[] yeniHarfler = new TurkceHarf[son - bas];
+            Array.Copy(dizi, bas, yeniHarfler, 0, son - bas);
+            return new HarfDizisi(yeniHarfler);
+        }
+
 		/// <summary> 
         /// verilen pozisyondaki harfi dondurur. icerigi "kedi" olan HarfDizisi icin Harf(1) e dondurur.
 		/// </summary>
@@ -457,11 +467,7 @@ namespace NZemberek.Cekirdek.Yapi
 
         public HarfDizisi SubSequence(int start, int end)
         {
-            if (end < start)
-                return null;
-            TurkceHarf[] yeniHarfler = new TurkceHarf[end - start];
-            Array.Copy(dizi, start, yeniHarfler, 0, end - start);
-            return new HarfDizisi(yeniHarfler);
+           return this.AraDizi(start, end);
         }
 
 		/// <summary> 
