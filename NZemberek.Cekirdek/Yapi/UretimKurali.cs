@@ -27,6 +27,10 @@ using System;
 
 namespace NZemberek.Cekirdek.Yapi
 {
+    ///**
+    // * Turk dilleri icin cesitli uretim kurallarini belirler. Bazi kurallar sadece belli dillerde
+    // * kullanilir.
+    // */
 	public enum UretimKurali
 	{
         YOK, //.Net'te Null olmadýðý için bu elemaný ekledim. (@tankut)
