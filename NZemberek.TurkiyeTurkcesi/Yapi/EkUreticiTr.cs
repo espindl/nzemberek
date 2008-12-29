@@ -63,20 +63,20 @@ namespace NZemberek.TrTurkcesi.Yapi
             EkUretimBileseni ekUretimBileseni = bilesenler[i];
             TurkceHarf harf = ekUretimBileseni.Harf;
             switch (ekUretimBileseni.Kural) {
-                case UretimKurali.HARF:
+                case EkUretimKurali.HARF:
                     sonuc.Ekle(harf);
                     break;
-                case UretimKurali.KAYNASTIR:
+                case EkUretimKurali.KAYNASTIR:
                     if (ulanacak.SonHarf().Sesli)
                         sonuc.Ekle(harf);
                     break;
-                case UretimKurali.SERTLESTIR:
+                case EkUretimKurali.SERTLESTIR:
                     if (ulanacak.SonHarf().Sert)
                         sonuc.Ekle(harf.SertDonusum);
                    else
                         sonuc.Ekle(harf);
                     break;
-                case UretimKurali.SESLI_AE:
+                case EkUretimKurali.SESLI_AE:
                     if (i == 0 && ulanacak.SonHarf().Sesli)
                         break;
                     else {
@@ -84,7 +84,7 @@ namespace NZemberek.TrTurkcesi.Yapi
                         sonuc.Ekle(sonSesli);
                     }
                     break;
-                case UretimKurali.SESLI_IU:
+                case EkUretimKurali.SESLI_IU:
                     if (i == 0 && ulanacak.SonHarf().Sesli)
                         break;
                     else {
@@ -109,24 +109,24 @@ namespace NZemberek.TrTurkcesi.Yapi
             EkUretimBileseni bilesen = bilesenler[i];
             TurkceHarf harf = bilesen.Harf;
             switch (bilesen.Kural) {
-                case UretimKurali.HARF:
+                case EkUretimKurali.HARF:
                     kume.Add(harf);
                     return kume;
-                case UretimKurali.KAYNASTIR:
+                case EkUretimKurali.KAYNASTIR:
                     kume.Add(harf);
                     break;
-                case UretimKurali.SERTLESTIR:
+                case EkUretimKurali.SERTLESTIR:
                     kume.Add(harf);
                     kume.Add(harf.SertDonusum);
                     return kume;
-                case UretimKurali.SESLI_AE:
+                case EkUretimKurali.SESLI_AE:
                       kume.Add(HARF_a);
                       kume.Add(HARF_e);
                       if (i > 0)
                           return kume;
                       else
                           break;
-                case UretimKurali.SESLI_IU:
+                case EkUretimKurali.SESLI_IU:
                     kume.Add(HARF_i);
                     kume.Add(HARF_u);
                       kume.Add(HARF_ii);

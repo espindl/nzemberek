@@ -308,15 +308,15 @@ namespace NZemberek.Cekirdek.Yapi
             {
                 EkUretimBileseni uretimBileseni = bilesenler[i];
                 TurkceHarf harf = uretimBileseni.Harf;
-                if (i == 0 || (i == 1 && bilesenler[0].Kural == UretimKurali.KAYNASTIR))
+                if (i == 0 || (i == 1 && bilesenler[0].Kural == EkUretimKurali.KAYNASTIR))
                 {
                     if (harf.Sesli)
                         ek.SesliIleBaslayabilir = true;
                     switch (uretimBileseni.Kural)
                     {
-                        case UretimKurali.SESLI_AA :
-                        case UretimKurali.SESLI_AE :
-                        case UretimKurali.SESLI_IU :
+                        case EkUretimKurali.SESLI_AA :
+                        case EkUretimKurali.SESLI_AE :
+                        case EkUretimKurali.SESLI_IU :
                             ek.SesliIleBaslayabilir = true;
                             break;
                     }
@@ -329,16 +329,16 @@ namespace NZemberek.Cekirdek.Yapi
         }
 
         // ek uretim kural kelimesinde kullanilan parcalarin dilbilgisi kurali karsiliklarini tutan tablo.
-        private static readonly IDictionary<Char, UretimKurali> kuralTablosu = new Dictionary<Char, UretimKurali>();
+        private static readonly IDictionary<Char, EkUretimKurali> kuralTablosu = new Dictionary<Char, EkUretimKurali>();
 
         static XmlEkOkuyucu()
         {
-            kuralTablosu.Add('A', UretimKurali.SESLI_AE);
-            kuralTablosu.Add('I', UretimKurali.SESLI_IU);
-            kuralTablosu.Add('E', UretimKurali.SESLI_AA);
-            kuralTablosu.Add('Y', UretimKurali.SESSIZ_Y);
-            kuralTablosu.Add('+', UretimKurali.KAYNASTIR);
-            kuralTablosu.Add('>', UretimKurali.SERTLESTIR);
+            kuralTablosu.Add('A', EkUretimKurali.SESLI_AE);
+            kuralTablosu.Add('I', EkUretimKurali.SESLI_IU);
+            kuralTablosu.Add('E', EkUretimKurali.SESLI_AA);
+            kuralTablosu.Add('Y', EkUretimKurali.SESSIZ_Y);
+            kuralTablosu.Add('+', EkUretimKurali.KAYNASTIR);
+            kuralTablosu.Add('>', EkUretimKurali.SERTLESTIR);
         }
 
         private readonly HashSet<Char> sesliKurallari = new HashSet<Char>(new Char[]{ 'A', 'I', 'E', 'Y' });
@@ -458,7 +458,7 @@ namespace NZemberek.Cekirdek.Yapi
                         }
                         else if (_enumerable._okuyucu.alfabe.Harf(p) != null && Char.IsLower(p))
                         {
-                            current = new EkUretimBileseni(UretimKurali.HARF, _enumerable._okuyucu.alfabe.Harf(p));
+                            current = new EkUretimBileseni(EkUretimKurali.HARF, _enumerable._okuyucu.alfabe.Harf(p));
                         }
                         else
                         {

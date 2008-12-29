@@ -97,7 +97,7 @@
     <Compile Include="Yapi\SonHarfYumusamaOzelDurumu.cs" />
     <Compile Include="Yapi\TemelEkOzelDurumUretici.cs" />
     <Compile Include="Yapi\TemelEkYonetici.cs" />
-    <Compile Include="Yapi\UretimKurali.cs" />
+    <Compile Include="Yapi\EkUretimKurali.cs" />
     <Compile Include="Yapi\XmlEkOkuyucu.cs" />
     <Compile Include="Yapi\ZamanKiOzelDurumu.cs" />
     <Compile Include="Yapi\AraSesliDusmesi.cs" />

@@ -31,7 +31,7 @@ namespace NZemberek.Cekirdek.Yapi
     // * Turk dilleri icin cesitli uretim kurallarini belirler. Bazi kurallar sadece belli dillerde
     // * kullanilir.
     // */
-	public enum UretimKurali
+	public enum EkUretimKurali
 	{
         YOK, //.Net'te Null olmadýðý için bu elemaný ekledim. (@tankut)
 		SESLI_AE, 
