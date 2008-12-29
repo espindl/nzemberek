@@ -61,12 +61,7 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
 
         public bool Denetle(String strGiris)
         {
-            return yardimci.CepteAra(strGiris) || (Cozumle(strGiris, false).Length == 1);
-        }
-
-        public Kelime[] Cozumle(String strGiris)
-        {
-            return Cozumle(strGiris, true);
+            return yardimci.CepteAra(strGiris) || (Cozumle(strGiris, CozumlemeSeviyesi.TEK_KOK).Length == 1);
         }
 
         /// <summary>
@@ -75,9 +70,9 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
         /// dondurur.bu yontem hiz gerektiren denetleme islemi icin kullanilir.
         /// </summary>
         /// <param name="strGiris"></param>
-        /// <param name="hepsiniCozumle"></param>
+        /// <param name="seviye">cozumnleme isleminin ne zaman sona erecegi bu bilesenin degerine gore anlasilir.</param>
         /// <returns>tek ya da coklu kelime dizisi</returns>
-        public Kelime[] Cozumle(String strGiris, bool hepsiniCozumle)
+        public Kelime[] Cozumle(String strGiris, CozumlemeSeviyesi seviye)
         {
             //on islemler
             String strIslenmis = alfabe.Ayikla(strGiris);
@@ -114,7 +109,7 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
                     Kelime kelime = KelimeUret(kok, kokDizi);
                     if (yardimci.KelimeBicimiDenetle(kelime, strGiris))
                     {
-                        if (!hepsiniCozumle)
+                        if (seviye == CozumlemeSeviyesi.TEK_KOK)
                         {
                             return new Kelime[] { kelime };
                         }
@@ -125,12 +120,12 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
                 else
                 {
                     icerikDegisti = yardimci.KokGirisDegismiVarsaUygula(kok, kokDizi, girisDizi);
-                    List<Kelime> sonuclar = Coz(kok, kokDizi, girisDizi, hepsiniCozumle);
+                    List<Kelime> sonuclar = Coz(kok, kokDizi, girisDizi, seviye);
                     foreach (Kelime sonuc in sonuclar)
                     {
                         if (yardimci.KelimeBicimiDenetle(sonuc, strGiris))
                         {
-                            if (!hepsiniCozumle)
+                            if (seviye == CozumlemeSeviyesi.TEK_KOK)
                             {
                                 return new Kelime[] { sonuc };
                             }
@@ -149,7 +144,7 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
             return kelime;
         }
 
-        private List<Kelime> Coz(Kok kok, HarfDizisi kokDizi, HarfDizisi giris, bool tumunuCozumle)
+        private List<Kelime> Coz(Kok kok, HarfDizisi kokDizi, HarfDizisi giris, CozumlemeSeviyesi seviye)
         {
             Kelime kelime = KelimeUret(kok, kokDizi);
             BasitKelimeYigini kelimeYigini = new BasitKelimeYigini();
@@ -215,7 +210,7 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
 
                     if (harfDizisiKiyaslayici.Kiyasla(kelime.Icerik, giris) && !incelenenEk.SonEkOlamaz)
                     {
-                        if (!tumunuCozumle)
+                        if (seviye != CozumlemeSeviyesi.TUM_KOK_VE_EKLER)
                         {
                             uygunSonuclar = new List<Kelime>(1);
                             uygunSonuclar.Add(kelime);

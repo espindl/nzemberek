@@ -128,7 +128,7 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
             Kelime[] asciiTurkceOneriler = new Kelime[0];
             if (ayarlar.OneriDeasciifierKullan)
             {
-                asciiTurkceOneriler = asciiToleransliCozumleyici.Cozumle(kelime);
+                asciiTurkceOneriler = asciiToleransliCozumleyici.Cozumle(kelime, CozumlemeSeviyesi.TUM_KOKLER);
             }
             return asciiTurkceOneriler;
         }
@@ -173,7 +173,7 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
         private HashSet<String> ParcayiCozumle(String s)
         {
             HashSet<String> set = new HashSet<String>();
-            Kelime[] kelimeler = cozumleyici.Cozumle(s);
+            Kelime[] kelimeler = cozumleyici.Cozumle(s, CozumlemeSeviyesi.TUM_KOKLER);
             foreach (Kelime kelime in kelimeler)
             {
                 yardimci.KelimeBicimlendir(kelime);

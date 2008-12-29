@@ -35,7 +35,7 @@ using NZemberek.Cekirdek.Kolleksiyonlar;
 
 namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
 {
-    public class ToleransliCozumleyici : IKelimeCozumleyici
+    public class ToleransliCozumleyici
     {
         public static readonly int TOLERANS = 1;
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -52,11 +52,6 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
             this.alfabe = alfabe;
             this.yardimci = yardimci;
             this.kokOzelDurumYonetici = kokOzelDurumYonetici;
-        }
-
-        public bool Denetle(String strGiris)
-        {
-            return false;
         }
 
         public Kelime[] Cozumle(String strGiris)

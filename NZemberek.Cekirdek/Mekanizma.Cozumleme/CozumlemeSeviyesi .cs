@@ -1,4 +1,4 @@
-/* ***** BEGIN LICENSE BLOCK *****
+ï»¿/* ***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
  *
  * The contents of this file are subject to the Mozilla Public License Version
@@ -11,10 +11,10 @@
  * for the specific language governing rights and limitations under the
  * License.
  *
- * The Original Code is Zemberek Doðal Dil Ýþleme Kütüphanesi.
+ * The Original Code is Zemberek DoÄŸal Dil Ä°ÅŸleme KÃ¼tÃ¼phanesi.
  *
  * The Initial Developer of the Original Code is
- * Ahmet A. Akýn, Mehmet D. Akýn.
+ * Ahmet A. AkÄ±n, Mehmet D. AkÄ±n.
  * Portions created by the Initial Developer are Copyright (C) 2006
  * the Initial Developer. All Rights Reserved.
  *
@@ -22,18 +22,17 @@
  *   Mert Derman
  *   Tankut Tekeli
  * ***** END LICENSE BLOCK ***** */
-
 using System;
-using System.Collections.Generic;
-using System.Text;
-using NZemberek.Cekirdek.Yapi;
 
 namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
 {
-    public interface IKelimeCozumleyici
+    public enum CozumlemeSeviyesi 
     {
-        Kelime[] Cozumle(String strGiris, CozumlemeSeviyesi seviye);
-
-        bool Denetle(String strGiris);
+        /** denetleme isleminde kullanilir. */
+        TEK_KOK,
+        /** kok bulma isleminde kullanilir. tum olasi kokler icin cozumleri bul. */
+        TUM_KOKLER,
+        /** butun olasi kokler ve her kok icin tum olasi ekler icin cozumleme yap. */
+        TUM_KOK_VE_EKLER
     }
 }

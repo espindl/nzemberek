@@ -183,7 +183,7 @@ namespace NZemberek
          */
         public String[] KelimeCozumle(String giris)
         {
-            return KelimeleriMetneDonustur(_cozumleyici.Cozumle(giris));
+            return KelimeleriMetneDonustur(_cozumleyici.Cozumle(giris, CozumlemeSeviyesi.TUM_KOK_VE_EKLER));
         }
 
         /**
@@ -202,10 +202,17 @@ namespace NZemberek
          */
         public String[] AsciiToleransliCozumle(String giris)
         {
-            Kelime[] sonuclar = _asciiToleransliCozumleyici.Cozumle(giris);
+            Kelime[] sonuclar = _asciiToleransliCozumleyici.Cozumle(giris, CozumlemeSeviyesi.TUM_KOK_VE_EKLER);
             Array.Sort(sonuclar, new KelimeKokFrekansKiyaslayici());
             return KelimeleriMetneDonustur(sonuclar);
         }
+
+        public String[] AsciiTolerasnliCozumle(String giris, CozumlemeSeviyesi seviye)
+         {
+	        Kelime[] sonuclar = _asciiToleransliCozumleyici.Cozumle(giris, seviye);
+            Array.Sort(sonuclar, new KelimeKokFrekansKiyaslayici());
+            return KelimeleriMetneDonustur(sonuclar);
+	    }
 
         /// <summary>
         /// Brings the most probable tukish equivalents of a string that uses ascii look alikes of
@@ -217,7 +224,7 @@ namespace NZemberek
         /// <returns>yazilan kelimenin olasi turkce karakter iceren halleri.</returns>
         public String[] TurkceKarakterlereDonustur(String giris)
         {
-            Kelime[] kelimeler = _asciiToleransliCozumleyici.Cozumle(giris); ;
+            Kelime[] kelimeler = _asciiToleransliCozumleyici.Cozumle(giris, CozumlemeSeviyesi.TUM_KOKLER); ;
             return IcerikleriMetneCevir(kelimeler);
         }
 
@@ -326,7 +333,7 @@ namespace NZemberek
         public IList<IList<String>> OlasiAcilimlariBul(String kelime)
         {
             IList<IList<String>> sonuclar = new List<IList<String>>();
-            Kelime[] cozumler = _cozumleyici.Cozumle(kelime);
+            Kelime[] cozumler = _cozumleyici.Cozumle(kelime, CozumlemeSeviyesi.TUM_KOK_VE_EKLER);
             foreach (Kelime kel in cozumler)
             {
                 sonuclar.Add(_kelimeUretici.Ayristir(kel));

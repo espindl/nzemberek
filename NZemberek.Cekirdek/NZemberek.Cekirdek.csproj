@@ -51,6 +51,7 @@
     <Compile Include="Benzerlik\JaroWinklerBenzerlikSinayici.cs" />
     <Compile Include="Benzerlik\LevenstheinBenzerlikSinayici.cs" />
     <Compile Include="Kolleksiyonlar\HashSet.cs" />
+    <Compile Include="Mekanizma.Cozumleme\CozumlemeSeviyesi .cs" />
     <Compile Include="MetinOkuma\YaziBirimi.cs" />
     <Compile Include="MetinOkuma\YaziBirimiTipi.cs" />
     <Compile Include="MetinOkuma\YaziIsleyici.cs" />
