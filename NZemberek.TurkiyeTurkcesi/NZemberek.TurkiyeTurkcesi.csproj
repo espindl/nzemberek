@@ -89,6 +89,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Kaynaklar\bilisim.txt" />
+    <Content Include="Kaynaklar\duzyazi-kilavuz.txt" />
     <Content Include="Kaynaklar\ek.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -98,6 +100,8 @@
     <Content Include="Kaynaklar\kelime_cebi.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Kaynaklar\kisaltmalar.txt" />
+    <Content Include="Kaynaklar\kisi-adlari.txt" />
     <Content Include="Testler\hepsi-dogru.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
