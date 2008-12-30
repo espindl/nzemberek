@@ -43,13 +43,9 @@ public class TurkceCozumlemeYardimcisi : ICozumlemeYardimcisi {
 
     private Alfabe alfabe;
   //  private IEkYonetici ekYonetici;
-    private IDenetlemeCebi cep;
 
-
-    public TurkceCozumlemeYardimcisi(Alfabe alfabe,
-                                     IDenetlemeCebi cep) {
+    public TurkceCozumlemeYardimcisi(Alfabe alfabe) {
         this.alfabe = alfabe;
-        this.cep = cep;
     }
 
     public void KelimeBicimlendir(Kelime kelime) {
@@ -164,10 +160,6 @@ public class TurkceCozumlemeYardimcisi : ICozumlemeYardimcisi {
         return false;
     }
 
-    public bool CepteAra(String str) {
-        return false;
-       // return cep != null && cep.Kontrol(str);
-    }
 }
 
 }

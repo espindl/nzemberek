@@ -19,7 +19,7 @@ namespace NZemberek.TrTurkcesi.Yapi
 
         private Alfabe _alfabe;
         private ISozluk sozluk;
-        private IDenetlemeCebi _cep;
+        private IDenetlemeCebi _denetlemeCebi;
         private ICozumlemeYardimcisi yardimci;
         private IEkYonetici ekYonetici;
         private IKokOzelDurumYonetici ozelDurumYonetici;
@@ -156,14 +156,12 @@ namespace NZemberek.TrTurkcesi.Yapi
             }
             else
             {
-                yardimci = new TurkceCozumlemeYardimcisi(AlfabeVer(), _cep);
+                yardimci = new TurkceCozumlemeYardimcisi(AlfabeVer());
                 return yardimci;
             }
         }
 
-        #endregion
-
-        public IDenetlemeCebi cep()
+        public IDenetlemeCebi DenetlemeCebiVer()
         {
             if (!cepKullan)
             {
@@ -173,26 +171,28 @@ namespace NZemberek.TrTurkcesi.Yapi
                 return null;
             }
 
-            if (_cep != null)
+            if (_denetlemeCebi != null)
             {
-                return _cep;
+                return _denetlemeCebi;
             }
             else
             {
                 try
                 {
-                    _cep = new BasitDenetlemeCebi(cepDosyaAdi);
+                    _denetlemeCebi = new BasitDenetlemeCebi(cepDosyaAdi);
                 }
                 catch (System.IO.IOException e)
                 {
 #if log
                     logger.Warn("cep dosyasina (" + cepDosyaAdi + ") erisilemiyor. sistem cep kullanmayacak. Hata : " + e.Message);
 #endif
-                    _cep = null;
+                    _denetlemeCebi = null;
                 }
             }
-            return _cep;
+            return _denetlemeCebi;
         }
+
+        #endregion
 
         private IDictionary<KelimeTipi, String> baslangiEkAdlari()
         {

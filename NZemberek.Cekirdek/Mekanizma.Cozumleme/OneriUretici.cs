@@ -142,7 +142,7 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
                 {
                     String s1 = kelime.Substring(0, i);
                     String s2 = kelime.Substring(i, kelime.Length - i);
-                    if (cozumleyici.Denetle(s1) && cozumleyici.Denetle(s2))
+                    if (cozumleyici.Cozumlenebilir(s1) && cozumleyici.Cozumlenebilir(s2))
                     {
                         if (ayriYazimOnerileri.Count == 0)
                         {  ayriYazimOnerileri = new HashSet<String>(); }
@@ -152,7 +152,7 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
             }
             return ayriYazimOnerileri;
         }
-
+        
         private HashSet<String> AyriYazimlariOlustur(String s1, String s2)
         {
             HashSet<String> ayriYazimOnerileri = new HashSet<String>();

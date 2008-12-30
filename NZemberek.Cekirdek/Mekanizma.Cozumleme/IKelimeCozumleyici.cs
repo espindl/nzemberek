@@ -34,6 +34,6 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
     {
         Kelime[] Cozumle(String strGiris, CozumlemeSeviyesi seviye);
 
-        bool Denetle(String strGiris);
+        bool Cozumlenebilir(String strGiris);
     }
 }

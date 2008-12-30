@@ -61,6 +61,7 @@ namespace NZemberek
         private IHeceleyici _heceleyici;
         private ZemberekAyarlari _ayarlar;
         private IDilFabrikasi _dilFabrikasi;
+        private IDenetlemeCebi _denetlemeCebi;
 
         /**
          * Default constructor.
@@ -120,6 +121,7 @@ namespace NZemberek
             _heceleyici = _dilFabrikasi.HeceleyiciVer(); // new Heceleyici(_dilFabrikasi.Alfabe(), _dilFabrikasi.heceBulucu());
 
             _kelimeUretici = new KelimeUretici(_dilFabrikasi.AlfabeVer(), _dilFabrikasi.CozumlemeYardimcisiVer(), _dilFabrikasi.KokOzelDurumYoneticiVer());
+            _denetlemeCebi = _dilFabrikasi.DenetlemeCebiVer();
         }
 
         /// <summary>
@@ -164,7 +166,14 @@ namespace NZemberek
 
         public bool KelimeDenetle(String giris)
         {
-            return _cozumleyici.Denetle(giris);
+            if (_denetlemeCebi != null)
+            {
+                return _denetlemeCebi.Kontrol(giris) || _cozumleyici.Cozumlenebilir(giris);
+            }
+            else
+            {
+                return _cozumleyici.Cozumlenebilir(giris);
+            }
         }
 
         /**

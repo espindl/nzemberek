@@ -59,9 +59,9 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
         }
 
 
-        public bool Denetle(String strGiris)
+        public bool Cozumlenebilir(String strGiris)
         {
-            return yardimci.CepteAra(strGiris) || (Cozumle(strGiris, CozumlemeSeviyesi.TEK_KOK).Length == 1);
+            return Cozumle(strGiris, CozumlemeSeviyesi.TEK_KOK).Length == 1;
         }
 
         /// <summary>

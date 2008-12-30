@@ -57,9 +57,9 @@ namespace NZemberek.Cekirdek.Mekanizma
                 YaziBirimi birim = (YaziBirimi)analizDizisi[i];
                 if (birim.tip == YaziBirimiTipi.KELIME)
                 {
-                    if (cozumleyici.Denetle(birim.icerik))
+                    if (cozumleyici.Cozumlenebilir(birim.icerik))
                         cozulenler++;
-                    else if (asciiCozumleyici.Denetle(birim.icerik))
+                    else if (asciiCozumleyici.Cozumlenebilir(birim.icerik))
                         asciiCozulenler++;
                     else
                         cozulemeyenler++;

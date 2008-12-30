@@ -63,13 +63,7 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
         /// <returns></returns>
         bool KokGirisDegismiVarsaUygula(Kok kok, HarfDizisi kokDizi, HarfDizisi girisDizi);
 
-        /// <summary>
-        /// Eger dil icin denetleme cebi olusturulmussa cepte arama islemi yapilir.
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns>true eger String cepte yer aliyorsa</returns>
-        bool CepteAra(String str);
-
+        
 
     }
 }

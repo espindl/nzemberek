@@ -28,6 +28,7 @@ using System.Collections.Generic;
 using System.Text;
 using NZemberek.Cekirdek.Yapi;
 using NZemberek.Cekirdek.Mekanizma.Cozumleme;
+using NZemberek.Cekirdek.Mekanizma;
 using NZemberek.Cekirdek.KokSozlugu;
 
 namespace NZemberek.Cekirdek.Yapi
@@ -72,6 +73,8 @@ namespace NZemberek.Cekirdek.Yapi
          * @return cozumleme yardimcisi
          */
         ICozumlemeYardimcisi CozumlemeYardimcisiVer();
+
+        IDenetlemeCebi DenetlemeCebiVer();
 
         bool CepKullan { set;}
     }
