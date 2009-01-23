@@ -23,7 +23,6 @@
  *   Tankut Tekeli
  * ***** END LICENSE BLOCK ***** */
 
-// V 0.1
 using System;
 using NZemberek.Cekirdek.Yapi;
 
@@ -33,22 +32,27 @@ namespace NZemberek.Cekirdek.Yapi
 	{
         private static readonly KokOzelDurumu[] BOS_OZEL_DURUM_DIZISI = new KokOzelDurumu[0];
 
-
         private int indeks;
-        // Eger bir kok icinde Alfabe disi karakter barindiriyorsa (nokta, tire gibi) orjinal hali bu
-        // String icinde yer alir. Aksi halde null.
+        /// <summary>
+        /// Eger bir kok icinde Alfabe disi karakter barindiriyorsa (nokta, tire gibi) orjinal hali bu
+        /// String icinde yer alir. Aksi halde null.
+        /// </summary>
         private String asil_Renamed_Field;
-        // bazi kisaltmalara ek eklenebilmesi icin kisaltmanin asil halinin son seslisine ihtiyac duyulur.
+        /// <summary>
+        /// Bazi kisaltmalara ek eklenebilmesi icin kisaltmanin asil halinin son seslisine ihtiyac duyulur.
+        /// </summary>
         private char kisaltmaSonSeslisi = char.MinValue;
-        // Kok'un ozel karakterlerden tmeizlenmis hali. Genel olarak kok icerigi olarak bu String kullanilir.
+        /// <summary>
+        /// Kok'un ozel karakterlerden temizlenmis hali. Genelde kok icerigi olarak bu String kullanilir.
+        /// </summary>
         private System.String _icerik;
 
+        private bool yapiBozucuOzelDurumVar = false;
         private KelimeTipi _tip = KelimeTipi.YOK;
-
         private string[] kokOzelDurumlari = new string[] { };
-
         private int frekans;
-        
+
+        #region Properties
         public KelimeTipi Tip
 		{
             get
@@ -61,7 +65,7 @@ namespace NZemberek.Cekirdek.Yapi
 			}
 			
 		}
-		public System.String Icerik
+		public String Icerik
 		{
             get
             {
@@ -122,20 +126,48 @@ namespace NZemberek.Cekirdek.Yapi
 			{
 				this.kisaltmaSonSeslisi = value;
 			}
-			
-		}
 
+        }
+        public virtual bool YapiBozucuOzelDurumVar
+        {
+            get { return yapiBozucuOzelDurumVar; }
+            set { yapiBozucuOzelDurumVar = value; }
+        }
+        #endregion
 
+        public Kok(String icerik)
+        {
+            this._icerik = icerik;
+        }
+        public Kok(String icerik, KelimeTipi tip)
+        {
+            this._icerik = icerik;
+            this._tip = tip;
+        }
+
+        /// <summary>
+        /// Kokun ozel durumu olup olmadigini doner
+        /// </summary>
+        /// <returns></returns>
         public bool OzelDurumVarmi()
 		{
             return kokOzelDurumlari.Length > 0;
 		}
 
+        /// <summary>
+        /// Tum ozel durumlari doner.
+        /// </summary>
+        /// <returns></returns>
         public string[] KokOzelDurumlariGetir()
         {
             return kokOzelDurumlari;
         }
 		
+        /// <summary>
+        /// Kokun ozel durumu icerip icermedigini doner
+        /// </summary>
+        /// <param name="ad">sorulan ozel durum</param>
+        /// <returns></returns>
 		public bool OzelDurumIceriyormu(string ad)
 		{            
             foreach (string durum in kokOzelDurumlari)
@@ -147,7 +179,7 @@ namespace NZemberek.Cekirdek.Yapi
 		}
 
         /// <summary> 
-        /// koke ozel durum ekler. burada dizi kullaniminda kaynak konusunda cimrilik ettigimizden
+        /// Koke ozel durum ekler. burada dizi kullaniminda kaynak konusunda cimrilik ettigimizden
 		/// her yeni ozel durum icin dizi boyutunu bir buyuttuk. ayrica tekrar olmamasini da sagliyoruz.
 		/// Normalde bu islem Set icin cok daha kolay bir yapida olabilirdi set.add() ancak Set'in kaynak tuketimi
 		/// diziden daha fazla.
@@ -175,11 +207,10 @@ namespace NZemberek.Cekirdek.Yapi
 			}
 		}
 		
-		/// <summary> sadece ilk acilista kullanilan bir metod
-		/// 
+		/// <summary> 
+        /// Sadece ilk acilista kullanilan bir metod
 		/// </summary>
-		/// <param name="Tip">
-		/// </param>
+		/// <param name="Tip"></param>
 		public virtual void  OzelDurumCikar(string ozelDurum)
 		{
 			if (!OzelDurumIceriyormu(ozelDurum))
@@ -193,18 +224,12 @@ namespace NZemberek.Cekirdek.Yapi
 			}
 			this.kokOzelDurumlari = yeni;
 		}
-		
-		public Kok(System.String icerik)
-		{
-			this._icerik = icerik;
-		}
-		
-		public Kok(System.String icerik, KelimeTipi tip)
-		{
-			this._icerik = icerik;
-			this._tip = tip;
-		}
-		
+
+        protected bool TipVarmi()
+        {
+            return (_tip != KelimeTipi.YOK);
+        }
+
 		public override String ToString()
 		{
 			System.String strOzel = "";
@@ -215,14 +240,6 @@ namespace NZemberek.Cekirdek.Yapi
 			}
 			return _icerik + " " + _tip + " " + strOzel;
 		}
-
-        private bool yapiBozucuOzelDurumVar = false;
-		public virtual bool YapiBozucuOzelDurumVar
-		{
-            get { return yapiBozucuOzelDurumVar; }
-            set { yapiBozucuOzelDurumVar = value; }
-		}
-		
 
 		public override bool Equals(System.Object o)
 		{
@@ -251,10 +268,5 @@ namespace NZemberek.Cekirdek.Yapi
             result = 29 * result + (kokOzelDurumlari != null ? kokOzelDurumlari.GetHashCode() : 0);
 			return result;
 		}
-
-        protected bool TipVarmi()
-        {
-            return (_tip != KelimeTipi.YOK);
-        }
 	}
 }
