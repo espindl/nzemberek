@@ -33,9 +33,9 @@ namespace NZemberek.Cekirdek.Yapi
 	/// </summary>
     public class EkUretimBileseni
     {
-        private readonly EkUretimKurali _kural = EkUretimKurali.YOK;
+        private readonly IEkUretimKurali _kural = TemelEkUretimKurali.YOK;
 
-        public EkUretimKurali Kural
+        public IEkUretimKurali Kural
         {
             get { return _kural; }
         }
@@ -47,7 +47,7 @@ namespace NZemberek.Cekirdek.Yapi
             get { return _harf; }
         } 
 
-        public EkUretimBileseni(EkUretimKurali kural, TurkceHarf harf)
+        public EkUretimBileseni(IEkUretimKurali kural, TurkceHarf harf)
         {
             this._kural = kural;
             this._harf = harf;
@@ -74,7 +74,7 @@ namespace NZemberek.Cekirdek.Yapi
         public override int GetHashCode()
         {
             int result;
-            result = (_kural != EkUretimKurali.YOK ? _kural.GetHashCode() : 0);
+            result = (_kural != TemelEkUretimKurali.YOK ? _kural.GetHashCode() : 0);
             result = 29 * result + (_harf != null ? _harf.GetHashCode() : 0);
             return result;
         }

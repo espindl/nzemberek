@@ -24,6 +24,7 @@ namespace NZemberek.TrTurkcesi.Yapi
         private IEkYonetici ekYonetici;
         private IKokOzelDurumYonetici ozelDurumYonetici;
         private IHeceleyici _heceleyici;
+        private IEkKuralBilgisi _ekKuralBilgisi;
 
         private String bilgiDizini;
 
@@ -79,9 +80,25 @@ namespace NZemberek.TrTurkcesi.Yapi
             } 
             else
             {
-                ekYonetici = new TemelEkYonetici(AlfabeVer(), ekDosyaAdi, new EkUreticiTr(AlfabeVer()), new TurkceEkOzelDurumUretici(AlfabeVer()), baslangiEkAdlari());
+                EkKuralKelimesiCozumleyici kuralCozumleyici = new EkKuralKelimesiCozumleyici(AlfabeVer(), EkKuralBilgisiVer());
+                XmlEkOkuyucu ekOkuyucu = new XmlEkOkuyucu(ekDosyaAdi, new EkUreticiTr(AlfabeVer()), new TurkceEkOzelDurumUretici(AlfabeVer()), kuralCozumleyici);
+                ekYonetici = new TemelEkYonetici(baslangiEkAdlari(), ekOkuyucu);
                 return ekYonetici;
             } 
+        }
+
+
+        public IEkKuralBilgisi EkKuralBilgisiVer()
+        {
+            if (_ekKuralBilgisi != null)
+            {
+                return _ekKuralBilgisi;
+            }
+            else
+            {
+                _ekKuralBilgisi = new TemelEkUretimKurali.TemelKuralBilgisi();
+                return _ekKuralBilgisi;
+            }
         }
 
         public ISozluk SozlukVer()
@@ -194,9 +211,9 @@ namespace NZemberek.TrTurkcesi.Yapi
 
         #endregion
 
-        private IDictionary<KelimeTipi, String> baslangiEkAdlari()
+        private Dictionary<KelimeTipi, String> baslangiEkAdlari()
         {
-            IDictionary<KelimeTipi, String> baslangicEkAdlari = new Dictionary<KelimeTipi, String>();
+            Dictionary<KelimeTipi, String> baslangicEkAdlari = new Dictionary<KelimeTipi, String>();
             baslangicEkAdlari.Add(KelimeTipi.ISIM, TurkceEkAdlari.ISIM_KOK);
             baslangicEkAdlari.Add(KelimeTipi.SIFAT, TurkceEkAdlari.ISIM_KOK);
             baslangicEkAdlari.Add(KelimeTipi.FIIL, TurkceEkAdlari.FIIL_KOK);

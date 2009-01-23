@@ -190,7 +190,7 @@ namespace NZemberek.TrTurkcesi.Yapi
                                                 TurkceEkAdlari.ISIM_ILGI_CI},
                                             new BosHarfDizisiIslemi()).EkKisitlayici(true));
 
-            BosOzelDurumEkle(ind, new string[]{
+            BosOzelDurumEkle(ind++, new string[]{
                     TurkceKokOzelDurumYonetici.YALIN,
                     TurkceKokOzelDurumYonetici.GENIS_ZAMAN,
                     TurkceKokOzelDurumYonetici.EK_OZEL_DURUMU,

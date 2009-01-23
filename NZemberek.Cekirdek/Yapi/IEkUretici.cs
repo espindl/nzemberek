@@ -63,22 +63,12 @@ namespace NZemberek.Cekirdek.Yapi
          * @return olasi baslangic harfleri bir Set icerisinde.
          */
         HashSet<TurkceHarf> OlasiBaslangicHarfleri(List<EkUretimBileseni> bilesenler);
-    }
 
-
-    ///**
-    // * Turk dilleri icin cesitli uretim kurallarini belirler. Bazi kurallar sadece belli dillerde
-    // * kullanilir.
-    // */
-    //public enum EkUretimKurali
-    //{
-    //    SESLI_AE,
-    //    SESLI_AA,
-    //    SESLI_IU,
-    //    SESSIZ_Y,
-    //    SERTLESTIR,
-    //    KAYNASTIR,
-    //    HARF
-    //}
-
+        /**
+         * bilesenlere gore en basta sesli harf olup olamayacagini belirler.
+         * @param bilesenler
+         * @return
+         */
+            bool SesliIleBaslayabilir(List<EkUretimBileseni> bilesenler);
+        }
 }

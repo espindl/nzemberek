@@ -84,6 +84,7 @@ namespace NZemberek.DilAraclari.KokSozlugu
 
         public List<Kok> HepsiniOku()
         {
+            Ac();
             List<Kok> list = new List<Kok>();
             Kok kok;
             while ((kok = Oku()) != null) {

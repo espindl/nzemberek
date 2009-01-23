@@ -35,7 +35,7 @@ using NZemberek.Cekirdek.Kolleksiyonlar;
 
 namespace NZemberek.TrTurkcesi.Yapi
 {
- public class EkUreticiTr : IEkUretici {
+ public class EkUreticiTr : TemelEkUretici, IEkUretici {
 
     private TurkceSesliUretici sesliUretici;
      public TurkceHarf HARF_a;
@@ -55,28 +55,34 @@ namespace NZemberek.TrTurkcesi.Yapi
          HARF_uu = alfabe.Harf(Alfabe.CHAR_uu);
     }
 
-     public HarfDizisi CozumlemeIcinEkUret(HarfDizisi ulanacak, HarfDizisi giris, List<EkUretimBileseni> bilesenler)
+     public override HarfDizisi CozumlemeIcinEkUret(HarfDizisi ulanacak, HarfDizisi giris, List<EkUretimBileseni> bilesenler)
      {
         HarfDizisi sonuc = new HarfDizisi(4);
         TurkceHarf sonSesli = ulanacak.SonSesli();
         for (int i = 0; i < bilesenler.Count; i++) {
             EkUretimBileseni ekUretimBileseni = bilesenler[i];
             TurkceHarf harf = ekUretimBileseni.Harf;
-            switch (ekUretimBileseni.Kural) {
-                case EkUretimKurali.HARF:
+            switch (ekUretimBileseni.Kural.ToString()) {
+                case "HARF":
                     sonuc.Ekle(harf);
                     break;
-                case EkUretimKurali.KAYNASTIR:
+                case "KAYNASTIR":
                     if (ulanacak.SonHarf().Sesli)
                         sonuc.Ekle(harf);
                     break;
-                case EkUretimKurali.SERTLESTIR:
+                case "SERTLESTIR":
                     if (ulanacak.SonHarf().Sert)
                         sonuc.Ekle(harf.SertDonusum);
                    else
                         sonuc.Ekle(harf);
                     break;
-                case EkUretimKurali.SESLI_AE:
+                case "YUMUSAT":
+                    if (giris.Harf(ulanacak.Boy + sonuc.Boy + 1).Sesli)
+                        sonuc.Ekle(harf.Yumusama);
+                    else
+                        sonuc.Ekle(harf);
+                    break;
+                case "SESLI_AE":
                     if (i == 0 && ulanacak.SonHarf().Sesli)
                         break;
                     else {
@@ -84,7 +90,7 @@ namespace NZemberek.TrTurkcesi.Yapi
                         sonuc.Ekle(sonSesli);
                     }
                     break;
-                case EkUretimKurali.SESLI_IU:
+                case "SESLI_IU":
                     if (i == 0 && ulanacak.SonHarf().Sesli)
                         break;
                     else {
@@ -97,44 +103,44 @@ namespace NZemberek.TrTurkcesi.Yapi
         return sonuc;
     }
 
-     public HarfDizisi OlusumIcinEkUret(HarfDizisi ulanacak, Ek sonrakiEk, List<EkUretimBileseni> bilesenler)
+     public new HarfDizisi OlusumIcinEkUret(HarfDizisi ulanacak, Ek sonrakiEk, List<EkUretimBileseni> bilesenler)
      {
         //TODO: gecici olarak bu sekilde
         return CozumlemeIcinEkUret(ulanacak, null, bilesenler);
     }
 
-    public HashSet<TurkceHarf> OlasiBaslangicHarfleri(List<EkUretimBileseni> bilesenler) {
+    public new HashSet<TurkceHarf> OlasiBaslangicHarfleri(List<EkUretimBileseni> bilesenler) {
         HashSet<TurkceHarf> kume = new HashSet<TurkceHarf>();//TOREMEMBER 4
         for (int i=0; i< bilesenler.Count; i++) {
             EkUretimBileseni bilesen = bilesenler[i];
             TurkceHarf harf = bilesen.Harf;
-            switch (bilesen.Kural) {
-                case EkUretimKurali.HARF:
+            switch (bilesen.Kural.ToString()) {
+                case "HARF":
                     kume.Add(harf);
                     return kume;
-                case EkUretimKurali.KAYNASTIR:
+                case "KAYNASTIR":
                     kume.Add(harf);
                     break;
-                case EkUretimKurali.SERTLESTIR:
+                case "SERTLESTIR":
                     kume.Add(harf);
                     kume.Add(harf.SertDonusum);
                     return kume;
-                case EkUretimKurali.SESLI_AE:
+                case "SESLI_AE":
                       kume.Add(HARF_a);
                       kume.Add(HARF_e);
                       if (i > 0)
                           return kume;
                       else
                           break;
-                case EkUretimKurali.SESLI_IU:
+                case "SESLI_IU":
                     kume.Add(HARF_i);
                     kume.Add(HARF_u);
-                      kume.Add(HARF_ii);
-                      kume.Add(HARF_uu);
-                      if (i > 0)
-                          return kume;
-                      else
-                          break;                
+                    kume.Add(HARF_ii);
+                    kume.Add(HARF_uu);
+                    if (i > 0)
+                      return kume;
+                    else
+                      break;                
             }
         }
         return kume;

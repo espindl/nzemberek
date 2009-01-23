@@ -68,7 +68,7 @@ abdülmetin OZ
 abdülmucib OZ
 abdülmuhsi OZ
 abdülmuhyi OZ
-abdülmuid  OZ
+abdülmuid OZ
 abdülmuiz OZ
 abdülmümin OZ
 abdülvacid OZ
@@ -136,7 +136,7 @@ açılay OZ
 #ad OZ
 adahan OZ
 adal OZ
-adaleddin  OZ
+adaleddin OZ
 adalet OZ
 adanır OZ
 adem OZ
@@ -279,7 +279,7 @@ aksun OZ
 aksuna OZ
 aksuner OZ
 aksungur OZ
-aksu  OZ
+aksu OZ
 aksüyek OZ
 akşemseddin OZ
 akşın OZ
@@ -331,9 +331,9 @@ alikadr OZ
 alim OZ
 alime OZ
 alınak OZ
-alişah  OZ
+alişah OZ
 alişan OZ
-aliyar  OZ
+aliyar OZ
 aliye OZ
 alkan OZ
 alkım OZ
@@ -349,7 +349,7 @@ alpaslan OZ
 alparslan OZ
 alpay OZ
 alpaydın OZ
-alpbike  OZ
+alpbike OZ
 alpçetin OZ
 alpdemir OZ
 alpdoğan OZ
@@ -1019,7 +1019,7 @@ binay OZ
 binhan OZ
 binkan OZ
 binnaz OZ
-binnur  OZ
+binnur OZ
 bintuğ OZ
 birant OZ
 birat OZ

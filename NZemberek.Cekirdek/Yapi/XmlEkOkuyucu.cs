@@ -50,17 +50,17 @@ namespace NZemberek.Cekirdek.Yapi
 
         private readonly String xmlEkDosyasi;
         private readonly IEkUretici ekUretici;
-        private readonly Alfabe alfabe;
+        private readonly EkKuralKelimesiCozumleyici kuralKelimesiCozumleyici;
 
         private readonly IEkOzelDurumUretici ekOzelDurumUretici;
 
         public XmlEkOkuyucu(String xmlEkDosyasi, IEkUretici ekUretici,
-                            IEkOzelDurumUretici ekOzelDurumUretici, Alfabe alfabe)
+                            IEkOzelDurumUretici ekOzelDurumUretici, EkKuralKelimesiCozumleyici ekKuralKelimesiCozumleyici)
         {
             this.xmlEkDosyasi = xmlEkDosyasi;
             this.ekUretici = ekUretici;
             this.ekOzelDurumUretici = ekOzelDurumUretici;
-            this.alfabe = alfabe;
+            this.kuralKelimesiCozumleyici = ekKuralKelimesiCozumleyici;
         }
 
         public void XmlOku()
@@ -88,7 +88,7 @@ namespace NZemberek.Cekirdek.Yapi
             {
                 String ekadi = ekElement.GetAttribute("ad");
                 if (ekler.ContainsKey(ekadi))
-                    Exit("Ek tekrari! " + ekadi);
+                    throw new EkKonfigurasyonHatasi("Ek tekrari! " + ekadi);
                 ekler.Add(ekadi, new Ek(ekadi));
             }
         }
@@ -109,7 +109,7 @@ namespace NZemberek.Cekirdek.Yapi
                 {
                     String ekAdi = ekEl.InnerText;//???:GetTextContext
                     Ek ek = this.ekler[ekAdi];
-                    if (ek == null) Exit("kume eki bulunamiyor!" + ekAdi);
+                    if (ek == null) throw new EkKonfigurasyonHatasi("kume eki bulunamiyor!" + ekAdi);
                     kumeEkleri.Add(ek);
                 }
                 ekKumeleri.Add(kumeAdi, kumeEkleri);
@@ -130,17 +130,17 @@ namespace NZemberek.Cekirdek.Yapi
                 // uretim kuralini oku ve ekleri Uret.
                 XmlAttribute uretimKurali = ekElement.GetAttributeNode("uretim");
                 if (uretimKurali == null)
-                    Exit("ek uretim kural kelimesi yok!" + ekAdi);
+                    throw new EkKonfigurasyonHatasi("ek uretim kural kelimesi yok!" + ekAdi);
 
                 ek.ArdisilEkler = ArdisilEkleriOlustur(ek, ekElement);
                 ek.EkUretici = ekUretici;
-                List<EkUretimBileseni> bilesenler = EkUretimKelimesiCozumle(uretimKurali.Value);
+                List<EkUretimBileseni> bilesenler = kuralKelimesiCozumleyici.cozumle(uretimKurali.Value);
                 ek.UretimBilesenleri = bilesenler;
                 List<EkOzelDurumu> ozelDurumlar = OzelDurumlariOku(ekElement);
                 ek.OzelDurumlar = ozelDurumlar;
 
                 EkOzellikleriBelirle(ek, ekElement);
-                XmlDisiEkOzellikleriBelirle(ek, bilesenler);
+                ek.SesliIleBaslayabilir = ekUretici.SesliIleBaslayabilir(bilesenler);
                 ek.BaslangicHarfleriEkle(ekUretici.OlasiBaslangicHarfleri(bilesenler));
                 foreach (EkOzelDurumu oz in ozelDurumlar)
                 {
@@ -187,7 +187,7 @@ namespace NZemberek.Cekirdek.Yapi
                 if (uretimKurali != null)
                 {
                     oz.EkUretici = ekUretici;
-                    oz.UretimBilesenleri = EkUretimKelimesiCozumle(uretimKurali.Value);
+                    oz.UretimBilesenleri = kuralKelimesiCozumleyici.cozumle(uretimKurali.Value);
                 }
 
                 XmlNodeList oneklerElements = element.SelectNodes("on-ek");
@@ -229,7 +229,7 @@ namespace NZemberek.Cekirdek.Yapi
                 String ekAdi = element.InnerText;
                 Ek ek = this.ekler[ekAdi];
                 if (ek == null)
-                    Exit(anaEk.Ad + " icin ardisil ek bulunamiyor! " + ekAdi);
+                    throw new EkKonfigurasyonHatasi(anaEk.Ad + " icin ardisil ek bulunamiyor! " + ekAdi);
                 ardisilEkSet.Add(ek);
             }
 
@@ -240,7 +240,7 @@ namespace NZemberek.Cekirdek.Yapi
                 String kumeAdi = element.InnerText;
                 HashSet<Ek> kumeEkleri = ekKumeleri[kumeAdi];
                 if (kumeEkleri == null)
-                    Exit("kume bulunamiyor..." + kumeAdi);
+                    throw new EkKonfigurasyonHatasi("kume bulunamiyor..." + kumeAdi);
                 ardisilEkSet.AddAll(kumeEkleri);
             }
 
@@ -251,7 +251,7 @@ namespace NZemberek.Cekirdek.Yapi
                 String kopyaEkadi = attr.Value;
                 Ek ek = this.ekler[kopyaEkadi];
                 if (ek == null)
-                    Exit(anaEk.Ad + " icin kopyalanacak ek bulunamiyor! " + kopyaEkadi);
+                    throw new EkKonfigurasyonHatasi(anaEk.Ad + " icin kopyalanacak ek bulunamiyor! " + kopyaEkadi);
                 ardisilEkSet.AddAll(ek.ArdisilEkler);
             }
 
@@ -267,7 +267,7 @@ namespace NZemberek.Cekirdek.Yapi
                 {
                     String ekAdi = element.InnerText;
                     Ek ek = this.ekler[ekAdi];
-                    if (ek == null) Exit(anaEk.Ad + " icin oncelikli ek bulunamiyor! " + ekAdi);
+                    if (ek == null) throw new EkKonfigurasyonHatasi(anaEk.Ad + " icin oncelikli ek bulunamiyor! " + ekAdi);
                     if (ardisilEkSet.Contains(ek))
                     {
                         ardisilEkler.Add(ek);
@@ -283,201 +283,9 @@ namespace NZemberek.Cekirdek.Yapi
             return ardisilEkler;
         }
 
-        /// <summary>
-        /// ciddi hata durumunda sistmein mesaj vererek yazilimdan cikmasi saglanir.
-        /// </summary>
-        /// <param name="mesaj"></param>
-        private void Exit(String mesaj)
-        {
-#if log
-            logger.Fatal("Ek dosyasi okuma sorunu:" + mesaj);
-#endif
-            Environment.Exit(1);
-        }
 
 
-        /// <summary>
-        /// bazi ek ozellikleri konfigurasyon dosyasinda yer almaz, ekler okunduktan sonra
-        /// bilesenlere gore otomatik olarak belirlenir.
-        /// </summary>
-        /// <param name="ek"></param>
-        /// <param name="bilesenler"></param>
-        public void XmlDisiEkOzellikleriBelirle(Ek ek, List<EkUretimBileseni> bilesenler)
-        {
-            for (int i = 0; i < bilesenler.Count; i++)
-            {
-                EkUretimBileseni uretimBileseni = bilesenler[i];
-                TurkceHarf harf = uretimBileseni.Harf;
-                if (i == 0 || (i == 1 && bilesenler[0].Kural == EkUretimKurali.KAYNASTIR))
-                {
-                    if (harf.Sesli)
-                        ek.SesliIleBaslayabilir = true;
-                    switch (uretimBileseni.Kural)
-                    {
-                        case EkUretimKurali.SESLI_AA :
-                        case EkUretimKurali.SESLI_AE :
-                        case EkUretimKurali.SESLI_IU :
-                            ek.SesliIleBaslayabilir = true;
-                            break;
-                    }
-                }
-                else
-                {
-                    break;
-                }
-            }
-        }
 
-        // ek uretim kural kelimesinde kullanilan parcalarin dilbilgisi kurali karsiliklarini tutan tablo.
-        private static readonly IDictionary<Char, EkUretimKurali> kuralTablosu = new Dictionary<Char, EkUretimKurali>();
-
-        static XmlEkOkuyucu()
-        {
-            kuralTablosu.Add('A', EkUretimKurali.SESLI_AE);
-            kuralTablosu.Add('I', EkUretimKurali.SESLI_IU);
-            kuralTablosu.Add('E', EkUretimKurali.SESLI_AA);
-            kuralTablosu.Add('Y', EkUretimKurali.SESSIZ_Y);
-            kuralTablosu.Add('+', EkUretimKurali.KAYNASTIR);
-            kuralTablosu.Add('>', EkUretimKurali.SERTLESTIR);
-        }
-
-        private readonly HashSet<Char> sesliKurallari = new HashSet<Char>(new Char[]{ 'A', 'I', 'E', 'Y' });
-        private readonly HashSet<Char> harfKurallari = new HashSet<Char>(new Char[] { '+', '>' });
-
-
-        private List<EkUretimBileseni> EkUretimKelimesiCozumle(String uretimKelimesi)
-        {
-            if (uretimKelimesi == null || uretimKelimesi.Length == 0)
-                return new List<EkUretimBileseni>();
-            List<EkUretimBileseni> bilesenler = new List<EkUretimBileseni>();
-            foreach (EkUretimBileseni bilesen in new EkKuralCozumleyici(uretimKelimesi, this))
-            {
-                bilesenler.Add(bilesen);
-            }
-            return bilesenler;
-        }
-
-        /**
-         * Basit bir tokenizer. Iterable yapidadir, yani kural kelimesine gore
-         * her iterasyonda eger varsa yeni bir EkUretimBileseni uretir.
-         */
-        class EkKuralCozumleyici : IEnumerable<EkUretimBileseni>
-        {
-            private readonly String uretimKelimesi;
-            private XmlEkOkuyucu _okuyucu;
-
-            public EkKuralCozumleyici(String uretimKelimesi, XmlEkOkuyucu okuyucu)
-            {
-                _okuyucu = okuyucu;
-                this.uretimKelimesi = uretimKelimesi.Trim().Replace("[ ]", "");
-            }
-
-            #region IEnumerable<EkUretimBileseni> Members
-
-            public IEnumerator<EkUretimBileseni> GetEnumerator()
-            {
-                return new BilesenIterator(this);
-            }
-
-            #endregion
-
-            #region IEnumerable Members
-
-            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-            {
-                return new BilesenIterator(this);
-            }
-
-            #endregion
-
-            class BilesenIterator : IEnumerator<EkUretimBileseni>
-            {
-                private int pointer=-1;
-                private EkUretimBileseni current;
-                EkKuralCozumleyici _enumerable;
-
-                public BilesenIterator(EkKuralCozumleyici enumerable)
-                {
-                    _enumerable = enumerable;
-                }
-
-                #region IEnumerator<EkUretimBileseni> Members
-
-                public EkUretimBileseni Current
-                {
-
-                    get
-                    {
-                        return current;
-                    }
-                }
-
-                #endregion
-
-                #region IDisposable Members
-
-                public void Dispose()
-                {
-                    //TODO : Dispose için yapmak gereken biþey var mý?
-                }
-
-                #endregion
-
-                #region IEnumerator Members
-
-                object System.Collections.IEnumerator.Current
-                {
-                    get { return current; }
-                }
-
-                public bool MoveNext()
-                {
-                    pointer++;
-                    if (_enumerable.uretimKelimesi == null || pointer >= _enumerable.uretimKelimesi.Length)
-                    {
-                        current = null;
-                        return false;
-                    }
-                    else
-                    {
-                        char p = _enumerable.uretimKelimesi[pointer];
-                        //ardisil Harf ile iliskili kuralmi
-                        if (_enumerable._okuyucu.harfKurallari.Contains(p))
-                        {
-                            pointer++;
-                            if (pointer == _enumerable.uretimKelimesi.Length)
-                                throw new ArgumentException(p + " kuralindan sonra normal Harf bekleniyordu!");
-                            char h = _enumerable.uretimKelimesi[pointer];
-                            if (_enumerable._okuyucu.sesliKurallari.Contains(h))
-                                throw new ArgumentException(p + " kuralindan sonra sesli uretim kurali gelemez:" + h);
-                            current = new EkUretimBileseni(kuralTablosu[p], _enumerable._okuyucu.alfabe.Harf(h));
-                        }
-                        else if (_enumerable._okuyucu.sesliKurallari.Contains(p))
-                        {
-                            current = new EkUretimBileseni(kuralTablosu[p], Alfabe.TANIMSIZ_HARF);
-                        }
-                        else if (_enumerable._okuyucu.alfabe.Harf(p) != null && Char.IsLower(p))
-                        {
-                            current = new EkUretimBileseni(EkUretimKurali.HARF, _enumerable._okuyucu.alfabe.Harf(p));
-                        }
-                        else
-                        {
-                            throw new ArgumentException(p + "  simgesi cozumlenemiyor.. kelime:" + _enumerable.uretimKelimesi);
-                        }
-                        return true;
-                    }
-                }
-
-                public void Reset()
-                {
-                    pointer = -1;
-                    this.MoveNext();
-                }
-
-                #endregion
-            }
-
-        }
     }
 }
 

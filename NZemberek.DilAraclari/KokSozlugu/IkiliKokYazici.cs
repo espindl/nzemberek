@@ -25,7 +25,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
 using NZemberek.Cekirdek.Yapi;
 
@@ -34,45 +33,52 @@ namespace NZemberek.DilAraclari.KokSozlugu
 {
     public class IkiliKokYazici : IKokYazici
     {
-      BinaryWriter   dos;
+        BinaryWriter binaryWriter;
 
-    public IkiliKokYazici(String dosyaAdi) {
-        FileStream fos = new FileStream(dosyaAdi,FileMode.Create); //TODO mı Append mi
-        dos = new BinaryWriter(fos);
-    }
-
-    public void yaz(List<Kok> kokler) {
-
-        foreach (Kok kok in kokler) {
-            // Kök içerigi
-            dos.Write(kok.Icerik);
-
-            // asil icerik ozel karakterler barindiran koklerde olur. yoksa bos string yaz.
-            if (kok.Asil != null) {
-                // Kök asil içerigi
-                dos.Write(kok.Asil);
-            } else
-                dos.Write("");
-
-            // Kök tipi
-            dos.Write(kok.Tip.ToString());
-
-            dos.Write(kok.KisaltmaSonSeslisi);
-
-            //TODO Tankut indeksi yazlılcack
-            string[] ozd = kok.KokOzelDurumlariGetir();
-            dos.Write(ozd.Length);
-            foreach (string s in ozd) 
-            {
-                //TODO tankut indeksini yazacaz...
-                KokOzelDurumu ozelDurum = null;
-                dos.Write(ozelDurum.Indeks);
-            }
-            // kullanim frekansi
-            dos.Write(kok.Frekans);
-
+        public IkiliKokYazici(String dosyaAdi)
+        {
+            FileStream fileStream = new FileStream(dosyaAdi, FileMode.Create); //TODO mı Append mi
+            binaryWriter = new BinaryWriter(fileStream);
         }
-        dos.Close();
-    }
+
+        public void yaz(List<Kok> kokler)
+        {
+            foreach (Kok kok in kokler)
+            {
+                // Kök içerigi
+                binaryWriter.Write(kok.Icerik);
+
+                // asil icerik ozel karakterler barindiran koklerde olur. yoksa bos string yaz.
+                if (kok.Asil != null)
+                {
+                    // Kök asil içerigi
+                    binaryWriter.Write(kok.Asil);
+                }
+                else
+                {
+                    binaryWriter.Write("");
+                }
+
+                // Kök tipi
+                binaryWriter.Write(kok.Tip.ToString());
+
+                //Kisaltma son seslisi
+                binaryWriter.Write(kok.KisaltmaSonSeslisi);
+
+                //TODO Tankut indeksi yazlılcack
+                string[] ozd = kok.KokOzelDurumlariGetir();
+                binaryWriter.Write(ozd.Length);
+                foreach (string s in ozd)
+                {
+                    //TODO tankut indeksini yazacaz...
+                    KokOzelDurumu ozelDurum = null;
+                    binaryWriter.Write(ozelDurum.Indeks);
+                }
+                // kullanim frekansi
+                binaryWriter.Write(kok.Frekans);
+
+            }
+            binaryWriter.Close();
+        }
     }
 }

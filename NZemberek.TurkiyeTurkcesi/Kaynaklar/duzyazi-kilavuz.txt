@@ -5087,7 +5087,7 @@ cebriye IS
 Cedî OZ
 cedit IS YUM
 cedre IS
-cefa  IS
+cefa IS
 #cefa etmek
 cefakâr IS
 cefakeş IS
@@ -5170,7 +5170,7 @@ Cenevizli OZ
 cengâver IS
 #cengâverlik,-ği
 cengel IS
-cenin  IS
+cenin IS
 ceninisakıt IS
 cenk IS YUM_NK
 #cenkçi
@@ -5200,7 +5200,7 @@ cephe IS
 #cephe gerisi
 #cepheleşme
 #cepheleşmek
-cepken  IS
+cepken IS
 #cep kitabı
 #cep saati
 #cep sözlüğü
@@ -5221,16 +5221,16 @@ cereyan IS
 cerh IS
 #cerh etmek
 ceride IS
-ceriha  IS
-cerime  IS
+ceriha IS
+cerime IS
 Cermen OZ
 Cermence OZ
 #Cermen dilleri
-cerrah  IS
+cerrah IS
 cerrahî IS
 #cerrahî müdahale
 #cerrahlık,-ğı
-cerrar  IS
+cerrar IS
 cesamet IS
 #cesametli
 cesaret IS
@@ -5271,7 +5271,7 @@ cevaplamak FI
 #cevapsız
 cevaz IS
 cevelân IS
-cevher  IS
+cevher IS
 #cevherli
 #cevhersiz
 cevir IS DUS
@@ -5282,7 +5282,7 @@ cevizî SI
 #cevizli
 #cevizlik,-ği
 cevval IS TERS
-cevvî  SI
+cevvî SI
 Cevza OZ
 Ceyhan OZ
 ceylân IS
@@ -5348,7 +5348,7 @@ cıncık IS YUM
 #cıncık boncuk,-ğu
 cıngıl IS
 cırboğa IS
-cırcır  IS
+cırcır IS
 #cır cır
 cır IS YAL
 #cırcır böceği
@@ -5466,15 +5466,15 @@ ciddî IS
 ciddiyet IS
 Cide OZ
 cif IS
-cife  IS
-ciğer  IS
+cife IS
+ciğer IS
 #ciğer acısı
 #ciğerci
 ciğerdeldi IS
 #ciğer otları
 #ciğer otu
 ciğerpare IS
-cihan  IS
+cihan IS
 Cihanbeyli OZ
 cihangir IS
 Cihangir OZ
@@ -5544,16 +5544,16 @@ cinayet IS
 #cinci
 #cin darısı
 #cin fikirli
-cingöz  IS
+cingöz IS
 #cinlenme
 cinlenmek FI
 #cinli
 #cin mısırı
 cinnet IS
-cins  IS
+cins IS
 cinsaçı IS
 #cins cibilliyet
-cinsel  IS
+cinsel IS
 #cinsellik,-ği
 cinsî SI
 #cins isim,-smi
@@ -5562,8 +5562,8 @@ cinsiyet IS
 #cinslik,-ği
 #cinslik bilimi
 #cinsliksiz
-cip  IS
-cips  IS
+cip IS
+cips IS
 ciranta IS
 cirim IS DUS
 cirit IS YUM
@@ -5586,7 +5586,7 @@ civanmert IS YUM
 #civanmertlik,-ği
 civanperçemi IS
 civar IS
-civciv  IS
+civciv IS
 #civcivli
 #civcivlik,-ği
 civelek IS YUM
@@ -5606,7 +5606,7 @@ coğrafya IS
 cokey IS
 #cokeylik,-ği
 conta IS
-cop  IS
+cop IS
 #coplama
 coplamak FI
 #coplanma
@@ -5672,7 +5672,7 @@ cunta IS
 #cuntacı
 cup IS
 cuppadak IS YAL
-cura  IS
+cura IS
 #curacı
 #cura zurna
 curcuna IS
@@ -5705,11 +5705,11 @@ cümle IS
 #cümlemsi
 cümleten IS
 cümudiye IS
-cünha  IS
-cünun  IS
+cünha IS
+cünun IS
 cünup IS YUM
 #cünupluk,-ğu
-cür'et  IS OZEL_IC_KARAKTER
+cür'et IS OZEL_IC_KARAKTER
 #cür'et etmek
 cür'etkâr IS OZEL_IC_KARAKTER
 #cür'etkârlık,-ğı
@@ -5717,7 +5717,7 @@ cür'etkâr IS OZEL_IC_KARAKTER
 cür'etlenmek FI OZEL_IC_KARAKTER
 #cür'etli
 cürmümeşhut IS YUM
-cüruf  IS
+cüruf IS
 cürüm IS DUS
 cüsse IS
 #cüsseli
@@ -6668,7 +6668,7 @@ cüz'î IS OZEL_IC_KARAKTER
 Çermik OZ
 çerviş IS
 çeşit IS YUM
-çeşitkenar  IS
+çeşitkenar IS
 #çeşitkenar üçgen
 #çeşitleme
 çeşitlemek FI
@@ -8243,7 +8243,7 @@ darp IS YUM
 #darp etmek
 darphane IS
 darülâceze IS
-darülfünun  IS
+darülfünun IS
 #dar ünlü
 Darvinci OZ KESMESIZ YUM
 dasit IS
@@ -8882,7 +8882,7 @@ depolamak FI
 #depolanma
 #depolanmak
 depozit IS
-depozito  IS
+depozito IS
 deprem IS
 #deprem bilimci
 #deprem bilimi
@@ -9265,7 +9265,7 @@ dış IS
 #dış alım
 #dış alımcı
 #dış alımcılık,-ğı
-#dışarı IS DUS_SON  TDK dışardan hatalı diyor.
+#dışarı IS DUS_SON TDK dışardan hatalı diyor.
 dışarı IS
 #dışarılı
 dışarısı IS
@@ -13703,7 +13703,7 @@ fıtriye IS
 #fi IS
 fiber IS
 fiberglas IS
-fibrin  IS
+fibrin IS
 fidan IS
 #fidan biti
 #fidan boylu
@@ -17001,7 +17001,7 @@ halisane IS
 halita IS
 #haliyle
 halk IS
-halka  IS
+halka IS
 #halkacı
 #halka dizilişli
 #halk ağzı
@@ -17262,7 +17262,7 @@ hapşu IS YAL
 #haptetme
 haptetmek FI GEN YUM
 har IS
-hara  IS
+hara IS
 harabat IS
 harabatî IS
 #harabatîlik,-ği
@@ -19183,7 +19183,7 @@ Isfahan OZ
 ıskarta IS
 ıskat IS
 #ıskatçı
-#ıskonto IS  --> iskonto olmuş
+#ıskonto IS --> iskonto olmuş
 #ıskonto etmek
 #ıskontolu
 #ıskontosuz
@@ -19977,7 +19977,7 @@ ikna IS
 #ikna etmek
 #ikna olmak
 ikon IS
-ikona  IS
+ikona IS
 ikonografi IS
 ikrah IS
 #ikrah etmek
@@ -29671,7 +29671,7 @@ makyaj IS
 Makyavelci OZ KESMESIZ
 Makyavelizm OZ KESMESIZ
 mal IS
-mala  IS
+mala IS
 malafa IS
 malaga IS
 malak IS YUM
@@ -37418,7 +37418,7 @@ pusulamak FI
 pusval IS
 puşt IS
 #puştluk,-ğu
-put  IS
+put IS
 #putlaşma
 #putlaşmak
 #putlaştırma
@@ -37661,7 +37661,7 @@ rant IS
 rantabilite IS
 rantabl IS
 rantiye IS
-ranza  IS
+ranza IS
 rap IS
 rapor IS
 #raporcu
@@ -40141,6 +40141,7 @@ sert SI
 sertifika IS
 #sertifikalı
 #sertifikasız
+sertifikasyon IS
 #sertlenme
 sertlenmek FI
 #sertleşme
@@ -43518,7 +43519,7 @@ maka IS YAL
 şıra IS
 #şıracı
 şırak IS YAL
-şırakkadak  IS YAL
+şırakkadak IS YAL
 #şıralı
 şırfıntı IS
 #şırıldama
@@ -45065,7 +45066,7 @@ tavşancıl IS
 #tavşan eti
 tavşangiller IS
 tavşankan IS IS_TAM
-tavşankulak  IS YUM IS_TAM
+tavşankulak IS YUM IS_TAM
 Tavşanlı OZ
 #tavşanlık,-ğı
 tavşanmeme IS IS_TAM
@@ -50766,7 +50767,7 @@ yarımşar IS
 #yarım vokal,-li
 #yarım yamalak,-ğı
 yamalak IS YUM
-yarın ZA
+yarın ZAMAN
 #yarınki
 #yarıntı
 #yarı orta sıklet

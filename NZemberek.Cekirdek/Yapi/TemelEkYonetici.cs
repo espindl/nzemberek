@@ -34,27 +34,14 @@ namespace NZemberek.Cekirdek.Yapi
     {
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);		
 
-        protected Alfabe alfabe;
-
         public static Ek BOS_EK = new Ek("BOS_EK");
         protected IDictionary<String, Ek> ekler;
         protected IDictionary<KelimeTipi, Ek> baslangicEkleri = new Dictionary<KelimeTipi, Ek>();
 
 
-        public TemelEkYonetici(Alfabe alfabe,
-                               String dosya,
-                               IEkUretici ekUretici,
-                               IEkOzelDurumUretici ozelDurumUretici,
-                               IDictionary<KelimeTipi, String> baslangicEkMap) {
-            this.alfabe = alfabe;
-#if log
-            DateTime start = System.DateTime.Now;// currentTimeMillis();
-#endif
-            XmlEkOkuyucu okuyucu = new XmlEkOkuyucu(
-                    dosya,
-                    ekUretici,
-                    ozelDurumUretici,
-                    alfabe);
+        public TemelEkYonetici(Dictionary<KelimeTipi, String> baslangicEkMap,
+	                           XmlEkOkuyucu okuyucu) {
+            DateTime start = System.DateTime.Now;
             okuyucu.XmlOku();
             ekler = okuyucu.Ekler;
             foreach (KelimeTipi tip in baslangicEkMap.Keys) {

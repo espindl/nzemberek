@@ -84,6 +84,9 @@
     <Compile Include="Mekanizma\KelimeKokFrekansKiyaslayici.cs" />
     <Compile Include="Mekanizma\KelimeUretici.cs" />
     <Compile Include="Mekanizma\TurkceYaziTesti.cs" />
+    <Compile Include="Yapi\EkKuralKelimesiCozumleyici.cs" />
+    <Compile Include="Yapi\IEkKuralBilgisi.cs" />
+    <Compile Include="Yapi\IEkUretimKurali.cs" />
     <Compile Include="Yapi\IHeceleyici.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Yapi\Ek.cs" />
@@ -97,6 +100,8 @@
     <Compile Include="Yapi\OnEkOzelDurumu.cs" />
     <Compile Include="Yapi\SonHarfYumusamaOzelDurumu.cs" />
     <Compile Include="Yapi\TemelEkOzelDurumUretici.cs" />
+    <Compile Include="Yapi\TemelEkUretici.cs" />
+    <Compile Include="Yapi\TemelEkUretimKurali.cs" />
     <Compile Include="Yapi\TemelEkYonetici.cs" />
     <Compile Include="Yapi\EkUretimKurali.cs" />
     <Compile Include="Yapi\XmlEkOkuyucu.cs" />
