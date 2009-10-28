@@ -38,7 +38,7 @@ namespace NZemberek.DilAraclari.KokSozlugu
         public IkiliKokYazici(String dosyaAdi)
         {
             FileStream fileStream = new FileStream(dosyaAdi, FileMode.Create); //TODO mı Append mi
-            binaryWriter = new BinaryWriter(fileStream);
+            binaryWriter = new BinaryWriter(fileStream,System.Text.Encoding.UTF8);
         }
 
         public void yaz(List<Kok> kokler)
@@ -60,19 +60,25 @@ namespace NZemberek.DilAraclari.KokSozlugu
                 }
 
                 // Kök tipi
-                binaryWriter.Write(kok.Tip.ToString());
+                binaryWriter.Write((int)kok.Tip);
 
-                //Kisaltma son seslisi
-                binaryWriter.Write(kok.KisaltmaSonSeslisi);
+                if (kok.GetType() == typeof(Kisaltma) )
+                {
+                    binaryWriter.Write(((Kisaltma)kok).KisaltmaSonSeslisi); 
+                }
+                else
+                {
+                    binaryWriter.Write('#'); 
+                }
 
                 //TODO Tankut indeksi yazlılcack
-                string[] ozd = kok.KokOzelDurumlariGetir();
-                binaryWriter.Write(ozd.Length);
-                foreach (string s in ozd)
+                List<KokOzelDurumu> ozd = kok.KokOzelDurumlariGetir();
+                binaryWriter.Write(ozd.Count);
+                foreach (KokOzelDurumu s in ozd)
                 {
                     //TODO tankut indeksini yazacaz...
-                    KokOzelDurumu ozelDurum = null;
-                    binaryWriter.Write(ozelDurum.Indeks);
+                    //KokOzelDurumu ozelDurum = null;
+                    binaryWriter.Write(s.Indeks);
                 }
                 // kullanim frekansi
                 binaryWriter.Write(kok.Frekans);

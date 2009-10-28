@@ -24,7 +24,9 @@
  * ***** END LICENSE BLOCK ***** */
 
 using System;
+using System.Collections.Generic;
 using NZemberek.Cekirdek.Yapi;
+using System.Text;
 
 namespace NZemberek.Cekirdek.Yapi
 {
@@ -49,7 +51,8 @@ namespace NZemberek.Cekirdek.Yapi
 
         private bool yapiBozucuOzelDurumVar = false;
         private KelimeTipi _tip = KelimeTipi.YOK;
-        private string[] kokOzelDurumlari = new string[] { };
+        //private string[] kokOzelDurumlari = new string[] { };
+        private List<KokOzelDurumu> ozelDurumlari = new List<KokOzelDurumu>();
         private int frekans;
 
         #region Properties
@@ -151,16 +154,16 @@ namespace NZemberek.Cekirdek.Yapi
         /// <returns></returns>
         public bool OzelDurumVarmi()
 		{
-            return kokOzelDurumlari.Length > 0;
+            return ozelDurumlari.Count > 0;
 		}
 
         /// <summary>
         /// Tum ozel durumlari doner.
         /// </summary>
         /// <returns></returns>
-        public string[] KokOzelDurumlariGetir()
+        public List<KokOzelDurumu> KokOzelDurumlariGetir()
         {
-            return kokOzelDurumlari;
+            return ozelDurumlari;
         }
 		
         /// <summary>
@@ -170,13 +173,23 @@ namespace NZemberek.Cekirdek.Yapi
         /// <returns></returns>
 		public bool OzelDurumIceriyormu(string ad)
 		{            
-            foreach (string durum in kokOzelDurumlari)
+            foreach (KokOzelDurumu ozelDurum in ozelDurumlari)
             {
-                if (durum == ad)
+                if (ozelDurum.Ad == ad)
                     return true;
             }
 			return false;
 		}
+
+        public bool OzelDurumIceriyormu(int index)
+        {
+            foreach (KokOzelDurumu ozelDurum in ozelDurumlari)
+            {
+                if (ozelDurum.Indeks == index)
+                    return true;
+            }
+            return false;
+        }
 
         /// <summary> 
         /// Koke ozel durum ekler. burada dizi kullaniminda kaynak konusunda cimrilik ettigimizden
@@ -186,43 +199,24 @@ namespace NZemberek.Cekirdek.Yapi
 		/// </summary>
 		/// <param name="OzelDurum">
 		/// </param>
-		public virtual void  OzelDurumEkle(string ozelDurum)
+		public virtual void  OzelDurumEkle(KokOzelDurumu ozelDurum)
 		{
-			if (kokOzelDurumlari.Length == 0)
-			{
-                kokOzelDurumlari = new string[1];
-                kokOzelDurumlari[0] = ozelDurum;
-			}
-			else
-			{
-				if (OzelDurumIceriyormu(ozelDurum))
-					return ;
-                string[] yeni = new string[kokOzelDurumlari.Length + 1];
-                for (int i = 0; i < kokOzelDurumlari.Length; i++)
-				{
-                    yeni[i] = kokOzelDurumlari[i];
-				}
-                yeni[kokOzelDurumlari.Length] = ozelDurum;
-                this.kokOzelDurumlari = yeni;
-			}
+            if(!ozelDurumlari.Contains(ozelDurum))
+            {
+                ozelDurumlari.Add(ozelDurum);
+            }
 		}
 		
 		/// <summary> 
         /// Sadece ilk acilista kullanilan bir metod
 		/// </summary>
 		/// <param name="Tip"></param>
-		public virtual void  OzelDurumCikar(string ozelDurum)
+        public virtual void OzelDurumCikar(KokOzelDurumu ozelDurum)
 		{
-			if (!OzelDurumIceriyormu(ozelDurum))
-				return ;
-            string[] yeni = new string[kokOzelDurumlari.Length - 1];
-			int j = 0;
-			foreach(string durum in kokOzelDurumlari)
-			{
-				if (durum != ozelDurum)
-					yeni[j++] = durum;
-			}
-			this.kokOzelDurumlari = yeni;
+            if (ozelDurumlari.Contains(ozelDurum))
+            {
+                ozelDurumlari.Remove(ozelDurum);
+            }
 		}
 
         protected bool TipVarmi()
@@ -232,13 +226,16 @@ namespace NZemberek.Cekirdek.Yapi
 
 		public override String ToString()
 		{
-			System.String strOzel = "";
-            foreach (string ozelDurum in kokOzelDurumlari)
+            StringBuilder strOzel = new StringBuilder();
+            foreach (KokOzelDurumu ozelDurum in ozelDurumlari)
 			{
-				if (ozelDurum != null)
-					strOzel += (ozelDurum + " ");
+                if (ozelDurum != null)
+                {
+                    strOzel.Append(ozelDurum.Ad);
+                    strOzel.Append(" ");
+                }
 			}
-			return _icerik + " " + _tip + " " + strOzel;
+			return string.Format("{0} {1} {2}",_icerik, _tip, strOzel.ToString());
 		}
 
 		public override bool Equals(System.Object o)
@@ -252,7 +249,7 @@ namespace NZemberek.Cekirdek.Yapi
 			
 			if (_icerik != null?!_icerik.Equals(kok._icerik):kok._icerik != null)
 				return false;
-            if (kokOzelDurumlari != null ? !kokOzelDurumlari.Equals(kok.kokOzelDurumlari) : kok.kokOzelDurumlari != null)
+            if (ozelDurumlari != null ? !ozelDurumlari.Equals(kok.ozelDurumlari) : kok.ozelDurumlari != null)
 				return false;
             if (TipVarmi() ? !_tip.Equals(kok._tip) : kok.TipVarmi())
 				return false;
@@ -265,7 +262,7 @@ namespace NZemberek.Cekirdek.Yapi
 			int result;
 			result = (_icerik != null?_icerik.GetHashCode():0);
             result = 29 * result + (TipVarmi() ? _tip.GetHashCode() : 0);
-            result = 29 * result + (kokOzelDurumlari != null ? kokOzelDurumlari.GetHashCode() : 0);
+            result = 29 * result + (ozelDurumlari != null ? ozelDurumlari.GetHashCode() : 0);
 			return result;
 		}
 	}

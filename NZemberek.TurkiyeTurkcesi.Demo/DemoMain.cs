@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using NZemberek.TurkiyeTurkcesi;
-using NZemberek.DilAraclari.KokSozlugu;
-using NZemberek.Cekirdek.Yapi;
+using System.IO;
 using System.Reflection;
+using System.Windows.Forms;
+using NZemberek.Cekirdek.Yapi;
+using NZemberek.DilAraclari.KokSozlugu;
+using NZemberek.Cekirdek.KokSozlugu;
 
 namespace NZemberek.TurkiyeTurkcesi.Demo
 {
@@ -33,10 +29,16 @@ namespace NZemberek.TurkiyeTurkcesi.Demo
             _dilFabrikasi.CepKullan = _ayarlar.CepKullan;
 
             List<Kok> tumKokler = new List<Kok>();
-            System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(@"D:\temp\Kaynaklar");
+            FileInfo duzyazi = new FileInfo(@"D:\NZemberek.1.0.x\NZemberek.TurkiyeTurkcesi\Kaynaklar\duzyazi-kilavuz.txt");
+            FileInfo isimler = new FileInfo(@"D:\NZemberek.1.0.x\NZemberek.TurkiyeTurkcesi\Kaynaklar\kisi-adlari.txt");
+            FileInfo kisaltma = new FileInfo(@"D:\NZemberek.1.0.x\NZemberek.TurkiyeTurkcesi\Kaynaklar\kisaltmalar.txt");
+            FileInfo bilisim = new FileInfo(@"D:\NZemberek.1.0.x\NZemberek.TurkiyeTurkcesi\Kaynaklar\bilisim.txt");
+
+           // FileInfo[] files = new FileInfo[] { duzyazi, isimler, bilisim, kisaltma};
+            FileInfo[] files = new FileInfo[] { duzyazi };
             IKokOzelDurumYonetici kokOzelDurumYoneticiVer = _dilFabrikasi.KokOzelDurumYoneticiVer();
             Alfabe alfabe = _dilFabrikasi.AlfabeVer();
-            foreach (System.IO.FileInfo dosya in di.GetFiles())
+            foreach (FileInfo dosya in files)
             {
                 DuzYaziKokOkuyucu okuyucu = new DuzYaziKokOkuyucu(
                     dosya.FullName,
@@ -47,16 +49,17 @@ namespace NZemberek.TurkiyeTurkcesi.Demo
                 tumKokler.AddRange(list);
             }
 
+            AgacSozluk sozluk = new AgacSozluk(alfabe, kokOzelDurumYoneticiVer,tumKokler);
 
-            IkiliKokYazici ozelYazici = new IkiliKokYazici(@"D:\temp\mertDeneSozluk.bin");
+            IkiliKokYazici ozelYazici = new IkiliKokYazici(@"D:\temp\mertSozluk.bin");
             ozelYazici.yaz(tumKokler);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Zemberek zem = new Zemberek();
-            bool a = zem.KelimeDenetle("suyuyla");
-            MessageBox.Show(a.ToString());
+            Zemberek zemberek = new Zemberek();
+            string[] a = zemberek.TurkceKarakterlereDonustur("dugumsuzlukmus");
+            MessageBox.Show(a[0]);
         }
     }
 }

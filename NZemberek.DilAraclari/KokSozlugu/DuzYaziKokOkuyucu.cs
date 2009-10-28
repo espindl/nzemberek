@@ -111,18 +111,27 @@ namespace NZemberek.DilAraclari.KokSozlugu
 #endif
                     continue;
                 }
-                String icerik = tokens[0];
-                Kok kok = new Kok(icerik);
+                String asil = tokens[0];
+                String icerik = alfabe.Ayikla(asil);
+                Kok kok = null;
 
                 // Ayikla() ile kok icerigi kucuk harfe donusturuluyor ve '- vs 
                 // isaretler siliniyor.
-                kok.Icerik = alfabe.Ayikla(kok.Icerik);
+                //kok.Icerik = alfabe.Ayikla(kok.Icerik);
 
                 // kelime tipini belirle. ilk parca mutlaka kok tipini belirler
                 if (_kokTipAdlari.ContainsKey(tokens[1]))
                 {
                     KelimeTipi tip = (KelimeTipi)_kokTipAdlari[tokens[1]];
-                    kok.Tip = tip;
+
+                    if (tip == KelimeTipi.KISALTMA)
+                    {
+                        kok = new Kisaltma(icerik);
+                    }
+                    else
+                    {
+                        kok = new Kok(icerik, tip); 
+                    }
                     ozelDurumlar.KokIcerigiIsle(kok, tip, icerik);
 
                 }
@@ -132,6 +141,9 @@ namespace NZemberek.DilAraclari.KokSozlugu
                     logger.Warn("Kok tipi bulunamadi!" + line);
                 }
 #endif
+                if (!asil.Equals(icerik))
+                    kok.Asil = asil;
+
                 // kok ozelliklerini Ekle.
                 ozelDurumlar.DuzyaziOzelDurumOku(kok, icerik, tokens);
 

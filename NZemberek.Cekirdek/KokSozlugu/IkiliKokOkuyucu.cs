@@ -94,7 +94,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
             {
                 int ozelDurum = binReader.ReadByte();
                 KokOzelDurumu oz = ozelDurumlar.OzelDurum(ozelDurum);
-                kok.OzelDurumEkle(oz.Ad);
+                kok.OzelDurumEkle(oz);
                 if (!yapibozucu  && oz.YapiBozucu())
                     yapibozucu = true;
             }

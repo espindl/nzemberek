@@ -96,14 +96,15 @@ namespace NZemberek.DilAraclari.KokSozlugu
         return res.ToString();
     }
 
-        private String getOzellikString(string[] ozelDurumlar) 
+        private String getOzellikString(List<KokOzelDurumu> ozelDurumlar) 
         {
-            String oz = "";
-            foreach (string ozelDurum in ozelDurumlar) 
+            StringBuilder oz = new StringBuilder();
+            foreach (KokOzelDurumu ozelDurum in ozelDurumlar) 
             {
-                oz = oz + ozelDurum + " ";
+                oz.Append(ozelDurum);
+                oz.Append(" ");
             }
-            return oz;
+            return oz.ToString();
         }
 
     }
