@@ -31,6 +31,7 @@ using log4net;
 using System.Xml.Serialization;
 using System.IO;
 using NZemberek.Cekirdek.Araclar;
+using System.Reflection;
 
 namespace NZemberek.Cekirdek.Yapi
 {
@@ -95,7 +96,7 @@ namespace NZemberek.Cekirdek.Yapi
         public Alfabe(String dosyaAdi, String localeStr)
         {
             IDictionary<String, String> harfOzellikleri;
-            harfOzellikleri = new KaynakYukleyici().KodlamaliOzellikDosyasiOku(dosyaAdi);
+            harfOzellikleri = new KaynakYukleyici().KodlamaliOzellikDosyasiOku(Assembly.GetCallingAssembly(), dosyaAdi);
             this.locale = new System.Globalization.CultureInfo(localeStr);
             DiziBaslat();
             HarfBilgisiOlustur(harfOzellikleri);

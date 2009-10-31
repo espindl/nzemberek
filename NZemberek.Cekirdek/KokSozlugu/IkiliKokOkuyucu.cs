@@ -28,6 +28,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using NZemberek.Cekirdek.Yapi;
+using System.Reflection;
 
 namespace NZemberek.Cekirdek.KokSozlugu
 {
@@ -36,9 +37,9 @@ namespace NZemberek.Cekirdek.KokSozlugu
         private IKokOzelDurumYonetici ozelDurumlar;
 
 
-        public IkiliKokOkuyucu(String pDosyaAdi, IKokOzelDurumYonetici ozelDurumlar) 
+        public IkiliKokOkuyucu(String pKaynakAdi, IKokOzelDurumYonetici ozelDurumlar) 
         {
-            dosyaAdi = pDosyaAdi;
+            kaynakAdi = pKaynakAdi;
             this.ozelDurumlar = ozelDurumlar;
         }
 
@@ -111,7 +112,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
 
         
         BinaryReader binReader = null;
-        string dosyaAdi = string.Empty;
+        string kaynakAdi = string.Empty;
 
 
         public void Ac()
@@ -119,23 +120,36 @@ namespace NZemberek.Cekirdek.KokSozlugu
             //Reader açıksa hata
             if (binReader != null)
             {
-                throw new ApplicationException("Kök dosyası zaten açık! : " + dosyaAdi);
+                throw new ApplicationException("Kök dosyası zaten açık! : " + kaynakAdi);
             }
             //Dosya yoksa hata
-            if (!File.Exists(dosyaAdi))
+            if (!KaynakMevcut(Assembly.GetCallingAssembly()))
             {
-                throw new ApplicationException("Kök dosyası yok! : " + dosyaAdi);
+                throw new ApplicationException("Kök dosyası yok! : " + kaynakAdi);
             }
-            binReader = new BinaryReader(File.Open(dosyaAdi, FileMode.Open),Encoding.UTF8);
+            Stream stream = Assembly.GetCallingAssembly().GetManifestResourceStream(kaynakAdi);
+            binReader = new BinaryReader(stream,Encoding.UTF8);
+            //binReader = new BinaryReader(File.Open(dosyaAdi, FileMode.Open),Encoding.UTF8);
             //Dosya boşsa hata 
             if (binReader.PeekChar() == -1)
             {
                 binReader.Close();
                 binReader = null;
-                throw new ApplicationException("Kök dosyası boş! : " + dosyaAdi);
+                throw new ApplicationException("Kök dosyası boş! : " + kaynakAdi);
             }
         }
-        
+
+        private bool KaynakMevcut(Assembly assembly)
+        {
+            foreach (string s in assembly.GetManifestResourceNames())
+            {
+                if (s == kaynakAdi)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         public void Kapat()
         {

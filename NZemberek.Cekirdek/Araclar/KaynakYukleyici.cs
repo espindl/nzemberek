@@ -31,6 +31,7 @@ using System.Globalization;
 using System.Text;
 using System.Configuration;
 using log4net;
+using System.Reflection;
 
 namespace NZemberek.Cekirdek.Araclar
 {
@@ -62,13 +63,14 @@ namespace NZemberek.Cekirdek.Araclar
         /// </summary>
         /// <param name="dosyaAdi"></param>
         /// <returns></returns>
-        public IDictionary<String, String> KodlamaliOzellikDosyasiOku(String dosyaAdi)
+        public IDictionary<String, String> KodlamaliOzellikDosyasiOku(Assembly assembly, String kaynakAdi)
         {
             StreamReader reader  = null;
             IDictionary<String, String> ozellikler;
             try
             {
-                reader = new StreamReader(dosyaAdi, this.encoding);
+                Stream stream = assembly.GetManifestResourceStream(kaynakAdi);
+                reader = new StreamReader(stream, this.encoding);
                 ozellikler = new Dictionary<String, String>();
                 while (!reader.EndOfStream)
                 {
@@ -98,9 +100,16 @@ namespace NZemberek.Cekirdek.Araclar
         /// </summary>
         /// <param name="kaynakAdi"></param>
         /// <returns>true-> kaynak erisiminde hata olusmadi false-> kaynak erisiminde hata olustu ya da kaynak=null</returns>
-        public static bool KaynakMevcut(String kaynakAdi)
+        public static bool KaynakMevcut(Assembly assembly, String kaynakAdi)
         {
-            return File.Exists(Environment.CurrentDirectory + System.IO.Path.DirectorySeparatorChar + kaynakAdi);
+            foreach (string s in assembly.GetManifestResourceNames())
+            {
+                if (s == kaynakAdi)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>
@@ -109,12 +118,27 @@ namespace NZemberek.Cekirdek.Araclar
         /// </summary>
         /// <param name="kaynakAdi"></param>
         /// <returns>kaynak erisimi icin Buffered reader</returns>
-        public StreamReader OkuyucuGetir(String kaynakAdi)
+        public StreamReader OkuyucuGetir(Assembly assembly, String kaynakAdi)
         {
-            FileStream stream = new FileStream(kaynakAdi, FileMode.Open);
+            Stream stream = assembly.GetManifestResourceStream(kaynakAdi);
             StreamReader sr = new StreamReader(stream);
             if (sr == null)
                 throw new IOException(kaynakAdi + " erisimi saglanamadi. Elde edilen Stream degeri null!");
+            return sr;
+        }
+
+        /// <summary>
+        /// Girilen kaynaga once class path disindan erismeye calisir. Eger dosya bulunamazsa
+        /// bu defa ayni dosyaya classpath icerisinden erismeye calisir.
+        /// </summary>
+        /// <param name="kaynakAdi"></param>
+        /// <returns>kaynak erisimi icin Buffered reader</returns>
+        public StreamReader OkuyucuGetir(String dosyaAdi)
+        {
+            FileStream stream = new FileStream(dosyaAdi, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+            if (sr == null)
+                throw new IOException(dosyaAdi + " erisimi saglanamadi. Elde edilen Stream degeri null!");
             return sr;
         }
     }

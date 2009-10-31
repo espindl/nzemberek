@@ -29,6 +29,7 @@ using System.Text;
 using System.Xml;
 using log4net;
 using NZemberek.Cekirdek.Kolleksiyonlar;
+using System.Reflection;
 
 namespace NZemberek.Cekirdek.Yapi
 {
@@ -63,10 +64,10 @@ namespace NZemberek.Cekirdek.Yapi
             this.kuralKelimesiCozumleyici = ekKuralKelimesiCozumleyici;
         }
 
-        public void XmlOku()
+        public void XmlOku(Assembly assembly)
         {
             XmlDocument document = new XmlDocument();
-            document.Load(xmlEkDosyasi);
+            document.Load(assembly.GetManifestResourceStream(xmlEkDosyasi));
 
             // kok elemente ulas.
             XmlElement kokElement = document.DocumentElement;

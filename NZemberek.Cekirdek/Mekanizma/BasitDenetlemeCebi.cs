@@ -29,6 +29,7 @@ using System.IO;
 
 using NZemberek.Cekirdek.Araclar;
 using NZemberek.Cekirdek.Kolleksiyonlar;
+using System.Reflection;
 
 
 namespace NZemberek.Cekirdek.Mekanizma
@@ -39,7 +40,7 @@ namespace NZemberek.Cekirdek.Mekanizma
 
         public BasitDenetlemeCebi(String dosyaAdi) 
         {
-            StreamReader rd = new KaynakYukleyici("UTF-8").OkuyucuGetir(dosyaAdi);
+            StreamReader rd = new KaynakYukleyici("UTF-8").OkuyucuGetir(Assembly.GetCallingAssembly(), dosyaAdi);
             try
             {
                 cep = new HashSet<String>();

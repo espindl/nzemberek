@@ -51,6 +51,9 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DotNet|AnyCPU' ">
+    <OutputPath>bin\net\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -96,27 +99,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Kaynaklar\kokler.bin">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Kaynaklar\kok_istatistik.bin">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <EmbeddedResource Include="Kaynaklar\kokler.bin" />
+    <EmbeddedResource Include="Kaynaklar\kok_istatistik.bin" />
     <None Include="Testler\app.config">
     </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Kaynaklar\bilisim.txt" />
     <Content Include="Kaynaklar\duzyazi-kilavuz.txt" />
-    <Content Include="Kaynaklar\ek.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Kaynaklar\harf.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Kaynaklar\kelime_cebi.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <EmbeddedResource Include="Kaynaklar\ek.xml" />
+    <EmbeddedResource Include="Kaynaklar\harf.txt" />
+    <EmbeddedResource Include="Kaynaklar\kelime_cebi.txt" />
     <Content Include="Kaynaklar\kisaltmalar.txt" />
     <Content Include="Kaynaklar\kisi-adlari.txt" />
     <Content Include="Testler\hepsi-dogru.txt">

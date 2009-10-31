@@ -35,10 +35,8 @@ using NZemberek.Cekirdek.Yapi;
 using log4net;
 using System.Reflection;
 
-
 namespace NZemberek
 {
-
     /// <summary>
     /// EN : This is a facade for accessing the high level functions of the Zemberek library.
     /// This class should be created only once per language.
@@ -133,7 +131,7 @@ namespace NZemberek
         private String[] KelimeleriMetneDonustur(Kelime[] kelimeler)
         {
             String[] retStrings = new String[kelimeler.Length];
-            for(int i=0;i<kelimeler.Length;i++)
+            for (int i = 0; i < kelimeler.Length; i++)
             {
                 retStrings[i] = kelimeler[i].ToString();
             }
@@ -158,11 +156,10 @@ namespace NZemberek
                 }
             }
             //kumeyi tekrar diziye donustur.
-            string[] retStrings=new string[olusumlar.Count];
+            string[] retStrings = new string[olusumlar.Count];
             olusumlar.CopyTo(retStrings);
             return retStrings;
         }
-
 
         public bool KelimeDenetle(String giris)
         {
@@ -216,12 +213,12 @@ namespace NZemberek
             return KelimeleriMetneDonustur(sonuclar);
         }
 
-        public String[] AsciiTolerasnliCozumle(String giris, CozumlemeSeviyesi seviye)
-         {
-	        Kelime[] sonuclar = _asciiToleransliCozumleyici.Cozumle(giris, seviye);
+        public String[] AsciiToleransliCozumle(String giris, CozumlemeSeviyesi seviye)
+        {
+            Kelime[] sonuclar = _asciiToleransliCozumleyici.Cozumle(giris, seviye);
             Array.Sort(sonuclar, new KelimeKokFrekansKiyaslayici());
             return KelimeleriMetneDonustur(sonuclar);
-	    }
+        }
 
         /// <summary>
         /// Brings the most probable tukish equivalents of a string that uses ascii look alikes of

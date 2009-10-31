@@ -27,6 +27,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using log4net;
+using System.Reflection;
 
 namespace NZemberek.Cekirdek.Yapi
 {
@@ -42,7 +43,7 @@ namespace NZemberek.Cekirdek.Yapi
         public TemelEkYonetici(Dictionary<KelimeTipi, String> baslangicEkMap,
 	                           XmlEkOkuyucu okuyucu) {
             DateTime start = System.DateTime.Now;
-            okuyucu.XmlOku();
+            okuyucu.XmlOku(Assembly.GetCallingAssembly());
             ekler = okuyucu.Ekler;
             foreach (KelimeTipi tip in baslangicEkMap.Keys) {
                 Ek ek = ekler[baslangicEkMap[tip]];

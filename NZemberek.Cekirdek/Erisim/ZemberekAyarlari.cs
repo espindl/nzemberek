@@ -124,12 +124,12 @@ namespace NZemberek
 
         private NameValueCollection AyarlariAl()
         {
-#if mono
-            NameValueCollection settings = ConfigurationSettings.AppSettings;
-#endif
-#if net
+            //#if mono
+            //            NameValueCollection settings = ConfigurationSettings.AppSettings;
+            //#endif
+            //#if DotNet
             NameValueCollection settings = ConfigurationManager.AppSettings;
-#endif
+            //#endif
             return settings;
         }
 

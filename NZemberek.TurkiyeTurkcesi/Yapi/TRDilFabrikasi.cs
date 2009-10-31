@@ -8,6 +8,7 @@ using NZemberek.Cekirdek.Mekanizma;
 using NZemberek.Cekirdek.Araclar;
 using NZemberek.Cekirdek.Mekanizma.Cozumleme;
 using NZemberek.TrTurkcesi.Mekanizma;
+using System.Reflection;
 
 
 namespace NZemberek.TrTurkcesi.Yapi
@@ -39,16 +40,21 @@ namespace NZemberek.TrTurkcesi.Yapi
         public TRDilFabrikasi()
         {
             bilgiDizini = "kaynaklar";
-            alfabeDosyaAdi = dosyaAdresi("harf.txt");
-            ekDosyaAdi = dosyaAdresi("ek.xml");
-            kokDosyaAdi = dosyaAdresi("kokler.bin");
-            cepDosyaAdi = dosyaAdresi("kelime_cebi.txt");
-            kokIstatistikDosyaAdi = dosyaAdresi("kok_istatistik.bin");
+            alfabeDosyaAdi = kaynakAdresi("harf.txt");
+            ekDosyaAdi = kaynakAdresi("ek.xml");
+            kokDosyaAdi = kaynakAdresi("kokler.bin");
+            cepDosyaAdi = kaynakAdresi("kelime_cebi.txt");
+            kokIstatistikDosyaAdi = kaynakAdresi("kok_istatistik.bin");
         }
 
         private string dosyaAdresi(string dosyaAdi)
         {
             return String.Format("{0}{1}{2}", bilgiDizini, System.IO.Path.DirectorySeparatorChar, dosyaAdi);
+        }
+
+        private string kaynakAdresi(string kaynakAdi)
+        {
+            return String.Format("{0}.Kaynaklar.{1}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Name, kaynakAdi);
         }
 
         #region DilBilgisi Members
@@ -108,7 +114,7 @@ namespace NZemberek.TrTurkcesi.Yapi
                 return sozluk;
             }
 
-            if (!KaynakYukleyici.KaynakMevcut(kokDosyaAdi))
+            if (!KaynakYukleyici.KaynakMevcut(Assembly.GetExecutingAssembly(), kokDosyaAdi))
             {
 #if log
                 logger.Error("Kök dosyası bulunamadı, sozluk uretilemiyor.");
