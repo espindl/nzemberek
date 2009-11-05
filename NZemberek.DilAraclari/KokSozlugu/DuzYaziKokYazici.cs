@@ -32,9 +32,6 @@ using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using NZemberek.Cekirdek.Yapi;
-using log4net;
-
-
 
 namespace NZemberek.DilAraclari.KokSozlugu
 {
@@ -44,7 +41,6 @@ namespace NZemberek.DilAraclari.KokSozlugu
      */
     public class DuzYaziKokYazici : IKokYazici
     {
-        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         StreamWriter writer;
 
         public DuzYaziKokYazici(String dosyaAdi)
@@ -84,9 +80,6 @@ namespace NZemberek.DilAraclari.KokSozlugu
         // Tipi ekleyelim.
         if (kok.Tip == KelimeTipi.YOK) 
         {
-#if log
-            logger.Warn("tipsiz kok:" + kok);
-#endif
             return res.ToString();
         }
 

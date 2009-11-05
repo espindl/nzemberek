@@ -27,11 +27,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using log4net;
-
 using NZemberek.Cekirdek.Yapi;
 using NZemberek.Cekirdek.Kolleksiyonlar;
-
 
 namespace NZemberek.TrTurkcesi.Yapi
 {

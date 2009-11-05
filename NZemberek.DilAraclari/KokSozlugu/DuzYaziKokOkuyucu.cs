@@ -30,9 +30,6 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Text;
 using System.IO;
-
-using log4net;
-
 using NZemberek.Cekirdek.Yapi;
 using NZemberek.Cekirdek.KokSozlugu;
 using NZemberek.Cekirdek.Araclar;
@@ -58,7 +55,6 @@ namespace NZemberek.DilAraclari.KokSozlugu
  */
     public class DuzYaziKokOkuyucu : IKokOkuyucu
     {
-        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);		
         private Alfabe alfabe;
         private IKokOzelDurumYonetici ozelDurumlar;
         protected StreamReader reader;
@@ -106,9 +102,6 @@ namespace NZemberek.DilAraclari.KokSozlugu
                 String[] tokens = line.Split(AYIRICI_PATTERN);
                 if (tokens == null || tokens.Length < 2) 
                 {
-#if log
-                    logger.Warn("Eksik bilgi!" + line);
-#endif
                     continue;
                 }
                 String asil = tokens[0];
@@ -135,12 +128,6 @@ namespace NZemberek.DilAraclari.KokSozlugu
                     ozelDurumlar.KokIcerigiIsle(kok, tip, icerik);
 
                 }
-#if log
-                else
-                {
-                    logger.Warn("Kok tipi bulunamadi!" + line);
-                }
-#endif
                 if (!asil.Equals(icerik))
                     kok.Asil = asil;
 

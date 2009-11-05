@@ -26,14 +26,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
-
+using System.Reflection;
 using NZemberek.Cekirdek.KokSozlugu;
 using NZemberek.Cekirdek.Mekanizma;
 using NZemberek.Cekirdek.Mekanizma.Cozumleme;
 using NZemberek.Cekirdek.Yapi;
-using log4net;
-using System.Reflection;
 
 namespace NZemberek
 {
@@ -47,8 +44,12 @@ namespace NZemberek
     /// </summary>
     public class Zemberek
     {
-        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
+        // ayarlar lazým
+        private ZemberekAyarlari _ayarlar;
+        // hangi dil?
+        private IDilFabrikasi _dilFabrikasi;
+        private IDenetlemeCebi _denetlemeCebi;
+        // araçlar
         private IKelimeCozumleyici _cozumleyici;
         private KelimeUretici _kelimeUretici;
         private IKelimeCozumleyici _asciiToleransliCozumleyici;
@@ -57,21 +58,19 @@ namespace NZemberek
         private OneriUretici _oneriUretici;
         private AsciiDonusturucu _asciiDonusturucu;
         private IHeceleyici _heceleyici;
-        private ZemberekAyarlari _ayarlar;
-        private IDilFabrikasi _dilFabrikasi;
-        private IDenetlemeCebi _denetlemeCebi;
 
-        /**
-         * Default constructor.
-         * @param dilayarlari
-         */
         public Zemberek()
         {
             _ayarlar = new ZemberekAyarlari();
+            DilYukle();
+            Baslat();
+        }
+
+        private void DilYukle()
+        {
             Assembly dilpaketi = Assembly.Load(_ayarlar.DilAyarlari[0]);
             this._dilFabrikasi = (IDilFabrikasi)dilpaketi.CreateInstance(_ayarlar.DilAyarlari[1]);
             this._dilFabrikasi.CepKullan = _ayarlar.CepKullan;
-            Baslat();
         }
 
         private void Baslat()
@@ -295,11 +294,7 @@ namespace NZemberek
                     _temizleyici.Baslat();
                 }
                 catch (System.IO.IOException e)
-                {
-#if log
-                    logger.Error(e.Message);
-#endif
-                }
+                {              }
             }
             if (_temizleyici == null) return null;
             return _temizleyici.Temizle(giris);

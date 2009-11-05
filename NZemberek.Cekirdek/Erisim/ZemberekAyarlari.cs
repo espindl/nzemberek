@@ -27,7 +27,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
-using log4net;
 using System.Collections.Specialized;
 using System.Configuration;
 
@@ -39,8 +38,6 @@ namespace NZemberek
     /// </summary>
     public class ZemberekAyarlari
     {
-        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
         private bool _oneriDeasciifierKullan = true;
 
         public bool OneriDeasciifierKullan
@@ -87,9 +84,6 @@ namespace NZemberek
             } 
             catch (System.IO.IOException e) 
             {
-#if log
-                logger.Warn("Konfigurasyon kayıtlarına erisilemiyor! varsayilan degerler kullanilacak. Hata : "+e.Message);
-#endif
             }
         }
 
@@ -110,15 +104,9 @@ namespace NZemberek
             } 
             catch (FormatException e) 
             {
-#if log
-                logger.Error("property erisim hatasi!! Muhtemel Tip donusum problemi.. varsayilan parametreler kullanilacak "+e.Message);
-#endif
             } 
             catch (Exception e) 
             {
-#if log
-                logger.Error("property erisim hatasi!! propety yer almiyor, ya da adi yanlis yazilmis olabilir. varsayilan konfigurasyon kullanilacak."+e.Message);
-#endif
             }
         }
 

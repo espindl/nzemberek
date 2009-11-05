@@ -27,15 +27,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using NZemberek.Cekirdek.Yapi;
-using log4net;
 
 
 namespace NZemberek.Cekirdek.KokSozlugu
 {
     public class AsciiKokBulucu : IKokBulucu
     {
-        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);		
-
         private KokAgaci agac = null;
         private int walkCount = 0;
         private String giris;
@@ -92,9 +89,6 @@ namespace NZemberek.Cekirdek.KokSozlugu
             walkCount++;
             if (dugum.Kok != null) 
             {
-#if log
-                if (logger.IsInfoEnabled) logger.Info("Kok : " + dugum.Kelime);
-#endif
                 if (AsciiTolaransliKarsilastir((String) dugum.Kelime, giris)) 
                 {
                     // Aday kok bulundu.

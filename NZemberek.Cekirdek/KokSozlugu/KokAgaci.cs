@@ -28,9 +28,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-
 using NZemberek.Cekirdek.Yapi;
-using log4net;
 
 
 namespace NZemberek.Cekirdek.KokSozlugu

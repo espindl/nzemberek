@@ -27,7 +27,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
-using log4net;
 using NZemberek.Cekirdek.Kolleksiyonlar;
 using System.Reflection;
 
@@ -38,8 +37,6 @@ namespace NZemberek.Cekirdek.Yapi
     /// </summary>
     public class XmlEkOkuyucu
     {
-        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
         private IDictionary<String, HashSet<Ek>> ekKumeleri = new Dictionary<String, HashSet<Ek>>();
         private IDictionary<String, Ek> ekler = new Dictionary<String, Ek>();
 
@@ -148,9 +145,6 @@ namespace NZemberek.Cekirdek.Yapi
                     ek.BaslangicHarfleriEkle(ekUretici.OlasiBaslangicHarfleri(oz.UretimBilesenleri));
                 }
             }
-#if log
-            logger.Debug("ek olusumu sonlandi.");
-#endif
         }
 
         /// <summary>
@@ -274,9 +268,6 @@ namespace NZemberek.Cekirdek.Yapi
                         ardisilEkler.Add(ek);
                         ardisilEkSet.Remove(ek);
                     }
-#if log
-                    else logger.Warn(anaEk.Ad + "icin oncelikli ek:" + ekAdi + " bu ekin ardisil eki degil!");
-#endif
                 }
             }
 

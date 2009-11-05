@@ -26,7 +26,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using log4net;
 using NZemberek.Cekirdek.Mekanizma.Cozumleme;
 using NZemberek.Cekirdek.MetinOkuma;
 
@@ -34,7 +33,6 @@ namespace NZemberek.Cekirdek.Mekanizma
 {
     public class TurkceYaziTesti
     {
-        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         IKelimeCozumleyici cozumleyici, asciiCozumleyici;
         public static int HIC = 0;
         public static int AZ = 1;
@@ -71,10 +69,6 @@ namespace NZemberek.Cekirdek.Mekanizma
             if (cozulemeyenler == 0)
                 return 1.0d;
             double sonuc = 1.0d - (double)cozulemeyenler / (double)(toplam + cozulemeyenler);
-#if log
-            if (logger.IsInfoEnabled) logger.Info("cozulenler:" + cozulenler + "  ascii Cozulenler:" + asciiCozulenler
-                        + "cozulemeyenler:" + cozulemeyenler + "  oran:" + sonuc);
-#endif
             return sonuc;
         }
 

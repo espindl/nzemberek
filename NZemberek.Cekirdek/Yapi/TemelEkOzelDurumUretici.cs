@@ -26,7 +26,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using log4net;
 
 namespace NZemberek.Cekirdek.Yapi
 {

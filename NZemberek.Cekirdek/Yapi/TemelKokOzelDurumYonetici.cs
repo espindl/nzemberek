@@ -26,7 +26,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using log4net;
 
 using NZemberek.Cekirdek.Yapi;
 using NZemberek.Cekirdek.Kolleksiyonlar;
@@ -40,8 +39,6 @@ namespace NZemberek.Cekirdek.Yapi
     */ 
     public class TemelKokOzelDurumYonetici
     {
-        protected static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
         protected IEkYonetici ekYonetici;
         protected Alfabe alfabe;
         protected IDictionary<String, KokOzelDurumu> ozelDurumlar = new Dictionary<String, KokOzelDurumu>();
@@ -83,12 +80,6 @@ namespace NZemberek.Cekirdek.Yapi
                     if (ek != null) {
                         set.Add(ek);
                     }
-#if log
-                    else 
-                    {
-                        logger.Warn(s + " eki bulunamadigindan kok ozel durumuna eklenemedi!");
-                    }
-#endif
                 }
                 // ureticiye seti ata.
                 uretici.GelebilecekEkler(set);

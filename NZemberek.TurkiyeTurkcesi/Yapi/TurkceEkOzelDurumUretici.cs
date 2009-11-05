@@ -27,15 +27,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using log4net;
 using NZemberek.Cekirdek.Yapi;
-
 
 namespace NZemberek.TrTurkcesi.Yapi
 {
     public class TurkceEkOzelDurumUretici : TemelEkOzelDurumUretici {
-
-        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);		
 
         public TurkceEkOzelDurumUretici(Alfabe alfabe) {
             this.alfabe = alfabe;
@@ -49,9 +45,6 @@ namespace NZemberek.TrTurkcesi.Yapi
 
             if (!Mevcut(TurkceEkOzelDurumTipi.AllValues, ad)) 
             {
-#if log
-                logger.Fatal("Ozel durum adina karsilik dusen ek ozel durum tipi bulunamadi:" + ad);
-#endif
                 return null;
             }
 

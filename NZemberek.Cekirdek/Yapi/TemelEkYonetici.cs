@@ -26,15 +26,12 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using log4net;
 using System.Reflection;
 
 namespace NZemberek.Cekirdek.Yapi
 {
     public class TemelEkYonetici : IEkYonetici
     {
-        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);		
-
         public static Ek BOS_EK = new Ek("BOS_EK");
         protected IDictionary<String, Ek> ekler;
         protected IDictionary<KelimeTipi, Ek> baslangicEkleri = new Dictionary<KelimeTipi, Ek>();
@@ -49,16 +46,7 @@ namespace NZemberek.Cekirdek.Yapi
                 Ek ek = ekler[baslangicEkMap[tip]];
                 if (ek != null)
                     baslangicEkleri.Add(tip, ek);
-#if log
-                else
-                    logger.Warn(tip + " tipi icin baslangic eki " + baslangicEkMap[tip] + " bulunamiyor!");
-#endif
             }
-#if log
-            DateTime end = System.DateTime.Now;
-            TimeSpan ts = end.Subtract(start);
-            logger.Info("ek okuma ve olusum suresii: " + ts.Milliseconds + "ms.");
-#endif
         }
 
         /**
@@ -69,10 +57,6 @@ namespace NZemberek.Cekirdek.Yapi
          */
         public Ek EkVer(String ekId) {
             Ek ek = ekler[ekId];
-#if log
-            if (ek == null)
-                logger.Error("Ek bulunamiyor!" + ekId);
-#endif
             return ekler[ekId];
         }
 

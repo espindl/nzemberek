@@ -30,7 +30,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using System.Configuration;
-using log4net;
 using System.Reflection;
 
 namespace NZemberek.Cekirdek.Araclar
@@ -47,14 +46,9 @@ namespace NZemberek.Cekirdek.Araclar
         public KaynakYukleyici(Encoding encoding)
         {
             this.encoding = encoding;
-#if log
-            logger.Info("Kaynak yukleyici olusturuluyor. varsayilan karakter seti:" + encoding);
-#endif
         }
 
         private Encoding encoding;
-        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);		
-
         /// <summary>
         /// properties formatina benzer yapidaki dosyayi kodlamali olarak okur. Normal properties dosyalari ASCII
         /// okundugundan turkce karakterlere uygun degil. Dosya icindeki satirlarin

@@ -28,13 +28,6 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-/*
-import java.io.*;
-import java.text.BreakIterator;
-import java.util.ArrayList;
-import java.util.IList;
-import java.util.Locale;
-*/
 
 namespace NZemberek.Cekirdek.MetinOkuma
 {

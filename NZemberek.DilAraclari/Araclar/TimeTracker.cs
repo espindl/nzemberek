@@ -27,8 +27,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using log4net;
-
 
 namespace NZemberek.DilAraclari.Araclar
 {
@@ -50,7 +48,6 @@ namespace NZemberek.DilAraclari.Araclar
      */
     public sealed class TimeTracker
     {
-        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public static int MAX_TIMETRACKER_USERS = 500;
         //public static readonly long BOLUCU = 1000000000L;
         private static IDictionary<String, TimerElement> users = new Dictionary<String, TimerElement>();
@@ -63,16 +60,10 @@ namespace NZemberek.DilAraclari.Araclar
         {
             if (users.Count > MAX_TIMETRACKER_USERS)
             {
-#if log
-                logger.Error("Max Saat izleyici sayýsý aþýldý. (" + MAX_TIMETRACKER_USERS + ")");
-#endif
                 return;
             }
             if (users[name] != null)
             {
-#if log
-                logger.Error(name + " isminde bir zaman izleyici zaten var.");
-#endif
                 return;
             }
             TimerElement timer = new TimerElement(name);

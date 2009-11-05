@@ -28,10 +28,7 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using log4net;
-
 using NZemberek.Cekirdek.Araclar;
-
 
 namespace NZemberek.Cekirdek.Mekanizma
 {

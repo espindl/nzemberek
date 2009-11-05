@@ -25,13 +25,12 @@
 
 using System;
 using System.Text;
+using System.IO;
+using System.Reflection;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using log4net;
 using System.Xml.Serialization;
-using System.IO;
 using NZemberek.Cekirdek.Araclar;
-using System.Reflection;
 
 namespace NZemberek.Cekirdek.Yapi
 {
@@ -72,8 +71,6 @@ namespace NZemberek.Cekirdek.Yapi
         public static char CHAR_SAPKALI_i = '\u00ee'; // sapkali kucuk noktasiz i
         public static char CHAR_SAPKALI_U = '\u00db'; // sapkali buyuk U
         public static char CHAR_SAPKALI_u = '\u00fb'; // sapkali kucuk u
-
-        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public static TurkceHarf TANIMSIZ_HARF = new TurkceHarf('#', 0);
 
@@ -407,9 +404,6 @@ namespace NZemberek.Cekirdek.Yapi
                 return harfOzellikleri[anahtar];
             else
             {
-#if log
-                logger.Warn("Harf ozelligi bulunamiyor: " + anahtar);
-#endif
                 return "";
             }
         }
@@ -427,10 +421,6 @@ namespace NZemberek.Cekirdek.Yapi
             char[] cDizi = new char[charStrDizi.Length];
             for (int i = 0; i < charStrDizi.Length; i++)
             {
-#if log
-                if (charStrDizi[i].Length != 1)
-                    logger.Warn(tum + "ayristirilirken tek Harf bekleniyordu. " + charStrDizi + " uygun degil");
-#endif
                 cDizi[i] = charStrDizi[i].ToCharArray()[0];
             }
             return cDizi;
@@ -449,12 +439,6 @@ namespace NZemberek.Cekirdek.Yapi
             foreach (String s in charStrDizi)
             {
                 String[] cift = tireReg.Split(s);
-#if log
-                if (cift.Length != 2)
-                    logger.Warn(tum + "ayristirilirken Harf cifti  bekleniyordu. " + s + " uygun degil.");
-                if (cift[0].Length != 1 || cift[1].Length != 1)
-                    logger.Warn(tum + "ayristirilirken tek Harf bekleniyordu. " + charStrDizi + " uygun degil");
-#endif
                 char h1 = cift[0][0];
                 char h2 = cift[1][0];
                 ciftler.Add(new HarfCifti(h1, h2));

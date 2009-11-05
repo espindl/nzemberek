@@ -27,7 +27,6 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Text;
-using log4net;
 
 namespace NZemberek.DilAraclari.MetinOkuma
 {
@@ -39,7 +38,6 @@ namespace NZemberek.DilAraclari.MetinOkuma
     /// </summary>
     public class TurkceSembolAkimi
     {
-        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private static int MAX_KELIME_BOY = 256;
         public static int MAX_CUMLE_BOY = 4000;
         
@@ -61,9 +59,6 @@ namespace NZemberek.DilAraclari.MetinOkuma
             }
             catch (FileNotFoundException e)
             {
-#if log
-                logger.Error("Dosya bulunamadý. Aranan dosya:" + fileName +  e.StackTrace);
-#endif
             }
         }
 
@@ -98,9 +93,6 @@ namespace NZemberek.DilAraclari.MetinOkuma
                 }
                 catch (Exception e)
                 {
-#if log
-                    logger.Error("Streamreader olusturulurken hata olustu." + e.StackTrace);
-#endif
                 }
             }
         }
@@ -160,115 +152,9 @@ namespace NZemberek.DilAraclari.MetinOkuma
             }
             catch (IOException e)
             {
-#if log
-                logger.Error("Kelimeler okunurken hata olustu. " + e.StackTrace);
-#endif
             }
             return null;
         }
-
-        ///// <summary>
-        ///// Metindeki veya stream'deki bir sonraki cümleyi getirir
-        ///// @return Sonraki cümle, eðer kalmamýþsa null
-        ///// </summary>
-        //public String nextSentence()
-        //{
-        //    char ch;
-        //    int readChar;
-        //    bool cumleBasladi = false;
-        //    int cumleIndex = 0;
-        //    try
-        //    {
-        //        // TODO: bir char buffer'e toptan okuyup islemek hýz kazandirir mi? (sanmam)
-        //        while ((readChar = _streamReader.Read()) != -1)
-        //        {
-        //            ch = (char)readChar;
-
-        //            if (Char.IsLetter(ch))
-        //            {
-        //                cumleBasladi = true;
-        //                switch (ch)
-        //                {
-        //                    case 'I':
-        //                        ch = '\u0131';
-        //                        break; // dotless small i
-        //                    // Buraya sapkalý a vs. gibi karakter donusumlari de eklenebilir.
-        //                    default:
-        //                        ch = Char.ToLower(ch);
-        //                        break;
-        //                }
-        //                if (cumleIndex < MAX_CUMLE_BOY)
-        //                    cumleBuffer[cumleIndex++] = ch;
-        //                else
-        //                    logger.Warn("Lagim tasti " + ch);
-        //                continue;
-        //            }
-
-        //            // harfimiz bir cumle sinirlayici
-        //            if (isSentenceDelimiter(ch))
-        //            {
-        //                if (cumleBasladi)
-        //                {
-        //                    return new String(cumleBuffer, 0, cumleIndex);
-        //                }
-        //                continue;
-        //            }
-
-        //            if (cumleIndex < MAX_CUMLE_BOY)
-        //                cumleBuffer[cumleIndex++] = ch;
-        //            else
-        //            {
-        //                logger.Error("Lagim tasti " + ch);
-        //                return null;
-        //            }
-
-        //        }
-
-        //        // Tüm karakterler bitti, son kalan kelime varsa onu da getir.
-        //        if (cumleBasladi)
-        //        {
-        //            return new String(kelimeBuffer, 0, cumleIndex);
-        //        }
-        //    }
-        //    catch (IOException e)
-        //    {
-        //        logger.Error(e.StackTrace);
-        //    }
-        //    return null;
-        //}
-
-        //public bool isSentenceDelimiter(char ch)
-        //{
-        //    if (ch == '.' ||
-        //            ch == ':' ||
-        //            ch == '!' ||
-        //            ch == '?'
-        //    )
-        //        return true;
-        //    return false;
-
-        //}
-        
-        //public char harfIsle(char chIn)
-        //{
-        //    char ch;
-        //    switch (chIn)
-        //    {
-        //        case 'I':
-        //            ch = '\u0131';
-        //            break; // dotless small i
-        //        // Buraya sapkalý a vs. gibi karakter donusumlari de eklenebilir.
-        //        default:
-        //            ch = Char.ToLower(chIn);
-        //            break;
-        //    }
-        //    return ch;
-        //}
-
-        //public void setStatistics(Istatistikler statistics) {
-        //    this.statistics = statistics;
-        //}
-
     }
 }
 

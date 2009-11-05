@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using log4net;
+using System.Reflection;
 using NZemberek.Cekirdek.Yapi;
 using NZemberek.Cekirdek.KokSozlugu;
 using NZemberek.Cekirdek.Mekanizma;
 using NZemberek.Cekirdek.Araclar;
 using NZemberek.Cekirdek.Mekanizma.Cozumleme;
 using NZemberek.TrTurkcesi.Mekanizma;
-using System.Reflection;
-
 
 namespace NZemberek.TrTurkcesi.Yapi
 {
     class TRDilFabrikasi : IDilFabrikasi
     {
-        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private String dilAdi = "TURKIYE TURKCESI";
 
         private Alfabe _alfabe;
@@ -27,7 +24,7 @@ namespace NZemberek.TrTurkcesi.Yapi
         private IHeceleyici _heceleyici;
         private IEkKuralBilgisi _ekKuralBilgisi;
 
-        private String bilgiDizini;
+        private String kaynakDizini;
 
         private String alfabeDosyaAdi;
         private String ekDosyaAdi;
@@ -39,7 +36,7 @@ namespace NZemberek.TrTurkcesi.Yapi
 
         public TRDilFabrikasi()
         {
-            bilgiDizini = "kaynaklar";
+            kaynakDizini = "Kaynaklar";
             alfabeDosyaAdi = kaynakAdresi("harf.txt");
             ekDosyaAdi = kaynakAdresi("ek.xml");
             kokDosyaAdi = kaynakAdresi("kokler.bin");
@@ -49,12 +46,12 @@ namespace NZemberek.TrTurkcesi.Yapi
 
         private string dosyaAdresi(string dosyaAdi)
         {
-            return String.Format("{0}{1}{2}", bilgiDizini, System.IO.Path.DirectorySeparatorChar, dosyaAdi);
+            return String.Format("{0}{1}{2}", kaynakDizini, System.IO.Path.DirectorySeparatorChar, dosyaAdi);
         }
 
         private string kaynakAdresi(string kaynakAdi)
         {
-            return String.Format("{0}.Kaynaklar.{1}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Name, kaynakAdi);
+            return String.Format("{0}.{1}.{2}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Name,kaynakDizini, kaynakAdi);
         }
 
         #region DilBilgisi Members
@@ -116,29 +113,17 @@ namespace NZemberek.TrTurkcesi.Yapi
 
             if (!KaynakYukleyici.KaynakMevcut(Assembly.GetExecutingAssembly(), kokDosyaAdi))
             {
-#if log
-                logger.Error("Kök dosyası bulunamadı, sozluk uretilemiyor.");
-#endif
                 throw new ApplicationException("Kök dosyası bulunamadı.");
             }
             KokOzelDurumYoneticiVer();
-#if log
-            logger.Info("Ikili okuyucu uretiliyor:");
-#endif
             try
             {
                 IKokOkuyucu okuyucu = new IkiliKokOkuyucu(kokDosyaAdi, ozelDurumYonetici);
-#if log
-                logger.Info("Sozluk ve agac uretiliyor:" + dilAdi);
-#endif
                 okuyucu.Ac();
                 sozluk = new AgacSozluk(AlfabeVer(), ozelDurumYonetici, okuyucu);
             }
             catch (Exception e)
             {
-#if log
-                logger.Error("sozluk uretilemiyor. Hata : " + e.Message);
-#endif
                 throw new ApplicationException("sozluk uretilemiyor. Hata : " + e.Message);
             }
             return sozluk;
@@ -188,9 +173,6 @@ namespace NZemberek.TrTurkcesi.Yapi
         {
             if (!cepKullan)
             {
-#if log
-                logger.Info("cep kullanilmayacak.");
-#endif
                 return null;
             }
 
@@ -206,9 +188,6 @@ namespace NZemberek.TrTurkcesi.Yapi
                 }
                 catch (System.IO.IOException e)
                 {
-#if log
-                    logger.Warn("cep dosyasina (" + cepDosyaAdi + ") erisilemiyor. sistem cep kullanmayacak. Hata : " + e.Message);
-#endif
                     _denetlemeCebi = null;
                 }
             }
