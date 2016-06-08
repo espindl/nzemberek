@@ -44,7 +44,7 @@ namespace NZemberek.Cekirdek.Yapi
             this._ad = name;
         }
 
-        public static readonly HashSet<Ek> EMPTY_SET = new HashSet<Ek>();
+        public static readonly Kolleksiyonlar.HashSet<Ek> EMPTY_SET = new Kolleksiyonlar.HashSet<Ek>();
 
         //bu ekten sonra elebilecek eklerin listesi.
         private List<Ek> _ardisilEkler = new List<Ek>();
@@ -122,18 +122,18 @@ namespace NZemberek.Cekirdek.Yapi
             set { iyelikEki = value; }
         }
 
-        private HashSet<TurkceHarf> baslangicHarfleri;
+        private Kolleksiyonlar.HashSet<TurkceHarf> baslangicHarfleri;
 
         /// <summary>
         /// ilk harfler kumesine gelen kumeyi ekler
         /// </summary>
         /// <param name="harfler"></param>
-        public void BaslangicHarfleriEkle(HashSet<TurkceHarf> harfler)
+        public void BaslangicHarfleriEkle(Kolleksiyonlar.HashSet<TurkceHarf> harfler)
         {
             if (harfler == null)
                 return;
             if (baslangicHarfleri == null)
-                baslangicHarfleri = new HashSet<TurkceHarf>(); //TODO (5) idi
+                baslangicHarfleri = new Kolleksiyonlar.HashSet<TurkceHarf>(); //TODO (5) idi
             this.baslangicHarfleri.AddAll(harfler);
         }
 

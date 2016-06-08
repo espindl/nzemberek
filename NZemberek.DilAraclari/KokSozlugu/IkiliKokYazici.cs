@@ -41,6 +41,13 @@ namespace NZemberek.DilAraclari.KokSozlugu
             binaryWriter = new BinaryWriter(fileStream,System.Text.Encoding.UTF8);
         }
 
+        //kok.içerik
+        //kok.asil(yoksa "")
+        //kok.tip (int)
+        //kok.KisaltmaSonSeslisi (kok tipi kisaltmaysa)
+        //ozeldurum sayısı
+        //ozeldurumindeksleri(sırayla)
+        //frekans
         public void yaz(List<Kok> kokler)
         {
             foreach (Kok kok in kokler)
@@ -68,15 +75,13 @@ namespace NZemberek.DilAraclari.KokSozlugu
                 }
                 else
                 {
-                    binaryWriter.Write('#'); 
+                   binaryWriter.Write('#'); 
                 }
 
-                //TODO Tankut indeksi yazlılcack
                 List<KokOzelDurumu> ozd = kok.KokOzelDurumlariGetir();
                 binaryWriter.Write(ozd.Count);
                 foreach (KokOzelDurumu s in ozd)
                 {
-                    //TODO tankut indeksini yazacaz...
                     //KokOzelDurumu ozelDurum = null;
                     binaryWriter.Write(s.Indeks);
                 }

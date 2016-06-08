@@ -45,9 +45,9 @@ namespace NZemberek.Cekirdek.Yapi
             set { _ad = value; }
         }
 
-        private HashSet<Ek> onEkler = Ek.EMPTY_SET;
+        private Kolleksiyonlar.HashSet<Ek> onEkler = Ek.EMPTY_SET;
 
-        public HashSet<Ek> OnEkler
+        public Kolleksiyonlar.HashSet<Ek> OnEkler
         {
             get { return onEkler; }
             set { onEkler = value; }

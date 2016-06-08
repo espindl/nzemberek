@@ -74,7 +74,7 @@ namespace NZemberek.Cekirdek.Yapi
 
             // eger varsa kok adlarini kullanarak iliskili ekleri Bul ve bir Set'e ata.
             if (ekAdlari.Length > 0) {
-                HashSet<Ek> set = new HashSet<Ek>();
+                Kolleksiyonlar.HashSet<Ek> set = new Kolleksiyonlar.HashSet<Ek>();
                 foreach (String s in ekAdlari) {
                     Ek ek = ekYonetici.EkVer(s);
                     if (ek != null) {

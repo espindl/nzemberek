@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using NZemberek.TrTurkcesi.Yapi;
 using NZemberek.Cekirdek.Yapi;
-
-using NUnit.Framework;
-
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace NZemberek.TurkiyeTurkcesi.Testler
 {
-    [TestFixture]
+    [TestClass]
     public class TestKokOzelDurumlari
     {
-        [Test]
+        [TestMethod]
         public void testIlklendirme()
         {
             TRDilFabrikasi fabrika = new TRDilFabrikasi();

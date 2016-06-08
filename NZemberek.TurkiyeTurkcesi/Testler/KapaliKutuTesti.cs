@@ -26,24 +26,24 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NZemberek;
-using NUnit.Framework;
 
 
 namespace NZemberek.TrTurkcesi.Testler
 {
-    [TestFixture]
+    [TestClass]
     public class KapaliKutuTesti
     {
         private static Zemberek zemberek;
 
-        [SetUp]
+        [TestInitialize]
         public void baslangic()
         {
             zemberek = new Zemberek();
         }
 
-        [Test]
+        [TestMethod]
         public void testCozumle_Kedi()
         {
             string str = "kedi";
@@ -53,7 +53,7 @@ namespace NZemberek.TrTurkcesi.Testler
             Assert.AreEqual("{Icerik: kedi Kok: kedi Tip:ISIM}  Ekler:ISIM_KOK", sonuc[0]);
         }
 
-        [Test]
+        [TestMethod]
         public void testCozumle_Kediciklerin()
         {
             string str = "kediciklerin";
@@ -66,7 +66,7 @@ namespace NZemberek.TrTurkcesi.Testler
                             " Ekler:ISIM_KOK + ISIM_KUCULTME_CIK + ISIM_COGUL_LER + ISIM_SAHIPLIK_SEN_IN", sonuc[1]);
         }
 
-        [Test]
+        [TestMethod]
         public void testCozumle_Getirttirebilirsiniz()
         {
             string str = "getirttirebilirsiniz";
@@ -78,7 +78,7 @@ namespace NZemberek.TrTurkcesi.Testler
                             " FIIL_YETENEK_EBIL + FIIL_GENISZAMAN_IR + FIIL_KISI_SIZ", sonuc[0]);
         }
 
-        [Test]
+        [TestMethod]
         public void testCozumle_Suyuyla()
         {
             string str = "suyuyla";
@@ -91,7 +91,7 @@ namespace NZemberek.TrTurkcesi.Testler
                             " Ekler:ISIM_KOK + ISIM_SAHIPLIK_O_I + ISIM_BIRLIKTELIK_LE", sonuc[1]);
         }
 
-        [Test]
+        [TestMethod]
         public void testCozumle_Sembolü()
         {
             string str = "sembolü";
@@ -106,7 +106,7 @@ namespace NZemberek.TrTurkcesi.Testler
                             " Ekler:ISIM_KOK + ISIM_SAHIPLIK_O_I", sonuc[2]);
         }
 
-        [Test]
+        [TestMethod]
         public void testAsciiYap_Sebek()
         {
             string actual = zemberek.AsciiKarakterlereDonustur("þebek");
@@ -114,7 +114,7 @@ namespace NZemberek.TrTurkcesi.Testler
             Assert.AreEqual(expected, actual);
         }
 
-        [Test]
+        [TestMethod]
         public void testAsciiYap_Sasirtmis()
         {
             string actual = zemberek.AsciiKarakterlereDonustur("þaþýrtmýþ");
@@ -122,7 +122,7 @@ namespace NZemberek.TrTurkcesi.Testler
             Assert.AreEqual(expected, actual);
         }
 
-        [Test]
+        [TestMethod]
         public void testAsciiYap_Dugumsuzlukmus()
         {
             string actual = zemberek.AsciiKarakterlereDonustur("düðümsüzlükmüþ");
@@ -130,7 +130,7 @@ namespace NZemberek.TrTurkcesi.Testler
             Assert.AreEqual(expected, actual);
         }
 
-        [Test]
+        [TestMethod]
         public void testAsciiCozumle_Dugumsuzlukmus()
         {
             string[] actual = zemberek.TurkceKarakterlereDonustur("dugumsuzlukmus");
@@ -139,7 +139,7 @@ namespace NZemberek.TrTurkcesi.Testler
             Assert.AreEqual(expected, actual[0]);
         }
 
-        [Test]
+        [TestMethod]
         public void testAsciiCozumle_Sasirtmis()
         {
             string[] actual = zemberek.TurkceKarakterlereDonustur("sasirtmis");
@@ -148,7 +148,7 @@ namespace NZemberek.TrTurkcesi.Testler
             Assert.AreEqual(expected, actual[0]);
         }
 
-        [Test]
+        [TestMethod]
         public void testAsciiCozumle_Sebek()
         {
             string[] actual = zemberek.TurkceKarakterlereDonustur("sebek");
@@ -157,33 +157,33 @@ namespace NZemberek.TrTurkcesi.Testler
             Assert.AreEqual(expected, actual[0]);
         }
 
-        [Test]
+        [TestMethod]
         public void testBelirsizAsciiCozumle_Siraci()
         {
             string[] actual = zemberek.TurkceKarakterlereDonustur("siraci");
             string expected1 = "sýracý";
             string expected2 = "þýracý";
             Assert.AreEqual(2, actual.Length);
-            Assert.Contains(expected1, actual);
-            Assert.Contains(expected2, actual);
+            CollectionAssert.Contains(actual,expected1);
+            CollectionAssert.Contains(actual, expected2);
         }
 
-        [Test]
+        [TestMethod]
         public void testBelirsizAsciiCozumle_Olmus()
         {
             string[] actual = zemberek.TurkceKarakterlereDonustur("olmus");
             string expected1 = "olmuþ";
             string expected2 = "ölmüþ";
             Assert.AreEqual(2, actual.Length);
-            Assert.Contains(expected1, actual);
-            Assert.Contains(expected2, actual);
+            CollectionAssert.Contains(actual, expected1);
+            CollectionAssert.Contains(actual, expected2);
         }
 
-        [Test]
+        [TestMethod]
         public void testOner_Gidiktler()
         {
             string[] actual = zemberek.Oner("gidiktler");
-            string[] expected = new string[] { "gidikler", "gidikteler", "gidiktiler", "gidikeler" };
+            string[] expected = new string[] { "gidikteler", "gidikler", "gidikeler", "gidiktiler" };
             Assert.AreEqual(actual.Length, expected.Length);
             Assert.AreEqual(expected[0], actual[0]);
             Assert.AreEqual(expected[1], actual[1]);
@@ -191,7 +191,7 @@ namespace NZemberek.TrTurkcesi.Testler
             Assert.AreEqual(expected[3], actual[3]);
         }
 
-        [Test]
+        [TestMethod]
         public void testOner_Merhaa()
         {
             string[] actual = zemberek.Oner("merhaa");
@@ -200,7 +200,7 @@ namespace NZemberek.TrTurkcesi.Testler
             Assert.AreEqual(expected, actual[0]);
         }
 
-        [Test]
+        [TestMethod]
         public void testOner_Teknolokiler()
         {
             string[] actual = zemberek.Oner("teknolokiler");
@@ -209,14 +209,14 @@ namespace NZemberek.TrTurkcesi.Testler
             Assert.AreEqual(expected, actual[0]);
         }
 
-        [Test]
+        [TestMethod]
         public void testOner_OneriYok()
         {
             string[] actual = zemberek.Oner("assscd");
             Assert.AreEqual(0, actual.Length);
         }
 
-        [Test]
+        [TestMethod]
         public void testOner_AyriYazim()
         {
             string[] actual = zemberek.Oner("evegittik");
@@ -225,7 +225,7 @@ namespace NZemberek.TrTurkcesi.Testler
             Assert.AreEqual(expected, actual[0]);
         }
 
-        [Test]
+        [TestMethod]
         public void testHecele_Bisuru()
         {
             String[] strs = {"turk", "ara", "sarta", "siir", "kanat", "kanaat",
@@ -249,7 +249,7 @@ namespace NZemberek.TrTurkcesi.Testler
             }
         }
 
-        [Test]
+        [TestMethod]
         public void testDenetle_HepsiDogru()
         {
             List<String> dogrular = TestYardimcisi.satirlariOku("Testler\\hepsi-dogru.txt");
@@ -264,7 +264,7 @@ namespace NZemberek.TrTurkcesi.Testler
             Assert.AreEqual(string.Empty,result,"Denetleme baþarýsýz. Yanlýþ negatif kelimeler : \n"+result);
         }
 
-        [Test]
+        [TestMethod]
         public void testDenetle_HepsiYanlis()
         {
             List<String> yanlislar = TestYardimcisi.satirlariOku("Testler\\hepsi-yanlis.txt");

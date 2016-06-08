@@ -30,20 +30,20 @@ using System.IO;
 using NZemberek.Cekirdek.Araclar;
 using NZemberek.Cekirdek.Kolleksiyonlar;
 using System.Reflection;
-
+using System.Collections.Generic;
 
 namespace NZemberek.Cekirdek.Mekanizma
 {
     public class BasitDenetlemeCebi : IDenetlemeCebi
     {
-        private HashSet<String> cep;
+        private Kolleksiyonlar.HashSet<String> cep;
 
         public BasitDenetlemeCebi(String dosyaAdi) 
         {
             StreamReader rd = new KaynakYukleyici("UTF-8").OkuyucuGetir(Assembly.GetCallingAssembly(), dosyaAdi);
             try
             {
-                cep = new HashSet<String>();
+                cep = new Kolleksiyonlar.HashSet<String>();
                 while (!rd.EndOfStream)
                 {
                     Ekle(rd.ReadLine());

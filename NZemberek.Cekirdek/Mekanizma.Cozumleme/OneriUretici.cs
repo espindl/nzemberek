@@ -69,7 +69,7 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
         {
             Kelime[] oneriler = toleransliCozumleyici.Cozumle(kelime);        // Once hatali kelime icin tek kelimelik onerileri bulmaya calisalim
             Kelime[] asciiTurkceOneriler = AsciiDonusumuOnerileriBul(kelime); // Deasciifierden gelebilecek onerilere bakalim
-            HashSet<String> ayriYazimOnerileri = AyriYazimOnerileriniBul(kelime); // Kelime yanlislikla bitisik yazilmis iki kelimeden mi olusmus?
+            Kolleksiyonlar.HashSet<String> ayriYazimOnerileri = AyriYazimOnerileriniBul(kelime); // Kelime yanlislikla bitisik yazilmis iki kelimeden mi olusmus?
             
             if (oneriler.Length == 0 && ayriYazimOnerileri.Count == 0 && asciiTurkceOneriler.Length == 0)
             { return new String[0]; /*Oneri olusmadiysa donelim*/ }
@@ -81,7 +81,7 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
             return rafineListe.ToArray();
         }
 
-        private void AyriYazimOnerileriniEkle(HashSet<String> ayriYazimOnerileri, List<String> rafineListe)
+        private void AyriYazimOnerileriniEkle(Kolleksiyonlar.HashSet<String> ayriYazimOnerileri, List<String> rafineListe)
         {
             foreach (String oneri in ayriYazimOnerileri)
             {
@@ -133,9 +133,9 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
             return asciiTurkceOneriler;
         }
 
-        private HashSet<String> AyriYazimOnerileriniBul(String kelime)
+        private Kolleksiyonlar.HashSet<String> AyriYazimOnerileriniBul(String kelime)
         {
-            HashSet<String> ayriYazimOnerileri = HashSet<String>.EMPTY_SET;
+            Kolleksiyonlar.HashSet<String> ayriYazimOnerileri = Kolleksiyonlar.HashSet<String>.EMPTY_SET;
             if (ayarlar.OneriBilesikKelimeKullan)
             {
                 for (int i = 1; i < kelime.Length; i++)
@@ -145,7 +145,7 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
                     if (cozumleyici.Cozumlenebilir(s1) && cozumleyici.Cozumlenebilir(s2))
                     {
                         if (ayriYazimOnerileri.Count == 0)
-                        {  ayriYazimOnerileri = new HashSet<String>(); }
+                        {  ayriYazimOnerileri = new Kolleksiyonlar.HashSet<String>(); }
                         ayriYazimOnerileri.AddAll(this.AyriYazimlariOlustur(s1, s2));
                     }
                 }
@@ -153,12 +153,12 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
             return ayriYazimOnerileri;
         }
         
-        private HashSet<String> AyriYazimlariOlustur(String s1, String s2)
+        private Kolleksiyonlar.HashSet<String> AyriYazimlariOlustur(String s1, String s2)
         {
-            HashSet<String> ayriYazimOnerileri = new HashSet<String>();
-            
-            HashSet<String> set1 = ParcayiCozumle(s1);
-            HashSet<String> set2 = ParcayiCozumle(s2);
+            Kolleksiyonlar.HashSet<String> ayriYazimOnerileri = new Kolleksiyonlar.HashSet<String>();
+
+            Kolleksiyonlar.HashSet<String> set1 = ParcayiCozumle(s1);
+            Kolleksiyonlar.HashSet<String> set2 = ParcayiCozumle(s2);
             
             foreach (String str1 in set1)
             {
@@ -170,9 +170,9 @@ namespace NZemberek.Cekirdek.Mekanizma.Cozumleme
             return ayriYazimOnerileri;
         }
 
-        private HashSet<String> ParcayiCozumle(String s)
+        private Kolleksiyonlar.HashSet<String> ParcayiCozumle(String s)
         {
-            HashSet<String> set = new HashSet<String>();
+            Kolleksiyonlar.HashSet<String> set = new Kolleksiyonlar.HashSet<String>();
             Kelime[] kelimeler = cozumleyici.Cozumle(s, CozumlemeSeviyesi.TUM_KOKLER);
             foreach (Kelime kelime in kelimeler)
             {

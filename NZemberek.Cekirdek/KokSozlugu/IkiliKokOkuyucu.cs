@@ -64,8 +64,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
             //kok icerigini oku. eger dosya sonuna gelinmisse (EndOfStreamException) null dondur.
             try
             {
-                int len = binReader.ReadByte() * 255 + binReader.ReadByte();
-                icerik = Encoding.UTF8.GetString(binReader.ReadBytes(len));
+                icerik = binReader.ReadString();
             }
             catch (EndOfStreamException)
             {
@@ -73,27 +72,26 @@ namespace NZemberek.Cekirdek.KokSozlugu
                 return null;
             }
 
-            int len1 = binReader.ReadByte() * 255 + binReader.ReadByte();
-            String asil = Encoding.UTF8.GetString(binReader.ReadBytes(len1));
+            String asil = binReader.ReadString();
 
             // Tip bilgisini oku (1 byte)
-            string tipstr = binReader.ReadByte().ToString();
-            KelimeTipi tip = (KelimeTipi)Enum.Parse(typeof(KelimeTipi), tipstr);
+            int tipstr = binReader.ReadInt32();
+            KelimeTipi tip = (KelimeTipi)tipstr;
             Kok kok = new Kok(icerik, tip);
 
             if (asil.Length != 0)
                 kok.Asil = asil;
 
-            char c = Encoding.UTF8.GetChars(binReader.ReadBytes(2))[0];
+            char c = binReader.ReadChar(); // Bytes(2))[0];
             if (char.IsLetter(c))
                 kok.KisaltmaSonSeslisi = c;
 
             // Özel durum sayısını (1 byte) ve ozel durumlari oku.
-            int ozelDurumSayisi = binReader.ReadByte();
+            int ozelDurumSayisi = binReader.ReadInt32();
             bool yapibozucu = false;
             for (int i = 0; i < ozelDurumSayisi; i++)
             {
-                int ozelDurum = binReader.ReadByte();
+                int ozelDurum = binReader.ReadInt32();
                 KokOzelDurumu oz = ozelDurumlar.OzelDurum(ozelDurum);
                 kok.OzelDurumEkle(oz);
                 if (!yapibozucu  && oz.YapiBozucu())
@@ -101,8 +99,7 @@ namespace NZemberek.Cekirdek.KokSozlugu
             }
             kok.YapiBozucuOzelDurumVar = yapibozucu;
 
-            int frekans = binReader.ReadByte() * 255 * 255 * 255 + binReader.ReadByte() * 255 * 255
-                        + binReader.ReadByte() * 255 + binReader.ReadByte();
+            int frekans = binReader.ReadInt32();
             if (frekans != 0)
             {
                 kok.Frekans = frekans;
@@ -110,7 +107,6 @@ namespace NZemberek.Cekirdek.KokSozlugu
             return kok;
         }
 
-        
         BinaryReader binReader = null;
         string kaynakAdi = string.Empty;
 

@@ -37,7 +37,7 @@ namespace NZemberek.Cekirdek.Yapi
     /// </summary>
     public class XmlEkOkuyucu
     {
-        private IDictionary<String, HashSet<Ek>> ekKumeleri = new Dictionary<String, HashSet<Ek>>();
+        private IDictionary<String, Kolleksiyonlar.HashSet<Ek>> ekKumeleri = new Dictionary<String, Kolleksiyonlar.HashSet<Ek>>();
         private IDictionary<String, Ek> ekler = new Dictionary<String, Ek>();
 
         public IDictionary<String, Ek> Ekler
@@ -101,7 +101,7 @@ namespace NZemberek.Cekirdek.Yapi
             foreach (XmlElement ekKumeEl in xmlKumeler)
             {
                 String kumeAdi = ekKumeEl.GetAttribute("ad");
-                HashSet<Ek> kumeEkleri = new HashSet<Ek>();
+                Kolleksiyonlar.HashSet<Ek> kumeEkleri = new Kolleksiyonlar.HashSet<Ek>();
                 XmlNodeList xmlKumeEkleri = ekKumeEl.SelectNodes("ek");
                 foreach (XmlElement ekEl in xmlKumeEkleri)
                 {
@@ -188,7 +188,7 @@ namespace NZemberek.Cekirdek.Yapi
                 XmlNodeList oneklerElements = element.SelectNodes("on-ek");
                 if (oneklerElements != null)
                 {
-                    HashSet<Ek> onekler = new HashSet<Ek>();
+                    Kolleksiyonlar.HashSet<Ek> onekler = new Kolleksiyonlar.HashSet<Ek>();
                     foreach (XmlElement onekEl in oneklerElements)
                     {
                         String onekAdi = onekEl.InnerText;
@@ -213,7 +213,7 @@ namespace NZemberek.Cekirdek.Yapi
         private List<Ek> ArdisilEkleriOlustur(Ek anaEk, XmlElement ekElement)
         {
 
-            HashSet<Ek> ardisilEkSet = new HashSet<Ek>();
+            Kolleksiyonlar.HashSet<Ek> ardisilEkSet = new Kolleksiyonlar.HashSet<Ek>();
             XmlElement ardisilEklerEl = (XmlElement)ekElement.SelectNodes("ardisil-ekler")[0];
             if (ardisilEklerEl == null) return new List<Ek>();
 
@@ -233,7 +233,7 @@ namespace NZemberek.Cekirdek.Yapi
             foreach (XmlElement element in kumeEkler)
             {
                 String kumeAdi = element.InnerText;
-                HashSet<Ek> kumeEkleri = ekKumeleri[kumeAdi];
+                Kolleksiyonlar.HashSet<Ek> kumeEkleri = ekKumeleri[kumeAdi];
                 if (kumeEkleri == null)
                     throw new EkKonfigurasyonHatasi("kume bulunamiyor..." + kumeAdi);
                 ardisilEkSet.AddAll(kumeEkleri);

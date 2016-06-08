@@ -28,7 +28,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using NZemberek.Cekirdek.Yapi;
-using NZemberek.Cekirdek.Kolleksiyonlar;
+using NZemberek.Cekirdek;
 
 namespace NZemberek.TrTurkcesi.Yapi
 {
@@ -106,8 +106,8 @@ namespace NZemberek.TrTurkcesi.Yapi
         return CozumlemeIcinEkUret(ulanacak, null, bilesenler);
     }
 
-    public new HashSet<TurkceHarf> OlasiBaslangicHarfleri(List<EkUretimBileseni> bilesenler) {
-        HashSet<TurkceHarf> kume = new HashSet<TurkceHarf>();//TOREMEMBER 4
+    public new Cekirdek.Kolleksiyonlar.HashSet<TurkceHarf> OlasiBaslangicHarfleri(List<EkUretimBileseni> bilesenler) {
+            Cekirdek.Kolleksiyonlar.HashSet<TurkceHarf> kume = new Cekirdek.Kolleksiyonlar.HashSet<TurkceHarf>();//TOREMEMBER 4
         for (int i=0; i< bilesenler.Count; i++) {
             EkUretimBileseni bilesen = bilesenler[i];
             TurkceHarf harf = bilesen.Harf;

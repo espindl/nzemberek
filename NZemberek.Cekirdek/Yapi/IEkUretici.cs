@@ -62,7 +62,7 @@ namespace NZemberek.Cekirdek.Yapi
          * @param bilesenler
          * @return olasi baslangic harfleri bir Set icerisinde.
          */
-        HashSet<TurkceHarf> OlasiBaslangicHarfleri(List<EkUretimBileseni> bilesenler);
+        Kolleksiyonlar.HashSet<TurkceHarf> OlasiBaslangicHarfleri(List<EkUretimBileseni> bilesenler);
 
         /**
          * bilesenlere gore en basta sesli harf olup olamayacagini belirler.

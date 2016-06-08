@@ -21,7 +21,7 @@ namespace NZemberek.Cekirdek.Yapi
             return CozumlemeIcinEkUret(ulanacak, null, bilesenler);
         }
 
-        public HashSet<TurkceHarf> OlasiBaslangicHarfleri(List<EkUretimBileseni> bilesenler)
+        public Kolleksiyonlar.HashSet<TurkceHarf> OlasiBaslangicHarfleri(List<EkUretimBileseni> bilesenler)
         {
             return null;
         }

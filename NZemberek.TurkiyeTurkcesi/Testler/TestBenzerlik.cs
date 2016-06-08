@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NZemberek.Cekirdek.Benzerlik;
 
 namespace NZemberek.TurkiyeTurkcesi.Testler
 {
-    [TestFixture]
+    [TestClass]
     public class TestBenzerlik
     {
         private const double benzerlikSiniri = 0.85;
         private const string sablonBenzemiyor = "{0} ile {1},{2} sınırına göre birbirine benzemiyor. ";
         private const string sablonBenziyor = "{0} ile {1},{2} sınırına göre birbirine benziyor. ";
 
-        [Test]
+        [TestMethod]
         public void testLevenstheinDogrular()
         {
             IBenzerlikSinayici lbs = new LevenstheinBenzerlikSinayici();
@@ -32,7 +32,7 @@ namespace NZemberek.TurkiyeTurkcesi.Testler
             Assert.IsTrue(hepsiDogru, mesaj);
         }
 
-        [Test]
+        [TestMethod]
         public void testLevenstheinYanlislar()
         {
             IBenzerlikSinayici lbs = new LevenstheinBenzerlikSinayici();
@@ -51,7 +51,7 @@ namespace NZemberek.TurkiyeTurkcesi.Testler
             Assert.IsTrue(hepsiYanlis, mesaj);
         }
 
-        [Test]
+        [TestMethod]
         public void testJaroWinklerDogrular()
         {
             IBenzerlikSinayici jwbs = new JaroWinklerBenzerlikSinayici();
@@ -70,7 +70,7 @@ namespace NZemberek.TurkiyeTurkcesi.Testler
             Assert.IsTrue(hepsiDogru, mesaj);
         }
 
-        [Test]
+        [TestMethod]
         public void testJaroWinklerYanlislar()
         {
             IBenzerlikSinayici jwbs = new JaroWinklerBenzerlikSinayici();
@@ -89,7 +89,7 @@ namespace NZemberek.TurkiyeTurkcesi.Testler
             Assert.IsTrue(hepsiYanlis, mesaj);
         }
 
-        [Test]
+        [TestMethod]
         public void testJaroWinkler()
         {
             IBenzerlikSinayici jwbs = new JaroWinklerBenzerlikSinayici();
@@ -98,7 +98,7 @@ namespace NZemberek.TurkiyeTurkcesi.Testler
             Assert.IsTrue(actual >= expectedMin, string.Format("Benzerlik {0}dan büyük bekleniyordu ama {1}.", expectedMin, actual));
         }
 
-        [Test]
+        [TestMethod]
         public void testBenzerlikaraciLevenstheinDogrular()
         {
             string[] ilkler = { "elma", "elma", "elma", "elma", "elma", "elma", "elma", "armutlar" };
@@ -117,7 +117,7 @@ namespace NZemberek.TurkiyeTurkcesi.Testler
             Assert.IsTrue(hepsiDogru, mesaj);
         }
 
-        [Test]
+        [TestMethod]
         public void testBenzerlikaraciLevenstheinYanlislar()
         {
             string[] ilkler = {  "elmalar", "elma", "armutu" };
