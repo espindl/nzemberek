@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DE2F1045-4436-4483-81D8-C369BA176AC5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NZemberek.Cekirdek</RootNamespace>
+    <AssemblyName>NZemberek.Cekirdek</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;net</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DotNet|AnyCPU' ">
+    <OutputPath>bin\net\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Benzerlik\BenzerlikAraci.cs" />
+    <Compile Include="Benzerlik\IBenzerlikSinayici.cs" />
+    <Compile Include="Benzerlik\JaroWinklerBenzerlikSinayici.cs" />
+    <Compile Include="Benzerlik\LevenstheinBenzerlikSinayici.cs" />
+    <Compile Include="Kolleksiyonlar\HashSet.cs" />
+    <Compile Include="Mekanizma.Cozumleme\CozumlemeSeviyesi .cs" />
+    <Compile Include="MetinOkuma\YaziBirimi.cs" />
+    <Compile Include="MetinOkuma\YaziBirimiTipi.cs" />
+    <Compile Include="MetinOkuma\YaziIsleyici.cs" />
+    <Compile Include="KokSozlugu\IkiliKokOkuyucu.cs" />
+    <Compile Include="KokSozlugu\IKokOkuyucu.cs" />
+    <Compile Include="KokSozlugu\AgacSozluk.cs" />
+    <Compile Include="KokSozlugu\AsciiKokBulucu.cs" />
+    <Compile Include="KokSozlugu\KesinKokBulucu.cs" />
+    <Compile Include="KokSozlugu\KokAgaci.cs" />
+    <Compile Include="KokSozlugu\IKokBulucu.cs" />
+    <Compile Include="KokSozlugu\KokDugumu.cs" />
+    <Compile Include="KokSozlugu\ISozluk.cs" />
+    <Compile Include="KokSozlugu\ToleransliKokBulucu.cs" />
+    <Compile Include="Araclar\KaynakYukleyici.cs" />
+    <Compile Include="Erisim\ZemberekAyarlari.cs" />
+    <Compile Include="Erisim\Zemberek.cs" />
+    <Compile Include="Mekanizma.Cozumleme\AsciiToleransliHDKiyaslayici.cs" />
+    <Compile Include="Mekanizma.Cozumleme\BasitKelimeYigini.cs" />
+    <Compile Include="Mekanizma.Cozumleme\ICozumlemeYardimcisi.cs" />
+    <Compile Include="Mekanizma.Cozumleme\IHarfDizisiKiyaslayici.cs" />
+    <Compile Include="Mekanizma.Cozumleme\IKelimeCozumleyici.cs" />
+    <Compile Include="Mekanizma.Cozumleme\KesinHDKiyaslayici.cs" />
+    <Compile Include="Mekanizma.Cozumleme\OneriUretici.cs" />
+    <Compile Include="Mekanizma.Cozumleme\StandartCozumleyici.cs" />
+    <Compile Include="Mekanizma.Cozumleme\ToleransliCozumleyici.cs" />
+    <Compile Include="Mekanizma\AsciiDonusturucu.cs" />
+    <Compile Include="Mekanizma\BasitDenetlemeCebi.cs" />
+    <Compile Include="Mekanizma\HataliKodlamaTemizleyici.cs" />
+    <Compile Include="Mekanizma\IDenetlemeCebi.cs" />
+    <Compile Include="Mekanizma\KelimeKokFrekansKiyaslayici.cs" />
+    <Compile Include="Mekanizma\KelimeUretici.cs" />
+    <Compile Include="Mekanizma\TurkceYaziTesti.cs" />
+    <Compile Include="Yapi\EkKuralKelimesiCozumleyici.cs" />
+    <Compile Include="Yapi\IEkKuralBilgisi.cs" />
+    <Compile Include="Yapi\IEkUretimKurali.cs" />
+    <Compile Include="Yapi\IHeceleyici.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Yapi\Ek.cs" />
+    <Compile Include="Yapi\IEkOzelDurumTipi.cs" />
+    <Compile Include="Yapi\EkOzelDurumu.cs" />
+    <Compile Include="Yapi\IEkOzelDurumUretici.cs" />
+    <Compile Include="Yapi\IEkUretici.cs" />
+    <Compile Include="Yapi\EkUretimBileseni.cs" />
+    <Compile Include="Yapi\IEkYonetici.cs" />
+    <Compile Include="Yapi\Kisaltma.cs" />
+    <Compile Include="Yapi\OldurganEkOzelDurumu.cs" />
+    <Compile Include="Yapi\OnEkOzelDurumu.cs" />
+    <Compile Include="Yapi\SonHarfYumusamaOzelDurumu.cs" />
+    <Compile Include="Yapi\TemelEkOzelDurumUretici.cs" />
+    <Compile Include="Yapi\TemelEkUretici.cs" />
+    <Compile Include="Yapi\TemelEkUretimKurali.cs" />
+    <Compile Include="Yapi\TemelEkYonetici.cs" />
+    <Compile Include="Yapi\EkUretimKurali.cs" />
+    <Compile Include="Yapi\XmlEkOkuyucu.cs" />
+    <Compile Include="Yapi\ZamanKiOzelDurumu.cs" />
+    <Compile Include="Yapi\AraSesliDusmesi.cs" />
+    <Compile Include="Yapi\BosHarfDizisiIslemi.cs" />
+    <Compile Include="Yapi\Ciftleme.cs" />
+    <Compile Include="Yapi\IHarfDizisiIslemi.cs" />
+    <Compile Include="Yapi\IKokOzelDurumYonetici.cs" />
+    <Compile Include="Yapi\KokOzelDurumu.cs" />
+    <Compile Include="Yapi\SonHarfDusmesi.cs" />
+    <Compile Include="Yapi\SonSesliIncelt.cs" />
+    <Compile Include="Yapi\TemelKokOzelDurumYonetici.cs" />
+    <Compile Include="Yapi\Ulama.cs" />
+    <Compile Include="Yapi\YeniIcerikAta.cs" />
+    <Compile Include="Yapi\Yumusama.cs" />
+    <Compile Include="Yapi\Alfabe.cs" />
+    <Compile Include="Yapi\IDilFabrikasi.cs" />
+    <Compile Include="Yapi\HarfDizisi.cs" />
+    <Compile Include="Yapi\Kelime.cs" />
+    <Compile Include="Yapi\KelimeTipi.cs" />
+    <Compile Include="Yapi\Kok.cs" />
+    <Compile Include="Yapi\TurkceHarf.cs" />
+    <Compile Include="YaziElemanlari\HarfTanimi.cs" />
+    <Compile Include="YaziElemanlari\Sesli.cs" />
+    <Compile Include="YaziElemanlari\Sessiz.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
