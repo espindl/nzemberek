@@ -30,10 +30,10 @@ namespace NZemberek.TurkiyeTurkcesi.Demo
             _dilFabrikasi.CepKullan = _ayarlar.CepKullan;
 
             List<Kok> tumKokler = new List<Kok>();
-            FileInfo duzyazi = new FileInfo(@"D:\CalismaMert\github\nzemberek\NZemberek.TurkiyeTurkcesi\Kaynaklar\duzyazi-kilavuz.txt");
-            FileInfo isimler = new FileInfo(@"D:\CalismaMert\github\nzemberek\NZemberek.TurkiyeTurkcesi\Kaynaklar\kisi-adlari.txt");
-            FileInfo kisaltma = new FileInfo(@"D:\CalismaMert\github\nzemberek\NZemberek.TurkiyeTurkcesi\Kaynaklar\kisaltmalar.txt");
-            FileInfo bilisim = new FileInfo(@"D:\CalismaMert\github\nzemberek\NZemberek.TurkiyeTurkcesi\Kaynaklar\bilisim.txt");
+            FileInfo duzyazi = new FileInfo("..\\..\\..\\NZemberek.TurkiyeTurkcesi\\Kaynaklar\\duzyazi-kilavuz.txt");
+            FileInfo isimler = new FileInfo("..\\..\\..\\NZemberek.TurkiyeTurkcesi\\Kaynaklar\\kisi-adlari.txt");
+            FileInfo kisaltma = new FileInfo("..\\..\\..\\NZemberek.TurkiyeTurkcesi\\Kaynaklar\\kisaltmalar.txt");
+            FileInfo bilisim = new FileInfo("..\\..\\..\\NZemberek.TurkiyeTurkcesi\\Kaynaklar\\bilisim.txt");
 
             FileInfo[] files = new FileInfo[] { duzyazi, isimler, bilisim, kisaltma};
            // FileInfo[] files = new FileInfo[] { duzyazi };
@@ -52,7 +52,7 @@ namespace NZemberek.TurkiyeTurkcesi.Demo
 
             AgacSozluk sozluk = new AgacSozluk(alfabe, kokOzelDurumYoneticiVer,tumKokler);
 
-            IkiliKokYazici ozelYazici = new IkiliKokYazici(@"D:\temp\kokler.bin");
+            IkiliKokYazici ozelYazici = new IkiliKokYazici("kokler.bin");
             ozelYazici.yaz(tumKokler);
         }
 

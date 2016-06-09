@@ -151,7 +151,7 @@ namespace NZemberek.TrTurkcesi.Yapi
             else
             {
                 //_heceleyici = new TurkceHeceBulucu(Alfabe());
-                _heceleyici = new TRHeceleyici(AlfabeVer());
+                _heceleyici = new TurkceHeceleyici(AlfabeVer());
                 return _heceleyici;
             }
         }
