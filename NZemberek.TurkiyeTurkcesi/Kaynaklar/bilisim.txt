@@ -121,3 +121,4 @@ Mac OZ
 Quantum OZ
 Truetype OZ
 kısayol IS
+çözünürlük IS
