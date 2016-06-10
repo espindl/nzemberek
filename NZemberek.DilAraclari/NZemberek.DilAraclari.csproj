@@ -64,6 +64,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Araclar.Turkce\TurkceMetinOkuyucu.cs" />
+    <Compile Include="Araclar.Turkce\TurkceSembolAkimi.cs" />
     <Compile Include="Araclar\IstatistikHesaplayici.cs" />
     <Compile Include="Araclar\TimeTracker.cs" />
     <Compile Include="Araclar\TusTakimi.cs" />
